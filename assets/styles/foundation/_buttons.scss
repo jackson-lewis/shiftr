@@ -1,0 +1,72 @@
+/*
+
+    //  //// --|    Buttons
+
+*/
+
+
+
+
+%button {
+	margin: 0;
+	padding: 0.6rem 2rem;
+	display: inline-block;
+
+	border: 0.1rem solid transparent;
+	border-radius: 0.4rem;
+
+	font-size: 1.4rem;
+	line-height: 1.5;
+
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .1rem;
+
+	transition: $duration;
+	cursor: pointer;
+}
+
+
+// Use .button when you want an anchor to have
+// button styling.
+
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+	
+	@extend %button;
+
+	color: $white;
+	background-color: $secondary;
+
+	&:hover {
+		color: $white;
+		background-color: $primary;
+	}
+}
+
+
+input[type="submit"] {
+	margin: 0;
+
+	&.submitting {
+		animation: pulsing 2s infinite forwards;
+	}
+}
+
+@keyframes pulsing {
+	0% {
+		background-color: $secondary;
+	}
+
+	50% {
+		background-color: $primary;
+	}
+
+	100% {
+		background-color: $secondary;
+	}
+}
+

@@ -1,0 +1,139 @@
+/*
+
+    //  //// --|    Navigation - Header
+
+*/
+
+
+
+
+//  ////  --|    BASE
+
+
+nav {
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        a {
+            transition: 300ms;
+
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
+
+
+.main-nav {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 5rem;
+    position: relative;
+    z-index: 10;
+    
+    ul {
+        width: auto;
+        margin: 0 auto;
+        padding: 3rem 0;
+        display: block;
+        position: relative;
+
+        li {
+            padding: 1.2rem 0;
+            display: block;
+
+            font-size: 2rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            text-align: right;
+            line-height: 1;
+
+            a {
+                color: $black;
+                font-weight: 300;
+
+                &::after {
+                    display: none;
+                }
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+
+            &.parent {
+                position: relative;
+
+                .sub-menu {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+
+                    background-color: $white;
+                }
+            }
+
+            &.show {
+
+                .sub-menu {
+                    display: block;
+                }
+            }
+
+            &.current_page_item {
+                a {
+                    color: $primary;
+                }
+            }
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+
+
+    // Selected media query where nav menu switches
+    // from mobile/tablet view to desktop view
+
+    // Remember to adjust header and hamburger styling
+    // to match the chosen breakpoint for header type
+    @include x( m ) {
+    }
+
+
+    @include x( l ) {
+        width: auto;
+        padding: 0;
+        display: block;
+
+        ul {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            li {
+                margin: 0 1rem;
+
+                font-size: 1.6rem;
+
+            }
+        }
+
+    }
+}
+
+
+//  --|    NAV UTILITY CLASSES
+
+// Stop user from scrolling when nav menu is
+// open on mobile and/or tablet
+.no-scroll { overflow-y: hidden; }
+

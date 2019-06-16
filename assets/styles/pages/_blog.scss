@@ -1,0 +1,191 @@
+/*
+
+    //  //// --|    The blog
+
+*/
+
+
+
+.blog-layout {
+
+	& > div {
+		position: relative;
+	}
+
+	@include x( l ) {
+		
+		& > div {
+			@include grid( 2rem );
+			grid-template:
+		    "main main main side" auto /
+		    1fr  1fr 1fr 1fr;
+
+		    .blog-list {
+		    	grid-area: main;
+		    }
+
+		    .blog-sidebar {
+		    	grid-area: side;
+		    }
+
+		}
+	}
+
+	article {
+
+		p, h2, h3, h4, h5, h6 {
+			margin-left: auto;
+			margin-right: 0;
+		}
+
+		img {
+			margin-bottom: get_baseline();
+		}
+	}
+}
+
+
+.blog-list {
+
+	.single {
+		margin-bottom: 2rem;
+		padding: 2rem;
+
+		background-color: $l-grey;
+		border-radius: .4rem;
+
+		.image {
+			max-height: 20rem;
+			margin-bottom: 1rem;
+			overflow: hidden;
+			position: relative;
+
+			border-radius: .4rem;
+
+			img {
+				@include object-fit();
+			}
+		}
+
+		h3 {
+			width: 100%;
+			margin-bottom: 1rem;
+
+			object-fit: cover;
+		}
+		
+
+		.details {
+			display: flex;
+
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			span.date {
+				display: inline-block;
+			} 
+		}
+
+		@include last_child();
+
+		@include x( m ) {
+			@include grid( 2rem );
+			grid-template:
+				"image details details" auto / 1fr 1fr 1fr;
+
+			.image {
+				grid-area: image;
+
+				margin-bottom: 0;
+			}
+
+			.details {
+				grid-area: details;
+
+				display: block;
+			}
+		}
+	}
+}
+
+.blog-sidebar {
+	display: none;
+
+	@include x( l ) {
+		padding: 2rem;
+		display: block;
+		align-self: flex-start;
+
+		background-color: $l-grey;
+		border-radius: .4rem;
+
+		.widget {
+			margin-bottom: get_baseline();
+
+			@include last_child();
+		}
+
+		h4 {
+			margin-bottom: 1rem;
+
+			color: $secondary;
+		}
+
+		ul {
+			list-style-type: none;
+
+			margin-bottom: 0;
+			padding-left: 0;
+		}
+
+		li {
+			a {
+				&::after {
+					background-color: $black;
+
+					transform: scaleX( 0 );
+				}
+
+				&:hover {
+					color: $primary;
+
+					&::after {
+						transform: scaleX( 1 );
+					}
+				}
+			}
+		}
+
+		.search {
+			input {
+				background-color: $white;
+			}
+		}
+
+		transition: box-shadow 200ms ease;
+
+		&.sticky {
+			position: fixed;
+
+			box-shadow: 0 0 2rem rgba( lighten( $black, 10% ), .2 );
+		}
+
+		&.pause {
+			align-self: flex-end;
+		}
+	}
+}
+
+.searched {
+	color: $white;
+}
+
+body.single.post {
+
+	article {
+		max-width: line_width();
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+

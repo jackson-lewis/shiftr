@@ -1,0 +1,201 @@
+/*
+
+    //  //// --|    Hero - All Variations
+
+*/
+
+
+
+
+//  --|    BASE
+
+%hero {
+    width: 100%;
+    margin: 0;
+    position: relative;
+    display: block;
+
+    .background {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0; left: 0;
+        z-index: 0;
+
+        overflow: hidden;
+        
+        opacity: 1;
+
+        img {
+            z-index: -1;
+
+            @include object-fit();
+        }
+    }
+
+    .content {
+        @extend %container;
+
+        position: absolute;
+        top: calc( 50% + 3rem );
+        left: 0;
+        z-index: 100;
+
+        transform: translateY( -50% );
+        
+
+        h1, p {
+            color: $white;
+
+            @extend %t-shadow;
+        }
+
+        h1 {
+            max-width: 40rem;
+
+            //font-size: 5rem;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 2.4rem;
+            font-weight: 300;
+        }
+    }
+
+    & + main {
+        padding-top: 0;
+    }
+}
+
+.hero-standard {
+    @extend %hero;
+
+    height: 50vh;
+}
+
+.hero-carousel {
+    @extend %hero;
+
+    height: 67vh;
+    position: relative;
+
+    .stage {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        overflow: hidden;
+
+        .prop {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 50;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            transition: transform 800ms ease-in-out, opacity 600ms 200ms ease;
+
+            opacity: 0;
+            transform: scale( 1.1 );
+            
+            &.active {
+                z-index: 100;
+                
+                opacity: 1;
+                transform: scale( 1 );
+            }
+        }
+    }
+
+    .stage-map {
+        width: 100%;
+        max-width: 80rem;
+        padding: 0 1.2rem;
+        position: absolute;
+        left: 50%;
+        bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        z-index: 100;
+
+        transform: translateX( -50% );
+        
+
+        div {
+            width: 100%;
+            max-width: 12rem;
+            height: 1.6rem;
+            margin: 0 .2rem;
+            padding: .6rem;
+            cursor: pointer;
+
+            border-radius: 1rem;
+
+            span {
+                width: 100%;
+                height: .4rem;
+                display: block;
+
+                background-color: rgba( $white, .4 );
+                border-radius: .2rem;
+
+                transition: 400ms;
+            }
+
+            &.active {
+                
+                span {
+                    background-color: $white;
+                }
+            }
+
+            transition: 300ms;
+
+            &:hover {
+
+                span {
+                    background-color: $primary;
+                }
+            }
+        }
+    }
+
+    .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 75;
+
+        background: linear-gradient( 0deg, rgba( $black, .6 ) 0%, rgba( $black, .3 ) 100% );
+    }
+
+    .content {
+        z-index: 100;
+    
+        transition: transform 800ms ease-out, opacity 600ms 200ms ease;
+        
+        opacity: 0;
+        transform: translateY( 0 );
+        transform-origin: 0 50%;
+
+        &.load {
+            opacity: 1;
+            transform: translateY( -50% );
+            
+        }
+        
+    }
+}
+

@@ -1,0 +1,121 @@
+/*
+
+	//  //// --|    ADMIN.SCSS
+
+*/
+
+
+
+
+// WYSIWYG Editor Types
+.shiftr-editor-min {
+	
+	iframe {
+		min-height: 0;
+		height: 140px !important;
+	}
+
+	.mce-resizehandle {
+		display: none !important;
+	}
+}
+
+.shiftr-hide-label {
+	& > .acf-label {
+		display: none;
+	}
+}
+
+
+// Shiftr Contact Form Settings - Admin Page
+
+.shiftr-box {
+	min-width: 600px;
+	width: 50%;
+	margin: 20px 0;
+	background-color: #FFFFFF;
+	border: 1px solid #E5E5E5;
+	box-shadow: 0 1px 1px rgba( 0, 0, 0, .04 );
+
+	h2 {
+		margin: 0;
+		padding: 15px;
+
+		border-bottom: 1px solid #EEEEEE;
+	}
+
+	form {
+		padding: 15px;
+
+		.shiftr-heading, .shiftr-subheading {
+			margin-bottom: 20px;
+
+			h3 {
+				margin: 0 0 4px;
+			}
+
+			span {
+				display: block;
+				font-style: italic;
+				font-size: 13px;
+				color: #666666;
+			}
+		}
+
+		.shiftr-separator {
+			margin-top: 40px;
+			padding-top: 40px;
+
+			border-top: 1px solid #EEEEEE;
+		}
+
+		.shiftr-input {
+			width: 100%;
+			margin-bottom: 20px;
+
+			label {
+				display: block;
+
+				font-weight: 700;
+				font-size: 13px;
+			}
+
+			span {
+				display: block;
+				font-style: italic;
+				font-size: 13px;
+				color: #666666;
+			}
+
+			input {
+				width: 100%;
+				margin-top: 8px;
+			}
+		}
+
+		.shiftr-textarea {
+			width: 100%;
+			margin-bottom: 20px;
+
+			label {
+				display: block;
+
+				font-weight: 700;
+				font-size: 13px;
+			}
+
+			span {
+				display: block;
+				font-style: italic;
+				font-size: 13px;
+				color: #666666;
+			}
+
+			textarea {
+				width: 100%;
+				min-height: 82px;
+				margin-top: 8px;
+			}
+		}
+	}
+}

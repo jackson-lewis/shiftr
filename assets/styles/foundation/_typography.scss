@@ -1,0 +1,204 @@
+/*
+
+    //  //// --|    Typography
+
+*/
+
+
+
+
+//	CORE RESET ON COMMON ELEMENTS
+p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; border: 0 }
+
+
+
+
+//  ////  --|    BASE STYLING
+
+
+html {
+    font-size: 62.5%; // This causes 1rem to equal 10px
+}
+
+body, input, textarea, button {
+	font-family: $base-font-family;
+	font-size: rem( $base-font-size );
+	font-weight: 400;
+	font-style: normal;
+
+	color: $d-grey; 
+
+	// 	It's typically better for body text to be subtly lighter
+	//	than headings, value here is 10% lighter than base colour
+}
+
+p {
+	max-width: line_width();
+	margin-bottom: get_baseline();
+
+	line-height: $base-line-height;
+	text-align: left;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+
+
+//  ////  --|    HEADINGS
+
+
+h1, h2, h3, h4, h5, h6 {
+
+	font-family: $heading-font-family;
+	font-weight: 700;
+
+	text-align: left;
+	text-transform: capitalize;
+	line-height: 1.5;
+
+	color: $black;
+}
+
+article {
+
+	h2 {
+		margin-bottom: get_baseline( 20 );
+	}
+
+	h3 {
+		margin-bottom: get_baseline( 20 );
+	}
+}
+
+
+//  --|    SETTINGS
+
+// 	Font sizes ~ unit should be excluded
+
+$headers: 	'h1' 4,
+			'h2' 3.2,
+			'h3' 2.6,
+			'h4' 2.2,
+			'h5' 1.8,
+			'h6' 1.4;
+
+
+@each $heading in $headers {
+
+	#{ nth( $heading, 1 ) } {
+		font-size: #{ nth( $heading, 2 ) }rem;
+
+		max-width: line_width();
+	}
+}
+
+
+
+
+//  ////  --|    ANCHOR / LINKS
+
+a {
+	color: $primary;
+	line-height: $base-line-height;
+	text-decoration: none;
+
+	transition: $duration;
+
+	&:hover {
+		color: $secondary;
+	}
+}
+
+//	If <p> follows <a> then add margin-top
+//	to the <p> tag
+a + p {
+	margin-top: get_baseline();
+}
+
+p > a, li:not(.menu-item) > a, small > a, .link {
+	display: inline-block;
+	position: relative;
+
+	color: inherit;
+	font-weight: 700;
+
+	&::after {
+		@include pseudo( absolute );
+
+		width: 100%;
+		height: .1rem;
+
+		background-color: $primary;
+
+		transition: $duration;
+
+		transform: scaleX( 1 );
+	}
+
+	&:hover {
+		color: $primary;
+
+		&::after {
+			transform: scaleX( 0 );
+		}
+	}
+}
+
+
+
+
+//  ////  --|    BLOCKQUOTE
+
+$blockquotes: false;
+
+@if ( $blockquotes ) {
+
+	blockquote {
+		max-width: line_width();
+
+		margin: 0 auto 2.4rem auto;
+		padding: 0.7rem 0rem 1.7rem 4rem;
+		position: relative;
+
+		font-size: 2.8rem;
+		font-style: italic;
+		line-height: 1.5;
+
+		$caption: true;
+
+		@if ( $caption ) {
+
+			span {
+				margin-top: 0.9rem;
+				padding-top: 0.5rem;
+				padding-bottom: 0.9rem;
+				display: block;
+
+				border-top: 0.1rem solid $primary;
+
+				font-size: 1.6rem;
+				font-style: normal;
+				font-weight: 700;
+				line-height: 1.5;
+			}
+		}
+
+
+		// Quotation mark
+		&::before {
+			content: "\201C"; 
+
+			position: absolute;
+			top: 1.8rem;
+			left: 0.6rem;
+
+			color: $primary;
+			font-size: 5.6rem;
+			line-height: 1;
+		}
+	}
+}
+

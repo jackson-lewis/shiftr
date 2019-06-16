@@ -1,0 +1,70 @@
+/*
+
+    //  //// --|    Code
+
+*/
+
+
+
+
+$border: 0rem; // Value must be less than 0.55rem
+
+$padding: 1.75rem - $border; // 1.75rem is base value
+
+
+.code {
+	width: 100%;
+	margin: 7.2rem 0 7.2rem 0;
+
+	text-align: left;
+
+	span {
+		margin-bottom: 0.6rem;
+		padding-left: 2%;
+		display: block;
+
+		color: lighten( $black, 40% );
+		font-size: 1.2rem;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+}
+
+
+pre {
+	width: 100%;
+	margin: 0;
+	padding: $padding;
+
+	background-color: darken( $white, 10% );
+	border-radius: .4rem;
+	overflow-x: scroll;
+
+
+	$code-size: 90;
+
+	@function get_code_line_height() {
+		@return ( $base-font-size * ( $code-size / 10 ) );
+	}
+
+	font-size: 80%; // 1.44rem
+
+	line-height: 1.4;
+
+
+	code {
+		width: 100%;
+	}
+
+	transition: 200ms;
+
+	&:hover {
+		box-shadow: 0 0 1rem rgba( $black, .2 );
+		background-color: darken( $white, 15% );
+	}
+
+	@include x( m ) {
+		padding: $padding * 2;
+	}
+}
+

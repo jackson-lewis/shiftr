@@ -1,0 +1,223 @@
+/*
+
+    //  //// --|    Inputs & Labels
+
+*/
+
+
+
+
+//  ////  --|    TYPE
+
+$labels: true;
+
+
+//  ////  --|    LABELS
+
+@if ( $labels ) {
+
+    label {
+        display: block;
+
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 1.5;
+        color: lighten( $black, 20% );
+
+        transition: 200ms;
+
+        &.success {
+            color: $green;
+        }
+
+        &.error {
+            color: $red;
+        }
+
+        &.focus {
+            color: $secondary;
+        }
+    }
+}
+
+
+
+
+//  ////  --|    TYPE INPUTS
+
+
+input[type="name"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+    width: 100%;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .5rem 1rem;
+    display: block;
+
+    line-height: 1;
+
+    background-color: $l-grey;
+    border: none;
+    border-radius: 0.4rem;
+    -webkit-appearance: none;
+    transition: 200ms;
+
+    outline: none;
+    outline-width: 0;
+
+
+
+    $placeholder: false;
+
+    @if ( $placeholder ) {
+        &::placeholder {
+            color: lighten( $black, 40% );
+        }
+    }
+
+    
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus, 
+    &:-webkit-autofill:active  {
+        -webkit-box-shadow: 0 0 0 30px $l-grey inset !important;
+    }
+
+    &.focus {
+        box-shadow: 0 0 2rem rgba( $d-grey, .2 );
+    }
+}
+
+.input, .textarea {
+    margin-bottom: 2rem;
+    position: relative;
+
+    @if ( $labels ) {
+
+        label {
+            padding-left: 1rem;
+
+            text-transform: uppercase;
+            letter-spacing: .15rem;
+        }
+
+    }
+
+    @include x( m ) {
+        margin-bottom: 0;
+    }
+}
+
+.validation {
+    padding: .4rem 1rem;
+    position: absolute;
+    right: 0;
+    bottom: -.2rem;
+    transform: translateY( 100% ) scale( 0 );
+    transform-origin: 100% 0;
+    opacity: 0;
+
+    color: $black;
+    background-color: $white;
+    border-radius: .4rem; 
+    box-shadow: .5rem .5rem 2rem rgba( $d-grey, .4 );
+    font-size: 1.4rem;
+    line-height: 1;
+    z-index: 100;
+
+    &::before {
+        @include pseudo( absolute );
+
+        width: 1rem;
+        height: 1rem;
+        top: -.1rem;
+        right: 0;
+        transform: translate( 50%, -50% );
+
+        background-color: $red;
+        border-radius: 1rem;
+    }
+
+    transition: 200ms;
+
+    &.pop {
+        transform: translateY( 100% ) scale( 1 );
+        opacity: 1;
+    }
+}
+
+
+//  --|    TEXTAREA
+
+textarea {
+    $height: ( $base-font-size * $base-line-height ) * 3;
+
+    height: $height + 1rem; // Adds 1 to compensate for padding
+    line-height: 1.5;
+
+    resize: none;
+}
+
+
+//  --|    SELECT
+
+select {
+    height: 3.6rem;
+    margin-bottom: 3rem; // 0.6 + 2.4
+    padding: 0.6rem 1rem;
+    display: block;
+
+    line-height: $base-line-height;
+
+    background-color: $l-grey;
+    border: none;
+    border-radius: 0.4rem;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+
+//  --|    CHECKBOX
+
+// Should be applied to a <div> with input and label nested
+.checkbox {
+    margin-bottom: 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    label {
+        display: inline-block;
+        padding-bottom: 0;
+        padding-left: 1rem;
+
+        vertical-align: middle;
+    }
+    
+    .validation {
+        left: 0;
+        right: auto;
+
+        transform-origin: 0 0;
+
+        &::before {
+            left: 0;
+            right: auto;
+            transform: translate( -50%, -50% );
+        }
+    }    
+
+    @include x( m ) {
+        margin-bottom: 0;
+    }
+}
+

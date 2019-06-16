@@ -1,0 +1,65 @@
+/*
+
+    //  //// --|    Cookie Consent Popup
+
+*/
+
+
+
+
+//  ////  --|    BASE
+
+.shiftr-cookie-notice {
+	width: calc( 100vw - 2rem );
+	max-width: 50rem;
+	padding: 2rem;
+	position: fixed;
+	left: 1rem;
+	bottom: 1rem;
+	z-index: 9999;
+
+	background-color: rgba( $l-grey, .96 );
+	border: .2rem solid transparent;
+	border-radius: .4rem;
+	box-shadow: 0 2rem 4rem rgba( $d-grey, .4 );
+
+	p {
+		margin-bottom: get_baseline( 20 );
+		
+		font-size: 1.6rem;
+	}
+
+	transition: opacity 800ms 0ms ease-out,
+				transform 800ms 0ms ease-in-out,
+				border 400ms 0ms ease,
+				background-color 400ms,
+				box-shadow 400ms;
+
+	opacity: 0;
+	transform: translateY( 100% );
+
+	&.posted {
+		opacity: 1;
+		transform: translateY( 0 );
+	}
+
+	&.accepted {
+		border-color: $green;
+	}
+
+	&:hover {
+		background-color: rgba( $l-grey, 1 );
+		box-shadow: 0 2rem 6rem rgba( $d-grey, .4 );
+	}
+
+	@include x( m ) {
+		max-width: 30rem;
+
+		transform: translateX( -100% );
+
+		&.posted {
+			transform: translateX( 0 );
+		}
+	}
+}
+
