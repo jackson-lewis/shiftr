@@ -27,8 +27,7 @@ function shiftr_body_class( $use_shiftr = true ) {
 	}
 
 	if ( is_home() ) {
-		// Set the class name to match the display name of the posts (e.g. blogs/news/journal)
-		$classes[] = 'news';
+		$classes[] = 'posts-archive';
 	}
 
 	if ( is_archive() ) {
@@ -52,6 +51,7 @@ function shiftr_body_class( $use_shiftr = true ) {
 	}
 
 	$template = get_post_meta( $post->ID, '_wp_page_template', true );
+	
 	if ( $template != '' ) {
 		$template = str_replace( 'templates/', '', $template );
 		$template = str_replace( '.php', '', $template );

@@ -35,7 +35,7 @@
             <div>
 
                 <a href="<?php bloginfo( 'url' ); ?>" class="logo">
-                    <?php shiftr_inline_svg( 'shiftr-full.svg', '/assets/media/_shiftr/' ); ?>
+                    <?php shiftr_inline_svg( 'shiftr-full', '/assets/media/_shiftr/' ); ?>
                 </a>
 
                 <?php shiftr_main_nav(); ?>

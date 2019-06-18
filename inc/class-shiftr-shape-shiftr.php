@@ -43,7 +43,7 @@ class Shape_Shiftr {
     }
 
 
-    // --|  Settings
+    // --|  Dev Settings
 
     // Is a cookie notice required
     public $cookie_notice = true;

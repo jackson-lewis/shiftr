@@ -113,13 +113,13 @@
     //  ////  --|    SIZE UP SVG LOGO
 
 
-    //const the_logo = document.getElementById( 'the_logo' ),
-    //     viewbox = the_logo.getAttribute( 'viewBox' ),
-    //     values = viewbox.split( ' ' ),
-    //     ratio = values[2] / values[3],
-    //     width = ( the_logo.parentElement.offsetHeight / 10 ) * ratio;
+    const the_logo = document.getElementById( 'the_logo' ),
+        viewbox = the_logo.getAttribute( 'viewBox' ),
+        values = viewbox.split( ' ' ),
+        ratio = values[2] / values[3],
+        width = ( the_logo.parentElement.offsetHeight / 10 ) * ratio;
 
-    // the_logo.style.width = `${ width }rem`;
+    the_logo.style.width = `${ width }rem`;
 
 
 
