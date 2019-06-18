@@ -12,7 +12,7 @@
  *	@param $attr array List any attributes that should be included in img type
  *	@param $type str The type of format to output: default 'img', also appect 'background' and 'raw' url
  *	@param $id null|int The post ID
- *	@return mixed Depending on requested format as per $type
+ *  @return mixed Depending on requested format as per $type
  */
 
 function shiftr_featured_image( $attr = array(), $type = 'img', $id = null ) {
