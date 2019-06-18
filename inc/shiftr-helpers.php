@@ -70,12 +70,12 @@ function shiftr_featured_image( $attr = array(), $type = 'img', $id = null ) {
 /**  
  *  shiftr_inline_svg
  *
- *  Output a basic gallery component 
+ *  Include an SVG file to inline on the page
  *
  *  @since 1.0
  *
- *	@param $file str The name of the file, excluding .svg extension
- *	@param $dir str The directory path relative to the theme root
+ *	@param $file str The name of the file, excluding .svg extension, or full path to uploads
+ *	@param $dir str|bool The directory path relative to the theme root, or false if uploads path
  *	@return mixed Output SVG element or bool (false) if file not found
  */
 
@@ -84,10 +84,17 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/media/icons/' ) {
 	// Put together file path
 	$relative_path = get_template_directory() . $dir . $file . '.svg';
 
+	if ( ! $dir ) {
+		$relative_path = str_replace( get_bloginfo( 'url' ), '', $file );
+
+	} else {
+		$relative_path = get_template_directory() . $dir . $file . '.svg';
+	}
+
 	// Check if file exists
 	if ( file_exists( $relative_path ) ) {
 
-		include_once $relative_path;
+		include $relative_path;
 	} else {
 
  		return false;
