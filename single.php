@@ -13,14 +13,14 @@
 		<div class="background">
 			<?php shiftr_featured_image(); ?>
 		</div>
-		<div class="content">
+		<header class="content">
 			<div>
 				
 				<h1><?php the_title(); ?></h1>
 				<p><?php the_time( 'd F Y' ); ?></p>
 
 			</div>
-		</div>
+		</header>
 	</div>
 
 

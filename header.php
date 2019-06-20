@@ -31,7 +31,7 @@
     <body <?php shiftr_body_class(); ?>>
         <?php wp_body_open(); ?>
 
-        <header class="header">
+        <header class="header-primary">
             <div>
 
                 <a href="<?php bloginfo( 'url' ); ?>" class="logo">
