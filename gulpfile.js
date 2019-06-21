@@ -72,10 +72,10 @@ gulp.task( 'scripster', () =>
         .pipe( babel ({
             presets: [ 'env' ]
         }))
-        .pipe( sourcemaps.init() )
+        .pipe( dev( sourcemaps.init() ) )
         .pipe( concat( 'core.js' ) )
-        .pipe( minify_js() )
-        .pipe( sourcemaps.write() )
+        .pipe( pro( minify_js() ) )
+        .pipe( dev( sourcemaps.write() ) )
         .pipe( gulp.dest( 'assets/scripts' ) )
 );
 
@@ -85,7 +85,8 @@ gulp.task( 'reloader', () => {
     browserSync.init({
         proxy: 'http://localhost:8888/shapeshiftr/',
         port: 8888,
-        open: false
+        open: false,
+        notify: false
     });
 });
 

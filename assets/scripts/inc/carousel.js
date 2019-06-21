@@ -355,3 +355,4 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
         }
     }
 }
+

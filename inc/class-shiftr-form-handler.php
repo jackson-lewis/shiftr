@@ -46,22 +46,8 @@ class Shiftr_Form_Handler {
 			$form_defaults = $shiftr->form_default_settings();
 
 
-			// Get all form settings
-			//$form_settings = get_fields( $form_id );
-			//$form_settings = (object) $form_settings;
-
-
-			// Get subject
-			$form_subject = $form_settings->subject;
-		
-
-			// Check if default recepients needs overriding
-			if ( $form_settings->recepients != '' ) {
-				$recepients = $form_settings->recepients;
-
-			} else {
-				$recepients = $form_defaults->recepients;
-			}
+			$form_subject = $form_defaults->subject;
+			$recepients = $form_defaults->recepients;
 
 			$recepients = $this->format_multiple_emails( $recepients );
 
@@ -70,23 +56,7 @@ class Shiftr_Form_Handler {
 
 			// Set content type as HTML
 			$headers[] = 'Content-type: text/html; charset=UTF-8';
-
-
-			// Add additional headers set to the form
-			// if ( gettype( $form_settings['headers'] ) === 'array' ) {
-			// 	if ( count( $form_settings['headers'] ) > 0 ) {
-			// 		foreach ( $form_settings['headers'] as $header ) {
-			// 			$headers[] = ucfirst( $header['type'] ) . ': ' . $header['content'];
-			// 		}
-			// 	}
-			// }
-
-
 			$headers[] = 'Reply-To: ' . $_POST['_'.$form_id.'_email'];
-
-
-			// Let's try to use SMTP
-			$this->set_SMTP();
 
 
 			// Try and sent the form
@@ -106,19 +76,6 @@ class Shiftr_Form_Handler {
 		echo json_encode( $output );
 
 		wp_die();
-	}
-
-
-	/**  
-	 *  set_SMTP
-	 *
-	 *  Let wp_mail use SMTP if details have been provided
-	 *
-	 *  @since 1.0
-	 */
-
-	function set_SMTP() {
-
 	}
 
 

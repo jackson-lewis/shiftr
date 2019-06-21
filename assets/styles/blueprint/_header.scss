@@ -17,6 +17,7 @@
     
 	position: fixed;
     z-index: 999;
+    overflow: hidden;
 
     background-color: rgba( darken( $white, 5% ), .96 );
     -webkit-backdrop-filter: blur( 2px );
@@ -37,6 +38,7 @@
     @extend %container;
 
     & > div {
+        height: 100%;
         position: relative;
         display: flex;
         justify-content: space-between;
@@ -69,6 +71,7 @@
     }
 
     @include x( l ) {
+        overflow: visible;
 
         .logo {
             position: relative;

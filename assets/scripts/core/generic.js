@@ -15,11 +15,10 @@
           nav       = document.querySelector( '.main-nav' ),
           sub_navs  = document.querySelectorAll( 'li.parent' ),
           
-          header    = document.querySelector( '.header' ),
+          header    = document.querySelector( '.header-primary' ),
           body      = document.body;
 
 
-    //let header_transition_height = ( nav.offsetHeight / 10 ) + 7 + 'rem';
     let header_transition_height = '100vh';
 
     let stop = e => {
@@ -49,7 +48,7 @@
     };
 
 
-    x( m, () => {
+    x( l, () => {
         toggle.removeEventListener( 'click', toggle_menu );
         nav.removeEventListener( 'click', stop );
         window.removeEventListener( 'click', toggle_window );
@@ -62,11 +61,7 @@
     }, true );
 
 
-
-    
-
-
-    x( m, () => {
+    x( l, () => {
 
         sub_navs.forEach( sub => {
 
@@ -105,6 +100,23 @@
 
         });
 
+    }, () => {
+
+        sub_navs.forEach( sub => {
+
+            let link = sub.children[0],
+                menu = sub.children[1],
+                remove_open;
+
+            link.addEventListener( 'click', e => {
+                e.preventDefault();
+
+                console.log( 'click' );
+
+                sub.classList.toggle( 'show' );
+            });
+
+        });
     });
 
 

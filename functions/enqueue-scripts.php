@@ -21,7 +21,7 @@ function shiftr_scripts() {
 
 	global $shiftr;
 
-	if ( !is_admin() ) {
+	if ( ! is_admin() || ! is_user_logged_in() ) {
 
 		if ( ! $shiftr->use_jquery || ! function_exists( 'is_woocommerce' ) ) {
 			wp_deregister_script( 'jquery' );

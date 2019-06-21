@@ -9,21 +9,29 @@
  *  @since 1.0
  *
  *	@global $post Get post ID and featured image of the post
- *	@param $attr array List any attributes that should be included in img type
- *	@param $type str The type of format to output: default 'img', also appect 'background' and 'raw' url
- *	@param $id null|int The post ID
+ *	@param $args array The arguments passed
  *  @return mixed Depending on requested format as per $type
  */
 
-function shiftr_featured_image( $attr = array(), $type = 'img', $id = null ) {
+function shiftr_featured_image( $args = [] ) {
 
 	global $post;
 
-	if ( $id === null ) {
-		$id = $post->ID;
+	$defaults = array(
+		'post_id' => null,
+		'type' => 'img',
+		'attr' => [],
+		'lazy' => false
+	);
+
+	$args = (object) wp_parse_args( $args, $defaults );
+
+
+	if ( $args->post_id === null ) {
+		$args->post_id = $post->ID;
 	}
 
-	$imageID = get_post_thumbnail_id( $id );
+	$imageID = get_post_thumbnail_id( $args->post_id );
 
 	if ( $imageID != '' ) {
 		// Get the featured image url
@@ -36,34 +44,39 @@ function shiftr_featured_image( $attr = array(), $type = 'img', $id = null ) {
 		$image_url = get_template_directory_uri() . '/assets/media/imagery/audi_dash.jpg';
 	}
 
+	$attr = $args->attr;
+
 
 	// Handle the different image types
 
-	if ( $type == 'img' ) {
-		// echo an img tag with attributes
+	if ( $args->type == 'img' ) {
 
-		$attr['src'] = $image_url;
+		if ( $args->lazy ) {
+			$attr['data-src'] = $image_url;
+
+			if ( isset( $attr['class'] ) ) {
+				$attr['class'] .= ' lazy';
+			} else {
+				$attr['class'] = 'lazy';
+			}
+
+		} else {
+			$attr['src'] = $image_url;
+		}
+
 		$attr['alt'] = get_post_meta( $imageID, '_wp_attachment_image_alt', true );
 
 		echo '<img ' . shiftr_output_attr( $attr ) . '>';
 
-	} elseif ( $type == 'background' ) {
-		// echo a style attribute
-
+	} elseif ( $args->type == 'background' ) {
 		$attr['style'] = 'background-image: url(' . $image_url . ');';
 
 		echo shiftr_output_attr( $attr );
 
-	} elseif ( $type == 'raw' ) {
-		// Simply echo the raw url
-
+	} elseif ( $args->type == 'raw' ) {
 		echo $image_url;
 
-	} else {
-		// If no types match
-
-		return false;
-	}
+	} else { return false; }
 }
 
 
@@ -167,25 +180,39 @@ function shiftr_ext_link_attr() {
  *  @since 1.0
  *
  *	@param $field str The name of the ACF image field
+ *	@param $lazy bool Set if the image should be lazy loaded
  *	@param $attr array Attributes that should be added to the img tag
- *	@param $is_sub_field bool Set if the field is a sub field
- *	@param $lazyload bool Set if the image should be lazy loaded
  */
 
-function shiftr_do_acf_image( $field = 'image', $attr = [], $is_sub_field = true, $lazyload = true ) {
+function shiftr_do_acf_image( $field = 'image', $lazy = true, $attr = [] ) {
 
-	if ( $is_sub_field ) {
+	if ( get_field( $field ) ) {
+		$image = get_field( $field );
+
+	} elseif ( get_sub_field( $field ) ) {
 		$image = get_sub_field( $field );
 
 	} else {
-		$image = get_field( $field );
+		return false;
 	}
 
 	$core_attr = array();
 
-	$core_attr['data-src'] = $image['url'];
+	if ( $lazy ) {
+		$core_attr['data-src'] = $image['url'];
+		
+		if ( isset( $core_attr['class'] ) ) {
+			$core_attr['class'] .= ' lazy';
+		} else {
+			$core_attr['class'] = 'lazy';
+		}
+
+	} else {
+		$core_attr['src'] = $image['url'];
+	}
+
 	$core_attr['alt'] = $image['alt'];
-	$core_attr['class'] = 'lazy';
+	
 
 	if ( isset( $attr['class'] ) ) {
 		$core_attr['class'] .= ' ' . $attr['class'];

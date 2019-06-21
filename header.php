@@ -20,9 +20,17 @@
         <meta name="theme-color" content="<?php $shiftr->the( 'primary_color' ); ?>"> 
         
         <link rel="icon" type="image/png" href="<?php shiftr_get_asset( 'sr@32.png', '_shiftr' ); ?>" sizes="32x32">
-        <link rel="icon" type="image/png" href="<?php shiftr_get_asset( 'sr@64.png', '_shiftr' ); ?>" sizes="64x64">
-        <link rel="icon" type="image/png" href="<?php shiftr_get_asset( 'sr@128.png', '_shiftr' ); ?>" sizes="128x128">
         <link rel="apple-touch-icon" href="<?php bloginfo( 'template_directory' ); ?>/assets/media/_shiftr/sr@128.png" />  
+
+        <?php 
+
+        $google_fonts = true;
+
+
+        if ( $google_fonts ) : ?>
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap">
+        <?php endif; ?>
 
         <?php wp_head(); ?>
 

@@ -79,7 +79,7 @@ function shiftr_contact_form_settings() {
 
 	
 	// Get the HTML for the settings page
-	require SHIFTR_INC . '/html/shiftr-contact-form-settings.php';
+	shiftr_get_html( 'shiftr-contact-form-settings' );
 }
 
 

@@ -15,8 +15,8 @@ class Shape_Shiftr {
     protected $shiftr_name = 'Shape Shiftr';
     protected $shiftr_url = 'https://shapeshiftr.co.uk';
 
-    private $version = '1.5.4.1';
-    private $version_date = '30/04/19'; 
+    private $version = '1.0';
+    private $version_date = '21/06/19'; 
 
 
     // Contact Details
