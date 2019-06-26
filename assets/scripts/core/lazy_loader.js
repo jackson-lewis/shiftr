@@ -69,5 +69,5 @@
         window.addEventListener( 'orientationchange', lazyLoad );
     }
     
-});
+})();
 
