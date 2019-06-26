@@ -37,7 +37,16 @@
 			    <?php endwhile; endif; ?>
 
 
-			    <?php the_field( 'editor' ); ?>
+			    <?php shiftr_do_acf_image(); ?>
+
+			    <?php
+
+			    $group = get_field( 'group' );
+
+			    //shiftr_do_acf_image( $group['image'] );
+
+
+			    ?>
 			</div>
 		</section>
 

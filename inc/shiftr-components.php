@@ -14,7 +14,7 @@
  *	@return Output of HTML
  */
 
-function shiftr_gallery( $gallery_name = 'gallery_list', $id = null ) {
+function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 
 	global $post;
 

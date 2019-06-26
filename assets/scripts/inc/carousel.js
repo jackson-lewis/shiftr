@@ -35,10 +35,6 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
           props     = this.children[0].children;
 
 
-    // Set the stage hieght based off offsetHeight of first prop
-    stage.style.height = props[0].offsetHeight + 'px';
-
-
     // Create the navigation
     let stage_map;
     if ( show_markers() ) {
@@ -51,7 +47,9 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
 
     // The pause variable
     var pause_loop = false,
-        transition_in_progress = false;
+        transition_in_progress = false,
+
+        highest_prop_height = 0;
     
 
     // Init the Carousel
@@ -72,7 +70,15 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
             marker.appendChild( inner );
             stage_map.appendChild( marker );
         }
+
+        // Find the highest prop
+        if ( props[i].offsetHeight > highest_prop_height ) {
+            highest_prop_height = props[i].offsetHeight;
+        }
     }
+
+    // Set the stage height, using the height of the highest prop
+    stage.style.height = highest_prop_height + 'px';
 
     // Assign markers after creation
     let markers;
@@ -120,8 +126,6 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
             get_images( images[1] );
         }, ( _.speed / 2 ) );
     }
-    
-
     
 
     // The main loop
@@ -278,7 +282,6 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
             });
 
 
-
             marker.addEventListener( 'mouseover', () => {
 
                 // was using active_prop instead of selected_prop
@@ -309,8 +312,6 @@ Element.prototype.shiftrCarousel = function( settings = {} ) {
 
         });
     }
-
-
 
 
     // Get images
