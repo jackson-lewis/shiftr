@@ -179,22 +179,32 @@ function shiftr_ext_link_attr() {
  *
  *  @since 1.0
  *
- *	@param $field str The name of the ACF image field
+ *	@param $image str The name of the ACF image field
  *	@param $lazy bool Set if the image should be lazy loaded
  *	@param $attr array Attributes that should be added to the img tag
  */
 
-function shiftr_do_acf_image( $field = 'image', $lazy = true, $attr = [] ) {
+function shiftr_do_acf_image( $image = array(), $lazy = true, $attr = [] ) {
 
-	if ( get_field( $field ) ) {
-		$image = get_field( $field );
+	if ( empty( $image ) ) {
 
-	} elseif ( get_sub_field( $field ) ) {
-		$image = get_sub_field( $field );
+		if ( get_field( 'image' ) ) {
+			$image = get_field( 'image' );
 
-	} else {
-		return false;
+		} elseif ( get_sub_field( 'image' ) ) {
+			$image = get_sub_field( 'image' );
+		}
+
 	}
+
+	if ( gettype( $image ) == 'integer' ) {
+		$image_id = $image;
+
+		$image = array();
+		$image['url'] = wp_get_attachment_url( $image_id );
+		$image['alt'] = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+	}
+
 
 	$core_attr = array();
 
