@@ -1,32 +1,90 @@
 <?php
 
-/*  
-	////  --|    Theme Settings
 
-	* @since 1.0
-	
-	* There are a few options in the theme that change from project to projects
+/* 
+	font_host
 
-	* This also prevents the need to edit the inc function files
+	Used to preconnect to the hosted font files
+
+	Example: <link rel="preconnect" href="https://fonts.gstatic.com/">
 */
 
+$shiftr->font_host = 'https://fonts.gstatic.com/';
 
-// Display cookie notice
+
+/* 
+	font_url
+
+	The url path to the hosted fonts
+
+	Example: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap">
+*/
+
+$shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
+
+
+/* 
+	cookie_notice
+
+	Should the cookie notice be displayed on the front-end
+*/
+
 $shiftr->cookie_notice = true;
 
 
-// Allow jQuery on the front-end
-$shiftr->use_jquery = false;
+/* 
+	use_jquery
+
+	Should jQuery be used on the front-end
+*/
+
+$shiftr->use_jquery = true;
 
 
-// Allow Posts link in Admin menu 
+/* 
+	admin_show_posts
+
+	Toggle display of 'Posts' link in the admin menu
+*/
+
 $shiftr->admin_show_posts = true;
 
 
-// Allow Comments links in Admin menu
+/* 
+	admin_show_comments
+
+	Toggle display of 'Comments' link in the admin menu
+*/
+
 $shiftr->admin_show_comments = false;
 
 
-// Remove editor by Post Type
+/* 
+	remove_editor_by_post_type
+
+	Toggle display of the WP editor by post type
+*/
+
 $shiftr->remove_editor_by_post_type = array();
+
+
+/* 
+	js_object
+
+	Pass variables into JavaScript for various execution, for both front-end and admin pages
+*/
+
+$shiftr->js_object = array(
+	'name' 	=> get_bloginfo( 'name' ),
+	'url' 	=> get_bloginfo( 'url' ),
+	'theme' => get_template_directory_uri(),
+	'ajax' 	=> admin_url( 'admin-ajax.php' ),
+	'form' 	=> array(
+		'success_heading' 	=> 'Thank you!',
+		'success_body' 		=> 'One of the team will be in touch soon.',
+		'error_heading' 	=> 'Error!',
+		'error_body' 		=> 'Looks like there was an error sending your messsage.',
+		'xhr_error' 		=> 'Something went very wrong! Please try again or contact info@shapeshiftr.co.uk'
+	)
+);
 

@@ -6,7 +6,7 @@
     */
 
 
-    document.querySelector( '.gallery-list' ).gallery();
+    document.querySelector( '.gallery' ).gallery();
     
     
 

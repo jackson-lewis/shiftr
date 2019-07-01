@@ -5,6 +5,18 @@
 */
 
 
+@import '_init/settings';
+
+
+body#tinymce.wp-editor {
+	font-family: $base-font-family;
+	line-height: $base-line-height;
+
+	h1, h2, h3, h4, h5, h6 {
+
+		font-family: $heading-font-family;
+	}
+}
 
 
 // WYSIWYG Editor Types

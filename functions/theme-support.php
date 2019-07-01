@@ -40,3 +40,31 @@ function shiftr_filter_ptag_on_images( $content ) {
 
 add_filter( 'the_content', 'shiftr_filter_ptag_on_images' );
 
+
+/**  
+ *  shiftr_fonts
+ *
+ *  Output the font associated link tags
+ *
+ *  @since 1.0
+ */
+
+function shiftr_fonts() {
+
+	global $shiftr;
+
+	$preconnect_attr = array(
+		'rel' => 'preconnect',
+		'href' => $shiftr->font_host
+	);
+	echo '<link ' . shiftr_output_attr( $preconnect_attr ) . '>';
+
+	$stylesheet_attr = array(
+		'rel' => 'stylesheet',
+		'href' => $shiftr->font_url
+	);
+	echo '<link ' . shiftr_output_attr( $stylesheet_attr ) . '>';
+}
+
+add_action( 'wp_head', 'shiftr_fonts', 1 );
+

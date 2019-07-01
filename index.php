@@ -66,13 +66,9 @@
 					?>
 
 					<div class="single">
-						<?php
-		    			$imageID = get_post_thumbnail_id( $post->ID );
-		    			$image = wp_get_attachment_url( $imageID );
-		    			$alt = get_post_meta( $imageID, '_wp_attachment_image_alt', true ); ?>
 
 						<div class="image">
-							<img src="<?php echo $image; ?>" alt="<?php echo $alt; ?>">
+							<?php shiftr_featured_image(); ?>
 						</div>
 
 						<div class="details">

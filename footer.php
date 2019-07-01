@@ -1,11 +1,12 @@
+<?php 
+
+	global $shiftr;
+
+?>
+
+
 		<footer>
 			<div>
-
-				<?php
-
-					global $shiftr;
-
-				?>
 				
 				<div class="footer-info">
 					<small class="creator">Built with passion by <a href="https://jacksonlewis.co.uk" target="_blank" rel="noopener">jacksonlewis.co.uk</a></small>

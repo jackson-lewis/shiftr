@@ -27,7 +27,7 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 	$images = get_field( $gallery_name, $id );
 
 	// Output opening wrap tag
-	echo '<div class="gallery-list" data-shiftr-gallery>';
+	echo '<div class="gallery" data-shiftr-gallery>';
 
 	// Loop through images and output
 	if ( $images ) :

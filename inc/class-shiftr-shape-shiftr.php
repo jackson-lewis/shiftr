@@ -45,6 +45,10 @@ class Shape_Shiftr {
 
     // --|  Dev Settings
 
+    // Fonts
+    public $font_host = 'https://fonts.gstatic.com/';
+    public $font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
+
     // Is a cookie notice required
     public $cookie_notice = true;
 
@@ -63,6 +67,8 @@ class Shape_Shiftr {
     // Remove editor for specified post types
     public $remove_editor_by_post_type = array();
 
+    // Set the array for the Shiftr JS Object
+    public $js_object = array();
 
     /**  
      *  get_acf_value
