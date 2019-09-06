@@ -4,7 +4,8 @@
   "description": "Some description about your project",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git add -A && git commit -m --prompt && git push origin master"
   },
   "author": "",
   "license": "ISC",
@@ -26,11 +27,13 @@
     "gulp-strip-css-comments": "^2.0.0"
   },
   "dependencies": {
+    "braces": "^3.0.2",
     "clean-css": "^4.2.1",
     "gulp-minifier": "^2.0.0",
     "gulp-minify": "^3.1.0",
     "lighthouse-automatic": "^1.0.6",
     "lodash": "^4.17.15",
-    "minimatch": "^3.0.4"
+    "minimatch": "^3.0.4",
+    "sshpk": "^1.16.1"
   }
 }
