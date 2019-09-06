@@ -4,8 +4,7 @@
   "description": "Some description about your project",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "commit": "git add -A && git commit -m --prompt && git push origin master"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
