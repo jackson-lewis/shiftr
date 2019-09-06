@@ -1,0 +1,90 @@
+/*
+
+    //  //// --|    Components / Hamburger Menu Toggle
+
+*/
+
+
+.toggle {
+    width: 2.6rem;
+    height: 4rem;
+    padding: 1.55rem 0;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 50;
+
+    transition: 400ms;
+
+    span {
+        width: 2.6rem;
+        height: .1rem;
+        display: block;
+        position: absolute;
+        left: 0;
+
+        background-color: $black;
+    }
+
+    span.before {
+        transition: transform 250ms 350ms ease-in, opacity 0ms 350ms;
+        transform-origin: 50% 50%;
+
+        &:nth-child(1) {
+            top: 1.6rem;
+        }
+
+        &:nth-child(2)  {
+            bottom: 1.6rem;
+        }
+    }
+
+    span.after {
+        top: 2rem;
+
+        visibility: hidden;
+
+        transition: transform 150ms 200ms ease-out, visibility 0ms 350ms;
+        transform-origin: 50% 50%;
+    }
+
+    &.transition {
+
+        span.before {
+            transition: transform 100ms ease-out, opacity 0ms 200ms;
+
+            opacity: 0;
+
+            &:nth-child(1) {
+                transform: translate( 0, .4rem );
+            }
+
+            &:nth-child(2) {
+                transform: translate( 0, -.4rem );
+            }
+        }
+
+        span.after {
+            visibility: visible;
+            transition: transform 150ms 200ms ease-out, visibility 0ms 200ms;
+
+            &:nth-of-type(3) {
+                transform: rotateZ( 45deg );
+            }
+
+            &:nth-of-type(4) {
+                visibility: visible;
+
+                transition: transform 150ms 200ms ease-out, visibility 0ms 200ms;
+                transform: rotateZ( -45deg );
+            }
+        }
+    }
+
+    @include x( l ) {
+        display: none;
+    }
+}
+

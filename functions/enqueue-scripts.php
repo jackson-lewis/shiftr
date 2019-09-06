@@ -32,7 +32,7 @@ function shiftr_scripts() {
 
 	// Scripts
 	wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/core.js', array(), null, true );
-	wp_localize_script( 'shiftr-script', 'shiftr', $shiftr->js_object );
+	wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
 
 	// Styles
 	wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/style.css', array(), $shiftr->get( 'version' ) );

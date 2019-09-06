@@ -1,14 +1,6 @@
 <?php
 
-/**  
- *  The file to check if Shiftr has been installed and activated
- *
- *  @since 1.0
- */
 
-
-// Needed early to get notice HTML content
-require_once( SHIFTR_INC . '/shiftr-util.php' );
 require_once( SHIFTR_INC . '/admin/shiftr-admin-helpers.php' );
 
 

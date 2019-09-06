@@ -147,6 +147,8 @@ function shiftr_remove_editor() {
 
     global $shiftr;
 
+    if ( ! is_array( $shiftr->remove_editor_by_post_type ) ) return;
+
     foreach ( $shiftr->remove_editor_by_post_type as $post_type ) {
         remove_post_type_support( $post_type, 'editor' );
     }

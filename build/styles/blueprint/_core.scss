@@ -1,0 +1,107 @@
+/*
+
+	//  //// --|    Blueprint / Core
+
+*/
+
+
+//  --|    Custom resets
+
+* { box-sizing: border-box }
+
+img, video { 
+	max-width: 100%; 
+	height: auto; 
+	display: block; 
+}
+
+
+//  --|    Selection
+
+*::selection {
+	color: $white;
+	background-color: $secondary;
+	text-shadow: none;
+}
+
+
+//  --|    Body core styling
+
+body {
+	width: 100%;
+	max-width: 100%;
+	position: relative;
+	overflow-x: hidden;
+
+	background-color: $white;
+	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+
+	// Prevent scroll when header is open
+	&.no-scroll {
+		overflow-y: hidden;
+	}
+}
+
+
+//  --|    Main core styling
+
+main {
+	padding-top: 12rem;
+	position: relative;
+
+	background-color: $white;
+}
+
+
+//  --|    Main layout container
+
+%container {
+	width: 100%;
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+	& > div {
+		max-width: rem( $container-width );
+		margin: 0 auto;
+	}
+	
+	@include x( m ) {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+
+
+//  --|    Section core styling
+
+section {
+	
+	// Sections contained to layout width
+	&.contain {
+		@extend %container;
+
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	// Sections with no width restriction
+	&.full-width {
+		padding: 4rem 1rem;
+
+		@include x( m ) {
+			padding: 4rem 2rem;
+		}
+	}
+
+	// Sections with darken background
+	&.grey {
+		margin-top: 4rem;
+		margin-bottom: 4rem;
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+
+		background-color: $l-grey;
+	}
+}	
+

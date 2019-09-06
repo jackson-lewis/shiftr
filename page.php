@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 	
 	/*  Display the default page template
 

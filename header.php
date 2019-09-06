@@ -1,7 +1,5 @@
 <?php
 
-    // Get $shiftr class
-
     global $shiftr;
 
 ?>
@@ -14,13 +12,12 @@
     <head>
         <?php shiftr_head_open(); ?>
         
-        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="<?php $shiftr->the( 'primary_color' ); ?>"> 
         
         <link rel="icon" type="image/png" href="<?php shiftr_get_asset( 'sr@32.png', '_shiftr' ); ?>" sizes="32x32">
-        <link rel="apple-touch-icon" href="<?php bloginfo( 'template_directory' ); ?>/assets/media/_shiftr/sr@128.png" />  
+        <link rel="apple-touch-icon" href="<?php shiftr_get_asset( 'sr@128.png', '_shiftr' ); ?>" />  
 
         <?php wp_head(); ?>
 

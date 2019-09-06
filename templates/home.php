@@ -21,7 +21,7 @@
 			?>
 
 			<div class="prop">
-				<img src="<?php echo $prop['url']; ?>" alt="<?php echo $prop['alt']; ?>">
+				<img data-src="<?= $prop['url']; ?>" alt="<?= $prop['alt']; ?>">
 			</div>
 
 			<?php } ?>
@@ -44,16 +44,9 @@
 		<section class="contain">
 			<div>
 
-				<?php shiftr_form_generic(); ?>
+				<?php shiftr_form_general(); ?>
 
 			</div>
-		</section>
-
-
-		<section class="free">
-			
-
-
 		</section>
 
 	</main>

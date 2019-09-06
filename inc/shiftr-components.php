@@ -27,7 +27,14 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 	$images = get_field( $gallery_name, $id );
 
 	// Output opening wrap tag
-	echo '<div class="gallery" data-shiftr-gallery>';
+	$gallery_atts = array(
+		'class' => 'gallery',
+		'data-shiftr-gallery' => ''
+	);
+
+	$gallery_atts = apply_filters( 'shiftr_gallery_atts', $gallery_atts );
+
+	echo '<div ' . shiftr_output_attr( $gallery_atts, true ) . '>';
 
 	// Loop through images and output
 	if ( $images ) :
@@ -35,7 +42,7 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 	?>
 
 		<div class="gallery-item">
-			<img data-src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" class="lazy" data-shiftr-gallery-image>
+			<img data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" class="lazy" data-shiftr-gallery-image>
 		</div>
 
 	<?php 
@@ -48,30 +55,6 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 }
 
 
-/**  
- *  shiftr_excerpt_length
- *
- *  Set the length of the excerpt
- *
- *  @since 1.0
- *
- *	@return int The string length
- */
-
-function shiftr_excerpt_length() {
-	return 10;
-}
-
-add_filter( 'excerpt_length', 'shiftr_excerpt_length', 999 );
-
-
 // Remove [...] from end of returned excerpt
 add_filter( 'excerpt_more', '__return_empty_string' );
-
-
-function shiftr_the_excerpt() {
-
-	// Do the excerpt
-	the_excerpt();
-}
 

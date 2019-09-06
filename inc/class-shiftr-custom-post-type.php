@@ -1,12 +1,5 @@
 <?php
 
-/**  
- *  Shiftr_Custom_Post_Type
- *
- *  Used to create new post types using a class instance
- *
- *  @since 1.0
- */
 
 class Shiftr_Custom_Post_Type {
 
@@ -19,26 +12,32 @@ class Shiftr_Custom_Post_Type {
 
     // This will be used for singular of the post name
     protected $singular;
+    protected $plural;
+
+    protected $allow_plural = true;
 
 
     // The defaults for the above options
-    private $top_level_defaults = array(
+    private $settings = array(
 
-        // The label of the post type, always singular
-        'label' => 'shiftr',
+        // The singular name of the post type
+        'name' => '',
 
-        // The nicename of the post type
-        'name' => 'Shiftr',
+        // The display name of the post type, also singular
+        'label' => '',
 
-        // It's always handy to be able tos et the position within the admin menu
-        'menu_position' => 20,
+        // It's always handy to be able to set the position within the admin menu
+        'menu_position' => 21,
 
         // The all important icon
-        'menu_icon' => 'dashicons-marker'
+        'menu_icon' => 'dashicons-marker',
+
+        // Set whether to allow plural
+        'plural' => true
     );
 
     // This will be used for overridding $args to register_post_type
-    private $register_args;
+    private $args;
 
 
     /**  
@@ -52,25 +51,32 @@ class Shiftr_Custom_Post_Type {
      *  @param $register_args array The arguments accepted by register_post_type()
      */
 
-    function __construct( $priority_args = [], $register_args = [] ) {
+    function __construct( $settings = [], $args = [] ) {
 
         // Filter any values set in the instance
-        $args = wp_parse_args( $priority_args, $top_level_defaults );
+        $_settings = wp_parse_args( $settings, $this->settings );
+
+        if ( $_settings['label'] == '' ) {
+            $_settings['label'] = ucwords( $_settings['name'] );
+        }
 
         // Assign $args values to the class properties
-        $this->label            = str_replace( ' ', '_', strtolower( $args['label'] ) );
-        $this->name             = ucwords( $args['name'] );
-        $this->menu_position    = $args['menu_position'];
-        $this->menu_icon        = $args['menu_icon'];
+        $this->label            = str_replace( ' ', '_', strtolower( $_settings['label'] ) );
+        $this->name             = ucwords( $_settings['name'] );
+        $this->menu_position    = $_settings['menu_position'];
+        $this->menu_icon        = $_settings['menu_icon'];
+
+        $this->allow_plural     = $_settings['plural'];
 
         // Get singular value
-        $this->singular = $this->singulize( $this->name );
+        $this->singular = $this->name;
+        $this->plural = $this->pluralize( $this->name );;
 
         // Assign $register_args to class
-        $this->register_args = $register_args;
+        $this->args = $args;
 
         // Check the post type doesn't already exist via another instance of Shiftr_Custom_Post_Type
-        if ( ! post_type_exists( $this->plural ) ) {
+        if ( ! post_type_exists( $this->label ) ) {
             add_action( 'init', array( $this, 'register' ) );
         }
     }
@@ -98,7 +104,7 @@ class Shiftr_Custom_Post_Type {
             'menu_position' => $this->menu_position,
             'menu_icon' => $this->menu_icon,
             'rewrite'   => array( 'slug' => $this->plural ),
-            'has_archive' => $this->plural,
+            'has_archive' => str_replace( '_', '-', $this->label ),
             'capability_type' => 'page',
             'capabilities' => array(),
             'hierarchical' => false,
@@ -106,21 +112,21 @@ class Shiftr_Custom_Post_Type {
         );
         
         // Filter any values set in the instance of Shiftr_Custom_Post_Type
-        $defaults = wp_parse_args( $this->register_args, $defaults );
+        $defaults = wp_parse_args( $this->args, $defaults );
 
         // The labels
         $labels = array(
             'labels' => array(
-                'name' => $this->name,
+                'name' => $this->plural,
                 'singular_name' => $this->singular,
-                'all_items' => 'All ' . $this->name,
+                'all_items' => 'All ' . $this->plural,
                 'add_new' => 'Add ' . $this->singular,
                 'add_new_item' => 'Add New ' . $this->singular,
                 'edit' => 'Edit',
                 'edit_item' => 'Edit ' . $this->singular,
                 'new_item' => 'New ' . $this->singular,
-                'view_item' => 'View ' . $this->name,
-                'search_items' => 'Search ' . $this->name,
+                'view_item' => 'View ' . $this->plural,
+                'search_items' => 'Search ' . $this->plural,
                 'not_found' =>  'Nothing found in the Database.',
                 'not_found_in_trash' => 'Nothing found in Trash',
                 'parent_item_colon' => ''
@@ -130,40 +136,81 @@ class Shiftr_Custom_Post_Type {
         // Combine arrays to form the main $args array for WP register_post_type()
         $args = array_merge( $labels, $defaults );
 
+
+        // Apply filters
+        $args = apply_filters( 'shiftr_custom_post_type_register_args', $args, $this->label );
+
+
         // Register the custom post type
         register_post_type( $this->label, $args );
     }
 
 
     /**  
-     *  singulize
+     *  pluralize
      *
      *  Register the post type with WP
      *
      *  @since 1.0
      *
-     *  @param $value str Convert the name of the post type to a singular
+     *  @param $value str Convert the name of the post type to a plural
      *  @return str 
      */
 
-    protected function singulize( $value ) {
+    protected function pluralize( $value ) {
+
+        // If plurals are disabled, return value
+        if ( ! $this->allow_plural ) return $value;
 
         // Get last 3 characters of string
-        $ending = substr( $value, -3, strlen( $value ) );
+        $ending = substr( $value, -1, strlen( $value ) );
 
-        // Handle 'ies' or 's' endings
-        if ( $ending == 'ies' ) {
+        // Handle y endings
+        if ( $ending == 'y' ) {
 
             // Remove 'ies' and append 'y'
-            $singular = substr( $value, 0, -3 ) . 'y';
+            $plural = substr( $value, 0, -1 ) . 'ies';
         } else {
 
             // Remove 's'
-            $singular = substr( $value, 0, -1 );
+            $plural = $value . 's';
         }
 
-        // Return the singular counterpart
-        return $singular;
+        // Return the plural counterpart
+        return $plural;
     }
+}
+
+
+// Store all custom post types that aren't part of the core theme
+global $shiftr_post_types;
+
+// Placeholder value
+$shiftr_post_types = array();
+
+
+/**  
+ *  shiftr_register_post_type
+ *
+ *  Register the post type with WP
+ *
+ *  @since 1.0
+ *
+ *  @global $shiftr_post_types
+ *  @param $name str The name of the post type to register
+ *  @return array $shiftr_post_types
+ */
+
+function shiftr_register_post_type( $name = '', $settings = [], $args = [] ) {
+
+    global $shiftr_post_types;
+
+    // Add name to $settings
+    $settings['name'] = $name;
+
+    // Create new Shiftr_Custom_Post_Type instance
+    $shiftr_post_types[$name] = new Shiftr_Custom_Post_Type( $settings, $args );
+
+    return $shiftr_post_types;
 }
 

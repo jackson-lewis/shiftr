@@ -125,7 +125,7 @@ function shiftr_admin_styles() {
 
 	// Scripts
 	wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin/admin.js', array(), $shiftr->get( 'version' ), true );
-	wp_localize_script( 'shiftr-admin-script', 'shiftr', $shiftr->js_object );
+	wp_localize_script( 'shiftr-admin-script', 'shiftr', shiftr_js_object() );
 }
 
 add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );
@@ -139,7 +139,7 @@ add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );
  *  @since 1.0
  */
 
-function shiftr_editor_stylse() {
+function shiftr_editor_styles() {
 
 	global $shiftr;
 
@@ -147,5 +147,5 @@ function shiftr_editor_stylse() {
 	add_editor_style( 'assets/styles/admin.css' );
 }
 
-add_action( 'admin_init', 'shiftr_editor_stylse' );
+add_action( 'admin_init', 'shiftr_editor_styles' );
 

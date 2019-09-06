@@ -1,0 +1,24 @@
+/*
+
+    //  //// --|    Init / Placeholders
+
+*/
+
+
+//  THE CLEARFIX
+%clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+
+//	SHADOWS
+%t-shadow {
+	text-shadow: 0 0 1.8rem rgba( lighten( $black, 40% ), .8 );
+}
+
+%b-shadow {
+	box-shadow: 0 0 1.8rem rgba( lighten( $black, 40% ), .4 );
+}
+

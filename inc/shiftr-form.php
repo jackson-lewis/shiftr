@@ -7,11 +7,72 @@
  */
 
 
+// The global
+global $shiftr_forms;
+
+// Placeholder value
+$shiftr_forms = array();
+
+
+/**  
+ *  shiftr_register_form
+ *
+ *	Register a Shiftr form
+ *
+ *  @since 1.0
+ *
+ *	@param $form str The name of the form
+ *	@param $args array The form settings and list of fields
+ */
+
+function shiftr_register_form( $form = '', $args = [] ) {
+
+	global $shiftr_forms;
+
+	if ( ! isset( $shiftr_forms[ $form ] ) ) {
+
+		$shiftr_forms[ $form ] = new Shiftr_Form( $form, $args );
+	}
+	
+	$shiftr_forms[ $form ]->init();
+}
+
+
+/**  
+ *  shiftr_build_form
+ *
+ *	Output the HTML of the whole form
+ *
+ *  @since 1.0
+ *
+ *	@param $form str The name of the form
+ */
+
+function shiftr_build_form( $form = '' ) {
+
+	global $shiftr_forms;
+
+	if ( isset( $shiftr_forms[ $form ] ) ) {
+
+		$shiftr_forms[ $form ]->build();
+
+	} else {
+		return false;
+	}
+	
+}
+
+
+global $shiftr_form_core;
+
+$shiftr_form_core = array();
+
+
 // Register the Shiftr forms post type
-$shiftr_post_type_form = new Shiftr_Custom_Post_Type(
+$shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
     array(
         'label' 		=> 'shiftr form',
-        'name'          => 'Contact Forms',
+        'name'          => 'Contact Form',
         'menu_position' => 59,
         'menu_icon'		=> 'dashicons-email-alt'
     ),
@@ -24,12 +85,30 @@ $shiftr_post_type_form = new Shiftr_Custom_Post_Type(
     		'create_posts' => 'do_not_allow'
     	),
     	'map_meta_cap' => true,
-    	'supports' => array( '' )
+    	'supports' => array( 'title' )
     )
 );
 
-
-
+$shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
+    array(
+        'label' 		=> 'shiftr form data',
+        'name'          => 'Form Data',
+        'plural'		=> false
+    ),
+    array(
+    	'public' => false,
+    	'publicly_queryable' => false,
+    	'exclude_from_search' => true,
+    	'show_ui' => true,
+    	'show_in_menu' => 'edit.php?post_type=shiftr_form',
+    	'has_archive' => false,
+    	'capabilities' => array(
+    		'create_posts' => 'do_not_allow'
+    	),
+    	'map_meta_cap' => true,
+    	'supports' => array( 'title', 'editor' )
+    )
+);
 
 // Admin Stuff
 
@@ -123,174 +202,32 @@ function shiftr_register_form_settings() {
 add_action( 'admin_init', 'shiftr_register_form_settings' );
 
 
-/**  
- *  shiftr_register_form
- *
- *	Register a Shiftr form
- *
- *  @since 1.0
- *
- *	@param $args array The label and type of form to register
- *	@param $attr array Any attributes that should be added to the form element
- */
+function shiftr_form_error_display() {
 
-function shiftr_register_form( $args = [], $attr = [] ) {
+	global $post;
 
+	if ( ! get_post_meta( $post->ID, 'shiftr_form_mail_error', true ) ) return;
 
-	$within_registration = true;
-
-	$defaults = array(
-		'label' => '',
-		'type' => '',
-		'id' => 0
-	);
-
-	$args = (object) wp_parse_args( $args, $defaults );
-
-	$form = get_page_by_title( $args->type, OBJECT, 'shiftr_form' );
-
-	// Create post if one does not exist
-	if ( $form === null ) {
-
-		$form = wp_insert_post( array(
-			'post_author' => 1,
-			'post_title' => $args->label,
-			'post_status' => 'publish',
-			'post_type' => 'shiftr_form'
-		));
-
-	}
-
-	$form_attr = array();
-
-	$form_attr['method'] = 'post';
-	$form_attr['id'] = 'shiftr_form_' . shiftr_get_form_id( $form->ID );
-	$form_attr['class'] = 'form';
-
-
-	// Add any further attributes
-	if ( count( $attr ) > 0 ) {
-		$form_attr = array_merge( $form_attr, $attr );
-	}
-
-	// Get the form itself
-	$path_to_form = SHIFTR_PARTS . '/form-' . $args->type . '.php';
-
-	if ( file_exists( $path_to_form ) ) {
-
-		echo '<form ' . shiftr_output_attr( $form_attr ) . '>';
-
-		include( $path_to_form );
-
-		echo '</form>';
-
-	} else {
-		echo 'SHIFTR ERROR: NO FORM FOUND!';
-		return false;
-	}
-	
+    add_meta_box(
+    	'shiftr-form-data-error',
+    	'Mail Error',
+    	'shiftr_form_get_error',
+    	'shiftr_form_data'
+    );
 }
 
-function shiftr_get_form_id( $id = 0 ) {
+add_action( 'add_meta_boxes', 'shiftr_form_error_display' );
 
+function shiftr_form_get_error() {
 
-	if ( $id == 0 ) {
-		$id = $form->ID;
-	}
+	global $post;
 
-	return $id;
-}
+	$error = get_post_meta( $post->ID, 'shiftr_form_mail_error', true );
 
-function shiftr_form_id( $id = 0 ) {
+	echo '<pre><code>';
 
-	if ( $id == 0 ) {
-		$id = $form->ID;
-	}
+	print_r( maybe_unserialize( $error ) );
 
-	echo $id;
-}
-
-
-/**  
- *  shiftr_form_input
- *
- *	Create an input element to include within the shiftr_register_form call
- *
- *  @since 1.0
- *
- *	@param $args array The list of attributes and settings supported by an input element
- *	@param $form_id int The id of the current form
- */
-
-function shiftr_form_input( $args = [], $form_id ) {
-
-	$defaults = array(
-		'type' => '',
-		'name' => '',
-		'id' => $form_id,
-		'wrap_attr' => array(),
-		'use_label' => true,
-		'placeholder' => '',
-		'required' => true
-	);
-
-	$args = (object) wp_parse_args( $args, $defaults );
-
-
-	// Hold the attributes
-	$wrap_attr = array();
-	$input_attr = array();
-	$label_attr = array();
-
-
-	// Wrap attributes
-	$wrap_attr = array( 'class' => 'input' );
-
-	if ( ! empty( $args->wrap_attr ) ) {
-		if ( $args->wrap_attr['class'] != '' ) {
-			$wrap_attr['class'] .= ' ' . $args->wrap_attr['class'];
-		}
-	}
-
-	// Reset wrap class attribute
-	$args->wrap_attr['class'] = $wrap_class['class'];
-
-	// The input identifier, used to connect the label and input via for/id attributes
-	$the_id = 'shiftr_form_' . $form_id . '_' . $args->name;
-
-
-	// Label attributes
-	$label_attr['for'] = $the_id;
-
-
-	// Input attributes
-	$input_attr['type'] = $args->type;
-	$input_attr['name'] = '_' . $form_id . '_' . $args->name;
-	$input_attr['id'] = $the_id;
-
-	// Ensure required attribute is added with no value
-	if ( $args->required ) {
-		$input_attr['required'] = '';
-	}
-	
-	// Add aria-label if labels are not used
-	if ( ! $args->use_label ) {
-		$input_attr['aria-label'] = ucwords( $args->name );
-	}
-
-
-	// Complete the HTML
-	?>
-
-	<div <?php shiftr_output_attr( $wrap_attr, true ); ?>>
-
-		<?php if ( $args->use_label ) : ?>
-		<label <?php shiftr_output_attr( $label_attr, true ); ?>><?php echo strtolower( $args->name ); if ( $args->required ) echo '*'; ?></label>
-		<?php endif; ?>
-
-		<input <?php shiftr_output_attr( $input_attr, true, true ); ?>>
-	</div>
-
-	<?php
+	echo '</code></pre>';
 }
 

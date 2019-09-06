@@ -1,0 +1,24 @@
+/*
+
+    //  //// --|    Init / Functions
+
+*/
+
+
+// Return unit as rem value
+@function rem( $unit ) {
+	@return #{$unit}rem;
+}
+
+
+//  Get max line width
+@function line_width( $size: $base-font-size ) {
+	@return rem( $size * 38 );
+}
+
+
+// Get baseline as rem
+@function get_baseline( $size: 10 ) {
+	@return rem( $baseline / $size );
+}
+

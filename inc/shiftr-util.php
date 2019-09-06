@@ -93,3 +93,75 @@ function space_to_nbsp( $str = '' ) {
 	return str_replace( ' ', SHIFTR_SPACE_ENTITY, $str );
 }
 
+
+/**  
+ *  shiftr_to_nicename
+ *
+ *  Convert a string with hyphans to spaces and capitalize
+ *
+ *  @since 1.0
+ *
+ *	@param $str str The string to convert
+ *	@return str The re-formatted string
+ */
+
+function shiftr_to_nicename( $str = '' ) {
+
+	$nicename = str_replace( '-', ' ', $str );
+	$nicename = str_replace( '_', ' ', $str );
+	$nicename = ucwords( $nicename );
+
+	return $nicename;
+}
+
+/**  
+ *  shiftr_js_object
+ *
+ *  Prep the JS object for wp_localize_script
+ *
+ *  @since 1.0
+ *
+ *	@param $str str The string to convert
+ *	@return array The re-formatted array
+ */
+
+function shiftr_js_object() {
+
+	global $post, $shiftr;
+
+	if ( isset( $post ) ) {
+		$use_post_id = $post->ID;
+	} else {
+		$use_post_id = 0;
+	}
+
+
+	$shiftr->js_object['shortcuts']['edit'] = str_replace( '$$$POSTID$$$', $use_post_id, $shiftr->js_object['shortcuts']['edit'] );
+	$shiftr->js_object['shortcuts']['view'] = str_replace( '$$$POSTPERMALINK$$$', get_the_permalink(), $shiftr->js_object['shortcuts']['view'] );
+	$shiftr->js_object['vars']['archive'] = is_home() || is_archive();
+
+	// For admin
+	if ( is_admin() ) {
+		unset( $shiftr->js_object['form'] );
+		unset( $shiftr->js_object['vars'] );
+	}
+
+	return $shiftr->js_object;
+}
+
+
+/**  
+ *  shiftr_is_sending_form
+ *
+ *  Check if AJAX call is doing form submission
+ *
+ *  @since 1.0
+ *
+ *	@return bool If a Shiftr Form is being submitted
+ */
+
+function shiftr_is_sending_form() {
+
+	return defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['shiftr_form_id'] );
+}
+

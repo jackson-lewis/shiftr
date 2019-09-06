@@ -20,7 +20,7 @@ function shiftr_featured_image( $args = [] ) {
 	$defaults = array(
 		'post_id' => null,
 		'type' => 'img',
-		'attr' => [],
+		'atts' => [],
 		'lazy' => false
 	);
 
@@ -34,17 +34,19 @@ function shiftr_featured_image( $args = [] ) {
 	$imageID = get_post_thumbnail_id( $args->post_id );
 
 	if ( $imageID != '' ) {
-		// Get the featured image url
 		
 		$image_url = wp_get_attachment_url( $imageID );
 
 	} else {
-		// Set Featured Image placeholder
 
+		// Set Featured Image placeholder
 		$image_url = get_template_directory_uri() . '/assets/media/imagery/audi_dash.jpg';
+
+		// Apply any filters for the placeholder
+		$image_url = apply_filters( 'shiftr_featured_image_image_url', $image_url );
 	}
 
-	$attr = $args->attr;
+	$atts = $args->atts;
 
 
 	// Handle the different image types
@@ -52,26 +54,31 @@ function shiftr_featured_image( $args = [] ) {
 	if ( $args->type == 'img' ) {
 
 		if ( $args->lazy ) {
-			$attr['data-src'] = $image_url;
+			$atts['data-src'] = $image_url;
 
-			if ( isset( $attr['class'] ) ) {
-				$attr['class'] .= ' lazy';
+			if ( isset( $atts['class'] ) ) {
+				$atts['class'] .= ' lazy';
 			} else {
-				$attr['class'] = 'lazy';
+				$atts['class'] = 'lazy';
 			}
 
+			$atts['loading'] = 'lazy';
+
 		} else {
-			$attr['src'] = $image_url;
+			$atts['src'] = $image_url;
 		}
 
-		$attr['alt'] = get_post_meta( $imageID, '_wp_attachment_image_alt', true );
+		$atts['alt'] = get_post_meta( $imageID, '_wp_attachment_image_alt', true );
 
-		echo '<img ' . shiftr_output_attr( $attr ) . '>';
+		// Apply any filters
+		$atts = apply_filters( 'shiftr_featured_image_atts', $atts );
+
+		echo '<img ' . shiftr_output_attr( $atts ) . '>';
 
 	} elseif ( $args->type == 'background' ) {
-		$attr['style'] = 'background-image: url(' . $image_url . ');';
+		$atts['style'] = 'background-image: url(' . $image_url . ');';
 
-		echo shiftr_output_attr( $attr );
+		echo shiftr_output_attr( $atts );
 
 	} elseif ( $args->type == 'raw' ) {
 		echo $image_url;
@@ -123,12 +130,11 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/media/icons/' ) {
  *  @since 1.0
  *
  *	@param $raw array The array of attributes
- *	@param $auto_echo bool Whether the function should echo or return output
  *	@param $force_empty_values bool Whether an attribute with no value should be included in output
  *	@return str The attributes to be included inside HTML tag
  */
 
-function shiftr_output_attr( $raw = [], $auto_echo = false, $force_empty_values = false ) {
+function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
 	$the_attributes = array();
 
@@ -141,34 +147,7 @@ function shiftr_output_attr( $raw = [], $auto_echo = false, $force_empty_values 
 		$the_attributes[] = $key . '="' . $value . '"';
 	}
 
-	// Should attributes be echo'ed or returned
-	if ( ! $auto_echo ) {
-		return join( ' ', $the_attributes );
-
-	} else {
-		echo join( ' ', $the_attributes );
-	}	
-}
-
-
-/**  
- *  shiftr_ext_link_attr
- *
- *  Output the standard attributes for an external link
- *
- *  @since 1.0
- *	@see shiftr_output_attr() for more
- */
-
-function shiftr_ext_link_attr() {
-
-	shiftr_output_attr(
-		array(
-			'target' => '_blank',
-			'rel' => 'noopener'
-		),
-		true
-	);
+	return join( ' ', $the_attributes );	
 }
 
 
@@ -216,6 +195,8 @@ function shiftr_do_acf_image( $image = array(), $lazy = true, $attr = [] ) {
 		} else {
 			$core_attr['class'] = 'lazy';
 		}
+
+		$atts['loading'] = 'lazy';
 
 	} else {
 		$core_attr['src'] = $image['url'];

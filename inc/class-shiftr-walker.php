@@ -75,34 +75,15 @@ class Shiftr_Primary_Walker extends Shiftr_Walker {
 
         $output .= '<li class="' . join( ' ', $item->classes ) . '">';
 
-        if ( $item->type != 'custom' ) {
-            $output .= '<a ';
-            $output .= 'href="' . $permalink . '" ';
-            $output .= shiftr_output_attr( $anchor_attr );
-
-            // Handle external links like we know what we're doing
-            if ( stripos( $permalink, get_bloginfo( 'url' ) ) === false ) {
-                $output .= ' target="_blank" rel="noopener"';
-            }
-
-            $output .= '>';
-        } else {
-
-            // Keep menu item in tabindex
-            $output .= '<span tabindex="0" ';
-            $output .= shiftr_output_attr( $anchor_attr );
-            $output .= '>';
-        }
+        $output .= '<a ';
+        $output .= 'href="' . $permalink . '" ';
+        $output .= shiftr_output_attr( $anchor_attr );
+        $output .= '>';
 
         // Actually add the menu item text
         $output .= $name;
 
-
-        if ( $item->type != 'custom' ) {
-            $output .= '</a>';
-        } else {
-            $output .= '</span>';
-        }
+        $output .= '</a>';
     }
 
 

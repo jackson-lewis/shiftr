@@ -23,7 +23,7 @@
 				if ( get_search_query() != '' ) { ?>
 					
 					<span class="searched">You searched for...</span>
-					<h1><?php echo get_search_query(); ?></h1>
+					<h1><?= get_search_query(); ?></h1>
 
 					<?php
 
@@ -36,7 +36,7 @@
 					}
 
 					?>
-					<p><?php echo $wp_query->found_posts . $result . $is_were . ' found'; ?></p>
+					<p><?= $wp_query->found_posts . $result . $is_were . ' found'; ?></p>
 
 				<?php } else { ?>
 

@@ -1,0 +1,254 @@
+/*
+
+    //  //// --|    Inputs & Labels
+
+*/
+
+
+//  ////  --|    Labels
+
+$labels: true;
+
+@if ( $labels ) {
+
+    label {
+        display: block;
+
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: $base-line-height;
+        color: $d-grey;
+
+        transition: 200ms;
+    }
+}
+
+
+//  ////  --|    Input fields
+
+input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), textarea {
+    width: 100%;
+    max-width: 50rem;
+    padding: .8rem 3.4rem .8rem 1.6rem;
+    display: block;
+
+    line-height: 1;
+
+    background-color: $l-grey;
+    border: none;
+    border-radius: 0.4rem;
+    -webkit-appearance: none;
+    transition: 200ms;
+
+    outline: none;
+    outline-width: 0;
+
+    $placeholder: false;
+
+    @if ( $placeholder ) {
+        &::placeholder {
+            color: lighten( $black, 40% );
+        }
+    }
+}
+
+.field-type-input, .field-type-textarea {
+
+    @if ( $labels ) {
+
+        label {
+            padding-left: 1rem;
+
+            text-transform: uppercase;
+            letter-spacing: .15rem;
+        }
+    }
+}
+
+
+// Field event classes
+.shiftr-form {
+
+    .field {
+        position: relative;
+
+        @include after {
+            width: .8rem;
+            height: .8rem;
+            top: 50%;
+            right: 1rem;
+            transform: translateY( -50% );
+        
+            border-radius: .5rem;
+            background-color: transparent;
+
+            transition: 200ms cubic-bezier( .2, .7, .5, 1.3 );
+        }
+
+        &.field-event-success::after {
+            background-color: $green;
+        }
+
+        &.field-event-error::after {
+            background-color: $red;
+        }
+
+        &.field-event-focus::after {
+            background-color: $blue;
+        }
+    }
+}
+
+
+//  --|    TEXTAREA
+
+textarea {
+    line-height: $base-line-height;
+
+    resize: none;
+}
+
+
+//  --|    SELECT
+
+select {
+    width: 100%;
+    height: 4rem;
+    padding: .8rem 3.4rem .8rem 1.6rem;
+    display: block;
+
+    line-height: $base-line-height;
+
+    background-color: $l-grey;
+    border: none;
+    border-radius: 0.4rem;
+    appearance: none;
+    outline: 0;
+}
+
+
+//  --|    CHECKBOX
+
+// Should be applied to a <div> with input and label nested
+.field-type-checkbox {
+    
+    input {
+        appearance: none;
+        opacity: 0;
+
+        &:checked + label span.custom-checkbox {
+            
+            &::after {
+                transform: scale( 1 );
+            }
+        }
+    }
+
+    span.custom-checkbox {
+        width: 1.4rem;
+        height: 1.4rem;
+        display: block;
+        position: absolute;
+        top: calc( 50% - .1rem );
+        left: 0;
+        transform: translateY( -50% );
+        z-index: 10;
+
+        border-radius: .4rem;
+        border: .1rem solid $primary;
+        
+        @include after {
+            width: 1rem;
+            height: 1rem;
+            top: .1rem;
+            left: .1rem;
+
+            border-radius: .3rem;
+            background-color: $primary;
+            transform: scale( 0 );
+
+            transition: 200ms cubic-bezier( .2, .7, .5, 1.3 );
+        }
+    }
+
+    label {
+        padding-bottom: 0;
+        padding-left: 2.5rem;
+        position: relative;
+        display: inline-block;
+        z-index: 20;
+
+        vertical-align: middle;
+    }  
+
+    @include x( m ) {
+        margin-bottom: 0;
+    }
+}
+
+
+//  --|    Radio
+
+// Should be applied to a <div> with input and label nested
+.field-type-radio {
+
+    .sub-field-radio {
+        position: relative;
+
+        input {
+            appearance: none;
+            opacity: 0;
+
+            &:checked + label span.custom-radio {
+                
+                &::after {
+                    transform: scale( 1 );
+                }
+            }
+        }
+
+        span.custom-radio {
+            width: 1.4rem;
+            height: 1.4rem;
+            display: block;
+            position: absolute;
+            top: calc( 50% - .1rem );
+            left: 0;
+            transform: translateY( -50% );
+            z-index: 10;
+
+            border-radius: .4rem;
+            border: .1rem solid $primary;
+            
+            @include after {
+                width: 1rem;
+                height: 1rem;
+                top: .1rem;
+                left: .1rem;
+
+                border-radius: .3rem;
+                background-color: $primary;
+                transform: scale( 0 );
+
+                transition: 200ms cubic-bezier( .2, .7, .5, 1.3 );
+            }
+        }
+
+        label {
+            padding-bottom: 0;
+            padding-left: 2.5rem;
+            position: relative;
+            display: inline-block;
+            z-index: 20;
+
+            vertical-align: middle;
+        }
+    }
+    
+      
+
+    @include x( m ) {
+        margin-bottom: 0;
+    }
+}
+

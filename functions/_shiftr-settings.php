@@ -38,7 +38,7 @@ $shiftr->cookie_notice = true;
 	Should jQuery be used on the front-end
 */
 
-$shiftr->use_jquery = true;
+$shiftr->use_jquery = false;
 
 
 /* 
@@ -80,11 +80,21 @@ $shiftr->js_object = array(
 	'theme' => get_template_directory_uri(),
 	'ajax' 	=> admin_url( 'admin-ajax.php' ),
 	'form' 	=> array(
-		'success_heading' 	=> 'Thank you!',
-		'success_body' 		=> 'One of the team will be in touch soon.',
-		'error_heading' 	=> 'Error!',
-		'error_body' 		=> 'Looks like there was an error sending your messsage.',
-		'xhr_error' 		=> 'Something went very wrong! Please try again or contact info@shapeshiftr.co.uk'
+		'success_heading' 	=> get_option( 'shiftr_form_message_success_heading' ),
+		'success_body' 		=> get_option( 'shiftr_form_message_success_body' ),
+		'error_heading' 	=> get_option( 'shiftr_form_message_error_heading' ),
+		'error_body' 		=> get_option( 'shiftr_form_message_error_body' )
+	),
+	'cookie' => array(
+		'message' => get_field( 'cookie_consent_message', 'option' )
+	),
+	'shortcuts' => array(
+		'admin' => admin_url(),
+		'edit'  => admin_url( 'post.php?post=$$$POSTID$$$&action=edit' ),
+		'view'  => '$$$POSTPERMALINK$$$'
+	),
+	'vars' => array(
+		'archive' => is_archive()
 	)
 );
 

@@ -1,7 +1,7 @@
 # Changelog
 
 
-## v1.5.5
+## v0.5.5
 *June 2019*
 Browser compatibility, bug fixes, documentation update and much more!
 
@@ -39,7 +39,7 @@ Browser compatibility, bug fixes, documentation update and much more!
 
 
 
-## v1.5.4
+## v0.5.4
 *10/05/19*
 General development, main focus on WP and PHP
 
@@ -85,7 +85,7 @@ General development, main focus on WP and PHP
 
 
 
-## v1.5.3
+## v0.5.3
 *Late April 2019*
 
 ### General
@@ -101,7 +101,7 @@ General development, main focus on WP and PHP
 
 
 
-## v1.5.2
+## v0.5.2
 *Early April 2019*
 
 ### General
@@ -149,7 +149,7 @@ General development, main focus on WP and PHP
 
 
 
-## v1.5.1
+## v0.5.1
 *Feb 2019*
 
 * Creation of the Form Handler v1.0
@@ -159,7 +159,7 @@ General development, main focus on WP and PHP
 
 
 
-## v1.5.0
+## v0.5.0
 *Jan 2019*
 
 * Init of Shape Shiftr

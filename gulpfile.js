@@ -1,9 +1,8 @@
 /*  
-    ////  ////  --  --|    GULPFILE
+    ////  ////  --  --|    gulpfile.js
     
 
     Where the magic happens
-
 */
 
 
@@ -28,15 +27,18 @@ var gulp            = require( 'gulp' ),
     browserSync     = require( 'browser-sync' ).create();
 
 
-var dev             = environments.development;
-var pro             = environments.production;
+// Our variables
+var dev = environments.development,
+    pro = environments.production,
 
-var allow_once = true;
+    // Production vars
+    allow_once = true,
 
-var style_org = '',
+    style_org = '',
     style_min = '';
 
-// SASSY GOODNESS
+
+// Styles
 gulp.task( 'sassy', () => {
 
     var processors = [
@@ -46,7 +48,7 @@ gulp.task( 'sassy', () => {
         })
     ];
 
-    return gulp.src( 'assets/styles/*.scss' )
+    return gulp.src( [ 'build/styles/*.scss', 'build/styles/packets/*.scss' ] )
         .pipe( dev( sourcemaps.init() ) )
         .pipe( sass().on( 'error', sass.logError ) )
         .pipe( postcss( processors ) )
@@ -57,7 +59,7 @@ gulp.task( 'sassy', () => {
                 style_min = details.stats.minifiedSize;
             }
         }) ) )
-        .pipe( pro( strip_css() ) )
+        .pipe( strip_css() )
         .pipe( dev( sourcemaps.write() ) )
         .pipe( gulp.dest( 'assets/styles' ) )
         .pipe( browserSync.reload({
@@ -66,9 +68,9 @@ gulp.task( 'sassy', () => {
 });
 
 
-//  JAVASCRIPT
+//  Scripts
 gulp.task( 'scripster', () =>
-    gulp.src( ['assets/scripts/inc/*.js','assets/scripts/core/*.js'] )
+    gulp.src( [ 'build/scripts/inc/*.js', 'build/scripts/core/*.js' ] )
         .pipe( babel ({
             presets: [ 'env' ]
         }))
@@ -80,28 +82,32 @@ gulp.task( 'scripster', () =>
 );
 
 
-// RUN BROWSERSYNC
+// Browser Sync
 gulp.task( 'reloader', () => {
     browserSync.init({
-        proxy: 'http://localhost:8888/shapeshiftr/',
+        proxy: 'http://localhost:8888/',
         port: 8888,
+
+        // Disable browserSync from opening browser on launch
         open: false,
+
+        // Disable the browserSync popup on page reload
         notify: false
     });
 });
 
 
-// WATCHIN YOU [MAIN TASK]
-gulp.task( 's', [ 'reloader', 'sassy', 'scripster' ], () => {
+// The Build Task
+gulp.task( 'build', [ 'reloader', 'sassy', 'scripster' ], () => {
 
     // Alert what environment is currently running
     
     console.log( '--------------------------------------\n' );
     
     if ( dev() ) {
-        console.log( chalk.bgMagenta( ` ~ RUNNING DEVELOPMENT ENVIRONMENT ~ \n` ) );
+        console.log( chalk.bgMagenta( ` ~ RUNNING DEVELOPMENT BUILD CODE ~ \n` ) );
     } else {
-        console.log( chalk.bgGreen( ` ~ RUNNING PRODUCTION ENVIRONMENT ~ \n` ) );
+        console.log( chalk.bgGreen( ` ~ RUNNING PRODUCTION BUILD CODE ~ \n` ) );
 
         if ( allow_once ) {
             
@@ -115,8 +121,8 @@ gulp.task( 's', [ 'reloader', 'sassy', 'scripster' ], () => {
 
     console.log( '--------------------------------------' );
 
-    gulp.watch( 'assets/styles/**/*.scss', [ 'sassy' ] )
-    gulp.watch( 'assets/scripts/**/*.js', [ 'scripster', browserSync.reload ] )
-    gulp.watch( '**/*.php' ).on( 'change', browserSync.reload );
+    gulp.watch( 'build/styles/**/*.scss', [ 'sassy' ] )
+    gulp.watch( 'build/scripts/**/*.js', [ 'scripster', browserSync.reload ] )
+    gulp.watch( '**/**/*.php' ).on( 'change', browserSync.reload );
 });
 
