@@ -26,8 +26,11 @@
     "gulp-strip-css-comments": "^2.0.0"
   },
   "dependencies": {
-    "gulp-minifier": "^1.2.2",
+    "clean-css": "^4.2.1",
+    "gulp-minifier": "^2.0.0",
     "gulp-minify": "^3.1.0",
-    "lighthouse-automatic": "^1.0.6"
+    "lighthouse-automatic": "^1.0.6",
+    "lodash": "^4.17.15",
+    "minimatch": "^3.0.4"
   }
 }
