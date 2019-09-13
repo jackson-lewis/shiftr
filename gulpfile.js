@@ -59,7 +59,7 @@ gulp.task( 'sassy', () => {
                 style_min = details.stats.minifiedSize;
             }
         }) ) )
-        .pipe( strip_css() )
+        .pipe( pro( strip_css() ) )
         .pipe( dev( sourcemaps.write() ) )
         .pipe( gulp.dest( 'assets/styles' ) )
         .pipe( browserSync.reload({
