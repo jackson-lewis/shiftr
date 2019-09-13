@@ -85,7 +85,7 @@ gulp.task( 'scripster', () =>
 // Browser Sync
 gulp.task( 'reloader', () => {
     browserSync.init({
-        proxy: 'http://localhost:8888/',
+        proxy: 'http://shiftr.source',
         port: 8888,
 
         // Disable browserSync from opening browser on launch
