@@ -33,7 +33,7 @@
                     <?php shiftr_inline_svg( 'shiftr-full', '/assets/media/_shiftr/' ); ?>
                 </a>
 
-                <?php shiftr_main_nav(); ?>
+                <?php shiftr_nav_primary(); ?>
 
                 <div class="toggle">
                     <span class="before"></span>

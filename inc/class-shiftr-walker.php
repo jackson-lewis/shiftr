@@ -1,14 +1,14 @@
 <?php
 
 /**  
- *  Shiftr_Walker
+ *  Shiftr_Nav_Walker
  *
  *  The Shiftr walker for the primary navigation
  *
  *  @since 1.0
  */
 
-class Shiftr_Walker extends Walker_Nav_menu {
+class Shiftr_Nav_Walker extends Walker_Nav_menu {
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
@@ -22,7 +22,7 @@ class Shiftr_Walker extends Walker_Nav_menu {
 
 
 /**  
- *  Shiftr_Primary_Walker
+ *  Shiftr_Nav_Primary_Walker
  *
  *  The Shiftr walker for the primary navigation
  *
@@ -30,7 +30,7 @@ class Shiftr_Walker extends Walker_Nav_menu {
  */
 
 
-class Shiftr_Primary_Walker extends Shiftr_Walker {
+class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
@@ -96,7 +96,7 @@ class Shiftr_Primary_Walker extends Shiftr_Walker {
 
 
 /**  
- *  Shiftr_Footer_Walker
+ *  Shiftr_Nav_Footer_Walker
  *
  *  The Shiftr walker for the footer navigation
  *
@@ -104,7 +104,7 @@ class Shiftr_Primary_Walker extends Shiftr_Walker {
  */
 
 
-class Shiftr_Footer_Walker extends Shiftr_Walker {
+class Shiftr_Nav_Footer_Walker extends Shiftr_Nav_Walker {
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
