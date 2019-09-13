@@ -6,14 +6,18 @@
 
 
 .gallery {
-
+	
 	@include x( m ) {
+		/* autoprefixer: off */
     	@include grid( 2rem );
-    	grid-template-columns: 1fr 1fr;
+    	grid-template-columns: repeat( 2, 1fr );
+    	// grid-template-rows must be calculated by PHP or JS
     }
 
     @include x( l ) {
-    	grid-template-columns: 1fr 1fr 1fr 1fr;
+    	/* autoprefixer: off */
+    	grid-template-columns: repeat( 4, 1fr );
+    	// grid-template-rows must be calculated by PHP or JS
     }
 }
 
