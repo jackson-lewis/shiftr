@@ -85,20 +85,15 @@ gulp.task( 'scripster', () =>
 // Browser Sync
 gulp.task( 'reloader', () => {
     browserSync.init({
-        proxy: 'http://shiftr.source',
-        port: 8888,
-
-        // Disable browserSync from opening browser on launch
+        proxy: 'shiftr.source'
         open: false,
-
-        // Disable the browserSync popup on page reload
         notify: false
     });
 });
 
 
 // The Build Task
-gulp.task( 'build', [ 'reloader', 'sassy', 'scripster' ], () => {
+gulp.task( 'build', [ 'sassy', 'scripster', 'reloader' ], () => {
 
     // Alert what environment is currently running
     
