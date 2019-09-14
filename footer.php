@@ -1,10 +1,3 @@
-<?php 
-
-	global $shiftr;
-
-?>
-
-
 		<footer class="footer-primary">
 			<div>
 				
