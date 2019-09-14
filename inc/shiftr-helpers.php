@@ -40,7 +40,7 @@ function shiftr_featured_image( $args = [] ) {
 	} else {
 
 		// Set Featured Image placeholder
-		$image_url = get_template_directory_uri() . '/assets/media/imagery/audi_dash.jpg';
+		$image_url = get_template_directory_uri() . '/assets/media/imagery/hills.jpg';
 
 		// Apply any filters for the placeholder
 		$image_url = apply_filters( 'shiftr_featured_image_image_url', $image_url );
