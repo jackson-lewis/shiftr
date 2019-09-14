@@ -11,8 +11,12 @@
     //  ////  --|    Top-level variables
 
     let toggle    = document.querySelector( '.toggle' ),
-        nav       = document.querySelector( '.main-nav' ),
+        nav       = document.querySelector( '.nav-primary' ),
         sub_navs  = document.querySelectorAll( 'li.parent' );
+
+
+    // Check nav actually exists before going any further
+    if ( ! nav ) return;
 
 
     //  ////  --|    Toggle hidden navigation
