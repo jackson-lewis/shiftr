@@ -85,7 +85,7 @@ gulp.task( 'scripster', () =>
 // Browser Sync
 gulp.task( 'reloader', () => {
     browserSync.init({
-        proxy: 'shiftr.source'
+        proxy: 'shiftr.source',
         open: false,
         notify: false
     });
