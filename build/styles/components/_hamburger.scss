@@ -5,80 +5,103 @@
 */
 
 
-.toggle {
-    width: 2.6rem;
-    height: 4rem;
+.nav-primary--toggle {
+    width: 4.8rem;
+    height: 4.8rem;
     padding: 1.55rem 0;
     display: inline-block;
     position: absolute;
-    top: 0;
+    top: .6rem;
     right: 0;
     cursor: pointer;
     z-index: 50;
 
+    background-color: transparent;
+    border: none;
+    appearance: none;
+    outline: 0;
+
     transition: 400ms;
+
+    &:hover,
+    &:focus {
+
+        @include before {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+
+            background-color: darken( $l-grey, 5% );
+            border-radius: 2.4rem;
+        }
+    }
 
     span {
         width: 2.6rem;
         height: .1rem;
         display: block;
         position: absolute;
-        left: 0;
+        left: 1.1rem;
 
         background-color: $black;
-    }
 
-    span.before {
-        transition: transform 250ms 350ms ease-in, opacity 0ms 350ms;
-        transform-origin: 50% 50%;
+        &.before {
+            transition: transform 250ms 350ms ease-in, opacity 0ms 350ms;
+            transform-origin: 50% 50%;
 
-        &:nth-child(1) {
-            top: 1.6rem;
+            &:nth-child(1) {
+                top: 1.9rem;
+            }
+
+            &:nth-child(2)  {
+                bottom: 1.9rem;
+            }
         }
 
-        &:nth-child(2)  {
-            bottom: 1.6rem;
+        &.after {
+            top: 2.4rem;
+
+            visibility: hidden;
+
+            transition: transform 150ms 200ms ease-out, visibility 0ms 350ms;
+            transform-origin: 50% 50%;
         }
-    }
-
-    span.after {
-        top: 2rem;
-
-        visibility: hidden;
-
-        transition: transform 150ms 200ms ease-out, visibility 0ms 350ms;
-        transform-origin: 50% 50%;
     }
 
     &.transition {
 
-        span.before {
-            transition: transform 100ms ease-out, opacity 0ms 200ms;
+        span {
 
-            opacity: 0;
+            &.before {
+                transition: transform 100ms ease-out, opacity 0ms 200ms;
 
-            &:nth-child(1) {
-                transform: translate( 0, .4rem );
+                opacity: 0;
+
+                &:nth-child(1) {
+                    transform: translate( 0, .4rem );
+                }
+
+                &:nth-child(2) {
+                    transform: translate( 0, -.4rem );
+                }
             }
 
-            &:nth-child(2) {
-                transform: translate( 0, -.4rem );
-            }
-        }
-
-        span.after {
-            visibility: visible;
-            transition: transform 150ms 200ms ease-out, visibility 0ms 200ms;
-
-            &:nth-of-type(3) {
-                transform: rotateZ( 45deg );
-            }
-
-            &:nth-of-type(4) {
+            &.after {
                 visibility: visible;
-
                 transition: transform 150ms 200ms ease-out, visibility 0ms 200ms;
-                transform: rotateZ( -45deg );
+
+                &:nth-of-type(3) {
+                    transform: rotateZ( 45deg );
+                }
+
+                &:nth-of-type(4) {
+                    visibility: visible;
+
+                    transition: transform 150ms 200ms ease-out, visibility 0ms 200ms;
+                    transform: rotateZ( -45deg );
+                }
             }
         }
     }

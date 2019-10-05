@@ -10,7 +10,7 @@
 
     //  ////  --|    Top-level variables
 
-    let toggle    = document.querySelector( '.toggle' ),
+    let toggle    = document.querySelector( '.nav-primary--toggle' ),
         nav       = document.querySelector( '.nav-primary' ),
         sub_navs  = document.querySelectorAll( 'li.parent' );
 

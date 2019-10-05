@@ -35,12 +35,12 @@
 
                 <?php shiftr_nav_primary(); ?>
 
-                <div class="toggle">
+                <button class="nav-primary--toggle" aria-label="Toggle navigation">
                     <span class="before"></span>
                     <span class="before"></span>
                     <span class="after"></span>
                     <span class="after"></span>
-                </div>
+                </button>
                 
             </div>
         </header>

@@ -10,7 +10,7 @@
     * Used throughout the Shiftr JS functions
 */ 
 
-let header    = document.querySelector( '.header-primary' ),    
+let header    = document.querySelector( '.site-header' ),    
     head      = document.getElementsByTagName( 'head' )[0],
     body      = document.body;
 
