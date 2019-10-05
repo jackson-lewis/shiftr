@@ -42,7 +42,7 @@
 
 					<?php else : ?>
 
-					<p>Oops! It looks like there aren't any posts right now, sorry about that...</p>
+					<p>Oops! It looks like there aren't any posts right now.</p>
 
 					<?php endif; ?>
 					
