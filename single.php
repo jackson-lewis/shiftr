@@ -24,7 +24,7 @@
 	</div>
 
 
-	<main>
+	<main clsas="site-main">
 
 		<section class="contain">
 			<div>

@@ -5,7 +5,7 @@
 */
 
 
-.footer-primary {
+.site-footer {
     @extend %container;
     
 	margin: 0 auto;
@@ -14,17 +14,14 @@
 
 	background-color: $l-grey;
     
-    
     p {
         margin: 0;
     }
-
 
     .footer-info {
         display: flex;
         justify-content: space-between;
     }
-
 
     // Typically reserved for displaying site creator accrediation
     small.creator {
@@ -35,6 +32,5 @@
         font-size: 1.4rem;
         line-height: $base-line-height;
     }
-
 }
 

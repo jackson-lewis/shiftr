@@ -23,7 +23,7 @@
 	</div>
 
 
-	<main>
+	<main class="site-main">
 
 		<section class="contain">
 			<div>

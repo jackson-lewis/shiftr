@@ -26,10 +26,10 @@
     <body <?php shiftr_body_class(); ?>>
         <?php wp_body_open(); ?>
 
-        <header class="header-primary">
+        <header class="site-header">
             <div>
 
-                <a href="<?php bloginfo( 'url' ); ?>" class="logo">
+                <a href="<?php bloginfo( 'url' ); ?>" class="site-logo">
                     <?php shiftr_inline_svg( 'shiftr-full', '/assets/media/_shiftr/' ); ?>
                 </a>
 

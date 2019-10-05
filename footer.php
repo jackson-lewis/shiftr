@@ -1,4 +1,4 @@
-		<footer class="footer-primary">
+		<footer class="site-footer">
 			<div>
 				
 				<div class="footer-info">

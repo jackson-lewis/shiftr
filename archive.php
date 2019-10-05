@@ -9,7 +9,7 @@
 ?>
 
 
-	<main>
+	<main class="site-main">
 
 
 		<section class="contained">
