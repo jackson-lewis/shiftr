@@ -11,7 +11,7 @@
 ?>
 
 
-	<div class="hero-standard">
+	<div class="hero--standard">
 		<div class="background">
 			<?php shiftr_featured_image(); ?>
 		</div>
@@ -55,7 +55,7 @@
 		<section class="contain blog-layout">
 			<div>
 				
-				<div class="blog-list">
+				<div class="blog-loop">
 
 					<?php
 
@@ -65,7 +65,7 @@
 
 					?>
 
-					<div class="single">
+					<div class="blog-loop--item">
 
 						<div class="image">
 							<?php shiftr_featured_image(); ?>

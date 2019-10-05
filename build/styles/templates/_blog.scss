@@ -5,7 +5,7 @@
 */
 
 
-.blog-layout {
+section.blog-layout {
 
 	& > div {
 		position: relative;
@@ -17,9 +17,9 @@
 			@include grid( 2rem );
 			grid-template:
 		    "main main main side" auto /
-		    1fr  1fr 1fr 1fr;
+		    1fr 1fr 1fr 1fr;
 
-		    .blog-list {
+		    .blog-loop {
 		    	grid-area: main;
 		    }
 
@@ -52,9 +52,9 @@
 }
 
 
-.blog-list {
+.blog-loop {
 
-	.single {
+	.blog-loop--item {
 		margin-bottom: 2rem;
 		padding: 2rem;
 
@@ -183,9 +183,11 @@
 	}
 }
 
+
 .searched {
 	color: $white;
 }
+
 
 body.single.post {
 

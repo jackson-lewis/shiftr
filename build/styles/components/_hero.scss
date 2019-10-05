@@ -64,13 +64,13 @@
     }
 }
 
-.hero-standard {
+.hero--standard {
     @extend %hero;
 
     height: 50vh;
 }
 
-.hero-carousel {
+.hero--carousel {
     @extend %hero;
 
     height: 67vh;
@@ -197,7 +197,6 @@
             transform: translateY( -50% );
             
         }
-        
     }
 }
 

@@ -9,7 +9,7 @@
 ?>
 
 
-	<div class="hero-standard">
+	<div class="hero--standard">
 		<div class="background">
 			<?php shiftr_featured_image(); ?>
 		</div>
