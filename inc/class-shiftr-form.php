@@ -110,7 +110,7 @@ class Shiftr_Form {
 
 		$form_base_atts['method'] 			= 'post';
 		$form_base_atts['id'] 				= 'shiftr_form_' . $this->form_ID;
-		$form_base_atts['class'] 			= 'shiftr-form shiftr-form-' . $this->form;
+		$form_base_atts['class'] 			= 'shiftr-form shiftr-form--' . $this->form;
 		$form_base_atts['data-shiftr-form'] = $this->form;
 
 
@@ -208,10 +208,10 @@ class Shiftr_Form {
 		$wrap_atts['class'] = 'field';
 
 		if ( in_array( $args->type, $input_grouped_types ) ) {
-			$wrap_atts['class'] .= ' field-type-input';
+			$wrap_atts['class'] .= ' field-type--input';
 
 		} else {
-			$wrap_atts['class'] .= ' field-type-' . $args->type ;
+			$wrap_atts['class'] .= ' field-type--' . $args->type ;
 
 			if ( in_array( $args->type, $input_grouped_types ) ) {
 				$field_tag = $args->type;
@@ -307,7 +307,7 @@ class Shiftr_Form {
 				if ( ! isset( $subfield['label'] ) ) {
 					$subfield['label'] = shiftr_to_nicename( $subfield['name'] );
 				}
-				echo '<div class="sub-field-radio radio-' . $args->name . '-' . $subfield['name'] . '">';
+				echo '<div class="sub-field--radio radio-' . $args->name . '-' . $subfield['name'] . '">';
 
 				$subfield_atts = array(
 					'type' => 'radio',
