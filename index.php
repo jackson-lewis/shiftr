@@ -40,7 +40,7 @@
 
 				<?php } else { ?>
 
-					<h1>Posts page</h1>
+					<h1>Posts</h1>
 					<p>Display the archive of posts</p>
 
 				<?php } ?>

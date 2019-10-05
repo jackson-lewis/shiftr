@@ -15,7 +15,7 @@
 		<section class="contained">
 			<div>
 
-				<h1>Blog</h1>
+				<h1><?php post_type_archive_title(); ?></h1>
 
 				<div class="blog-list">
 

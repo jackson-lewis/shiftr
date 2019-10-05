@@ -1,6 +1,6 @@
 <?php 
 
-	/*  Template Name: _Default_Name_
+	/*  Template Name: _Default_Template_Name_
 
     */
 
@@ -9,31 +9,9 @@
 ?>
 
 
-	<div class="hero-standard">
-		<div class="background">
-			<?php shiftr_featured_image(); ?>
-		</div>
-		<div class="content">
-			<div>
-				
-				<h1><?php the_title(); ?></h1>
-
-			</div>
-		</div>
-	</div>
-
-
 	<main>
 
-		<section class="contain">
-			<div>
-				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 		
-			    	<?php the_content(); ?>
-
-			    <?php endwhile; endif; ?>
-			</div>
-		</section>
 
 	</main>
     

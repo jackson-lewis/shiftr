@@ -12,16 +12,16 @@
 
 
 // Sample Custom Post Type
-// shiftr_register_post_type(
-// 	'post_type_name',
-// 	array(
-// 		'label' => 'display_name_as_singular',
-// 		'menu_position' => 21,
-// 		'menu_icon' => 'dashicons-marker'
-// 	),
-// 	array(
-// 		'has_archive' => 'archive_slug',
-// 		'rewrite' => array( 'slug' => 'single_post_slug' )
-// 	)
-// );
+shiftr_register_post_type(
+	'post_type_name',
+	array(
+		'label' => 'display_name_as_singular',
+		'menu_position' => 21,
+		'menu_icon' => 'dashicons-marker'
+	),
+	array(
+		'has_archive' => 'archive_slug',
+		'rewrite' => array( 'slug' => 'single_post_slug' )
+	)
+);
 
