@@ -5,8 +5,8 @@ class Shiftr_Custom_Post_Type {
 
 
     // The main options that are typically set for a custom post type
-    protected $label;
     protected $name;
+    protected $label;
     protected $menu_position;
     protected $menu_icon;
 
@@ -20,7 +20,7 @@ class Shiftr_Custom_Post_Type {
     // The defaults for the above options
     private $settings = array(
 
-        // The singular name of the post type
+        // The name of the post type
         'name' => '',
 
         // The display name of the post type, also singular
@@ -61,22 +61,22 @@ class Shiftr_Custom_Post_Type {
         }
 
         // Assign $args values to the class properties
-        $this->label            = str_replace( ' ', '_', strtolower( $_settings['label'] ) );
-        $this->name             = ucwords( $_settings['name'] );
+        $this->name             = $_settings['name'];
+        $this->label            = ucwords( str_replace( '_', ' ', $_settings['name'] ) );
         $this->menu_position    = $_settings['menu_position'];
         $this->menu_icon        = $_settings['menu_icon'];
 
         $this->allow_plural     = $_settings['plural'];
 
         // Get singular value
-        $this->singular = $this->name;
-        $this->plural = $this->pluralize( $this->name );;
+        $this->singular = $this->label;
+        $this->plural = $this->pluralize( $this->label );;
 
         // Assign $register_args to class
         $this->args = $args;
 
-        // Check the post type doesn't already exist via another instance of Shiftr_Custom_Post_Type
-        if ( ! post_type_exists( $this->label ) ) {
+        // Check the post type doesn't already exist
+        if ( ! post_type_exists( $this->name ) ) {
             add_action( 'init', array( $this, 'register' ) );
         }
     }
@@ -103,12 +103,12 @@ class Shiftr_Custom_Post_Type {
             'query_var' => true,
             'menu_position' => $this->menu_position,
             'menu_icon' => $this->menu_icon,
-            'rewrite'   => array( 'slug' => $this->plural ),
-            'has_archive' => str_replace( '_', '-', $this->label ),
+            'rewrite'   => array( 'slug' => $this->name ),
+            'has_archive' => str_replace( '_', '-', $this->name ),
             'capability_type' => 'page',
             'capabilities' => array(),
             'hierarchical' => false,
-            'supports' => array( 'title', 'editor', 'thumbnail', 'revisions' )
+            'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'page-attributes', 'revisions' )
         );
         
         // Filter any values set in the instance of Shiftr_Custom_Post_Type
@@ -120,12 +120,12 @@ class Shiftr_Custom_Post_Type {
                 'name' => $this->plural,
                 'singular_name' => $this->singular,
                 'all_items' => 'All ' . $this->plural,
-                'add_new' => 'Add ' . $this->singular,
                 'add_new_item' => 'Add New ' . $this->singular,
                 'edit' => 'Edit',
                 'edit_item' => 'Edit ' . $this->singular,
                 'new_item' => 'New ' . $this->singular,
-                'view_item' => 'View ' . $this->plural,
+                'view_item' => 'View ' . $this->singular,
+                'view_items' => 'View ' . $this->plural,
                 'search_items' => 'Search ' . $this->plural,
                 'not_found' =>  'Nothing found in the Database.',
                 'not_found_in_trash' => 'Nothing found in Trash',
@@ -138,11 +138,11 @@ class Shiftr_Custom_Post_Type {
 
 
         // Apply filters
-        $args = apply_filters( 'shiftr_custom_post_type_register_args', $args, $this->label );
+        $args = apply_filters( 'shiftr_custom_post_type_register_args', $args, $this->name );
 
 
         // Register the custom post type
-        register_post_type( $this->label, $args );
+        register_post_type( $this->name, $args );
     }
 
 
