@@ -188,13 +188,3 @@ section.blog-layout {
 	color: $white;
 }
 
-
-body.single.post {
-
-	article {
-		max-width: line_width();
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-

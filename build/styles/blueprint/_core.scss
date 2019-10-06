@@ -71,6 +71,10 @@ main.site-main {
 	position: relative;
 }
 
+.contain-line-width {
+	max-width: line_width();
+}
+
 
 //  --|    Section core styling
 

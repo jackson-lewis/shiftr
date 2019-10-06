@@ -11,7 +11,7 @@
     position: relative;
     display: block;
 
-    .background {
+    .featured-image {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -62,10 +62,29 @@
     }
 }
 
-.hero--standard {
-    @extend %hero;
+.hero-standard {
+    @extend .site-padding;
 
-    height: 50vh;
+    width: 100%;
+    padding-top: 8rem;
+
+    .hero--content {
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .hero--featured-image {
+        margin-top: 2rem;
+        overflow: hidden;
+
+        border-radius: .4rem;
+    }
+
+    & + main.site-main {
+        padding-top: 0;
+    }
 }
 
 .hero--carousel {
