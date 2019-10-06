@@ -23,9 +23,7 @@
         opacity: 1;
 
         img {
-            z-index: -1;
-
-            @include object-fit();
+            @include object-fit;
         }
     }
 
