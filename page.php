@@ -25,8 +25,8 @@
 
 	<main class="site-main">
 
-		<section class="contain">
-			<div>
+		<section class="site-section">
+			<div class="container">
 				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 		
 			    	<?php the_content(); ?>

@@ -12,8 +12,8 @@
 	<main class="site-main">
 
 
-		<section class="contained">
-			<div>
+		<section class="site-section">
+			<div class="container">
 
 				<h1><?php post_type_archive_title(); ?></h1>
 

@@ -26,8 +26,8 @@
 
 	<main clsas="site-main">
 
-		<section class="contain">
-			<div>
+		<section class="site-section">
+			<div class="container">
 
 				<article>
 					

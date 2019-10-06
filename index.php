@@ -15,8 +15,8 @@
 		<div class="background">
 			<?php shiftr_featured_image(); ?>
 		</div>
-		<div class="content">
-			<div>
+		<div class="content site-padding">
+			<div class="container">
 
 				<?php
 
@@ -52,8 +52,8 @@
 
 	<main class="site-main">
 
-		<section class="contain blog-layout">
-			<div>
+		<section class="site-section blog-layout">
+			<div class="container">
 				
 				<div class="blog-loop">
 
