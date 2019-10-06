@@ -14,9 +14,9 @@ Element.prototype.form = function( settings = {} ) {
         submission: true,
         targets: ['name', 'text', 'email', 'tel', 'date', 'password'],
         validation_classes: {
-            focus: 'field-event-focus',
-            success: 'field-event-success',
-            error: 'field-event-error'
+            focus: 'field-event--focus',
+            success: 'field-event--success',
+            error: 'field-event--error'
         },
         settings: shiftr.form
     };
