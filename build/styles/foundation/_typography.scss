@@ -32,7 +32,8 @@ p {
 	margin-bottom: get_baseline();
 
 	line-height: $base-line-height;
-	text-align: left;
+	text-align: inherit;
+	color: inherit;
 
 	&:last-child {
 		margin-bottom: 0;
@@ -157,7 +158,6 @@ $blockquotes: false;
 				line-height: 1.5;
 			}
 		}
-
 
 		// Quotation mark
 		&::before {

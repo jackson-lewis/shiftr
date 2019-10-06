@@ -7,7 +7,7 @@
 
 %button {
 	margin: 0;
-	padding: 1.2rem 2.4rem;
+	padding: 1rem 2rem;
 	display: inline-block;
 	cursor: pointer;
 
@@ -16,7 +16,7 @@
 	font-size: 1.4rem;
 	line-height: $base-line-height;
 	font-weight: 700;
-	text-transform: capitalize;
+	text-transform: uppercase;
 	appearance: none;
 	outline: 0;
 
@@ -39,29 +39,6 @@ input[type="button"] {
 	&:hover {
 		color: $white;
 		background-color: $primary;
-	}
-}
-
-
-input[type="submit"] {
-	margin: 0;
-
-	&.submitting {
-		animation: pulsing 2s infinite forwards;
-	}
-}
-
-@keyframes pulsing {
-	0% {
-		background-color: $secondary;
-	}
-
-	50% {
-		background-color: $primary;
-	}
-
-	100% {
-		background-color: $secondary;
 	}
 }
 

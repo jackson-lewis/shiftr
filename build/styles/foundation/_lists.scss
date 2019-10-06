@@ -16,7 +16,7 @@ ul, ol {
 	margin-bottom: 2.4rem;
 	padding-left: 0.4rem;
 
-	line-height: 1.5;
+	line-height: $base-line-height;
 
 	li {
 		// Space out by half a line height
