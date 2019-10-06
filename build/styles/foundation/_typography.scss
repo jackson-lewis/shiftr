@@ -79,7 +79,7 @@ a {
 	line-height: $base-line-height;
 	text-decoration: none;
 
-	transition: $duration;
+	transition: 300ms;
 
 	&:hover {
 		color: $secondary;
@@ -108,7 +108,7 @@ p a, li:not(.menu-item) a, small a {
 
 		background-color: $primary;
 
-		transition: $duration;
+		transition: 300ms;
 
 		transform: scaleX( 1 );
 	}

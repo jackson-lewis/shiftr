@@ -36,7 +36,7 @@ body#tinymce.wp-editor {
 		font-weight: 700;
 		line-height: $base-line-height;
 
-		transition: $duration;
+		transition: 300ms;
 
 		&:hover {
 			color: $primary;
