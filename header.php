@@ -27,7 +27,7 @@
         <?php wp_body_open(); ?>
 
         <header class="site-header">
-            <div>
+            <div class="container">
 
                 <a href="<?php bloginfo( 'url' ); ?>" class="site-logo">
                     <?php shiftr_inline_svg( 'shiftr-full', '/assets/media/_shiftr/' ); ?>

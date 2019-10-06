@@ -30,8 +30,6 @@
     }
 
     .content {
-        @extend %container;
-
         position: absolute;
         top: calc( 50% + 3rem );
         left: 0;

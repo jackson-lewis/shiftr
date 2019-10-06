@@ -47,29 +47,28 @@ body {
 //  --|    Main core styling
 
 main.site-main {
-	padding-top: 12rem;
+	padding-top: 6rem;
 	position: relative;
-
-	background-color: $white;
 }
 
 
 //  --|    Main layout container
 
-%container {
-	width: 100%;
-	padding-left: 1rem;
-	padding-right: 1rem;
+.site-padding {
+	padding-left: $site-padding;
+	padding-right: $site-padding;
 
-	& > div {
-		max-width: rem( $container-width );
-		margin: 0 auto;
-	}
-	
 	@include x( m ) {
-		padding-left: 2rem;
-		padding-right: 2rem;
+		padding-left: $site-padding * 2;
+		padding-right: $site-padding * 2;
 	}
+}
+
+.container {
+	width: 100%;
+	max-width: rem( $container-width );
+	margin: 0 auto;
+	position: relative;
 }
 
 
@@ -79,8 +78,6 @@ section {
 	
 	// Sections contained to layout width
 	&.contain {
-		@extend %container;
-
 		padding-top: 4rem;
 		padding-bottom: 4rem;
 	}

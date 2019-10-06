@@ -6,19 +6,19 @@
 
 
 header.site-header {
+    @extend .site-padding;
+
 	width: 100%;
     height: 6rem;
-    padding: 0 1rem;
-    
 	position: fixed;
-    z-index: 999;
+    top: 0;
+    left: 0;
+    z-index: 100;
     overflow: hidden;
 
     background-color: rgba( darken( $white, 5% ), .96 );
     -webkit-backdrop-filter: blur( 2px );
-
     box-shadow: 0 0 4rem rgba( $black, .2 );
-
 
     .site-logo {
         height: 4rem;
@@ -33,47 +33,14 @@ header.site-header {
         }
     }
 
-    @extend %container;
-
-    & > div {
-        height: 100%;
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        & > div:not(.toggle) {
-
-            display: flex;
-            align-items: center;
-        
-            span {
-                margin-left: 4rem;
-
-                color: $blend;
-                font-size: 2rem;
-                font-weight: 400;
-                line-height: 1;
-            }
-        }
-    }
-
     transition: 400ms cubic-bezier( .2, .7, .5, 1 );
 
     &.slider {
         height: 26.2rem;
     }
 
-    @include x( m ) {
-        padding: 0 2rem;
-    }
-
     @include x( l ) {
         overflow: visible;
-
-        .site-logo {
-            position: relative;
-        }
     }
 }
 

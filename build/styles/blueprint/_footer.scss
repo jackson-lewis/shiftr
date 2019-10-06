@@ -6,10 +6,10 @@
 
 
 .site-footer {
-    @extend %container;
+    @extend .site-padding;
     
 	margin: 0 auto;
-    padding: 4rem 1rem;
+    padding: 4rem 0;
 	position: relative;
 
 	background-color: $l-grey;

@@ -134,7 +134,6 @@ nav {
         width: auto;
         padding: 0;
         display: block;
-        position: relative;
 
         ul {
             padding: 0;
@@ -143,26 +142,33 @@ nav {
             align-items: center;
 
             li {
-                height: 4rem;
                 margin: 0 2rem 0 0;
 
                 font-size: 1.6rem;
                 text-align: left;
 
+                &.top-item {
+                    & > a {
+                        padding: 2.2rem 0;
+
+                        line-height: 1;
+                    }
+                }
+
                 &.parent {
                     position: relative;
 
                     .sub-menu {
-                        min-width: calc( 100% + 4rem );
+                        width: 14rem;
                         margin-top: 0;
                         padding: 1rem 2rem;
                         position: absolute;
-                        top: calc( 100% + 1rem );
-                        left: -2rem;
-
+                        top: 100%;
+                        left: 50%;
+                        transform: translateX( -50% );
+                        
                         background-color: rgba( darken( $white, 5% ), .96 );
                         -webkit-backdrop-filter: blur( 2px );
-
                         box-shadow: 0 4rem 4rem rgba( lighten( $black, 40% ), .2 );
 
                         @include before() {
@@ -195,6 +201,7 @@ nav {
             }
 
             &#menu-primary {
+
                 &::before {
                     display: none;
                 }

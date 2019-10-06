@@ -7,7 +7,6 @@
 
 //  ////  --|    Breakpoints
 
-
 $breakpoints: ( 
 	s: 		450px,
 	m: 		768px,
@@ -17,35 +16,26 @@ $breakpoints: (
 );
 
 
+//  ////  --|    Container
+
+$container-width: 	124;
+$site-padding: 		1rem;
 
 
-//  ////  --|    CONTAINER
+//  ////  --|    Typography
 
-
-$container-width: 124;
-
-
-
-
-
-//  ////  --|    TYPOGRAPHY
-
-
-$base-font-size: 	1.8; // Unit as rem
-$base-line-height:	1.6;
+$base-font-size: 		1.8;
+$base-line-height:		1.6; // This should always be unitless
 
 $base-font-family: 		'Nunito', sans-serif;
 $heading-font-family: 	'Nunito', sans-serif;
 
-$baseline: 			( ( $base-font-size * 10 ) * $base-line-height );
+$baseline: 				( ( $base-font-size * 10 ) * $base-line-height );
 
-$max-line-width: $base-font-size * 38;
-
-
+$max-line-width: 		$base-font-size * 38;
 
 
-//  ////  --|    COLORS
-
+//  ////  --|    Colors
 
 //  Lights
 $white:     #FAFAFA;
@@ -70,34 +60,7 @@ $green:		#04BF2F;
 $red:		#E30617;
 
 
-
-
-//  ////  --|    Z-INDEX CATELOGUE
-
-
-//  TOP LEVEL
-$z-header:      80;
-$z-main:	    60;
-$z-footer:      40;
-
-
-//  HEADER LEVEL
-$z-nav:         10;
-$z-hamburger:   20;
-
-
-//  MAIN LEVEL
-$z-sample:      10;
-
-
-//  FOOTER LEVEL
-$z-sample:      10;
-
-
-
-
-//  ////  --|    MISC
-
+//  ////  --|    Misc
 
 //  Base Hover Timing
 $duration: 300ms;
