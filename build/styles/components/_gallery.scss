@@ -62,6 +62,22 @@
 	z-index: 1000;
 
 	background-color: rgba( $black, .9 );
+	opacity: 0;
+
+	transition: 200ms;
+
+	&.pre {
+		display: flex;
+	}
+
+	&.display {
+		opacity: 1;
+	
+		img {
+			opacity: 1;
+			transform: scale( 1 );
+		}
+	}
 
 	img {
 		max-width: 100%;
@@ -96,7 +112,6 @@
 			fill: rgba( $white, .8 );
 
 			transition: 300ms;
-			
 		}
 
 		&.previous {
@@ -136,30 +151,10 @@
 				right: .6rem;
 			}
 		}
-		
 	}
-
-	transition: 200ms;
-
-	opacity: 0;
-
-	&.pre {
-		display: flex;
-	}
-
-	&.display {
-		opacity: 1;
-	
-		img {
-			opacity: 1;
-			transform: scale( 1 );
-		}
-	}
-
 
 	@include x( m ) {
 		padding: 2rem;
 	}
-	
 }
 

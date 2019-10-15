@@ -201,7 +201,7 @@ select {
 
             &:checked + label span.custom-radio {
                 
-                &::after {
+                @include after( false ) {
                     transform: scale( 1 );
                 }
             }

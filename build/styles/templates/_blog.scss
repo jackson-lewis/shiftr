@@ -97,18 +97,17 @@ section.blog-layout {
 
 		@include x( m ) {
 			@include grid( 2rem );
+
 			grid-template:
 				"image details details" auto / 1fr 1fr 1fr;
 
 			.image {
 				grid-area: image;
-
 				margin-bottom: 0;
 			}
 
 			.details {
 				grid-area: details;
-
 				display: block;
 			}
 		}
@@ -126,10 +125,22 @@ section.blog-layout {
 		background-color: $l-grey;
 		border-radius: .4rem;
 
+		transition: box-shadow 200ms ease;
+
+		&.sticky {
+			position: fixed;
+
+			box-shadow: 0 0 2rem rgba( lighten( $black, 10% ), .2 );
+		}
+
+		&.pause {
+			align-self: flex-end;
+		}
+
 		.widget {
 			margin-bottom: get_baseline();
 
-			@include last_child();
+			@include last-child();
 		}
 
 		h4 {
@@ -147,16 +158,16 @@ section.blog-layout {
 
 		li {
 			a {
-				&::after {
-					background-color: $black;
-
+				@include after( false ) {
 					transform: scaleX( 0 );
+
+					background-color: $black;
 				}
 
 				&:hover {
 					color: $primary;
 
-					&::after {
+					@include after( false ) {
 						transform: scaleX( 1 );
 					}
 				}
@@ -164,25 +175,13 @@ section.blog-layout {
 		}
 
 		.search {
+
 			input {
 				background-color: $white;
 			}
 		}
-
-		transition: box-shadow 200ms ease;
-
-		&.sticky {
-			position: fixed;
-
-			box-shadow: 0 0 2rem rgba( lighten( $black, 10% ), .2 );
-		}
-
-		&.pause {
-			align-self: flex-end;
-		}
 	}
 }
-
 
 .searched {
 	color: $white;

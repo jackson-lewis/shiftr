@@ -64,7 +64,7 @@
 		        transform: translateY( -100% ) scale( 0 );
 		        transform-origin: 50% 100%;
 
-		        &::before {
+		        @include before( false ) {
 		        	top: auto;
 		            right: 50%;
 		            bottom: 0;
@@ -94,34 +94,35 @@
 		color: $black;
 		border-radius: .4rem;
 		box-shadow: 0 0 4rem rgba( $black, .2 );
+		opacity: 0;
+		transform: translateY( 4rem ) scale( .8 );
 
-		span:first-of-type {
-			margin-bottom: 1rem;
-			display: block;
+		transition: 200ms cubic-bezier( .2, .7, .5, 1.2 );
 
-			font-size: 2.2rem;
-			font-weight: 700;
+		&.show {
+			opacity: 1;
+			transform: translateY( 0 ) scale( 1 );
+		}
+
+		span {
+
+			&:first-of-type {
+				margin-bottom: 1rem;
+				display: block;
+
+				font-size: 2.2rem;
+			}
+
+			&:last-of-type {
+				font-size: 1.4rem;
+				font-weight: 700;
+				text-transform: uppercase;
+			}
 		}
 
 		button {
 			margin: 0;
 			align-self: flex-end;
-		}
-
-		span:last-of-type {
-			font-size: 1.4rem;
-			font-weight: 700;
-			text-transform: uppercase;
-		}
-
-		transition: 200ms cubic-bezier( .2, .7, .5, 1.2 );
-
-		opacity: 0;
-		transform: translateY( 4rem ) scale( .8 );
-
-		&.show {
-			opacity: 1;
-			transform: translateY( 0 ) scale( 1 );
 		}
 
 		@include x( m ) {

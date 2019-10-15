@@ -41,7 +41,7 @@
         background-color: transparent;
         box-shadow: none;
 
-        &::before {
+        @include before( false ) {
             background-color: darken( $l-grey, 5% );
         }
     }

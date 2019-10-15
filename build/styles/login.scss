@@ -28,7 +28,7 @@
 .login {
 
 	a {
-		&::after {
+		@include after( false ) {
 			display: none;
 		}
 	}

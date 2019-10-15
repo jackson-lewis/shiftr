@@ -22,9 +22,7 @@ ul, ol {
 		// Space out by half a line height
 		margin-bottom: get_baseline( 20 );
 
-		&:last-of-type {
-			margin-bottom: 0;
-		}
+		@include last-child;
 	}
 }
 

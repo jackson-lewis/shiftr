@@ -45,7 +45,6 @@
         h1 {
             max-width: 40rem;
 
-            //font-size: 5rem;
             font-weight: 700;
         }
 
@@ -141,7 +140,6 @@
 
         transform: translateX( -50% );
         
-
         button {
             min-width: 4.8rem;
             width: 5rem;
@@ -156,16 +154,7 @@
             outline: none;
             appearance: none;
 
-            span {
-                width: 100%;
-                height: .4rem;
-                display: block;
-
-                background-color: rgba( $white, .4 );
-                border-radius: .2rem;
-
-                transition: 400ms;
-            }
+            transition: 300ms;
 
             @include last-child;
 
@@ -176,13 +165,22 @@
                 }
             }
 
-            transition: 300ms;
-
             &:hover {
 
                 span {
                     background-color: $primary;
                 }
+            }
+
+            span {
+                width: 100%;
+                height: .4rem;
+                display: block;
+
+                background-color: rgba( $white, .4 );
+                border-radius: .2rem;
+
+                transition: 400ms;
             }
         }
     }
@@ -200,17 +198,17 @@
 
     .content {
         z-index: 100;
-    
-        transition: transform 800ms ease-out, opacity 600ms 200ms ease;
-        
-        opacity: 0;
         transform: translateY( 0 );
         transform-origin: 0 50%;
+        
+        opacity: 0;
+        
+        transition: transform 800ms ease-out, opacity 600ms 200ms ease;
 
         &.load {
-            opacity: 1;
             transform: translateY( -50% );
-            
+
+            opacity: 1;
         }
     }
 }

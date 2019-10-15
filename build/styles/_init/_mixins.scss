@@ -36,29 +36,29 @@
 
 
 //  PSEUDO
-@mixin pseudo( $position: absolute, $content: '' ) {
-    content: $content;
-    display: block;
-    position: $position;
-}
-
-@mixin before( $position: absolute, $content: '' ) {
+@mixin before( $include: true, $position: absolute, $content: '' ) {
 
     &::before {
-        content: $content;
-        display: block;
-        position: $position;
 
+        @if ( $include ) {
+            content: $content;
+            display: block;
+            position: $position;
+        }
+        
         @content;
     }
 }
 
-@mixin after( $position: absolute, $content: '' ) {
+@mixin after( $include: true, $position: absolute, $content: '' ) {
 
     &::after {
-        content: $content;
-        display: block;
-        position: $position;
+        
+        @if ( $include ) {
+            content: $content;
+            display: block;
+            position: $position;
+        }
 
         @content;
     }
@@ -80,7 +80,7 @@
 
 
 // Last Child bottom styling removal
-@mixin last_child( $padding: false ) {
+@mixin last-child( $padding: false ) {
     &:last-of-type {
         
         @if $padding == false {
