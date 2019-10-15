@@ -11,7 +11,7 @@
 	display: inline-block;
 	cursor: pointer;
 
-	border: 0.1rem solid transparent;
+	border: none;
 	border-radius: 0.4rem;
 	font-size: 1.4rem;
 	line-height: $base-line-height;
@@ -23,22 +23,61 @@
 	transition: 300ms;
 }
 
-
-// Use .button when you want an anchor to have button styling.
-
-.button,
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-	
+.button-fill {
 	@extend %button;
 
 	color: $white;
-	background-color: $secondary;
+	background-color: $primary;
 
 	&:hover {
 		color: $white;
-		background-color: $primary;
+		background-color: rgba( $primary, .8 );
 	}
+
+	&:focus {
+		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+					0 .2rem 1rem rgba( $d-grey, .2 );
+	}
+}
+
+.button-outline {
+	@extend %button;
+
+	padding: .9rem 1.9rem;
+
+	color: $primary;
+	background-color: transparent;
+	border: .1rem solid $primary;
+
+	&:hover {
+		color: $primary;
+		background-color: rgba( $primary, .1 );
+	}
+
+	&:focus {
+		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+					0 .2rem 1rem rgba( $d-grey, .2 );
+	}
+}
+
+.button-text {
+	@extend %button;
+
+	color: $primary;
+	background-color: transparent;
+
+	&:hover {
+		color: $primary;
+		background-color: rgba( $primary, .1 );
+	}
+
+	&:focus {
+		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+					0 .2rem 1rem rgba( $d-grey, .2 );
+	}
+}
+
+button {
+	@extend .button-fill;
 }
 
