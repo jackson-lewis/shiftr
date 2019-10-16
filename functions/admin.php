@@ -81,6 +81,31 @@ add_action( 'wp_before_admin_bar_render', 'shiftr_admin_bar_clean_up' );
 
 
 /**  
+ *  shiftr_admin_bar_styles
+ *
+ *  Add custom styles to the admin bar
+ *
+ *  @since 1.0
+ */
+
+function shiftr_admin_bar_styles() {
+
+	if ( is_admin_bar_showing() ) { ?>
+
+		<style type="text/css">
+			#wpadminbar a::after {
+				 display: none;
+			}
+		</style>
+
+		<?php
+	}
+}
+
+add_action( 'wp_head', 'shiftr_admin_bar_styles' );
+
+
+/**  
  *  shiftr_admin_menu_clean_up
  *
  *  Remove Posts and Comments from the admin menu if not required
