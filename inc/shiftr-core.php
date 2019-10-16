@@ -43,9 +43,7 @@ function shiftr_body_class( $use_shiftr = true ) {
 	}
 
 	if ( is_singular() ) {
-		$classes[] = 'single';
-
-		$classes[] = get_post_type( $post->ID );
+		$classes[] = 'single-' . get_post_type( $post->ID );
 
 		$classes[] = get_post_type( $post->ID ) . 'id-' . $post->ID;
 	}
@@ -53,10 +51,9 @@ function shiftr_body_class( $use_shiftr = true ) {
 	$template = get_post_meta( $post->ID, '_wp_page_template', true );
 	
 	if ( $template != '' ) {
-		$template = str_replace( 'templates/', '', $template );
-		$template = str_replace( '.php', '', $template );
+		$template = preg_replace( '/^.*\/(.*)\.php$/', '\1', $template );
 
-		$classes[] = get_post_type( $post->ID ) . '-template-' . $template;
+		$classes[] = 'template-' . $template;
 	}
 
 	if ( is_user_logged_in() ) {
