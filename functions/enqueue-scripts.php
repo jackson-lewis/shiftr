@@ -21,14 +21,14 @@ function shiftr_scripts() {
 
 	global $shiftr;
 
-	if ( ! is_admin() || ! is_user_logged_in() ) {
+	if ( ! is_user_logged_in() && ! $shiftr->use_jquery ) {
 
-		if ( ! $shiftr->use_jquery ) {
-			wp_deregister_script( 'jquery' );
-		}
-
-        wp_deregister_script( 'wp-embed' );
+		wp_deregister_script( 'jquery' );
+    } else {
+    	wp_enqueue_script( 'jquery' );
     }
+
+    wp_deregister_script( 'wp-embed' );
 
 	// Scripts
 	wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/core.js', array(), null, true );
@@ -37,7 +37,7 @@ function shiftr_scripts() {
 	// Styles
 	wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/style.css', array(), $shiftr->get( 'version' ) );
 
-	// Remove WP Glutenburg styling
+	// Remove WP Glutenburg styling as not supported by the theme yet
 	wp_dequeue_style( 'wp-block-library' );
 }
 
