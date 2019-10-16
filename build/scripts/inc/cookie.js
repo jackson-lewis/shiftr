@@ -8,8 +8,6 @@
 
     if ( document.cookie.indexOf( cookie_name ) == -1 ) {
 
-        console.log( 'cookie doesn\'t exist' );
-
         let stylesheet = createEl( 'link' );
         stylesheet.setAttribute( 'rel', 'stylesheet' );
         stylesheet.setAttribute( 'href', `${shiftr.theme}/assets/styles/cookie-notice.css` );
@@ -41,17 +39,18 @@
             el.classList.add( 'posted' );
         }, 1000 );
 
-
         // Listen for notice acceptance
         const cookie_accepter = document.getElementById( 'shiftr-cookie-accept' );
 
         cookie_accepter.addEventListener( 'click', e => {
             e.preventDefault();
 
-            var cookie_expiry = 'Thu, 18 Dec 2019 12:00:00 UTC';
+            var expiry = new Date();
+
+            expiry.setDate( expiry.getDate() + 30 );
 
             // Set the cookie
-            document.cookie = `${cookie_name}=${true}; expires=${cookie_expiry}; path=/`;
+            document.cookie = `${cookie_name}=${true}; expires=${expiry}; path=/`;
 
 
             // Now, remove the notice
