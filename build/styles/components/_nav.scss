@@ -169,7 +169,8 @@ nav {
                         
                         background-color: rgba( darken( $white, 5% ), .96 );
                         -webkit-backdrop-filter: blur( 2px );
-                        box-shadow: 0 4rem 4rem rgba( lighten( $black, 40% ), .2 );
+                        box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
+                                    0 3rem 3rem rgba( $d-grey, .1 );
 
                         @include before() {
                             width: calc( 100% - 2rem );

@@ -130,7 +130,8 @@ section.blog-layout {
 		&.sticky {
 			position: fixed;
 
-			box-shadow: 0 0 2rem rgba( lighten( $black, 10% ), .2 );
+			box-shadow: 0 0 1rem rgba( $l-grey, .2 ),
+						0 0 2rem rgba( $l-grey, .15 );
 		}
 
 		&.pause {

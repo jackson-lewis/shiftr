@@ -26,6 +26,7 @@
 
 
 .login {
+	background: linear-gradient( 0deg, $l-grey 0%, $white 100% );
 
 	a {
 		@include after( false ) {
@@ -43,8 +44,9 @@
 	}
 
 	form {
-		box-shadow: 0 0 4rem rgba( lighten( $black, 40% ), .4 );
 		border-radius: .8rem;
+		box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
+					0 1rem 3rem rgba( $d-grey, .2 );
 	}
 
 	#login_error,

@@ -40,7 +40,8 @@
 	transition: 200ms ease;
 
 	&:hover {
-		box-shadow: 0 0 2rem rgba( $black, .2 );
+		box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
+					0 0 2rem rgba( $d-grey, .2 );
 	}
 
 	@include x( m ) {
