@@ -24,18 +24,14 @@
 	z-index: 9999;
 
 	background-color: rgba( $l-grey, .96 );
-	border: .2rem solid transparent;
 	border-radius: .4rem;
-	opacity: 0;
 	box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
                 0 0 3rem rgba( $d-grey, .15 ),
                 0 0 6rem rgba( $d-grey, .1 );
 
-    transition: transform 800ms 0ms cubic-bezier( 0.3, 0.7, 0.6, 1 ),
-				background-color 400ms;
+    //transition: 800ms 0ms cubic-bezier( 0.3, 0.7, 0.6, 1 );
 
 	&.posted {
-		opacity: 1;
 		transform: translateY( 0 );
 	}
 
