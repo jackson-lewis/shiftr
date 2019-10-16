@@ -11,7 +11,7 @@
 
 function shiftr_body_class( $use_shiftr = true ) {
 
-	if ( ! $use_shiftr ) {
+	if ( ! $use_shiftr || function_exists( 'is_woocommerce' ) ) {
 		body_class();
 
 		return true;
@@ -23,7 +23,7 @@ function shiftr_body_class( $use_shiftr = true ) {
 	$classes = array();
 
 	if ( is_front_page() ) {
-		$classes[] = 'home';
+		$classes[] = 'site-home';
 	}
 
 	if ( is_home() ) {
