@@ -31,20 +31,14 @@ function shiftr_featured_image( $args = [] ) {
 		$args->post_id = $post->ID;
 	}
 
-	$imageID = get_post_thumbnail_id( $args->post_id );
+	// Assign attachment id if featured image is set
+	$image_id = get_post_thumbnail_id( $args->post_id );
 
-	if ( $imageID != '' ) {
-		
-		$image_url = wp_get_attachment_url( $imageID );
+	// If featured image is not set, use placeholder
+	$image_id = ( $image == '' ) ? get_field( 'thumbnail_placeholder', 'option' ) : $image_id;
 
-	} else {
-
-		// Set Featured Image placeholder
-		$image_url = get_template_directory_uri() . '/assets/media/imagery/hills.jpg';
-
-		// Apply any filters for the placeholder
-		$image_url = apply_filters( 'shiftr_featured_image_image_url', $image_url );
-	}
+	// Get image URL
+	$image_url = wp_get_attachment_url( $image_id );
 
 	$atts = $args->atts;
 
@@ -68,7 +62,7 @@ function shiftr_featured_image( $args = [] ) {
 			$atts['src'] = $image_url;
 		}
 
-		$atts['alt'] = get_post_meta( $imageID, '_wp_attachment_image_alt', true );
+		$atts['alt'] = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
 		// Apply any filters
 		$atts = apply_filters( 'shiftr_featured_image_atts', $atts );
