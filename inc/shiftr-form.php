@@ -71,8 +71,8 @@ $shiftr_form_core = array();
 // Register the Shiftr forms post type
 $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
     array(
-        'label' 		=> 'shiftr form',
-        'name'          => 'Contact Form',
+        'label' 		=> 'Contact Form',
+        'name'          => 'shiftr_form',
         'menu_position' => 59,
         'menu_icon'		=> 'dashicons-email-alt'
     ),
@@ -91,8 +91,8 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
 
 $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
     array(
-        'label' 		=> 'shiftr form data',
-        'name'          => 'Form Data',
+        'label' 		=> 'Contact Form Data',
+        'name'          => 'shiftr_form_data',
         'plural'		=> false
     ),
     array(

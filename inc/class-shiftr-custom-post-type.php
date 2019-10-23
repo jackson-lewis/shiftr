@@ -57,12 +57,12 @@ class Shiftr_Custom_Post_Type {
         $_settings = wp_parse_args( $settings, $this->settings );
 
         if ( $_settings['label'] == '' ) {
-            $_settings['label'] = ucwords( $_settings['name'] );
+            $_settings['label'] = ucwords( str_replace( '_', ' ', $_settings['name'] ) );
         }
 
         // Assign $args values to the class properties
         $this->name             = $_settings['name'];
-        $this->label            = ucwords( str_replace( '_', ' ', $_settings['name'] ) );
+        $this->label            = $_settings['label'];
         $this->menu_position    = $_settings['menu_position'];
         $this->menu_icon        = $_settings['menu_icon'];
 
