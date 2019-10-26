@@ -34,11 +34,10 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
-        $name = $item->title;
-        $permalink = $item->url;
-
         global $post;
 
+        $name = $item->title;
+        $permalink = $item->url;
 
         if ( is_home() ) {
             $post_slug = get_post_type_archive_link( 'post' );
@@ -50,39 +49,25 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
             $post_slug = get_permalink( $post );
         }
 
-        $item->classes = $anchor_attr = array();
-
+        $item->classes = array();
 
         $item->classes[] = 'menu-item-' . $item->ID;
-    
-        if ( $post_slug == $permalink ) {
-            $anchor_attr['class'] = 'active'; 
-        }
+        $item->classes[] = "level-{$depth}-item";
 
-        if ( $depth == 0 ) {
-            $item->classes[] = 'top-item';
-        } else if ( $depth == 1 ) {
-            $item->classes[] = 'secondary-item';
-        } else if ( $depth == 2 ) {
-            $item->classes[] = 'third-item';
+        if ( $post_slug == $permalink ) {
+             $item->classes[] = 'current-page';
         }
 
         // If the menu item holds a sub-menu, define as parent
         if ( $args->walker->has_children ) {
-            $item->classes[] = 'parent';
-            $item->classes[] = space_to_( strtolower( $name ) );
+            $item->classes[] = 'has-sub-menu';
         }
 
         $output .= '<li class="' . join( ' ', $item->classes ) . '">';
-
-        $output .= '<a ';
-        $output .= 'href="' . $permalink . '" ';
-        $output .= shiftr_output_attr( $anchor_attr );
-        $output .= '>';
-
-        // Actually add the menu item text
+        $output .= "<a href=\"{$permalink}\">";
+        $output .= ( $args->walker->has_children ) ? '<span>' : '';
         $output .= $name;
-
+        $output .= ( $args->walker->has_children ) ? '</span>' : '';
         $output .= '</a>';
     }
 

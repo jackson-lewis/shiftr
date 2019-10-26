@@ -4,7 +4,7 @@
 
     let toggle    = document.querySelector( '.nav-primary--toggle' ),
         nav       = document.querySelector( '.nav-primary' ),
-        sub_navs  = nav.querySelectorAll( 'li.parent' );
+        sub_navs  = nav.querySelectorAll( 'li.has-sub-menu' );
 
 
     // Check nav actually exists before going any further
@@ -55,6 +55,8 @@
 
 
     //  ////  --|    Sub-menu
+
+    let displayClass = 'is-visible';
     
     x( l, () => {
 
@@ -69,15 +71,15 @@
 
                 clearTimeout( remove_open );
 
-                if ( sub.classList.contains( 'show' ) !== true ) {
-                    sub.classList.add( 'show' );
+                if ( sub.classList.contains( displayClass ) !== true ) {
+                    sub.classList.add( displayClass );
                 }
             });
 
             link.addEventListener( 'mouseleave', e => {
 
                 remove_open = setTimeout( () => {
-                    sub.classList.remove( 'show' );
+                    sub.classList.remove( displayClass );
                 }, 200 );
             });
 
@@ -89,7 +91,7 @@
             menu.addEventListener( 'mouseleave', () => {
 
                 remove_open = setTimeout( () => {
-                    sub.classList.remove( 'show' );
+                    sub.classList.remove( displayClass );
                 }, 200 );
             });
 
@@ -106,7 +108,7 @@
             link.addEventListener( 'click', e => {
                 e.preventDefault();
 
-                sub.classList.toggle( 'show' );
+                sub.classList.toggle( displayClass );
             });
 
         });

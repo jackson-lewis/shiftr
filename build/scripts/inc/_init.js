@@ -73,7 +73,7 @@ function x( width, fn, callback = () => {}, run_once = false ) {
 		
 		var allow = false;
 
-		if ( vw() > value ) {
+		if ( vw() >= value ) {
 
 			if ( run_once === true && allow === false ) return;
 

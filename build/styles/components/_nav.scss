@@ -54,33 +54,28 @@ nav {
             margin-bottom: .8rem;
             display: block;
 
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: right;
-            line-height: 1;
-
-            a {
-                padding: .8rem 0;
-
-                color: $black;
-                font-weight: 300;
-
-                &.active {
-                    color: $primary;
-                }
-
-                &::after {
-                    display: none;
-                }
-
-                &:hover {
-                    color: $primary;
-                }
-
-            }
-
-            &.parent {
+            &.has-sub-menu {
                 position: relative;
+
+                a {
+                    span {
+                        position: relative;
+
+                        @include after {
+                            width: 1rem;
+                            height: 1rem;
+                            top: 50%;
+                            left: -2rem;
+                            transform: translateY( -50% ) rotateZ( 90deg );
+
+                            background: url( ../media/icons/chevron.svg ) no-repeat;
+                            background-position: 50% 50%;
+                            background-size: contain;
+
+                            transition: 500ms;
+                        }
+                    }
+                }
 
                 .sub-menu {
                     margin-top: 1rem;
@@ -92,7 +87,16 @@ nav {
                 }
             }
 
-            &.show {
+            &.is-visible {
+
+                a {
+                    span {
+
+                        @include after( false ) {
+                            transform: translateY( -50% ) rotateZ( 90deg ) rotateY( 180deg );
+                        }
+                    }
+                }
 
                 .sub-menu {
                     display: block;
@@ -100,11 +104,31 @@ nav {
             }
 
             @include last-child;
+
+            a {
+                width: 100%;
+                padding: .8rem 0;
+                display: inline-block;
+
+                color: $black;
+                font-size: 2rem;
+                font-weight: 700;
+                text-align: right;
+                text-decoration: none;
+
+                @include after( false ) {
+                    display: none;
+                }
+
+                &:hover {
+                    color: $primary;
+                }
+            }
         }
 
         &#menu-primary {
             
-            @include before( absolute ) {
+            @include before {
                 width: 100%;
                 height: .1rem;
                 top: 0;
@@ -147,7 +171,7 @@ nav {
                 font-size: 1.6rem;
                 text-align: left;
 
-                &.top-item {
+                &.level-0-item {
                     & > a {
                         padding: 2.2rem 0;
 
@@ -155,7 +179,7 @@ nav {
                     }
                 }
 
-                &.parent {
+                &.has-sub-menu {
                     position: relative;
 
                     .sub-menu {
@@ -189,7 +213,7 @@ nav {
                     }
                 }
 
-                &.show {
+                &.is-visible {
 
                     .sub-menu {
                         display: block;
@@ -203,7 +227,7 @@ nav {
 
             &#menu-primary {
 
-                &::before {
+               @include before( false ) {
                     display: none;
                 }
             }

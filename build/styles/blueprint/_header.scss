@@ -35,7 +35,7 @@ header.site-header {
         }
     }
 
-    transition: 400ms cubic-bezier( .2, .7, .5, 1 );
+    transition: 600ms cubic-bezier( 0.23, 0.96, 0.59, 1 );
 
     @include x( l ) {
         overflow: visible;
