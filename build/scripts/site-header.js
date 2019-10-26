@@ -1,13 +1,5 @@
 ( () => {
 
-    /*  ////  --|    Navigation Primary
-
-        * Just some magic
-    */
-
-
-
-
     //  ////  --|    Top-level variables
 
     let toggle    = document.querySelector( '.nav-primary--toggle' ),
@@ -119,6 +111,20 @@
 
         });
     });
+
+
+    //  ////  --|    Primary Logo Sizing
+
+    ( logo => {
+
+        let viewbox = logo.getAttribute( 'viewBox' ),
+            values  = viewbox.split( ' ' ),
+            ratio   = values[2] / values[3],
+            width   = ( logo.parentElement.offsetHeight / 10 ) * ratio;
+
+        logo.style.width = `${ width }rem`;
+
+    })( document.querySelector( '.site-logo svg' ) );
 
 })();
 

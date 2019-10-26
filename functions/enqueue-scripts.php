@@ -31,7 +31,7 @@ function shiftr_scripts() {
     wp_deregister_script( 'wp-embed' );
 
 	// Scripts
-	wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/core.js', array(), null, true );
+	wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/script.js', array(), null, true );
 	wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
 
 	// Styles

@@ -57,12 +57,12 @@ gulp.task( 'sassy', () => {
 
 //  Scripts
 gulp.task( 'scripster', () =>
-    gulp.src( [ 'build/scripts/inc/*.js', 'build/scripts/core/*.js' ] )
+    gulp.src( [ 'build/scripts/**/*.js' ] )
         .pipe( babel ({
             presets: [ 'env' ]
         }))
         .pipe( dev( sourcemaps.init() ) )
-        .pipe( concat( 'core.js' ) )
+        .pipe( concat( 'script.js' ) )
         .pipe( pro( minify_js() ) )
         .pipe( dev( sourcemaps.write() ) )
         .pipe( gulp.dest( 'assets/scripts' ) )

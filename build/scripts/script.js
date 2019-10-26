@@ -1,11 +1,5 @@
 ( () => {
 
-    /*  ////  --|    General
-
-        * Just some magic
-    */
-
-
     //  ////  --|    Forms
 
     if ( document.querySelector( '[data-shiftr-form]' ) ) {
@@ -65,20 +59,6 @@
     
         if ( accordion ) accordion.accordion(); 
     }
-
-
-    //  ////  --|    Primary Logo Sizing
-
-    ( logo => {
-
-        let viewbox = logo.getAttribute( 'viewBox' ),
-            values  = viewbox.split( ' ' ),
-            ratio   = values[2] / values[3],
-            width   = ( logo.parentElement.offsetHeight / 10 ) * ratio;
-
-        logo.style.width = `${ width }rem`;
-
-    })( document.getElementById( 'the_logo' ) );
 
 
     //  ////  --|    Posts Sidebar
