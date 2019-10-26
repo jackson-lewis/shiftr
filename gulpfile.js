@@ -29,13 +29,7 @@ var gulp            = require( 'gulp' ),
 
 // Our variables
 var dev = environments.development,
-    pro = environments.production,
-
-    // Production vars
-    allow_once = true,
-
-    style_org = '',
-    style_min = '';
+    pro = environments.production;
 
 
 // Styles
