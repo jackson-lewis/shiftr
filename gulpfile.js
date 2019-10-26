@@ -37,8 +37,7 @@ gulp.task( 'sassy', () => {
 
     var processors = [
         autoprefixer({
-            grid: true,
-            browsers: ['>1%']
+            grid: true
         })
     ];
 
