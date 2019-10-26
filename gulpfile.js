@@ -52,13 +52,7 @@ gulp.task( 'sassy', () => {
         .pipe( dev( sourcemaps.init() ) )
         .pipe( sass().on( 'error', sass.logError ) )
         .pipe( postcss( processors ) )
-        .pipe( pro( minify_css({debug: true}, (details) => {
-            if ( allow_once ) {
-
-                style_org = details.stats.originalSize;
-                style_min = details.stats.minifiedSize;
-            }
-        }) ) )
+        .pipe( pro( minify_css() ) )
         .pipe( pro( strip_css() ) )
         .pipe( dev( sourcemaps.write() ) )
         .pipe( gulp.dest( 'assets/styles' ) )
@@ -95,29 +89,29 @@ gulp.task( 'reloader', () => {
 // The Build Task
 gulp.task( 'build', [ 'sassy', 'scripster', 'reloader' ], () => {
 
-    // Alert what environment is currently running
-    
     console.log( '--------------------------------------\n' );
     
-    if ( dev() ) {
-        console.log( chalk.bgMagenta( ` ~ RUNNING DEVELOPMENT BUILD CODE ~ \n` ) );
-    } else {
-        console.log( chalk.bgGreen( ` ~ RUNNING PRODUCTION BUILD CODE ~ \n` ) );
-
-        if ( allow_once ) {
-            
-            var savings = ( ( 100 / style_org  ) * style_min - 100 ) * -1;
-
-            console.log( `style.css minified from ${style_org / 1000}KB to ${style_min / 1000}KB - ${ chalk.green.bold( savings.toFixed( 2 ) + '% saved' )}\n` );
-             
-            allow_once = false;
-        }
-    }
+    console.log( chalk.bgMagenta( ` Running Development Build... \n` ) );
 
     console.log( '--------------------------------------' );
 
     gulp.watch( 'build/styles/**/*.scss', [ 'sassy' ] )
     gulp.watch( 'build/scripts/**/*.js', [ 'scripster', browserSync.reload ] )
     gulp.watch( '**/**/*.php' ).on( 'change', browserSync.reload );
+});
+
+
+// Compile css and js assets on deployments
+gulp.task( 'compile', [ 'sassy', 'scripster' ], () => {
+
+    console.log( '--------------------------------------\n' );
+
+    if ( dev() ) {
+        console.log( chalk.bgMagenta( ` Compiling code... \n` ) );
+    } else {
+        console.log( chalk.bgGreen( ` Compiling code for production... \n` ) );
+    }
+
+    console.log( '--------------------------------------' );
 });
 
