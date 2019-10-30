@@ -49,6 +49,10 @@ function shiftr_filter_the_content( $content ) {
 add_filter( 'the_content', 'shiftr_filter_the_content' );
 
 
+// Remove [...] from end of returned excerpt
+add_filter( 'excerpt_more', '__return_empty_string' );
+
+
 /**  
  *  shiftr_fonts
  *

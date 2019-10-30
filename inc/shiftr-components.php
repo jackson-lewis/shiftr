@@ -54,7 +54,3 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 	echo '</div>';
 }
 
-
-// Remove [...] from end of returned excerpt
-add_filter( 'excerpt_more', '__return_empty_string' );
-
