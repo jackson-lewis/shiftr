@@ -152,62 +152,40 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
  *
  *  @since 1.0
  *
- *	@param $image str The name of the ACF image field
+ *	@param $id int The attachment ID
+ *  @param $size str The size of the image to output
  *	@param $lazy bool Set if the image should be lazy loaded
  *	@param $attr array Attributes that should be added to the img tag
  */
 
-function shiftr_do_acf_image( $image = array(), $lazy = true, $attr = [] ) {
+function shiftr_do_acf_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
 
-	if ( empty( $image ) ) {
+	$html = '';
 
-		if ( get_field( 'image' ) ) {
-			$image = get_field( 'image' );
+	if ( $id > 0 ) {
 
-		} elseif ( get_sub_field( 'image' ) ) {
-			$image = get_sub_field( 'image' );
+		$html = wp_get_attachment_image( $id, $size, false, $attr );
+
+		$patterns = array(
+			'/width=\"[0-9]*\"/',
+			'/height=\"[0-9]*\"/',
+			'/class=\"[a-zA-Z0-9\s\-_]*\"/'
+		);
+
+		$html = preg_replace( $patterns, '', $html );
+
+
+		if ( $lazy ) {
+			$patterns = array(
+				'/ (src=)/',
+				'/ (srcset=)/'
+			);
+
+			$html = preg_replace( $patterns, ' data-\1', $html );
+			$html = preg_replace( '/(<img\s)/', '\1 class="lazy" ', $html );
 		}
-
 	}
 
-	if ( gettype( $image ) == 'integer' ) {
-		$image_id = $image;
-
-		$image = array();
-		$image['url'] = wp_get_attachment_url( $image_id );
-		$image['alt'] = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-	}
-
-
-	$core_attr = array();
-
-	if ( $lazy ) {
-		$core_attr['data-src'] = $image['url'];
-		
-		if ( isset( $core_attr['class'] ) ) {
-			$core_attr['class'] .= ' lazy';
-		} else {
-			$core_attr['class'] = 'lazy';
-		}
-
-		$atts['loading'] = 'lazy';
-
-	} else {
-		$core_attr['src'] = $image['url'];
-	}
-
-	$core_attr['alt'] = $image['alt'];
-	
-
-	if ( isset( $attr['class'] ) ) {
-		$core_attr['class'] .= ' ' . $attr['class'];
-
-		unset( $attr['class'] );
-	}
-
-	// Merge src and alt with any aditional attributes
-	$attr = array_merge( $core_attr, $attr );
-
-	echo '<img ' . shiftr_output_attr( $attr ) . '>';
+	echo $html;
 }
 
