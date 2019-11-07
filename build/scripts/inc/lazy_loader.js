@@ -24,6 +24,7 @@
 
                     if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
                         lazyItem.src = lazyItem.dataset.src;
+                        lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
                         lazyItem.classList.remove( 'lazy' );
 
                     } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( 'lazy' ); }
@@ -49,6 +50,7 @@
 
                             if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
                                 lazyItem.src = lazyItem.dataset.src;
+                                lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
                                 lazyItem.classList.remove( 'lazy' );
 
                             } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( 'lazy' ); }
