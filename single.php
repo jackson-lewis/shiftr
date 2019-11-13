@@ -23,7 +23,7 @@
 	</div>
 
 
-	<main clsas="site-main">
+	<main class="site-main">
 
 		<section class="site-section">
 			<div class="container contain-line-width">
