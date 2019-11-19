@@ -42,8 +42,93 @@ body#tinymce.wp-editor {
 			color: $primary;
 		}
 	}
+
+	%button {
+		margin: 0;
+		padding: 10px 20px;
+		display: inline-block;
+		cursor: pointer;
+
+		border: none;
+		border-radius: 4px;
+		font-size: 14px;
+		line-height: $base-line-height;
+		font-weight: 700;
+		text-transform: capitalize;
+		text-decoration: none;
+		appearance: none;
+		outline: 0;
+
+		transition: 300ms;
+	}
+
+	.button-fill {
+		@extend %button;
+
+		color: $white;
+		background-color: $primary;
+
+		&:hover {
+			color: $white;
+			background-color: rgba( $primary, .8 );
+		}
+
+		&:focus {
+			box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+						0 .2rem 1rem rgba( $d-grey, .2 );
+		}
+	}
+
+	.button-outline {
+		@extend %button;
+
+		padding: 9px 19px;
+
+		color: $primary;
+		background-color: transparent;
+		border: 1px solid $primary;
+
+		&:hover {
+			color: $primary;
+			background-color: rgba( $primary, .1 );
+		}
+
+		&:focus {
+			box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+						0 2px 1px rgba( $d-grey, .2 );
+		}
+	}
+
+	.button-text {
+		@extend %button;
+
+		color: $primary;
+		background-color: transparent;
+
+		&:hover {
+			color: $primary;
+			background-color: rgba( $primary, .1 );
+		}
+
+		&:focus {
+			box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+						0 .2rem 1rem rgba( $d-grey, .2 );
+		}
+	}
 }
 
+
+#wp-link-wrap {
+	height: 533px !important;
+}
+
+.has-text-field #wp-link .query-results {
+	top: 233px !important;
+}
+
+#wp-link .link-display-style {
+	padding-top: 3px;
+}
 
 // WYSIWYG Editor Types
 .shiftr-editor-min {
