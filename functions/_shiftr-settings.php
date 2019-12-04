@@ -69,6 +69,15 @@ $shiftr->remove_editor_by_post_type = array();
 
 
 /* 
+	public_post_types
+
+	Define all custom post types that should be publicly visible
+*/
+
+$shiftr->public_post_types = array();
+
+
+/* 
 	js_object
 
 	Pass variables into JavaScript for various execution, for both front-end and admin pages

@@ -59,6 +59,9 @@ class Shiftr_Settings {
     // Remove editor for specified post types
     public $remove_editor_by_post_type = array();
 
+    // Define public post types, safety net for incorrectly set post types
+    public $public_post_types = array();
+
     // Set the array for the Shiftr JS Object
     public $js_object = array();
 
