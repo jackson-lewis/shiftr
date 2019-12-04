@@ -6,17 +6,12 @@
     */
 
 
-    console.log( 'Shiftr v1.0' );
-
-
     //  ////  --|    Admin Shortcut
 
     ( function() {
 
         const alias = { a: 65, e: 69, v: 86, option: 18 };
         var the_keys = {};
-
-        console.log( alias );
 
         document.addEventListener( 'keydown', function( e ) {
 
@@ -43,4 +38,30 @@
     })();
 
 })();
+
+
+( $ => {
+
+    $(document).on( 'wplink-open', function( wrap ) {
+
+        // Custom HTML added to the link dialog
+        if( $('#wp-link-display-style').length < 1 ) {
+
+            $('#link-options').append( '<div class="link-display-style"> <label><span>Link Style</span> <select id="wp-link-display-style"><option value="">None</option><option value="button-fill">Button Fill</option><option value="button-outline">Button Outline</option><option value="button-text">Button Text</option></select></label></div>');
+        }
+
+        wpLink.getAttrs = function() {
+            wpLink.correctURL();
+
+            return {
+                href: $.trim( $( '#wp-link-url' ).val() ),
+                target: $( '#wp-link-target' ).prop( 'checked' ) ? '_blank' : null,
+                class: $( '#wp-link-display-style' ).val()
+            };
+        }
+
+    });
+
+
+})( jQuery );
 

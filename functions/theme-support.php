@@ -42,6 +42,8 @@ function shiftr_filter_the_content( $content ) {
 	// Add Shiftr Lazy Loader
 	//$content = preg_replace( '/<img\s*class="(.*)" (.*) \/>/i', '<img class="lazy \1" \2>', $content );
 
+	// Remove p tag surrounding anchor buttons
+	$content = preg_replace( '/<p>\s*(<a.*class=\"button-[fill|outline|text]*\".*>.*<\/a>)\s*<\/p>/', '\1', $content );
 
     return $content;
 }
