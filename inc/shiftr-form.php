@@ -77,9 +77,7 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
         'menu_icon'		=> 'dashicons-email-alt'
     ),
     array(
-    	'public' => false,
-    	'publicly_queryable' => false,
-    	'exclude_from_search' => true,
+    	'show_ui' => true,
     	'has_archive' => false,
     	'capabilities' => array(
     		'create_posts' => 'do_not_allow'
@@ -96,9 +94,6 @@ $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
         'plural'		=> false
     ),
     array(
-    	'public' => false,
-    	'publicly_queryable' => false,
-    	'exclude_from_search' => true,
     	'show_ui' => true,
     	'show_in_menu' => 'edit.php?post_type=shiftr_form',
     	'has_archive' => false,
