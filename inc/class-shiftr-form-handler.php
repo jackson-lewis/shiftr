@@ -112,7 +112,7 @@ class Shiftr_Form_Handler {
 			'post_author' => 1,
 			'post_content' => $data,
 			'post_title' => $title,
-			'post_status' => 'publish',
+			'post_status' => 'private',
 			'post_type' => 'shiftr_form_data',
 			'post_category' => array()
 		);
