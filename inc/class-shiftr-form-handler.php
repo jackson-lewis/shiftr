@@ -107,20 +107,8 @@ class Shiftr_Form_Handler {
 			$data .= '<br><br>';
 		}
 
-		// List of args for the post
-		$args = array(
-			'post_author' => 1,
-			'post_content' => $data,
-			'post_title' => $title,
-			'post_status' => 'private',
-			'post_type' => 'shiftr_form_data',
-			'post_category' => array()
-		);
-
-		$args = apply_filters( 'shiftr_form_handler_capture_args', $args, $this->form );
-
 		// Create the post
-		$this->data_ID = wp_insert_post( $args );
+		$this->data_ID = 0;
 
 		// Extend the functionality of the data capture
 		do_action( 'shiftr_form_handler_capture', $this->data_ID );

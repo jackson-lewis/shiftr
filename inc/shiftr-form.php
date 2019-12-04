@@ -87,23 +87,6 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
     )
 );
 
-$shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
-    array(
-        'label' 		=> 'Contact Form Data',
-        'name'          => 'shiftr_form_data',
-        'plural'		=> false
-    ),
-    array(
-    	'show_ui' => true,
-    	'show_in_menu' => 'edit.php?post_type=shiftr_form',
-    	'has_archive' => false,
-    	'capabilities' => array(
-    		'create_posts' => 'do_not_allow'
-    	),
-    	'map_meta_cap' => true,
-    	'supports' => array( 'title', 'editor' )
-    )
-);
 
 // Admin Stuff
 
