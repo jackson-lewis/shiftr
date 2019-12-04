@@ -206,3 +206,20 @@ function shiftr_register_post_type( $name = '', $settings = [], $args = [] ) {
     return $shiftr_post_types;
 }
 
+
+add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type ) {
+
+    global $shiftr;
+
+    // Check that post type has been cleared to be publicly visible
+    if ( ! in_array( $post_type, $shiftr->public_post_types ) ) {
+
+        $args['public'] = false;
+        $args['publicly_queryable'] = false;
+        $args['exclude_from_search'] = true;
+    }
+
+    return $args;
+
+}, 10, 2 );
+
