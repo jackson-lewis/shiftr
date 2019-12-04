@@ -95,18 +95,10 @@ class Shiftr_Custom_Post_Type {
         // Default values to the top level of WP register_post_type() array
         $defaults = array(
             'description' => 'Just a custom post type',
-            'public' => true,
-            'publicly_queryable' => true,
-            'exclude_from_search' => false,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'query_var' => true,
             'menu_position' => $this->menu_position,
             'menu_icon' => $this->menu_icon,
             'rewrite'   => array( 'slug' => $this->name ),
             'has_archive' => str_replace( '_', '-', $this->name ),
-            'capability_type' => 'page',
-            'capabilities' => array(),
             'hierarchical' => false,
             'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'page-attributes', 'revisions' )
         );
