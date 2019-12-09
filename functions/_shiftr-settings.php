@@ -78,6 +78,21 @@ $shiftr->public_post_types = array();
 
 
 /* 
+	forms
+
+	Define all custom post types that should be publicly visible
+*/
+
+$shiftr->forms = (object) array(
+    'capture' => true,
+    'defaults' => (object) array(
+    	'recepients' => get_option( 'shiftr_form_default_recepients' ),
+        'subject' => get_option( 'shiftr_form_default_subject' )
+    )
+);
+
+
+/* 
 	js_object
 
 	Pass variables into JavaScript for various execution, for both front-end and admin pages

@@ -62,6 +62,9 @@ class Shiftr_Settings {
     // Define public post types, safety net for incorrectly set post types
     public $public_post_types = array();
 
+    // Define public post types, safety net for incorrectly set post types
+    public $forms = array();
+
     // Set the array for the Shiftr JS Object
     public $js_object = array();
 
@@ -146,27 +149,6 @@ class Shiftr_Settings {
 
     public function get( $value ) {
         return $this->$value;
-    }
-
-
-    /**  
-     *  form_default_settings
-     *
-     *  Get the default settings of the Shiftr Forms
-     *
-     *  @since 1.0
-     *
-     *  @return array The settings of the Shiftr Form default settings
-     */
-
-    public function form_default_settings() {
-        
-        $args = array(
-            'recepients' => get_option( 'shiftr_form_default_recepients' ),
-            'subject' => get_option( 'shiftr_form_default_subject' )
-        );
-
-        return (object) $args;
     }
 
 }
