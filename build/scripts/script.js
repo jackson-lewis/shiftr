@@ -5,7 +5,7 @@
     if ( document.querySelector( '[data-shiftr-form]' ) ) {
 
         // Define all forms
-        let general_form = document.querySelector( '.shiftr-form-general' );
+        let general_form = document.querySelector( '.shiftr-form--general' );
 
         if ( general_form ) general_form.form();
     }
