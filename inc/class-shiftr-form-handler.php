@@ -74,9 +74,13 @@ class Shiftr_Form_Handler {
 
 	function init() {
 
-		// Take care of capturing the form data
-		$this->capture();
+		global $shiftr;
 
+		// Check data capture is enabled
+		if ( $shiftr->forms->capture ) {
+			$this->capture();
+		}
+		
 		// Take care of sending the form data
 		$this->handle();
 	}
@@ -92,26 +96,35 @@ class Shiftr_Form_Handler {
 
 	function capture() {
 
-		$title = date( 'd-m-y-H:i:s' );
+		do_action( 'shiftr_form_handler_capture_before' );
 
-		$data = '';
+		global $shiftr;
+
+		$title = date( 'd-m-y-H:i:s' );
+		$data = array();
 
 		// Ignores the 'include_in_send' field setting
 		foreach ( $this->form_instance->fields as $field ) {
-			
-			if ( ! $this->value_exists( $field['name'] ) ) continue;
 
-			$data .= '<b>' . strtoupper( $field['name'] ) . '</b>';
-			$data .= '<br>';
-			$data .= $this->get_value( $field['name'] );
-			$data .= '<br><br>';
+			$data[ $field['name'] ] = $this->get_value( $field['name'] );
 		}
 
-		// Create the post
-		$this->data_ID = 0;
+		// List of args for the post
+		$args = array(
+			'post_author' => 1,
+			'post_title' => $title,
+			'post_type' => 'shiftr_form_data'
+		);
 
-		// Extend the functionality of the data capture
-		do_action( 'shiftr_form_handler_capture', $this->data_ID );
+		$args = apply_filters( 'shiftr_form_handler_capture_post_args', $args, $this->form );
+
+		// Create the post and assign post ID
+		$this->data_ID = wp_insert_post( $args );
+
+		add_post_meta( $this->data_ID, '_shiftr_form_data_content', serialize( $data ) );
+		add_post_meta( $this->data_ID, '_shiftr_form_data_form_id', $this->form_ID );
+
+		do_action( 'shiftr_form_handler_capture_after', $this->data_ID );
 	}
 
 
@@ -128,7 +141,7 @@ class Shiftr_Form_Handler {
 		global $shiftr;
 
 		// Get Form type
-		$form_defaults = $shiftr->form_default_settings();
+		$form_defaults = $shiftr->forms->defaults;
 
 		$subject = $form_defaults->subject;
 		$recepients = $form_defaults->recepients;
