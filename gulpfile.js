@@ -57,7 +57,7 @@ gulp.task( 'sassy', () => {
 
 //  Scripts
 gulp.task( 'scripster', () =>
-    gulp.src( [ 'build/scripts/**/*.js' ] )
+    gulp.src( [ 'build/scripts/inc/*.js', 'build/scripts/*.js' ] )
         .pipe( babel ({
             presets: [ 'env' ]
         }))
