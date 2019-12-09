@@ -71,7 +71,7 @@ $shiftr_form_core = array();
 // Register the Shiftr forms post type
 $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
     array(
-        'label' 		=> 'Contact Form',
+        'label' 		=> 'Form',
         'name'          => 'shiftr_form',
         'menu_position' => 59,
         'menu_icon'		=> 'dashicons-email-alt'
@@ -80,37 +80,187 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
     	'show_ui' => true,
     	'has_archive' => false,
     	'capabilities' => array(
-    		'create_posts' => 'do_not_allow'
-    	),
+    		'create_posts'		 => 'do_not_allow',
+		    'edit_post'          => 'update_core',
+		    'read_post'          => 'update_core',
+		    'delete_post'        => 'update_core',
+		    'edit_posts'         => 'update_core',
+		    'edit_others_posts'  => 'update_core',
+		    'delete_posts'       => 'update_core',
+		    'publish_posts'      => 'update_core',
+		    'read_private_posts' => 'update_core'
+		),
     	'map_meta_cap' => true,
     	'supports' => array( 'title' )
     )
 );
 
 
+// Register the Shiftr forms post type
+$shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
+    array(
+        'label' 		=> 'Form Data',
+        'name'          => 'shiftr_form_data',
+        'plural'		=> false
+    ),
+    array(
+    	'show_ui' => true,
+    	'show_in_menu' => 'edit.php?post_type=shiftr_form',
+    	'has_archive' => false,
+    	'capabilities' => array(
+    		'create_posts'		 => 'do_not_allow',
+		    'edit_post'          => 'update_core',
+		    'read_post'          => 'update_core',
+		    'delete_post'        => 'update_core',
+		    'edit_posts'         => 'update_core',
+		    'edit_others_posts'  => 'update_core',
+		    'delete_posts'       => 'update_core',
+		    'publish_posts'      => 'update_core',
+		    'read_private_posts' => 'update_core'
+		),
+    	'map_meta_cap' => true,
+    	'supports' => array( 'title', 'custom-fields' )
+    )
+);
+
+
+add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type ) {
+
+	if ( $post_type == 'shiftr_form_data' ) {
+
+		$args['labels']['all_items'] = 'Data';
+		$args['labels']['edit_item'] = 'View Data';
+	}
+
+	return $args;
+
+}, 10, 2 );
+
+
+add_filter( 'manage_shiftr_form_data_posts_columns', function( $columns ) {
+
+	unset( $columns['title'] );
+	unset( $columns['date'] );
+
+	$columns['data_id'] 		= 'Data ID';
+	$columns['data_date'] 		= 'Date';
+	$columns['data_from_form'] 	= 'Form';
+
+	return $columns;
+});
+
+
+add_filter( 'manage_edit-shiftr_form_data_sortable_columns', function( $columns ) {
+
+	$columns['data_id'] 	= 'ID';
+	$columns['data_date'] 	= 'date';
+
+	return $columns;
+});
+
+
+add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $post_id ) {
+
+	if ( $column == 'data_id' ) {
+
+		// Construct record title
+		$title = strval( $post_id );
+
+		$content = get_post_meta( $post_id, '_shiftr_form_data_content', true );
+
+		$content = unserialize( $content );
+
+		echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ) . '"><strong>#' . $title . ' ' . $content['name'] . '</strong></a>';
+	}
+
+	if ( $column == 'data_date' ) {
+
+		$date = get_the_date( 'jS M Y \@ H:i' );
+
+		echo $date;
+	}
+
+	if ( $column == 'data_from_form' ) {
+
+		$form_id = get_post_meta( $post_id, '_shiftr_form_data_form_id', true );
+
+		if ( $form_id > 0 ) {
+			echo get_the_title( $form_id );
+
+		} else {
+			echo 'Unknown';
+		}
+	}
+
+}, 10, 2 );
+
+
+add_action( 'pre_get_posts', function( $query ) {
+
+	if ( ! is_admin() ) return;
+
+	$orderby = $query->get( 'orderby' );
+
+	if ( $orderby == 'data_id' ) {
+
+		$query->set( 'meta_key', 'post_id' );
+		$query->set( 'orderby', 'meta_value_num' );
+	}
+
+} );
+
+
+add_filter( 'post_row_actions', function( $actions, $post ) {
+
+	if ( $post->post_type == 'shiftr_form' ) {
+
+		unset( $actions['trash'] );
+	}
+
+	if ( $post->post_type == 'shiftr_form_data' ) {
+
+		unset( $actions['inline hide-if-no-js'] );
+
+		$actions['edit'] = '<a href="' . esc_url( admin_url( 'post.php?post=' . $post->ID . '&action=edit' ) ) . '">Edit</a>';
+	}
+
+	return $actions;
+
+}, 100, 2 );
+
+
+add_filter( 'bulk_actions-edit-shiftr_form', function( $actions ) {
+
+	unset( $actions['trash'] );
+
+	return $actions;
+
+}, 100, 1 );
+
+
 // Admin Stuff
 
 /**  
- *  shiftr_contact_forms_submenu
+ *  shiftr_contact_form_submenu
  *
  *	Create the admin page for general form settings
  *
  *  @since 1.0
  */
 
-function shiftr_contact_forms_submenu() {
+function shiftr_contact_form_submenu() {
 
 	add_submenu_page(
 		'edit.php?post_type=shiftr_form',
 		'General Settings',
 		'Settings',
-		'edit_posts',
+		'manage_options',
 		'settings',
 		'shiftr_contact_form_settings'
 	);
 }
 
-add_action( 'admin_menu', 'shiftr_contact_forms_submenu' );
+add_action( 'admin_menu', 'shiftr_contact_form_submenu' );
 
 
 /**  
@@ -167,6 +317,7 @@ function shiftr_update_form_setting( $option_name ) {
 	}
 }
 
+
 function shiftr_notice_update_form_setting() {
 	shiftr_get_admin_notice_html( 'update-form-settings' );
 }
@@ -180,9 +331,20 @@ function shiftr_register_form_settings() {
 add_action( 'admin_init', 'shiftr_register_form_settings' );
 
 
-function shiftr_form_error_display() {
+function shiftr_form_data_meta_boxes() {
 
 	global $post;
+
+	remove_meta_box( 'slugdiv', 'shiftr_form_data', 'normal' );
+	remove_meta_box( 'submitdiv', 'shiftr_form_data', 'side' );
+
+	add_meta_box(
+    	'shiftr-form-data-content',
+    	'Data',
+    	'shiftr_form_data_get_content',
+    	'shiftr_form_data',
+    	'normal'
+    );
 
 	if ( ! get_post_meta( $post->ID, 'shiftr_form_mail_error', true ) ) return;
 
@@ -190,11 +352,61 @@ function shiftr_form_error_display() {
     	'shiftr-form-data-error',
     	'Mail Error',
     	'shiftr_form_get_error',
-    	'shiftr_form_data'
+    	'shiftr_form_data',
+    	'normal'
     );
 }
 
-add_action( 'add_meta_boxes', 'shiftr_form_error_display' );
+add_action( 'add_meta_boxes', 'shiftr_form_data_meta_boxes' );
+
+
+add_action( 'edit_form_top', function( $post ) {
+
+	if ( $post->post_type == 'shiftr_form_data' ) {
+		?>
+
+		<style type="text/css"> #post-body-content { display: none; } </style>
+
+		<?php
+	}
+} );
+
+
+function shiftr_form_data_get_content() {
+
+	global $post;
+
+	$content = get_post_meta( $post->ID, '_shiftr_form_data_content', true );
+	$content = unserialize( $content );
+
+	$form_id = get_post_meta( $post->ID, '_shiftr_form_data_form_id', true );
+	$form    = get_the_title( $form_id );
+
+	?>
+
+	<div>
+		<h2 class="shiftr-meta-box--heading">#<?php echo $post->ID . ' ' . $content['name']; ?></h2>
+		<span>Submitted via the <strong><?php echo $form; ?></strong> form - <?php echo get_the_date( 'l jS M Y \@ H:i' ); ?></span>
+	</div>
+	
+	<table class="shiftr-form-data-content-table" cellspacing="0" cellpadding="0">
+		<tbody>
+			<?php
+
+			foreach ( $content as $name => $value ) :
+
+			?>
+			<tr>
+				<td><?= strtoupper( $name ); ?></td>
+				<td><?= $value; ?></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+
+	<?php
+}
+
 
 function shiftr_form_get_error() {
 
