@@ -150,6 +150,61 @@ body#tinymce.wp-editor {
 }
 
 
+#shiftr-form-data-content {
+	
+	button.handlediv, h2.hndle {
+		display: none;
+	}
+
+	.inside {
+		margin: 0;
+		padding: 24px;
+
+		& > div:first-child {
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+
+
+			border-bottom: 1px solid #333333;
+		}
+
+		h2.shiftr-meta-box--heading {
+			margin-bottom: 20px;
+			padding: 0;
+
+			font-size: 22px;
+			font-weight: 300;
+		}
+
+		span {
+			font-size: 16px;
+		}
+	}
+
+	table.shiftr-form-data-content-table {
+		width: 100%;
+
+		tr {
+
+			&:nth-of-type(even) {
+				background-color: #f6f6f6;
+			}
+		}
+
+		td {
+			padding: 15px 20px;
+
+			&:first-child {
+				width: 160px;
+
+				color: #555555;
+				font-weight: 700;
+				text-align: right;
+			}
+		}
+	}
+}
+
 // Shiftr Contact Form Settings - Admin Page
 
 .shiftr-box {
