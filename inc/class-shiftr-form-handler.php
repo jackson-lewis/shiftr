@@ -18,6 +18,9 @@ class Shiftr_Form_Handler {
 	/* null Store the phpmailerException if there is one */
 	var $error = null;
 
+	/* array Store filepaths to be included in send */
+	var $files = array();
+
 	/* int The assigned ID of the data post */
 	var $data_ID = 0;
 
@@ -32,15 +35,18 @@ class Shiftr_Form_Handler {
 
 	function __construct() {
 
-		global $shiftr_forms;
+		if ( shiftr_is_sending_form() ) {
 
-		// We need a few files early to find all registered Shiftr Forms
-		include( SHIFTR_INC . '/shiftr-form.php' );
-		include( SHIFTR_FUNC . '/forms.php' );
+			global $shiftr_forms;
 
-		$this->form_ID = $_POST['shiftr_form_id'];
-		$this->form = get_post( $this->form_ID );
-		$this->form_instance = $shiftr_forms[ $this->form->post_name ];
+			// We need a few files early to find all registered Shiftr Forms
+			include( SHIFTR_INC . '/shiftr-form.php' );
+			include( SHIFTR_FUNC . '/forms.php' );
+
+			$this->form_ID = $_POST['shiftr_form_id'];
+			$this->form = get_post( $this->form_ID );
+			$this->form_instance = $shiftr_forms[ $this->form->post_name ];
+		}
 	}
 
 
@@ -54,11 +60,18 @@ class Shiftr_Form_Handler {
 
 	function set_hooks() {
 
-		add_action( 'wp_ajax_shiftr_form_handler', array( $this, 'init' ) );
-		add_action( 'wp_ajax_nopriv_shiftr_form_handler', array( $this, 'init' ) );
+		if ( shiftr_is_sending_form() ) {
 
-		// For if our send attempt fails
-		add_action( 'wp_mail_failed', array( $this, 'failed' ) );
+			add_action( 'wp_ajax_shiftr_form_handler', array( $this, 'init' ) );
+			add_action( 'wp_ajax_nopriv_shiftr_form_handler', array( $this, 'init' ) );
+
+			// For if our send attempt fails
+			add_action( 'wp_mail_failed', array( $this, 'failed' ) );
+
+		} else {
+
+			add_action( 'shiftr_delete_expired_form_data', array( $this, 'delete_expired_data' ) );
+		}
 	}
 
 
@@ -75,6 +88,8 @@ class Shiftr_Form_Handler {
 	function init() {
 
 		global $shiftr;
+
+		$this->manage_attachments();
 
 		// Check data capture is enabled
 		if ( $shiftr->forms->capture ) {
@@ -96,7 +111,7 @@ class Shiftr_Form_Handler {
 
 	function capture() {
 
-		do_action( 'shiftr_form_handler_capture_before' );
+		do_action( 'shiftr_form_handler_capture_before', $this->data_ID );
 
 		global $shiftr;
 
@@ -123,6 +138,11 @@ class Shiftr_Form_Handler {
 
 		add_post_meta( $this->data_ID, '_shiftr_form_data_content', serialize( $data ) );
 		add_post_meta( $this->data_ID, '_shiftr_form_data_form_id', $this->form_ID );
+
+		if ( ! empty( $this->files ) ) {
+
+			add_post_meta( $this->data_ID, '_shiftr_form_data_files', serialize( $this->files['filename'] ) );
+		}
 
 		do_action( 'shiftr_form_handler_capture_after', $this->data_ID );
 	}
@@ -164,7 +184,7 @@ class Shiftr_Form_Handler {
 		$this->trySMTP();
 
 		// Try and sent the form
-		if ( wp_mail( $recepients, $subject, $this->html(), $headers ) ) {
+		if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
 
 			$output = true;
 
@@ -174,6 +194,12 @@ class Shiftr_Form_Handler {
 
 		// Return string to JS function
 		echo $output;
+
+		// Delete all files if capture is not enabled
+		if ( ! $shiftr->forms->capture ) {
+
+			foreach ( $this->files as $file ) unlink( $file );
+		}
 
 		wp_die();
 	}
@@ -208,6 +234,17 @@ class Shiftr_Form_Handler {
 
 		foreach ( $fields as $field ) {
 
+			$defaults = array(
+				'type' 				=> '',
+				'name' 				=> '',
+				'required' 			=> true,
+				'label' 			=> '',
+				'include_in_send' 	=> true,
+				'rows'				=> 4
+			);
+
+			$field = wp_parse_args( $field, $defaults );
+
 			// Check field value exists in $_POST
 			if ( ! $this->value_exists( $field['name'] ) ) continue;
 
@@ -215,11 +252,14 @@ class Shiftr_Form_Handler {
 			if ( ! $field['include_in_send'] ) continue;
 
 
+			if ( $field['type'] == 'file' ) continue;
+
+
 			$table_contents .= '<tr>';
 
 			$table_contents .= '<td>'. ucwords( $field['name'] ) .'</td>';
-			$table_contents .= '<td>'. $this->get_value( $field['name'] ) .'</td>';
-
+			$table_contents .=  '<td>'. $this->get_value( $field['name'] ) .'</td>';
+			
 			$table_contents .= '</tr>';
 		}
 
@@ -232,6 +272,78 @@ class Shiftr_Form_Handler {
 
 		// Apply any filters to the body HTML and return
 		return apply_filters( 'shiftr_form_handler_html_full_body', $full_body, $this->form );
+	}
+
+
+	/**  
+	 *  manage_attachments
+	 *
+	 *	Find all files and attach to email
+	 *
+	 *  @since 1.0
+	 */
+
+	function manage_attachments() {
+
+		$files = array(
+			'absolute' => array(),
+			'filename' => array()
+		);
+
+		foreach ( $this->form_instance->fields as $field ) {
+
+			$defaults = array(
+				'type' 				=> '',
+				'name' 				=> '',
+				'required' 			=> true,
+				'label' 			=> '',
+				'include_in_send' 	=> true,
+				'rows'				=> 4
+			);
+
+			$field = wp_parse_args( $field, $defaults );
+
+			if ( $field['type'] == 'file' ) {
+
+				$file = $this->upload_attachment( $field['name'] );
+
+				$files['absolute'] = $file['absolute'];
+				$files['filename'] = $file['filename'];
+			}
+		}
+
+		$this->files = $files;
+	}
+
+
+	/**  
+	 *  upload_attachment
+	 *
+	 *	Find all files and attach to email
+	 *
+	 *  @since 1.0
+	 */
+
+	function upload_attachment( $field_name = '' ) {
+
+		$file = $_FILES[ '_' . $this->form_ID . '_' . $field_name ];
+
+		$upload_dir = wp_upload_dir();
+		$shiftr_upload_dir = $upload_dir['basedir'] . '/shiftr-form-attachments';
+
+		$filepath = $shiftr_upload_dir . '' . basename( $file['name'] );
+		$file_type = strtolower( pathinfo( $filepath, PATHINFO_EXTENSION ) );
+
+		$target_file_name = $field_name . '_' . $this->form_ID . '__' . date( 'j-m-Y-H-i-s' ) . '.' . $file_type;
+		$target_file = $shiftr_upload_dir . '/' . $target_file_name;
+
+		if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+
+			return array( 'absolute' => $target_file, 'filename' => $target_file_name );
+
+		} else {
+			return '';
+		}
 	}
 
 
@@ -324,6 +436,46 @@ class Shiftr_Form_Handler {
 
 
 	/**  
+	 *  delete_expired_data
+	 *
+	 *  Delete data posts that exceed a defined expiration time period
+	 *
+	 *  @since 1.0
+	 */
+
+	function delete_expired_data() {
+
+		global $shiftr;
+
+		$days = $shiftr->forms->expiration_days;
+
+		if ( $days < 1 ) return;
+
+		$expiration_date = date( 'Y-m-d H:i:s', strtotime( "-$days days", strtotime( date( 'Y-m-d H:i:s' ) ) ) );
+
+		echo $days;
+
+		$posts = get_posts( array(
+			'post_type' 	=> 'shiftr_form_data',
+			'numberposts' 	=> -1
+		));
+
+		foreach ( $posts as $post ) {
+
+			setup_postsdata( $post );
+
+			// Delete post if post date is after expiration date
+			if ( $expiration_date >= $post->post_date ) {
+
+				wp_delete_post( $post->ID );
+			}
+		}
+
+		wp_reset_postdata();
+	}
+
+
+	/**  
 	 *  get_value
 	 *
 	 *  Return a $_POST value
@@ -339,6 +491,20 @@ class Shiftr_Form_Handler {
 		} else {
 			return false;
 		}
+	}
+
+
+	/**  
+	 *  get_file
+	 *
+	 *  Return a $_FILES array
+	 *
+	 *  @since 1.0
+	 */
+
+	function get_file( $field = '' ) {
+
+		return $_FILES[ '_' . $this->form_ID . '_' . $field ];
 	}
 
 
@@ -363,12 +529,32 @@ class Shiftr_Form_Handler {
 }
 
 
-// Only run on a call to admin-ajax.php
+$shiftr_form_handler = new Shiftr_Form_Handler;
+
+// Add the Shiftr_Form_Handler methods to WP AJAX
 if ( shiftr_is_sending_form() ) {
-
-	$form_handler = new Shiftr_Form_Handler;
-
-	// Add the Shiftr_Form_Handler methods to WP AJAX
-	$form_handler->set_hooks();	
+	$shiftr_form_handler->set_hooks();	
 }
+
+
+add_action( 'init', function() {
+
+	global $shiftr, $shiftr_form_handler;
+
+	if ( $shiftr->forms->capture && $shiftr->forms->expiration_days > 0 ) {
+
+		if ( ! wp_next_scheduled( 'shiftr_delete_expired_form_data' ) ) {
+
+			wp_schedule_event( time(), 'daily', 'shiftr_delete_expired_form_data' );
+
+			$shiftr_form_handler->set_hooks();
+		}
+
+	} else {
+
+		$next_run = wp_next_scheduled( 'shiftr_delete_expired_form_data' );
+
+		wp_unschedule_event( $next_run, 'shiftr_delete_expired_form_data' );
+	}
+});
 
