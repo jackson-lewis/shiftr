@@ -374,13 +374,16 @@ add_action( 'edit_form_top', function( $post ) {
 
 function shiftr_form_data_get_content() {
 
-	global $post;
+	global $post, $shiftr_forms;
 
 	$content = get_post_meta( $post->ID, '_shiftr_form_data_content', true );
 	$content = unserialize( $content );
 
 	$form_id = get_post_meta( $post->ID, '_shiftr_form_data_form_id', true );
 	$form    = get_the_title( $form_id );
+
+	$form_post = get_post( $form_id );
+	$form_instance = $shiftr_forms[ $form_post->post_name ];
 
 	?>
 
@@ -394,6 +397,44 @@ function shiftr_form_data_get_content() {
 			<?php
 
 			foreach ( $content as $name => $value ) :
+
+				if ( $name == 'cv' ) {
+
+					$key = 0;
+
+					foreach ( $form_instance->fields as $k => $field ) {
+
+						if ( $field['name'] == $name ) {
+							$key = $k;
+						}
+					}
+
+					
+					if ( $form_instance->fields[ $key ]['type'] == 'file' ) {
+
+						$files = get_post_meta( $post->ID, '_shiftr_form_data_files', true );
+
+						$files = unserialize( $files );
+
+						$upload_dir = wp_upload_dir();
+						$shiftr_upload_dir = $upload_dir['baseurl'] . '/shiftr-form-attachments/';
+
+						if ( is_array( $files ) ) {
+
+							foreach ( $files as $file ) {
+
+								$value .= '<a href="' . $shiftr_upload_dir . $file . '" target="_blank">' . $file . '</a>, ';
+							}
+
+						} else if ( is_string( $files ) ) {
+
+							$value = '<a href="' . $shiftr_upload_dir . $files . '" target="_blank">' . $files . '</a>';
+
+						} else {
+							continue;
+						}
+					}
+				}
 
 			?>
 			<tr>
