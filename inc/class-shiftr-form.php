@@ -113,6 +113,14 @@ class Shiftr_Form {
 		$form_base_atts['class'] 			= 'shiftr-form shiftr-form--' . $this->form;
 		$form_base_atts['data-shiftr-form'] = $this->form;
 
+		foreach( $this->fields as $field ) {
+
+			if ( $field['type'] == 'file' ) {
+				$form_base_atts['enctype'] = 'multipart/form-data';
+				break;
+			}
+		}
+
 
 		$form_base_atts = apply_filters( 'shiftr_form_build_form_atts', $form_base_atts, $this->form );
 
@@ -293,6 +301,17 @@ class Shiftr_Form {
 		// Add rows attribute if field is textarea
 		if ( $args->type == 'textarea' ) {
 			$field_atts['rows'] = $args->rows;
+		}
+
+		if ( $args->type == 'file' ) {
+			
+			if ( isset( $args->file_types ) ) {
+				$field_atts['accept'] = $args->file_types;
+			}
+
+			if ( isset( $args->allow_multiple ) && $args->allow_multiple ) {
+				$field_atts['multiple'] = '';
+			}
 		}
 
 		// Add valueto submit button
