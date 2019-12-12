@@ -119,14 +119,16 @@
 
     ( logo => {
 
-        let viewbox = logo.getAttribute( 'viewBox' ),
+        let svg = logo.children[0];
+
+        let viewbox = svg.getAttribute( 'viewBox' ),
             values  = viewbox.split( ' ' ),
             ratio   = values[2] / values[3],
-            width   = ( logo.parentElement.offsetHeight / 10 ) * ratio;
+            width   = ( logo.offsetHeight / 10 ) * ratio;
 
-        logo.style.width = `${ width }rem`;
+        svg.style.width = `${ width }rem`;
 
-    })( document.querySelector( '.site-logo svg' ) );
+    })( document.querySelector( '.site-logo' ) );
 
 })();
 
