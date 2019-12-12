@@ -175,6 +175,24 @@ class Shiftr_Form_Handler {
 		$headers[] = 'Content-type: text/html; charset=UTF-8';
 		$headers[] = 'Reply-To: ' . $_POST['_' . $this->form_ID . '_email'];
 
+		// Use form specific settings
+		if ( get_field( 'subject', $this->form_ID ) ) {
+
+			$subject = get_field( 'subject', $this->form_ID );
+		}
+
+		if ( get_field( 'recepients', $this->form_ID ) ) {
+
+			$recepients = get_field( 'recepients', $this->form_ID );
+		}
+
+		if ( preg_match( '/\%field_[a-zA-Z0-9_\-]*\%/', $subject ) ) {
+
+			preg_match( '/\%field_([a-zA-Z0-9_\-]*)\%/', $subject, $match );
+
+			$subject = preg_replace( '/\%field_[a-zA-Z0-9_\-]*\%/', $this->get_value( $match[1] ), $subject );
+		}
+
 		// Apply the filters
 		$subject = apply_filters( 'shiftr_form_handler_subject', $subject, $this->form );
 		$recepients = apply_filters( 'shiftr_form_handler_recepients', $recepients, $this->form );
@@ -284,6 +302,13 @@ class Shiftr_Form_Handler {
 	 */
 
 	function manage_attachments() {
+
+		$upload_dir = wp_upload_dir();
+		$shiftr_upload_dir = $upload_dir['basedir'] . '/shiftr-form-attachments';
+
+		if ( ! file_exists( $shiftr_upload_dir ) ) {
+			wp_mkdir_p( $shiftr_upload_dir );
+		}
 
 		$files = array(
 			'absolute' => array(),
