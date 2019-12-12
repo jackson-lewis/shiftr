@@ -39,71 +39,6 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_5cc8d090707de",
-            "label": "Headers",
-            "name": "headers",
-            "type": "repeater",
-            "instructions": "Some headers are pre-set for you, see <a href=\"https:\/\/shapeshiftr.co.uk\" target=\"_blank\" rel=\"noopener\">documentation<\/a> for more.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "Add Header",
-            "sub_fields": [
-                {
-                    "key": "field_5cc8d0a4707df",
-                    "label": "Type",
-                    "name": "type",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "Cc": "Cc",
-                        "Bcc": "Bcc"
-                    },
-                    "default_value": [],
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "return_format": "value",
-                    "placeholder": ""
-                },
-                {
-                    "key": "field_5cc8d0ba707e0",
-                    "label": "Content",
-                    "name": "content",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
-                }
-            ]
         }
     ],
     "location": [
@@ -123,5 +58,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571831570
+    "modified": 1576013971
 }
