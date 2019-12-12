@@ -20,7 +20,7 @@
             message = document.createElement( 'p' ),
             dismiss = document.createElement( 'button' );
 
-        el.classList = 'shiftr-cookie-notice';
+        el.classList.add( 'shiftr-cookie-notice' );
 
         message.innerHTML = shiftr.cookie.message;
 
