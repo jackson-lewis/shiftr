@@ -85,6 +85,7 @@ $shiftr->public_post_types = array();
 
 $shiftr->forms = (object) array(
     'capture' => true,
+    'expiration_days' => 30,
     'defaults' => (object) array(
     	'recepients' => get_option( 'shiftr_form_default_recepients' ),
         'subject' => get_option( 'shiftr_form_default_subject' )
