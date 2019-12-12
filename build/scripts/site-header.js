@@ -4,7 +4,7 @@
 
     let toggle    = document.querySelector( '.nav-primary--toggle' ),
         nav       = document.querySelector( '.nav-primary' ),
-        sub_navs  = nav.querySelectorAll( 'li.has-sub-menu' );
+        sub_navs  = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : [];
 
 
     // Check nav actually exists before going any further
