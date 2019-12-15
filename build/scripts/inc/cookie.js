@@ -1,4 +1,4 @@
-( cookie_name => {
+( cookieName => {
 
     /*  ////  --|    Cookie
 
@@ -6,7 +6,7 @@
     */
 
 
-    if ( document.cookie.indexOf( cookie_name ) == -1 ) {
+    if ( document.cookie.indexOf( cookieName ) == -1 ) {
 
         let stylesheet = createEl( 'link' );
         stylesheet.setAttribute( 'rel', 'stylesheet' );
@@ -46,9 +46,9 @@
         }, 1000 );
 
         // Listen for notice acceptance
-        const cookie_accepter = document.getElementById( 'shiftr-cookie-accept' );
+        const cookieAccepter = document.getElementById( 'shiftr-cookie-accept' );
 
-        cookie_accepter.addEventListener( 'click', e => {
+        cookieAccepter.addEventListener( 'click', e => {
             e.preventDefault();
 
             var expiry = new Date();
@@ -56,7 +56,7 @@
             expiry.setDate( expiry.getDate() + 30 );
 
             // Set the cookie
-            document.cookie = `${cookie_name}=${true}; expires=${expiry}; path=/`;
+            document.cookie = `${cookieName}=${true}; expires=${expiry}; path=/`;
 
 
             // Now, remove the notice

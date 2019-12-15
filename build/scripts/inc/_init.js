@@ -56,7 +56,7 @@ let xl 	= 'xl';
 let max = 'max';
 
 
-function x( width, fn, callback = () => {}, run_once = false ) {
+function x( width, fn, callback = () => {}, runOnce = false ) {
 
 	var value;
 
@@ -75,7 +75,7 @@ function x( width, fn, callback = () => {}, run_once = false ) {
 
 		if ( vw() >= value ) {
 
-			if ( run_once === true && allow === false ) return;
+			if ( runOnce === true && allow === false ) return;
 
 			fn();
 
@@ -83,7 +83,7 @@ function x( width, fn, callback = () => {}, run_once = false ) {
 
 		} else {
 			
-			if ( run_once === true && allow === true ) return;
+			if ( runOnce === true && allow === true ) return;
 
 			callback();
 
@@ -103,21 +103,21 @@ function x( width, fn, callback = () => {}, run_once = false ) {
 ( () => {
 
     const alias = { a: 65, e: 69, option: 18 };
-    var the_keys = {};
+    var theKeys = {};
 
     document.addEventListener( 'keydown', e => {
 
-        the_keys[e.keyCode] = true;
+        theKeys[e.keyCode] = true;
 
         switch ( true ) {
 
             // Admin home
-            case the_keys[alias.option] && the_keys[alias.a]:
+            case theKeys[alias.option] && theKeys[alias.a]:
                 open_admin_url( shiftr.shortcuts.admin );
                 break;
 
             // Edit current page
-            case the_keys[alias.option] && the_keys[alias.e]:
+            case theKeys[alias.option] && theKeys[alias.e]:
                 if ( ! shiftr.vars.archive ) {
                     open_admin_url( shiftr.shortcuts.edit );
                 }
@@ -126,13 +126,13 @@ function x( width, fn, callback = () => {}, run_once = false ) {
     });
 
     document.addEventListener( 'keyup', e => {
-        delete the_keys[e.keyCode];
+        delete theKeys[e.keyCode];
     });
 
     function open_admin_url( url ) {
 
         // Clear all keys
-        the_keys = {};
+        theKeys = {};
 
         // Open the url in a new tab
         window.open( url, '_blank' );

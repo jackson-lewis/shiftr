@@ -14,9 +14,9 @@ Element.prototype.carousel = function( settings = {} ) {
         autoplay: true,
         speed: 4000,
         transition: 800,
-        show_markers: true,
-        pause_on_marker_hover: true,
-        show_arrows: false
+        showMarkers: true,
+        pauseOnMarkerHover: true,
+        showArrows: false
     };
 
     var i = 0;
@@ -40,20 +40,20 @@ Element.prototype.carousel = function( settings = {} ) {
 
 
     // Create the navigation
-    let stage_map;
-    if ( show_markers() ) {
-        stage_map = document.createElement( 'div' );
-        stage_map.classList.add( 'stage-map' );
+    let stageMap;
+    if ( showMarkers() ) {
+        stageMap = document.createElement( 'div' );
+        stageMap.classList.add( 'stage-map' );
 
-        carousel.appendChild( stage_map );
+        carousel.appendChild( stageMap );
     }
     
 
     // The pause variable
-    var pause_loop = false,
-        transition_in_progress = false,
+    var pauseLoop = false,
+        transitionInProgress = false,
 
-        highest_prop_height = 0;
+        highestPropHeight = 0;
     
 
     // Init the Carousel
@@ -64,7 +64,7 @@ Element.prototype.carousel = function( settings = {} ) {
         props[i].dataset.shiftrCarouselActive = 'false';
 
         // Create the markers
-        if ( show_markers() ) {
+        if ( showMarkers() ) {
             const marker = document.createElement( 'button' ),
                   inner  = document.createElement( 'span' );
 
@@ -72,23 +72,23 @@ Element.prototype.carousel = function( settings = {} ) {
 
             // Add marker to navigation element
             marker.appendChild( inner );
-            stage_map.appendChild( marker );
+            stageMap.appendChild( marker );
         }
 
         // Find the highest prop
-        if ( props[i].offsetHeight > highest_prop_height ) {
-            highest_prop_height = props[i].offsetHeight;
+        if ( props[i].offsetHeight > highestPropHeight ) {
+            highestPropHeight = props[i].offsetHeight;
         }
     }
 
     // Set the stage height, using the height of the highest prop
-    stage.style.height = highest_prop_height + 'px';
+    stage.style.height = highestPropHeight + 'px';
 
     // Assign markers after creation
     let markers;
-    if ( show_markers() ) {
-        markers = Object.keys( stage_map.children ).map( key => {
-          return stage_map.children[key];
+    if ( showMarkers() ) {
+        markers = Object.keys( stageMap.children ).map( key => {
+          return stageMap.children[key];
         });
     }
     
@@ -98,7 +98,7 @@ Element.prototype.carousel = function( settings = {} ) {
     props[0].dataset.shiftrCarouselActive = 'true';
 
 
-    if ( show_markers() ) {
+    if ( showMarkers() ) {
         markers[0].classList.add( 'active' );
     }
 
@@ -109,9 +109,9 @@ Element.prototype.carousel = function( settings = {} ) {
 
         images.push( [] );
 
-        var prop_elements = props[i].querySelectorAll( '*' );
+        var propElements = props[i].querySelectorAll( '*' );
 
-        prop_elements.forEach( el => {
+        propElements.forEach( el => {
 
             if ( el.nodeName == 'IMG' ) {
                 images[i].push( el );
@@ -122,42 +122,42 @@ Element.prototype.carousel = function( settings = {} ) {
 
     // Get the first and second prop images
     if ( images[0].length > 0 ) {
-        get_images( images[0] );
+        getImages( images[0] );
     }
     
     if ( props.length > 1 ) {
         setTimeout( e => {
-            get_images( images[1] );
+            getImages( images[1] );
         }, ( _.speed / 2 ) );
     }
     
 
     // The main loop
-    const the_loop = function() {
+    const theLoop = function() {
 
         // Pause on hover
-        if ( pause_loop ) return false;
+        if ( pauseLoop ) return false;
 
         // Early exit if transition is in progress
-        if ( transition_in_progress ) return false;
+        if ( transitionInProgress ) return false;
 
         // Define transition start
-        transition_in_progress = true;
+        transitionInProgress = true;
 
         // Get info of active prop
-        var active_prop = get_active_prop(),
-            active_prop_id = get_active_prop_id( active_prop );
+        var activeProp = getActiveProp(),
+            activePropID = getActivePropID( activeProp );
 
         // Remove active marker
-        if ( show_markers() ) {
+        if ( showMarkers() ) {
             setTimeout( () => {
-                markers[active_prop_id].classList.remove( 'active' );
+                markers[activePropID].classList.remove( 'active' );
             }, _.transition );
         }
         
 
         // If on the last prop
-        if ( active_prop_id == ( props.length - 1 ) ) {
+        if ( activePropID == ( props.length - 1 ) ) {
 
             // Set new prop
             props[0].style.zIndex = 150;
@@ -167,7 +167,7 @@ Element.prototype.carousel = function( settings = {} ) {
             setTimeout( () => {
                 props[0].style.zIndex = '';
 
-                if ( show_markers() ) {
+                if ( showMarkers() ) {
                     markers[0].classList.add( 'active' );
                 }
             }, _.transition );
@@ -176,36 +176,36 @@ Element.prototype.carousel = function( settings = {} ) {
             // Standard switch
         } else {
 
-            const next_prop = active_prop.nextElementSibling,
-                  next_prop_id = parseInt( next_prop.dataset.shiftrCarouselProp, 10 );
+            const nextProp = activeProp.nextElementSibling,
+                  nextPropID = parseInt( nextProp.dataset.shiftrCarouselProp, 10 );
 
-            next_prop.classList.add( 'active' );
-            next_prop.dataset.shiftrCarouselActive = 'true';
+            nextProp.classList.add( 'active' );
+            nextProp.dataset.shiftrCarouselActive = 'true';
 
             setTimeout( () => {
-                if ( show_markers() ) {
-                    markers[next_prop_id].classList.add( 'active' );
+                if ( showMarkers() ) {
+                    markers[nextPropID].classList.add( 'active' );
                 }
             }, _.transition );
 
-            if ( active_prop_id == props.length - 2 ) {
+            if ( activePropID == props.length - 2 ) {
                 // All prop images should have loaded...
             } else {
 
-                if ( images[next_prop_id + 1] ) {
-                    get_images( images[next_prop_id + 1] );
+                if ( images[nextPropID + 1] ) {
+                    getImages( images[nextPropID + 1] );
                 }
             }
         }
 
 
         // Remove active prop
-        active_prop.dataset.shiftrCarouselActive = 'false';
+        activeProp.dataset.shiftrCarouselActive = 'false';
         setTimeout( () => {
-            active_prop.classList.remove( 'active' );
+            activeProp.classList.remove( 'active' );
 
             // Define transition end
-            transition_in_progress = false;
+            transitionInProgress = false;
         }, _.transition );
     }   
 
@@ -214,11 +214,11 @@ Element.prototype.carousel = function( settings = {} ) {
         restart;
 
     if ( _.autoplay ) {
-        looping = setInterval( the_loop, _.speed );
+        looping = setInterval( theLoop, _.speed );
     }
 
 
-    if ( show_markers() ) {
+    if ( showMarkers() ) {
 
         markers.forEach( marker => {
 
@@ -227,22 +227,22 @@ Element.prototype.carousel = function( settings = {} ) {
                 e.preventDefault();
                 
                 // Early exit if transition is in progress
-                if ( transition_in_progress ) {
-                    pause_loop = false;
+                if ( transitionInProgress ) {
+                    pauseLoop = false;
                     return false;
                 } 
 
-                // active_prop and active_prop_id are corect
-                let active_prop = get_active_prop(),
-                    active_prop_id = get_active_prop_id( active_prop );
+                // activeProp and activePropID are corect
+                let activeProp = getActiveProp(),
+                    activePropID = getActivePropID( activeProp );
 
-                // Issues with selected_prop
-                let selected_prop = props[marker.dataset.shiftrCarouselMarker],
-                    selected_prop_id = marker.dataset.shiftrCarouselMarker;
+                // Issues with selectedProp
+                let selectedProp = props[marker.dataset.shiftrCarouselMarker],
+                    selectedPropID = marker.dataset.shiftrCarouselMarker;
 
 
                 // Turn off pause to allow change
-                pause_loop = false;
+                pauseLoop = false;
 
 
                 // Stop current actions
@@ -251,29 +251,29 @@ Element.prototype.carousel = function( settings = {} ) {
                     clearTimeout( restart );
                 }
 
-                if ( active_prop_id != selected_prop_id ) {
+                if ( activePropID != selectedPropID ) {
 
                     // Define transition start
-                    transition_in_progress = true;
+                    transitionInProgress = true;
 
                     
                     // Set prop
-                    props[selected_prop_id].style.zIndex = 150;
-                    props[selected_prop_id].classList.add( 'active' );
-                    props[selected_prop_id].dataset.shiftrCarouselActive = 'true';
+                    props[selectedPropID].style.zIndex = 150;
+                    props[selectedPropID].classList.add( 'active' );
+                    props[selectedPropID].dataset.shiftrCarouselActive = 'true';
 
 
                     // Continue remove
-                    active_prop.dataset.shiftrCarouselActive = 'false';
+                    activeProp.dataset.shiftrCarouselActive = 'false';
                     setTimeout( () => {
-                        active_prop.classList.remove( 'active' );
-                        props[selected_prop_id].style.zIndex = '';
+                        activeProp.classList.remove( 'active' );
+                        props[selectedPropID].style.zIndex = '';
 
-                        markers[active_prop_id].classList.remove( 'active' );
-                        markers[selected_prop_id].classList.add( 'active' );
+                        markers[activePropID].classList.remove( 'active' );
+                        markers[selectedPropID].classList.add( 'active' );
 
                         // Define transition end
-                        transition_in_progress = false;
+                        transitionInProgress = false;
                     }, _.transition );
 
                 }
@@ -282,7 +282,7 @@ Element.prototype.carousel = function( settings = {} ) {
                 // Restart loop, if paused
                 if ( _.autoplay ) {
                     restart = setTimeout( () => {
-                        looping = setInterval( the_loop, _.speed );
+                        looping = setInterval( theLoop, _.speed );
                     }, _.speed );
                 }
             });
@@ -290,15 +290,15 @@ Element.prototype.carousel = function( settings = {} ) {
 
             marker.addEventListener( 'mouseover', () => {
 
-                let selected_prop = props[marker.dataset.shiftrCarouselMarker],
-                    selected_prop_id = marker.dataset.shiftrCarouselMarker;
+                let selectedProp = props[marker.dataset.shiftrCarouselMarker],
+                    selectedPropID = marker.dataset.shiftrCarouselMarker;
 
-                if ( _.pause_on_marker_hover ) {
-                    pause_loop = true;
+                if ( _.pauseOnMarkerHover ) {
+                    pauseLoop = true;
                 }
 
-                if ( images[selected_prop_id] ) {
-                    get_images( images[selected_prop_id] );
+                if ( images[selectedPropID] ) {
+                    getImages( images[selectedPropID] );
                 }
                 
             });
@@ -306,74 +306,74 @@ Element.prototype.carousel = function( settings = {} ) {
 
             marker.addEventListener( 'mouseleave', () => {
                 
-                pause_loop = false;
+                pauseLoop = false;
             });
 
         });
     }
 
 
-    if ( show_arrows() ) {
+    if ( showArrows() ) {
 
         const arrows = document.querySelectorAll( '.carousel-arrow' );
         
         arrows[0].addEventListener( 'click', e => {
 
-            loop_on_arrow( 'previous' );
+            loopOnArrow( 'previous' );
         });
 
         arrows[1].addEventListener( 'click', e => {
 
-            loop_on_arrow( 'next' );
+            loopOnArrow( 'next' );
         });
 
 
-        function loop_on_arrow( direction = '' ) {
+        function loopOnArrow( direction = '' ) {
 
             // Early exit if transition is in progress
-            if ( transition_in_progress ) {
-                pause_loop = false;
+            if ( transitionInProgress ) {
+                pauseLoop = false;
                 return false;
             } 
 
-            // active_prop and active_prop_id are corect
-            let active_prop = get_active_prop(),
-                active_prop_id = get_active_prop_id( active_prop ),
-                selected_prop,
-                selected_prop_id;
+            // activeProp and activePropID are corect
+            let activeProp = getActiveProp(),
+                activePropID = getActivePropID( activeProp ),
+                selectedProp,
+                selectedPropID;
 
 
             if ( direction == 'previous' ) {
 
-                if ( active_prop_id == 0 ) {
+                if ( activePropID == 0 ) {
 
                     var int = props.length - 1;
-                    selected_prop = props[int];
-                    selected_prop_id = int;
+                    selectedProp = props[int];
+                    selectedPropID = int;
 
                 } else {
                     
-                    selected_prop = props[active_prop_id - 1];
-                    selected_prop_id = active_prop_id - 1;
+                    selectedProp = props[activePropID - 1];
+                    selectedPropID = activePropID - 1;
                 }
 
             } else {
 
-                if ( active_prop_id == ( props.length - 1 ) ) {
+                if ( activePropID == ( props.length - 1 ) ) {
 
-                    selected_prop = props[0];
-                    selected_prop_id = 0;
+                    selectedProp = props[0];
+                    selectedPropID = 0;
 
                 } else {
                     
-                    selected_prop = props[active_prop_id + 1];
-                    selected_prop_id = active_prop_id + 1;
+                    selectedProp = props[activePropID + 1];
+                    selectedPropID = activePropID + 1;
                 }
             }
 
 
             // Turn off pause to allow change
-            pause_loop = false;
+            pauseLoop = false;
 
 
             // Stop current actions
@@ -382,45 +382,45 @@ Element.prototype.carousel = function( settings = {} ) {
                 clearTimeout( restart );
             }
 
-            if ( active_prop_id != selected_prop_id ) {
+            if ( activePropID != selectedPropID ) {
 
                 // Define transition start
-                transition_in_progress = true;
+                transitionInProgress = true;
 
 
                 // Set prop
-                props[selected_prop_id].style.zIndex = 150;
-                props[selected_prop_id].classList.add( 'active' );
-                props[selected_prop_id].dataset.shiftrCarouselActive = 'true';
+                props[selectedPropID].style.zIndex = 150;
+                props[selectedPropID].classList.add( 'active' );
+                props[selectedPropID].dataset.shiftrCarouselActive = 'true';
 
 
-                if ( show_markers() ) {
-                    markers[active_prop_id].classList.remove( 'active' );
-                    markers[selected_prop_id].classList.add( 'active' );
+                if ( showMarkers() ) {
+                    markers[activePropID].classList.remove( 'active' );
+                    markers[selectedPropID].classList.add( 'active' );
                 }
 
 
                 // Continue remove
-                active_prop.dataset.shiftrCarouselActive = 'false';
+                activeProp.dataset.shiftrCarouselActive = 'false';
                 setTimeout( () => {
-                    active_prop.classList.remove( 'active' );
-                    props[selected_prop_id].style.zIndex = '';
+                    activeProp.classList.remove( 'active' );
+                    props[selectedPropID].style.zIndex = '';
 
                     // Define transition end
-                    transition_in_progress = false;
+                    transitionInProgress = false;
                 }, _.transition );
 
             }
 
-            if ( images[selected_prop_id] ) {
-                get_images( images[selected_prop_id] );
+            if ( images[selectedPropID] ) {
+                getImages( images[selectedPropID] );
             }
 
 
             // Restart loop, if paused
             if ( _.autoplay ) {
                 restart = setTimeout( () => {
-                    looping = setInterval( the_loop, _.speed );
+                    looping = setInterval( theLoop, _.speed );
                 }, _.speed );
             }
         }
@@ -428,41 +428,41 @@ Element.prototype.carousel = function( settings = {} ) {
 
 
     // Get images
-    function get_images( sub_images ) {
+    function getImages( subImages ) {
 
-        for ( i = 0; i < sub_images.length; i++ ) {
-            if ( sub_images[i].hasAttribute( 'src' ) === false ) {
-                sub_images[i].src = sub_images[i].dataset.src;
-                sub_images[i].dataset.src = '';
+        for ( i = 0; i < subImages.length; i++ ) {
+            if ( subImages[i].hasAttribute( 'src' ) === false ) {
+                subImages[i].src = subImages[i].dataset.src;
+                subImages[i].dataset.src = '';
             }
         }
     }
 
 
     // Get data on the active prop
-    function get_active_prop() {
+    function getActiveProp() {
 
-        let the_prop;
+        let theProp;
         
         for ( i = 0; i < props.length; i++ ) {
             if ( props[i].dataset.shiftrCarouselActive == 'true' ) {
-                the_prop = props[i];
+                theProp = props[i];
             }
         }
 
-        return the_prop;
+        return theProp;
     }
 
 
     // Get active prop id
-    function get_active_prop_id( the_prop ) {
-        return parseInt( the_prop.dataset.shiftrCarouselProp, 10 );
+    function getActivePropID( theProp ) {
+        return parseInt( theProp.dataset.shiftrCarouselProp, 10 );
     }
 
 
     // Toggle for markers
-    function show_markers() {
-        if ( _.show_markers ) {
+    function showMarkers() {
+        if ( _.showMarkers ) {
             return true;
         } else {
             return false;
@@ -471,8 +471,8 @@ Element.prototype.carousel = function( settings = {} ) {
 
 
     // Toggle for arrows
-    function show_arrows() {
-        if ( _.show_arrows ) {
+    function showArrows() {
+        if ( _.showArrows ) {
             return true;
         } else {
             return false;

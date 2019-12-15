@@ -13,7 +13,7 @@ Element.prototype.form = function( settings = {} ) {
         validate: true,
         submission: true,
         targets: ['name', 'text', 'email', 'tel', 'date', 'password'],
-        validation_classes: {
+        validationClasses: {
             focus: 'field-event--focus',
             success: 'field-event--success',
             error: 'field-event--error'
@@ -36,10 +36,10 @@ Element.prototype.form = function( settings = {} ) {
         selects = form.querySelectorAll( 'select' ),
         submit  = form.querySelector( 'input[type="submit"]' ) || this,
 
-        vc      = _.validation_classes;
+        vc      = _.validationClasses;
 
     // Checker var for requesting form styleshet
-    var css_requested = false;
+    var cssRequested = false;
 
 
     // Loop all inputs
@@ -53,7 +53,7 @@ Element.prototype.form = function( settings = {} ) {
 
             input.addEventListener( 'focus', e => {
 
-                get_stylesheet();
+                getStylesheet();
 
                 target.classList.add( vc.focus );
             });
@@ -68,7 +68,7 @@ Element.prototype.form = function( settings = {} ) {
 
                     if ( input.checkValidity() ) {
                         target.classList.add( vc.success );
-                        clear_validation( input );
+                        clearValidation( input );
 
                     } else  { target.classList.add( vc.error ); }
                 }
@@ -82,7 +82,7 @@ Element.prototype.form = function( settings = {} ) {
 
                     target.classList.add( vc.error );
 
-                    do_validation( input, input.validationMessage );
+                    doValidation( input, input.validationMessage );
                 });
             }
             
@@ -94,14 +94,14 @@ Element.prototype.form = function( settings = {} ) {
                 input.addEventListener( 'change', e => {
 
                     if ( input.checked ) {
-                        clear_validation( input );
+                        clearValidation( input );
                     }
                 });
 
                 input.addEventListener( 'invalid', e => {
                     e.preventDefault();
 
-                    do_validation( input, input.validationMessage );
+                    doValidation( input, input.validationMessage );
                 });
             }
 
@@ -119,7 +119,7 @@ Element.prototype.form = function( settings = {} ) {
 
 
     // Construct validation notification
-    function do_validation( input, message ) {
+    function doValidation( input, message ) {
 
         const m = createEl( 'span' );
 
@@ -132,13 +132,13 @@ Element.prototype.form = function( settings = {} ) {
         }, 200 );
 
         setTimeout( () => {
-            clear_validation( input );
+            clearValidation( input );
         }, 6000 );
     }
 
 
     // Remove validation notification
-    function clear_validation( input ) {
+    function clearValidation( input ) {
 
         let notification = input.parentElement.querySelector( 'span.validation' );
         
@@ -154,7 +154,7 @@ Element.prototype.form = function( settings = {} ) {
 
 
     let submit_hover = e => {
-        get_stylesheet();
+        getStylesheet();
     };
 
     submit.addEventListener( 'mouseover', submit_hover );
@@ -176,16 +176,16 @@ Element.prototype.form = function( settings = {} ) {
 
                     form.classList.remove( 'send-in-progress' );
                     
-                    do_message( xhr.responseText );
+                    doMessage( xhr.responseText );
 
                 } else {
 
-                    do_message( 'XHR_ERROR', xhr.status );
+                    doMessage( 'XHR_ERROR', xhr.status );
                 }
             };
 
             xhr.onerror = () => {
-                do_message( 'XHR_ERROR', xhr );
+                doMessage( 'XHR_ERROR', xhr );
             };
 
             xhr.open( 'POST', shiftr.ajax );
@@ -193,13 +193,13 @@ Element.prototype.form = function( settings = {} ) {
         });
 
 
-        function do_message( response = '', data = null ) {
+        function doMessage( response = '', data = null ) {
 
             var message     = createEl( 'div' ),
                 wrap        = createEl( 'div' ),
                 heading     = createEl( 'span' ),
                 content     = createEl( 'p' ),
-                error_ref   = createEl( 'span' ),
+                errorRef   = createEl( 'span' ),
                 closer      = createEl( 'button' );
 
             message.classList.add( 'form-submission' );
@@ -210,17 +210,17 @@ Element.prototype.form = function( settings = {} ) {
                 // '1' equals true. 
                 case '1':
                     var body = {
-                        h: _.settings.success_heading,
-                        c: _.settings.success_body
+                        h: _.settings.successHeading,
+                        c: _.settings.successBody
                     };
                     break;
 
                 default:
                     var body = {
-                        h: _.settings.error_heading,
-                        c: _.settings.error_body
+                        h: _.settings.errorHeading,
+                        c: _.settings.errorBody
                     };
-                    error_ref.innerHTML = `ERROR REF: ${response}`;
+                    errorRef.innerHTML = `ERROR REF: ${response}`;
             }
 
             heading.innerHTML = body.h;
@@ -232,7 +232,7 @@ Element.prototype.form = function( settings = {} ) {
 
             wrap.appendChild( heading );
             wrap.appendChild( content );
-            wrap.appendChild( error_ref );
+            wrap.appendChild( errorRef );
             message.appendChild( wrap );
             message.appendChild( closer );
 
@@ -244,28 +244,28 @@ Element.prototype.form = function( settings = {} ) {
 
             closer.addEventListener( 'click', e => {
                 e.preventDefault();
-                clearTimeout( auto_clear );
-                clear_message( message, response );
+                clearTimeout( autoClear );
+                clearMessage( message, response );
             });
 
 
-            let auto_clear_delay;
+            let autoClearDelay;
 
             if ( response == '1' ) {
-                auto_clear_delay = 8100;
+                autoClearDelay = 8100;
             } else {
-                auto_clear_delay = 30000;
+                autoClearDelay = 30000;
             }
 
-            var auto_clear = setTimeout( () => {
+            var autoClear = setTimeout( () => {
 
-                clear_message( message, response );
+                clearMessage( message, response );
 
-            }, auto_clear_delay ); 
+            }, autoClearDelay ); 
         }
 
 
-        function clear_message( el, action ) {
+        function clearMessage( el, action ) {
 
             if ( action == '1' ) {
 
@@ -291,9 +291,9 @@ Element.prototype.form = function( settings = {} ) {
         }
     }
 
-    function get_stylesheet() {
+    function getStylesheet() {
 
-        if ( ! css_requested ) {
+        if ( ! cssRequested ) {
 
             let stylesheet = createEl( 'link' );
             stylesheet.setAttribute( 'rel', 'stylesheet' );
@@ -302,7 +302,7 @@ Element.prototype.form = function( settings = {} ) {
             head.appendChild( stylesheet );
 
 
-            css_requested = true;
+            cssRequested = true;
         }
 
         submit.removeEventListener( 'mouseover', submit_hover );

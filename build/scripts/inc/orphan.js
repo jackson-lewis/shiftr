@@ -30,7 +30,7 @@
             textNodes.forEach( ( node ) => {
 
                 if ( node.match( / /g ).length >= 5 ) {
-                    newNode.push( no_orphan( node ) );
+                    newNode.push( noOrphan( node ) );
                 } else {
                     newNode.push( node );
                 }
@@ -42,14 +42,14 @@
 
         } else if ( content.match( / /g ).length >= 5 ) {
 
-            el.innerHTML = no_orphan( content );
+            el.innerHTML = noOrphan( content );
         }
 
     });
 
 
     // Replace space with &nbsp;
-    function no_orphan( el ) {
+    function noOrphan( el ) {
 
         // Get last space position
         let space = el.lastIndexOf( ' ' );

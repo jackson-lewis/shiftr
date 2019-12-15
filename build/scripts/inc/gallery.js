@@ -24,50 +24,50 @@ Element.prototype.gallery = function( settings = {} ) {
 
     // Create the viewer
     const viewer     = document.createElement( 'div' ),
-          viewer_img = document.createElement( 'img' );
+          viewerImg = document.createElement( 'img' );
 
 
-    let arrow_previous, arrow_next;
+    let arrowPrevious, arrowNext;
     if ( _.arrows ) {
 
-        arrow_previous = document.createElement( 'button' );
+        arrowPrevious = document.createElement( 'button' );
 
-        const left_svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ),
-              left_svg_path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+        const leftSvg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ),
+              leftSvgPath = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
 
-        left_svg.setAttribute( 'xmlns', 'http://www.w3.org/2000/svg' );
-        left_svg.setAttribute( 'viewbox', '0 0 11.29 20' );
-        left_svg_path.setAttribute( 'd', 'M1.5,20a1.51,1.51,0,0,1-1.3-.75,1.57,1.57,0,0,1,.3-1.88l6.67-6.66a1,1,0,0,0,0-1.42L.44,2.56A1.5,1.5,0,0,1,2.56.44L10.7,8.58a2,2,0,0,1,0,2.84L2.56,19.56A1.51,1.51,0,0,1,1.5,20Z' );
-        left_svg.appendChild( left_svg_path );
-        arrow_previous.appendChild( left_svg );
+        leftSvg.setAttribute( 'xmlns', 'http://www.w3.org/2000/svg' );
+        leftSvg.setAttribute( 'viewbox', '0 0 11.29 20' );
+        leftSvgPath.setAttribute( 'd', 'M1.5,20a1.51,1.51,0,0,1-1.3-.75,1.57,1.57,0,0,1,.3-1.88l6.67-6.66a1,1,0,0,0,0-1.42L.44,2.56A1.5,1.5,0,0,1,2.56.44L10.7,8.58a2,2,0,0,1,0,2.84L2.56,19.56A1.51,1.51,0,0,1,1.5,20Z' );
+        leftSvg.appendChild( leftSvgPath );
+        arrowPrevious.appendChild( leftSvg );
 
         
-        arrow_next = arrow_previous.cloneNode( true );
+        arrowNext = arrowPrevious.cloneNode( true );
 
-        arrow_previous.classList.add( 'previous' );
-        arrow_previous.setAttribute( 'data-gallery-control', 'previous' );
-        arrow_previous.setAttribute( 'aria-label', 'View the previous image' );
+        arrowPrevious.classList.add( 'previous' );
+        arrowPrevious.setAttribute( 'data-gallery-control', 'previous' );
+        arrowPrevious.setAttribute( 'aria-label', 'View the previous image' );
 
-        arrow_next.classList.add( 'next' );
-        arrow_next.setAttribute( 'data-gallery-control', 'next' );
-        arrow_next.setAttribute( 'aria-label', 'View the next image' );
+        arrowNext.classList.add( 'next' );
+        arrowNext.setAttribute( 'data-gallery-control', 'next' );
+        arrowNext.setAttribute( 'aria-label', 'View the next image' );
 
-        viewer.appendChild( arrow_previous );
-        viewer.appendChild( arrow_next );
+        viewer.appendChild( arrowPrevious );
+        viewer.appendChild( arrowNext );
     }
 
     let close;
     if ( _.close ) {
         close = document.createElement( 'button' );
 
-        const close_svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ),
-              close_svg_path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+        const closeSvg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ),
+              closeSvgPath = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
 
-        close_svg.setAttribute( 'xmlns', 'http://www.w3.org/2000/svg' );
-        close_svg.setAttribute( 'viewbox', '0 0 20 20' );
-        close_svg_path.setAttribute( 'd', 'M12.83,10.71a1,1,0,0,1,0-1.42l6.73-6.73A1.5,1.5,0,0,0,17.44.44L10.71,7.17a1,1,0,0,1-1.42,0L2.56.44A1.5,1.5,0,0,0,.44,2.56L7.17,9.29a1,1,0,0,1,0,1.42L.53,17.34a1.6,1.6,0,0,0-.16,2.15,1.5,1.5,0,0,0,2.19.07l6.73-6.73a1,1,0,0,1,1.42,0l6.73,6.73a1.5,1.5,0,0,0,2.19-.07,1.6,1.6,0,0,0-.16-2.15Z' );
-        close_svg.appendChild( close_svg_path );
-        close.appendChild( close_svg );
+        closeSvg.setAttribute( 'xmlns', 'http://www.w3.org/2000/svg' );
+        closeSvg.setAttribute( 'viewbox', '0 0 20 20' );
+        closeSvgPath.setAttribute( 'd', 'M12.83,10.71a1,1,0,0,1,0-1.42l6.73-6.73A1.5,1.5,0,0,0,17.44.44L10.71,7.17a1,1,0,0,1-1.42,0L2.56.44A1.5,1.5,0,0,0,.44,2.56L7.17,9.29a1,1,0,0,1,0,1.42L.53,17.34a1.6,1.6,0,0,0-.16,2.15,1.5,1.5,0,0,0,2.19.07l6.73-6.73a1,1,0,0,1,1.42,0l6.73,6.73a1.5,1.5,0,0,0,2.19-.07,1.6,1.6,0,0,0-.16-2.15Z' );
+        closeSvg.appendChild( closeSvgPath );
+        close.appendChild( closeSvg );
 
         close.classList.add( 'close' );
         close.setAttribute( 'data-gallery-control', 'close' );
@@ -78,7 +78,7 @@ Element.prototype.gallery = function( settings = {} ) {
 
     viewer.classList.add( 'gallery-viewer' );
 
-    viewer.appendChild( viewer_img );
+    viewer.appendChild( viewerImg );
 
     document.body.appendChild( viewer );
 
@@ -96,12 +96,12 @@ Element.prototype.gallery = function( settings = {} ) {
     // Listen for image clicks
     for( var i = 0; i < images.length; i++ ) {
 
-        let img_in_loop = images[i];
-        sources.push( img_in_loop.getAttribute( 'data-src' ) );
+        let imgInLoop = images[i];
+        sources.push( imgInLoop.getAttribute( 'data-src' ) );
 
-        img_in_loop.addEventListener( 'click', () => {
+        imgInLoop.addEventListener( 'click', () => {
 
-            viewer_img.src = img_in_loop.getAttribute( 'data-src' );
+            viewerImg.src = imgInLoop.getAttribute( 'data-src' );
 
             if ( viewer.classList.contains( 'display' ) ) return;
 
@@ -129,17 +129,17 @@ Element.prototype.gallery = function( settings = {} ) {
     });
 
 
-    viewer_img.addEventListener( 'click', e => { e.stopPropagation(); });
+    viewerImg.addEventListener( 'click', e => { e.stopPropagation(); });
 
 
-    arrow_previous.addEventListener( 'click', e => {
+    arrowPrevious.addEventListener( 'click', e => {
         e.stopPropagation();
 
         doPrev();
     });
 
 
-    arrow_next.addEventListener( 'click', e => {
+    arrowNext.addEventListener( 'click', e => {
         e.stopPropagation();
 
         doNext();
@@ -160,29 +160,29 @@ Element.prototype.gallery = function( settings = {} ) {
 
 
     // Switch to previous image
-    function doPrev( current_position = getCurrPosition() ) {
-        if ( current_position == 0 ) {
-            viewer_img.src = sources[counter - 1];
+    function doPrev( currentPosition = getCurrPosition() ) {
+        if ( currentPosition == 0 ) {
+            viewerImg.src = sources[counter - 1];
             return;
         }
 
-        viewer_img.src = sources[current_position - 1];
+        viewerImg.src = sources[currentPosition - 1];
     }
 
 
     // Switch to next image
-    function doNext( current_position = getCurrPosition() ) {
-        if ( ( current_position + 1 ) == counter ) {
-            viewer_img.src = sources[0];
+    function doNext( currentPosition = getCurrPosition() ) {
+        if ( ( currentPosition + 1 ) == counter ) {
+            viewerImg.src = sources[0];
             return;
         }
 
-        viewer_img.src = sources[current_position + 1];
+        viewerImg.src = sources[currentPosition + 1];
     }
 
     // Get current viewer position
     function getCurrPosition() {
-       return sources.indexOf( viewer_img.getAttribute( 'src' ) );
+       return sources.indexOf( viewerImg.getAttribute( 'src' ) );
     }
 
 }

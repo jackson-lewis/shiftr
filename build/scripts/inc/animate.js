@@ -8,17 +8,17 @@
 Element.prototype.animateScroll = function( duration = 1000, buffer = 0 ) {
 
     // Update buffer to include height of header
-    buffer += document.querySelector( '.header' ).offsetHeight;
+    buffer += header.offsetHeight;
 
     var run = true;
 
 
     // Settings
-    var start_pos = window.pageYOffset || document.documentElement.scrollTop,
+    var startPos = window.pageYOffset || document.documentElement.scrollTop,
 
-        target_pos = this.getBoundingClientRect().top + start_pos,
+        targetPos = this.getBoundingClientRect().top + startPos,
 
-        distance = target_pos - start_pos,
+        distance = targetPos - startPos,
 
         distance = distance - buffer,
 
@@ -28,18 +28,18 @@ Element.prototype.animateScroll = function( duration = 1000, buffer = 0 ) {
 
     
     // Do the animation
-    var animate_scroll = function() {  
+    var animateScroll = function() {  
 
         if ( run === false ) return;
 
         currentTime += increment;
 
-        var val = Math.easeInOutQuad( currentTime, start_pos, distance, duration );
+        var val = Math.easeInOutQuad( currentTime, startPos, distance, duration );
 
         document.documentElement.scrollTop = document.body.scrollTop = val;
 
-        if( currentTime < duration ) {
-            setTimeout(animate_scroll, increment);
+        if ( currentTime < duration ) {
+            setTimeout( animateScroll, increment );
         }
     };
 
@@ -58,5 +58,5 @@ Element.prototype.animateScroll = function( duration = 1000, buffer = 0 ) {
 
 
     // Do initial iteration
-    animate_scroll();
+    animateScroll();
 }

@@ -21,7 +21,7 @@ Element.prototype.follower = function( settings = {} ) {
     if ( Object.keys( settings ).length == 0 ) settings = defaults;
 
 
-    // Override the defaults with any defined settings
+    // OverrIDe the defaults with any defined settings
     let _ = Object.assign( defaults, settings );
 
 
@@ -31,11 +31,11 @@ Element.prototype.follower = function( settings = {} ) {
 
         sections = _.sections,
 
-        section_position,
-        section_id,
+        sectionPosition,
+        sectionID,
 
-        section_top,
-        section_bottom;
+        sectionTop,
+        sectionBottom;
         
         
     links.forEach( link => {
@@ -52,31 +52,31 @@ Element.prototype.follower = function( settings = {} ) {
     const action = e => {
 
         // Get the current scroll position
-        let scroll_position = window.pageYOffset || document.documentElement.scrollTop,
-            target_point = scroll_position + ( vh() / 2 );
+        let scrollPosition = window.pageYOffset || document.documentElement.scrollTop,
+            targetPoint = scrollPosition + ( vh() / 2 );
 
 
         sections.forEach( section => {
 
             if ( e.type != 'scroll' ) {
 
-                section_position = section.getBoundingClientRect();
+                sectionPosition = section.getBoundingClientRect();
 
-                section_top = section_position.top + scroll_position;
-                section_bottom = section_position.bottom + scroll_position;
+                sectionTop = sectionPosition.top + scrollPosition;
+                sectionBottom = sectionPosition.bottom + scrollPosition;
             }
 
-            let id              = section.getAttribute( 'id' ).substring( 8 ),
-                section_top     = section.getBoundingClientRect().top + scroll_position,
-                section_bottom  = section.getBoundingClientRect().bottom + scroll_position;
+            let ID              = section.getAttribute( 'id' ).substring( 8 ),
+                sectionTop     = section.getBoundingClientRect().top + scrollPosition,
+                sectionBottom  = section.getBoundingClientRect().bottom + scrollPosition;
 
-            if ( target_point > section_top && target_point < section_bottom ) {
+            if ( targetPoint > sectionTop && targetPoint < sectionBottom ) {
 
-                links[id - 1].classList.add( 'active' );
+                links[ID - 1].classList.add( 'active' );
                 
             } else {
 
-                links[id - 1].classList.remove( 'active' );
+                links[ID - 1].classList.remove( 'active' );
             }
 
         });

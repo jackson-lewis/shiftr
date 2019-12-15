@@ -106,10 +106,10 @@ $shiftr->js_object = array(
 	'ajax' 	=> admin_url( 'admin-ajax.php' ),
 	'cookiePolicyLink' => get_permalink( 3 ),
 	'form' 	=> array(
-		'success_heading' 	=> get_option( 'shiftr_form_message_success_heading' ),
-		'success_body' 		=> get_option( 'shiftr_form_message_success_body' ),
-		'error_heading' 	=> get_option( 'shiftr_form_message_error_heading' ),
-		'error_body' 		=> get_option( 'shiftr_form_message_error_body' )
+		'successHeading' 	=> get_option( 'shiftr_form_message_success_heading' ),
+		'successBody' 		=> get_option( 'shiftr_form_message_success_body' ),
+		'errorHeading' 	=> get_option( 'shiftr_form_message_error_heading' ),
+		'errorBody' 		=> get_option( 'shiftr_form_message_error_body' )
 	),
 	'cookie' => array(
 		'message' => get_field( 'cookie_consent_message', 'option' )

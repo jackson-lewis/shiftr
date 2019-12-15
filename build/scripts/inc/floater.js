@@ -15,7 +15,7 @@ Element.prototype.floater = function( settings = {} ) {
     let defaults = {
         bounding: this.parentElement,                   // Element
         float_buffer: 0,                                // Integar
-        header: document.querySelector( '.header' ),    // Element|null
+        header: header,                                 // Element|null
         starting: null,                                 // null|Element
         ending: null,
         events: {
@@ -37,75 +37,73 @@ Element.prototype.floater = function( settings = {} ) {
     var floater  = this,
         bounding = _.bounding,
 
-        floater_position,
+        floaterPosition,
         floater_left,
-        bounding_position,
+        boundingPosition,
         bounding_top,
         bounding_bottom,
 
-        float_position = _.float_buffer,
+        floatPosition = _.float_buffer,
 
-        position_top,
-        position_bottom,
+        positionTop,
+        positionBottom,
 
-        starting_point,
-        ending_point;
+        startingPoint,
+        endingPoint;
 
 
-    // Check if header height should be included in float_position
-    if ( _.header ) float_position += _.header.offsetHeight;
+    // Check if header height should be included in floatPosition
+    if ( _.header ) floatPosition += _.header.offsetHeight;
 
 
     // The core function that event listeners are appended to
     const action = function( e ) {
 
         // Get the current scroll position
-        let scroll_position = window.pageYOffset || document.documentElement.scrollTop;
+        let scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
 
         // We do not want to redefine the following on a scroll
         if ( e.type != 'scroll' ) {
 
-            floater_position    = floater.getBoundingClientRect();
-            bounding_position   = bounding.getBoundingClientRect();
-
-            floater_left        = floater_position.left;
+            floaterPosition    = floater.getBoundingClientRect();
+            boundingPosition   = bounding.getBoundingClientRect();
 
             if ( _.starting !== null ) {
-                starting_point = _.starting.getBoundingClientRect().top + scroll_position;
+                startingPoint = _.starting.getBoundingClientRect().top + scrollPosition;
 
             } else {
-                starting_point = bounding_position.top + scroll_position;
+                startingPoint = boundingPosition.top + scrollPosition;
             }
 
             if ( _.ending !== null ) {
-                ending_point = _.ending.getBoundingClientRect().bottom + scroll_position;
+                endingPoint = _.ending.getBoundingClientRect().bottom + scrollPosition;
 
             } else {
-                ending_point = bounding_position.bottom + scroll_position;
+                endingPoint = boundingPosition.bottom + scrollPosition;
             }
         }
 
 
         // Setup the starting and ending points including buffer areas
-        position_top        = scroll_position + float_position;
-        position_bottom     = scroll_position + float_position + floater.offsetHeight;
+        positionTop        = scrollPosition + floatPosition;
+        positionBottom     = scrollPosition + floatPosition + floater.offsetHeight;
 
 
         // Decide what state the floater should be in based on scroll position...
-        if ( position_bottom >= ending_point ) {
+        if ( positionBottom >= endingPoint ) {
             floater.classList.add( 'pause' );
             floater.classList.remove( 'sticky' );
             floater.setAttribute( 'style', '' );
 
-        } else if ( position_top >= starting_point ) {
+        } else if ( positionTop >= startingPoint ) {
             floater.style.width = bounding.offsetWidth + 'px';
-            floater.style.top = float_position + 'px';
-            floater.style.left = bounding_position.left + 'px';
+            floater.style.top = floatPosition + 'px';
+            floater.style.left = boundingPosition.left + 'px';
             floater.classList.add( 'sticky' );
             floater.classList.remove( 'pause' );
 
-        } else if ( position_top <= starting_point ) {
+        } else if ( positionTop <= startingPoint ) {
             floater.classList.remove( 'sticky' );
             floater.setAttribute( 'style', '' );
         }

@@ -4,7 +4,7 @@
 
     let toggle    = document.querySelector( '.nav-primary--toggle' ),
         nav       = document.querySelector( '.nav-primary' ),
-        sub_navs  = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : [];
+        subNavs   = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : [];
 
 
     // Check nav actually exists before going any further
@@ -13,13 +13,13 @@
 
     //  ////  --|    Toggle hidden navigation
         
-    let header_transition_height = '100vh';
+    let headerTransitionHeight = '100vh';
 
     let stop = e => {
         e.stopPropagation();
     }
 
-    let toggle_menu = e => {
+    let toggleMenu = e => {
         e.stopPropagation();
 
         toggle.classList.toggle( 'transition' );
@@ -28,13 +28,13 @@
         if ( header.offsetHeight > nav.offsetHeight ) {
             header.setAttribute( 'style', '' );
         } else {
-            header.style.height = header_transition_height;
+            header.style.height = headerTransitionHeight;
         }
 
         nav.classList.toggle( 'show' );
     };
 
-    let toggle_window = () => {
+    let toggleWindow = () => {
         toggle.classList.remove( 'transition' );
         header.setAttribute( 'style', '' );
         body.classList.remove( 'no-scroll' );
@@ -42,14 +42,14 @@
     };
 
     x( l, () => {
-        toggle.removeEventListener( 'click', toggle_menu );
+        toggle.removeEventListener( 'click', toggleMenu );
         nav.removeEventListener( 'click', stop );
-        window.removeEventListener( 'click', toggle_window );
+        window.removeEventListener( 'click', toggleWindow );
 
     }, () => {
-        toggle.addEventListener( 'click', toggle_menu );
+        toggle.addEventListener( 'click', toggleMenu );
         nav.addEventListener( 'click', stop );
-        window.addEventListener( 'click', toggle_window );
+        window.addEventListener( 'click', toggleWindow );
 
     }, true );
 
@@ -60,16 +60,16 @@
     
     x( l, () => {
 
-        sub_navs.forEach( sub => {
+        subNavs.forEach( sub => {
 
             let link = sub.children[0],
                 menu = sub.children[2],
-                remove_open;
+                removeOpen;
 
             link.addEventListener( 'mouseover', e => {
                 e.preventDefault();
 
-                clearTimeout( remove_open );
+                clearTimeout( removeOpen );
 
                 if ( sub.classList.contains( displayClass ) !== true ) {
                     sub.classList.add( displayClass );
@@ -78,19 +78,19 @@
 
             link.addEventListener( 'mouseleave', e => {
 
-                remove_open = setTimeout( () => {
+                removeOpen = setTimeout( () => {
                     sub.classList.remove( displayClass );
                 }, 200 );
             });
 
             menu.addEventListener( 'mouseover', () => {
                 
-                clearTimeout( remove_open );
+                clearTimeout( removeOpen );
             });
 
             menu.addEventListener( 'mouseleave', () => {
 
-                remove_open = setTimeout( () => {
+                removeOpen = setTimeout( () => {
                     sub.classList.remove( displayClass );
                 }, 200 );
             });
@@ -99,7 +99,7 @@
 
     }, () => {
 
-        sub_navs.forEach( sub => {
+        subNavs.forEach( sub => {
 
             let toggle = sub.children[1],
                 menu = sub.children[2];
