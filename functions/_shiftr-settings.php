@@ -104,6 +104,7 @@ $shiftr->js_object = array(
 	'url' 	=> get_bloginfo( 'url' ),
 	'theme' => get_template_directory_uri(),
 	'ajax' 	=> admin_url( 'admin-ajax.php' ),
+	'cookiePolicyLink' => get_permalink( 3 ),
 	'form' 	=> array(
 		'success_heading' 	=> get_option( 'shiftr_form_message_success_heading' ),
 		'success_body' 		=> get_option( 'shiftr_form_message_success_body' ),

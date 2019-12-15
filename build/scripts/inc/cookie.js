@@ -18,25 +18,31 @@
         let el = document.createElement( 'div' ),
             inner = document.createElement( 'div' ),
             message = document.createElement( 'p' ),
-            dismiss = document.createElement( 'button' );
+            dismiss = document.createElement( 'button' ),
+            learnMore = document.createElement( 'a' );
 
         el.classList.add( 'shiftr-cookie-notice' );
 
         message.innerHTML = shiftr.cookie.message;
 
-        dismiss.classList.add( 'button' ); 
+        dismiss.classList.add( 'button-fill' ); 
         dismiss.setAttribute( 'id', 'shiftr-cookie-accept' );
-        dismiss.innerHTML = 'Close';
+        dismiss.innerHTML = 'Accept';
+
+        learnMore.classList.add( 'button-text' );
+        learnMore.setAttribute( 'href', shiftr.cookiePolicyLink );
+        learnMore.innerHTML = 'Learn More';
 
         inner.appendChild( message );
         inner.appendChild( dismiss );
+        inner.appendChild( learnMore );
 
         el.appendChild( inner );
 
         document.body.appendChild( el );
 
         setTimeout( function() {
-            el.classList.add( 'posted' );
+            el.classList.add( 'is-visible' );
         }, 1000 );
 
         // Listen for notice acceptance
@@ -54,7 +60,7 @@
 
 
             // Now, remove the notice
-            el.classList.remove( 'posted' );
+            el.classList.remove( 'is-visible' );
 
             setTimeout( () => {
                 document.body.removeChild( el );
