@@ -61,14 +61,15 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
         // If the menu item holds a sub-menu, define as parent
         if ( $args->walker->has_children ) {
             $item->classes[] = 'has-sub-menu';
+
+            $sub_menu_name = sanitize_title( $name );
         }
 
         $output .= '<li class="' . join( ' ', $item->classes ) . '">';
         $output .= "<a href=\"{$permalink}\">";
-        $output .= ( $args->walker->has_children ) ? '<span>' : '';
         $output .= $name;
-        $output .= ( $args->walker->has_children ) ? '</span>' : '';
         $output .= '</a>';
+        $output .= ( $args->walker->has_children ) ? "<button id=\"menu-item-control--{$item->ID}\"></button>" : '';
     }
 
 
@@ -93,80 +94,20 @@ class Shiftr_Nav_Footer_Walker extends Shiftr_Nav_Walker {
 
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
+        global $post;
+
         $name = $item->title;
         $permalink = $item->url;
 
-        global $post;
-
-
-        if ( is_home() ) {
-            $post_slug = get_post_type_archive_link( 'post' );
-
-        } else if ( is_front_page() ) {
-            $post_slug = get_bloginfo( 'url' ) . '/';
-
-        } else {
-            $post_slug = get_permalink( $post );
-        }
-
-        $item->classes = $anchor_attr = array();
-
+        $item->classes = array();
 
         $item->classes[] = 'menu-item-' . $item->ID;
-    
-        if ( $post_slug == $permalink ) {
-            $anchor_attr['class'] = 'active'; 
-        }
-
-        if ( $depth == 0 ) {
-            $item->classes[] = 'top-item';
-        } else if ( $depth == 1 ) {
-            $item->classes[] = 'secondary-item';
-        }
-
-        // If the menu item holds a sub-menu, define as parent
-        if ( $args->walker->has_children ) {
-            $item->classes[] = 'parent';
-            $item->classes[] = space_to_( strtolower( $name ) );
-        }
+        $item->classes[] = "level-{$depth}-item";
 
         $output .= '<li class="' . join( ' ', $item->classes ) . '">';
-
-        if ( $item->type != 'custom' ) {
-            $output .= '<a ';
-            $output .= 'href="' . $permalink . '" ';
-            $output .= shiftr_output_attr( $anchor_attr );
-
-            // Handle external links like we know what we're doing
-            if ( stripos( $permalink, get_bloginfo( 'url' ) ) === false ) {
-                $output .= ' target="_blank" rel="noopener"';
-            }
-
-            $output .= '>';
-        } else {
-
-            // Keep menu item in tabindex
-            $output .= '<span tabindex="0" ';
-            $output .= shiftr_output_attr( $anchor_attr );
-            $output .= '>';
-        }
-
-        // Actually add the menu item text
+        $output .= "<a href=\"{$permalink}\">";
         $output .= $name;
-
-
-        if ( $item->type != 'custom' ) {
-            $output .= '</a>';
-        } else {
-            $output .= '</span>';
-        }
-    }
-
-
-    function start_lvl( &$output, $depth = 0, $args = array() ) {
-
-        $indent = str_repeat( "\t", $depth );
-        $output .= "\n$indent<ul class=\"sub-menu\">";
+        $output .= '</a>';
     }
 }
 

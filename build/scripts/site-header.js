@@ -63,7 +63,7 @@
         sub_navs.forEach( sub => {
 
             let link = sub.children[0],
-                menu = sub.children[1],
+                menu = sub.children[2],
                 remove_open;
 
             link.addEventListener( 'mouseover', e => {
@@ -101,11 +101,10 @@
 
         sub_navs.forEach( sub => {
 
-            let link = sub.children[0],
-                menu = sub.children[1],
-                remove_open;
+            let toggle = sub.children[1],
+                menu = sub.children[2];
 
-            link.addEventListener( 'click', e => {
+            toggle.addEventListener( 'click', e => {
                 e.preventDefault();
 
                 sub.classList.toggle( displayClass );
