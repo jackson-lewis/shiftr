@@ -8,10 +8,20 @@
 //  MEDIA QUERIES
 @mixin x( $size ) {
 
-    @media screen and ( min-width: #{map-get( $breakpoints, $size )} ) {
+    $value: '';
+
+    @if ( type-of( $size ) == 'number' ) {
+        $value: #{$size}px;
+
+    } @else {
+        $value: map-get( $breakpoints, $size );
+    }
+
+    @media screen and ( min-width: #{$value} ) {
         @content;
     }
 }
+
 
 @mixin y(  ) {
 
@@ -50,6 +60,7 @@
     }
 }
 
+
 @mixin after( $include: true, $position: absolute, $content: '' ) {
 
     &::after {
@@ -76,7 +87,6 @@
     object-fit: cover;
     object-position: $x $y;
 }
-
 
 
 // Last Child bottom styling removal
