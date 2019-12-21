@@ -43,6 +43,40 @@ if (typeof Object.assign != 'function') {
 }
 
 
+// CSS.object-fit
+
+// We will build this from scratch
+
+var object_fit_polyfill = function() {
+
+    let images = document.getElementsByTagName( 'img' );
+    
+    for ( var i = 0; i < images.length; i++ ) {
+
+        let img = images[i],
+            img_styles = window.getComputedStyle( img );
+
+        if ( img_styles.getPropertyValue( 'font-family' ) == '"object-fit"' ) {
+
+            img.style.width = img.parentElement.offsetWidth + 'px';
+            img.style.height = 'auto';
+            img.style.top = '50%';
+            img.style.transform = 'translateY(-50%)';
+        }
+    }
+}
+
+if ( 'CSS' in window === false ) {
+  object_fit_polyfill();
+
+} else {
+
+  if ( 'objectFit' in document.documentElement.style === false ) {
+    object_fit_polyfill();
+  }
+}
+
+
 /* 
   NodeList.prototype.forEach
 
