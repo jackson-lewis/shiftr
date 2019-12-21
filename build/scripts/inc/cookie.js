@@ -30,7 +30,7 @@
         dismiss.innerHTML = 'Accept';
 
         learnMore.classList.add( 'button-text' );
-        learnMore.setAttribute( 'href', shiftr.cookiePolicyLink );
+        learnMore.setAttribute( 'href', shiftr.cookie.policyLink );
         learnMore.innerHTML = 'Learn More';
 
         inner.appendChild( message );

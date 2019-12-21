@@ -104,15 +104,15 @@ $shiftr->js_object = array(
 	'url' 	=> get_bloginfo( 'url' ),
 	'theme' => get_template_directory_uri(),
 	'ajax' 	=> admin_url( 'admin-ajax.php' ),
-	'cookiePolicyLink' => get_permalink( 3 ),
 	'form' 	=> array(
 		'successHeading' 	=> get_option( 'shiftr_form_message_success_heading' ),
 		'successBody' 		=> get_option( 'shiftr_form_message_success_body' ),
-		'errorHeading' 	=> get_option( 'shiftr_form_message_error_heading' ),
+		'errorHeading' 		=> get_option( 'shiftr_form_message_error_heading' ),
 		'errorBody' 		=> get_option( 'shiftr_form_message_error_body' )
 	),
 	'cookie' => array(
-		'message' => get_field( 'cookie_consent_message', 'option' )
+		'message' 		=> get_field( 'cookie_consent_message', 'option' ),
+		'policyLink' 	=> get_permalink( 3 )
 	),
 	'shortcuts' => array(
 		'admin' => admin_url(),
