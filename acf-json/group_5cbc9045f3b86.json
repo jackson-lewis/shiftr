@@ -197,7 +197,7 @@
                 "class": "shiftr-editor-min",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "We use cookies. To accept, continue browsing, or view our Cookie Policy to learn more.",
             "tabs": "visual",
             "toolbar": "shiftr_basic",
             "media_upload": 0,
@@ -221,5 +221,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1571831893
+    "modified": 1576949570
 }
