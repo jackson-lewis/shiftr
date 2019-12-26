@@ -121,7 +121,14 @@ class Shiftr_Form_Handler {
 		// Ignores the 'include_in_send' field setting
 		foreach ( $this->form_instance->fields as $field ) {
 
-			$data[ $field['name'] ] = $this->get_value( $field['name'] );
+			$_value = $this->get_value( $field['name'] );
+
+			if ( $field['type'] == 'textarea' ) {
+				$data[ $field['name'] ] = sanitize_textarea_field( $_value );
+
+			} else {
+				$data[ $field['name'] ] = sanitize_text_field( $_value );
+			}
 		}
 
 		// List of args for the post
@@ -136,7 +143,7 @@ class Shiftr_Form_Handler {
 		// Create the post and assign post ID
 		$this->data_ID = wp_insert_post( $args );
 
-		add_post_meta( $this->data_ID, '_shiftr_form_data_content', serialize( $data ) );
+		add_post_meta( $this->data_ID, '_shiftr_form_data_content', base64_encode( serialize( $data ) ) );
 		add_post_meta( $this->data_ID, '_shiftr_form_data_form_id', $this->form_ID );
 
 		if ( ! empty( $this->files ) ) {

@@ -168,9 +168,9 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
 
 		$content = get_post_meta( $post_id, '_shiftr_form_data_content', true );
 
-		$content = unserialize( $content );
+		$content = unserialize( base64_decode( $content ) );
 
-		echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ) . '"><strong>#' . $title . ' ' . $content['name'] . '</strong></a>';
+		echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ) . '"><strong>#' . $title . ' ' . wp_unslash( $content['name'] ) . '</strong></a>';
 	}
 
 	if ( $column == 'data_date' ) {
@@ -377,7 +377,7 @@ function shiftr_form_data_get_content() {
 	global $post, $shiftr_forms;
 
 	$content = get_post_meta( $post->ID, '_shiftr_form_data_content', true );
-	$content = unserialize( $content );
+	$content = unserialize( base64_decode( $content ) );
 
 	$form_id = get_post_meta( $post->ID, '_shiftr_form_data_form_id', true );
 	$form    = get_the_title( $form_id );
@@ -439,7 +439,7 @@ function shiftr_form_data_get_content() {
 			?>
 			<tr>
 				<td><?= strtoupper( $name ); ?></td>
-				<td><?= $value; ?></td>
+				<td><?= wp_unslash( $value ); ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
