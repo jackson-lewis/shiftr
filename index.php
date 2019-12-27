@@ -36,7 +36,7 @@
 					}
 
 					?>
-					<p><?= $wp_query->found_posts . $result . $is_were . ' found'; ?></p>
+					<p><?= esc_html( $wp_query->found_posts . $result . $is_were . ' found' ); ?></p>
 
 				<?php } else { ?>
 
