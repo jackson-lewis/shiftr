@@ -392,56 +392,59 @@ function shiftr_form_data_get_content() {
 		<span>Submitted via the <strong><?php echo $form; ?></strong> form - <?php echo get_the_date( 'l jS M Y \@ H:i' ); ?></span>
 	</div>
 	
-	<table class="shiftr-form-data-content-table" cellspacing="0" cellpadding="0">
+	<table class="shiftr-form-data-content-table" border="0" cellspacing="0" cellpadding="0">
 		<tbody>
 			<?php
 
+			$key = 0;
+
 			foreach ( $content as $name => $value ) :
 
-				if ( $name == 'cv' ) {
+				$field = $form_instance->fields[ $key ];
 
-					$key = 0;
+				
+				if ( $field['type'] == 'file' ) {
 
-					foreach ( $form_instance->fields as $k => $field ) {
+					$files = get_post_meta( $post->ID, '_shiftr_form_data_files', true );
 
-						if ( $field['name'] == $name ) {
-							$key = $k;
-						}
-					}
+					$files = unserialize( $files );
 
-					
-					if ( $form_instance->fields[ $key ]['type'] == 'file' ) {
+					$upload_dir = wp_upload_dir();
+					$shiftr_upload_dir = $upload_dir['baseurl'] . '/shiftr-form-attachments/';
 
-						$files = get_post_meta( $post->ID, '_shiftr_form_data_files', true );
+					$file_value = array();
 
-						$files = unserialize( $files );
+					foreach ( $files as $file ) {
 
-						$upload_dir = wp_upload_dir();
-						$shiftr_upload_dir = $upload_dir['baseurl'] . '/shiftr-form-attachments/';
-
-						if ( is_array( $files ) ) {
-
-							foreach ( $files as $file ) {
-
-								$value .= '<a href="' . esc_url( $shiftr_upload_dir . $file ) . '" target="_blank">' . esc_html( $file ) . '</a>, ';
-							}
-
-						} else if ( is_string( $files ) ) {
-
-							$value = '<a href="' . esc_url( $shiftr_upload_dir . $files ) . '" target="_blank">' . esc_html( $files )  . '</a>';
-
-						} else {
-							continue;
-						}
+						$file_value[] = '<a href="' . esc_url( $shiftr_upload_dir . $file ) . '" target="_blank">' . esc_html( $file ) . '</a>';
 					}
 				}
 
 			?>
 			<tr>
 				<td><?= esc_html( strtoupper( $name ) ); ?></td>
-				<td><?= esc_html( wp_unslash( $value ) ); ?></td>
+				<td>
+				<?php 
+
+				if ( $field['type'] == 'file' ) {
+					echo wp_kses(
+						wp_unslash( implode( ', ', $file_value ) ),
+						array(
+							'a' => array(
+								'href' => array(),
+								'target' => array()
+							)
+						)
+					);
+
+				} else {
+					echo esc_html( wp_unslash( $value ) );
+				}
+
+				?>
+				</td>
 			</tr>
-			<?php endforeach; ?>
+			<?php $key++; endforeach; ?>
 		</tbody>
 	</table>
 
@@ -457,7 +460,7 @@ function shiftr_form_get_error() {
 
 	echo '<pre><code>';
 
-	print_r( esc_html( maybe_unserialize( $error ) ) );
+	print_r( esc_html( maybe_unserialize( base64_decode( $error ) ) ) );
 
 	echo '</code></pre>';
 }
