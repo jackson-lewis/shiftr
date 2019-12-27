@@ -42,7 +42,7 @@ function shiftr_gallery( $gallery_name = 'gallery', $id = null ) {
 	?>
 
 		<div class="gallery-item">
-			<img data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" class="lazy" data-shiftr-gallery-image>
+			<?php shiftr_image( $image ); ?>
 		</div>
 
 	<?php 
