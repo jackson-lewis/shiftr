@@ -180,12 +180,12 @@ Element.prototype.form = function( settings = {} ) {
 
                 } else {
 
-                    doMessage( 'XHR_ERROR', xhr.status );
+                    doMessage( `xhr_error_${xhr.status}` );
                 }
             };
 
             xhr.onerror = () => {
-                doMessage( 'XHR_ERROR', xhr );
+                doMessage( 'xhr_error' );
             };
 
             xhr.open( 'POST', shiftr.ajax );
@@ -193,14 +193,16 @@ Element.prototype.form = function( settings = {} ) {
         });
 
 
-        function doMessage( response = '', data = null ) {
+        function doMessage( response = '' ) {
 
             var message     = createEl( 'div' ),
                 wrap        = createEl( 'div' ),
                 heading     = createEl( 'span' ),
-                content     = createEl( 'p' ),
-                errorRef   = createEl( 'span' ),
-                closer      = createEl( 'button' );
+                body        = createEl( 'p' ),
+                errorRef    = createEl( 'span' ),
+                closer      = createEl( 'button' ),
+
+                copy        = { h: '', b: '' };
 
             message.classList.add( 'form-submission' );
 
@@ -209,31 +211,50 @@ Element.prototype.form = function( settings = {} ) {
 
                 // '1' equals true. 
                 case '1':
-                    var body = {
-                        h: _.settings.successHeading,
-                        c: _.settings.successBody
-                    };
+                    copy.h = _.settings.successHeading;
+                    copy.b = _.settings.successBody;
+                    break;
+
+                case 'nonce_not_found':
+                    copy.h = 'Security Issue!';
+                    copy.b = 'The request was blocked because of a missing token.';
+                    break;
+
+                case 'nonce_not_verified':
+                    copy.h = 'Security Issue!';
+                    copy.b = 'The request was blocked because of an invalid token.';
+                    break;
+
+                case 'invalid_email_address':
+                    copy.h = 'Security Issue!';
+                    copy.b = 'The request was blocked because of an invalid email address.';
                     break;
 
                 default:
-                    var body = {
-                        h: _.settings.errorHeading,
-                        c: _.settings.errorBody
-                    };
-                    errorRef.innerHTML = `ERROR REF: ${response}`;
+                    copy.h = _.settings.errorHeading;
+                    copy.b = _.settings.errorBody;
             }
 
-            heading.innerHTML = body.h;
-            content.innerHTML = body.c;
+
+            if ( response.match( /[1-9]{1}_field[s]?_missing/g ) ) {
+
+                copy.h = 'Security Issue!';
+                copy.b = 'The request was blocked because some fields were missing.';
+            }
+
+
+            heading.innerHTML = copy.h;
+            body.innerHTML = copy.b;
 
             closer.innerHTML = 'Close';
             closer.setAttribute( 'id', 'close-submission' );
             closer.classList.add( 'button' );
 
             wrap.appendChild( heading );
-            wrap.appendChild( content );
+            wrap.appendChild( body );
 
             if ( response != '1' ) {
+                errorRef.innerHTML = `ERROR REF: ${response}`;
                 wrap.appendChild( errorRef );
             }
             
