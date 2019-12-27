@@ -8,30 +8,7 @@
 .site-footer {
     @extend .site-padding;
     
-	margin: 0 auto;
     padding-top: 4rem;
     padding-bottom: 4rem;
-	position: relative;
-
-	background-color: $l-grey;
-    
-    p {
-        margin: 0;
-    }
-
-    .footer-info {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    // Typically reserved for displaying site creator accrediation
-    small.creator {
-        margin: 0;
-        
-        color: $black;
-
-        font-size: 1.4rem;
-        line-height: $base-line-height;
-    }
 }
 
