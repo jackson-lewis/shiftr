@@ -170,7 +170,7 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
 
 		$content = unserialize( base64_decode( $content ) );
 
-		echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ) . '"><strong>#' . $title . ' ' . wp_unslash( $content['name'] ) . '</strong></a>';
+		echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id . '&action=edit' ) ) . '"><strong>#' . esc_html( $title . ' ' . wp_unslash( $content['name'] ) ) . '</strong></a>';
 	}
 
 	if ( $column == 'data_date' ) {
@@ -388,7 +388,7 @@ function shiftr_form_data_get_content() {
 	?>
 
 	<div>
-		<h2 class="shiftr-meta-box--heading">#<?php echo $post->ID . ' ' . $content['name']; ?></h2>
+		<h2 class="shiftr-meta-box--heading">#<?php echo esc_html( $post->ID . ' ' . $content['name'] ); ?></h2>
 		<span>Submitted via the <strong><?php echo $form; ?></strong> form - <?php echo get_the_date( 'l jS M Y \@ H:i' ); ?></span>
 	</div>
 	
@@ -423,12 +423,12 @@ function shiftr_form_data_get_content() {
 
 							foreach ( $files as $file ) {
 
-								$value .= '<a href="' . $shiftr_upload_dir . $file . '" target="_blank">' . $file . '</a>, ';
+								$value .= '<a href="' . esc_url( $shiftr_upload_dir . $file ) . '" target="_blank">' . esc_html( $file ) . '</a>, ';
 							}
 
 						} else if ( is_string( $files ) ) {
 
-							$value = '<a href="' . $shiftr_upload_dir . $files . '" target="_blank">' . $files . '</a>';
+							$value = '<a href="' . esc_url( $shiftr_upload_dir . $files ) . '" target="_blank">' . esc_html( $files )  . '</a>';
 
 						} else {
 							continue;
@@ -438,8 +438,8 @@ function shiftr_form_data_get_content() {
 
 			?>
 			<tr>
-				<td><?= strtoupper( $name ); ?></td>
-				<td><?= wp_unslash( $value ); ?></td>
+				<td><?= esc_html( strtoupper( $name ) ); ?></td>
+				<td><?= esc_html( wp_unslash( $value ) ); ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -457,7 +457,7 @@ function shiftr_form_get_error() {
 
 	echo '<pre><code>';
 
-	print_r( maybe_unserialize( $error ) );
+	print_r( esc_html( maybe_unserialize( $error ) ) );
 
 	echo '</code></pre>';
 }
