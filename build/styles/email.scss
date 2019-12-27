@@ -1,0 +1,23 @@
+table {
+	width: 100%;
+
+	tr {
+
+		&:nth-of-type(even) {
+			background-color: #f6f6f6;
+		}
+	}
+
+	td {
+		padding: 15px 20px;
+
+		&:first-child {
+			width: 160px;
+
+			color: #555555;
+			font-weight: 700;
+			text-align: right;
+		}
+	}
+}
+
