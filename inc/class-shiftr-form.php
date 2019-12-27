@@ -142,9 +142,13 @@ class Shiftr_Form {
 
 		if ( is_array( $hidden_fields ) ) {
 
+			echo '<div style="display:none;">';
+
 			foreach ( $hidden_fields as $field ) {
 				echo $field;
 			}
+
+			echo '</div>';
 		}
 
 		// Check if form HTML override exists
