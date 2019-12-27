@@ -329,12 +329,11 @@ class Shiftr_Form_Handler {
 
 		// Body open
 		$html_open = '<html><body>';
-		$style = '<style>' . file_get_contents( SHIFTR_ASSETS . '/styles/email.css' ) . '</style>';
 		$body_open = '<h1>New Message</h1>';
 
 		$body_open = apply_filters( 'shiftr_form_handler_html_body_open', $body_open, $this->form );
 
-		$table_open = '<table><tbody>';
+		$table_open = '<table style="width:100%;"><tbody>';
 
 		
 		// The form fields
@@ -342,6 +341,7 @@ class Shiftr_Form_Handler {
 
 		$table_contents = '';
 
+		$i = 1;
 		foreach ( $fields as $field ) {
 
 			$defaults = array(
@@ -370,12 +370,14 @@ class Shiftr_Form_Handler {
 				$value = $this->format_phone_number( $value );
 			}
 
-			$table_contents .= '<tr>';
+			$table_contents .= ( $i % 2 ) ? '<tr style="background-color:rgba(120,120,120,0.25);">' : '<tr>';
 
-			$table_contents .= '<td>'. ucwords( $field['name'] ) .'</td>';
-			$table_contents .=  '<td>'. wp_unslash( $value ) .'</td>';
+			$table_contents .= '<td style="width:160px;padding:15px 20px;color:#555555;font-weight:700;text-align:right;">'. ucwords( $field['name'] ) .'</td>';
+			$table_contents .=  '<td style="padding:15px 20px;">'. wp_unslash( $value ) .'</td>';
 			
 			$table_contents .= '</tr>';
+
+			$i++;
 		}
 
 		// Body close
