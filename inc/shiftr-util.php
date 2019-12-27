@@ -15,7 +15,7 @@ define( 'SHIFTR_SPACE_ENTITY', '&nbsp;' );
  */
 
 function shiftr_get_branding( $file = '' ) {
-	echo get_template_directory_uri() . '/assets/media/branding/' . $file;
+	echo esc_url( get_template_directory_uri() . '/assets/media/branding/' . $file );
 }
 
 
@@ -31,7 +31,7 @@ function shiftr_get_branding( $file = '' ) {
  */
 
 function shiftr_get_asset( $file = '', $media_dir = 'imagery' ) {
-	echo get_template_directory_uri() . '/assets/media/' . $media_dir . '/' . $file;
+	echo esc_url( get_template_directory_uri() . '/assets/media/' . $media_dir . '/' . $file );
 }
 
 
