@@ -71,6 +71,11 @@ class Shiftr_Form_Handler {
 		} else {
 
 			add_action( 'shiftr_delete_expired_form_data', array( $this, 'delete_expired_data' ) );
+
+			if ( ! wp_next_scheduled( 'shiftr_delete_expired_form_data' ) ) {
+
+				wp_schedule_event( time(), 'hourly', 'shiftr_delete_expired_form_data' );
+			}
 		}
 	}
 
@@ -714,30 +719,6 @@ class Shiftr_Form_Handler {
 
 $shiftr_form_handler = new Shiftr_Form_Handler;
 
-// Add the Shiftr_Form_Handler methods to WP AJAX
-if ( shiftr_is_sending_form() ) {
-	$shiftr_form_handler->set_hooks();	
-}
-
-
-add_action( 'init', function() {
-
-	global $shiftr, $shiftr_form_handler;
-
-	if ( $shiftr->forms->capture && $shiftr->forms->expiration_days > 0 ) {
-
-		if ( ! wp_next_scheduled( 'shiftr_delete_expired_form_data' ) ) {
-
-			wp_schedule_event( time(), 'daily', 'shiftr_delete_expired_form_data' );
-
-			$shiftr_form_handler->set_hooks();
-		}
-
-	} else {
-
-		$next_run = wp_next_scheduled( 'shiftr_delete_expired_form_data' );
-
-		wp_unschedule_event( $next_run, 'shiftr_delete_expired_form_data' );
-	}
-});
+// Add the Shiftr_Form_Handler methods to WP AJAX and cron
+$shiftr_form_handler->set_hooks();	
 
