@@ -232,7 +232,11 @@ Element.prototype.form = function( settings = {} ) {
 
             wrap.appendChild( heading );
             wrap.appendChild( content );
-            wrap.appendChild( errorRef );
+
+            if ( response != '1' ) {
+                wrap.appendChild( errorRef );
+            }
+            
             message.appendChild( wrap );
             message.appendChild( closer );
 
