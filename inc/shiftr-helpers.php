@@ -113,7 +113,7 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
 
 /**  
- *  shiftr_do_acf_image
+ *  shiftr_image
  *
  *  Output an img tag with data from an ACF image field
  *
@@ -125,7 +125,7 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
  *	@param $attr array Attributes that should be added to the img tag
  */
 
-function shiftr_do_acf_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
+function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
 
 	$html = '';
 
