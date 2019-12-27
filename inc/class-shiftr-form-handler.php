@@ -89,6 +89,8 @@ class Shiftr_Form_Handler {
 
 		global $shiftr;
 
+		$this->verification();
+
 		$this->manage_attachments();
 
 		// Check data capture is enabled
@@ -98,6 +100,32 @@ class Shiftr_Form_Handler {
 		
 		// Take care of sending the form data
 		$this->handle();
+	}
+
+
+	/**  
+	 *  verification
+	 *
+	 *  Verify the submission before going anywhere
+	 *
+	 *  @since 1.0
+	 */
+
+	function verification() {
+
+		if ( ! isset( $_POST['_' . $this->form_ID . '_nonce'] ) ) {
+
+			wp_die( 'verification: nonce_not_found' );
+		}
+
+		$nonce = $_POST['_' . $this->form_ID . '_nonce'];
+
+		// Verify the nonce
+		if ( ! wp_verify_nonce( $nonce, 'shiftr_form_' . $this->form_ID . '_submission' ) ) {
+
+			wp_die( 'verification: nonce_not_verified' );
+
+		}
 	}
 
 

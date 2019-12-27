@@ -134,6 +134,12 @@ class Shiftr_Form {
 		
 		$hidden_fields = apply_filters( 'shiftr_form_build_hidden_fields', $hidden_fields, $this->form );
 
+		// Verify hidden fields var is array before continuing
+		$hidden_fields = ( ! is_array( $hidden_fields ) ) ? [] : $hidden_fields;
+
+		// Assign nonce field
+		$hidden_fields[] = wp_nonce_field( 'shiftr_form_' . $this->form_ID . '_submission', '_' . $this->form_ID . '_nonce', true, false );
+
 		if ( is_array( $hidden_fields ) ) {
 
 			foreach ( $hidden_fields as $field ) {
