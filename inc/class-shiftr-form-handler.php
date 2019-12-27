@@ -346,7 +346,7 @@ class Shiftr_Form_Handler {
 			$field = wp_parse_args( $field, $defaults );
 
 			// Check field value exists in $_POST
-			if ( ! $this->value_exists( $field['name'] ) ) continue;
+			if ( ! $this->has_value( $field['name'] ) ) continue;
 
 			// Honor the include_in_send setting
 			if ( ! $field['include_in_send'] ) continue;
@@ -564,6 +564,7 @@ class Shiftr_Form_Handler {
 
 		$posts = get_posts( array(
 			'post_type' 	=> 'shiftr_form_data',
+			'post_status'   => 'draft',
 			'numberposts' 	=> -1
 		));
 
@@ -593,7 +594,52 @@ class Shiftr_Form_Handler {
 	function get_value( $field = '' ) {
 
 		if ( $this->value_exists( $field ) ) {
-			return $_POST[ '_' . $this->form_ID . '_' . $field ];
+			return $_POST[$this->POST_field( $field )];
+
+		} else {
+			return false;
+		}
+	}
+
+
+	/**  
+	 *  has_value
+	 *
+	 *  Check a $_POST property has a value
+	 *
+	 *  @since 1.0
+	 */
+
+	function has_value( $field = '' ) {
+
+		if ( isset( $_POST[$this->POST_field( $field )] ) ) {
+			
+			if ( $this->get_value( $field ) != '' ) {
+
+				return true;
+
+			} else {
+				return false;
+			}
+
+		} else {
+			return false;
+		}
+	}
+
+
+	/**  
+	 *  value_exists
+	 *
+	 *  Check a $_POST property has a value
+	 *
+	 *  @since 1.0
+	 */
+
+	function value_exists( $field = '' ) {
+
+		if ( isset( $_POST[$this->POST_field( $field )] ) ) {
+			return true;
 
 		} else {
 			return false;
@@ -615,50 +661,18 @@ class Shiftr_Form_Handler {
 	}
 
 
-	/**  
-	 *  value_exists
+	/**
+	 *  POST_field
 	 *
-	 *  Check a $_POST property has a value
-	 *
-	 *  @since 1.0
-	 */
-
-	function value_exists( $field = '' ) {
-
-		if ( isset( $_POST[ '_' . $this->form_ID . '_' . $field ] ) ) {
-			return true;
-
-		} else {
-			return false;
-		}
-	}
-
-
-	/**  
-	 *  has_value
-	 *
-	 *  Check a $_POST property has a value
+	 *  Return a $_POST field name
 	 *
 	 *  @since 1.0
 	 */
 
-	function has_value( $field = '' ) {
+	function POST_field( $field = '' ) {
 
-		if ( isset( $_POST[ '_' . $this->form_ID . '_' . $field ] ) ) {
-			
-			if ( $_POST[ '_' . $this->form_ID . '_' . $field ] != '' ) {
-
-				return true;
-
-			} else {
-				return false;
-			}
-
-		} else {
-			return false;
-		}
+		return '_' . $this->form_ID . '_' . $field;
 	}
-
 }
 
 
