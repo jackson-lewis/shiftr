@@ -129,7 +129,7 @@ class Shiftr_Form {
 		// Required form fields
 		$hidden_fields = array(
 			'<input type="hidden" name="action" value="shiftr_form_handler">',
-			'<input type="hidden" name="shiftr_form_id" value="' . $this->form_ID . '">'
+			'<input type="hidden" name="shiftr_form_id" value="' . esc_attr( $this->form_ID ) . '">'
 		);
 		
 		$hidden_fields = apply_filters( 'shiftr_form_build_hidden_fields', $hidden_fields, $this->form );
@@ -272,6 +272,10 @@ class Shiftr_Form {
 
 		$wrap_atts = apply_filters( 'shiftr_form_build_field_wrap_atts', $wrap_atts, $this->form );
 
+		// After the field wrap closes
+		do_action( "shiftr_form_{$this->form}_field_{$args->name}_before" );
+
+
 		// Field container open
 		echo '<div ' . shiftr_output_attr( $wrap_atts ) . '>';
 
@@ -336,7 +340,7 @@ class Shiftr_Form {
 				if ( ! isset( $subfield['label'] ) ) {
 					$subfield['label'] = shiftr_to_nicename( $subfield['name'] );
 				}
-				echo '<div class="sub-field--radio radio-' . $args->name . '-' . $subfield['name'] . '">';
+				echo '<div class="' . esc_attr( 'sub-field--radio radio-' . $args->name . '-' . $subfield['name'] ) . '">';
 
 				$subfield_atts = array(
 					'type' => 'radio',
@@ -346,9 +350,9 @@ class Shiftr_Form {
 
 				echo '<input ' . shiftr_output_attr( $subfield_atts, true ) . '>';
 
-				echo '<label for="' . $subfield_atts['id'] . '">';
+				echo '<label for="' . esc_attr( $subfield_atts['id'] ) . '">';
 
-				$label_innerHTML = '<span class="custom-' . $args->type . '"></span>' . $subfield['label'];
+				$label_innerHTML = '<span class="' . esc_attr( 'custom-' . $args->type ) . '"></span>' . $subfield['label'];
 
 				echo apply_filters( 'shiftr_form_build_field_radio_label', $label_innerHTML, $this->form, $args->name, $subfield['name'] );
 
@@ -368,11 +372,11 @@ class Shiftr_Form {
 			if ( isset( $args->options ) ) {
 
 				if ( ! $args->use_labels ) {
-					echo '<option disabled selected>' . $args->label . ( $args->required ? '*' : '' ) .'</option>';
+					echo '<option disabled selected>' . esc_html( $args->label . ( $args->required ? '*' : '' ) ) .'</option>';
 				}
 
 				foreach ( $args->options as $value => $label ) {
-					echo '<option value="' . $value . '">' . $label .'</option>';
+					echo '<option value="' . esc_attr( $value ) . '">' . esc_html( $label ) .'</option>';
 				}
 			}
 
@@ -389,7 +393,7 @@ class Shiftr_Form {
 
 			echo '<label ' . shiftr_output_attr( $label_atts ) . '>';
 
-			$label_innerHTML = '<span class="custom-' . $args->type . '"></span>' . $args->label;
+			$label_innerHTML = '<span class="' . esc_attr( 'custom-' . $args->type ) . '"></span>' . $args->label;
 
 			echo apply_filters( 'shiftr_form_build_field_checkbox_label', $label_innerHTML, $this->form, $args->name );
 
@@ -400,7 +404,7 @@ class Shiftr_Form {
 		echo '</div>';
 
 		// After the field wrap closes
-		do_action( "shiftr_form_{$this->form}_field_{$args->name}" );
+		do_action( "shiftr_form_{$this->form}_field_{$args->name}_after" );
 	}
 }
 
