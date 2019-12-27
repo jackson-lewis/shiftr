@@ -93,11 +93,17 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
 	$the_attributes = array();
 
-	foreach ( $raw as $key => $value ) {
+	foreach ( $raw as $_key => $_value ) {
 
 		if ( ! $force_empty_values ) {
-			if ( $value == '' ) continue;
+			if ( $_value == '' ) continue;
 		}
+
+		$key = strtolower( $_key );
+
+		$attr_url = array( 'href', 'src', 'srcset' );
+
+		$value = in_array( $key, $attr_url ) ? esc_url( $_value ) : esc_attr( $_value );
 
 		$the_attributes[] = $key . '="' . $value . '"';
 	}
