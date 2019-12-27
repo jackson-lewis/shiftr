@@ -162,7 +162,8 @@ class Shiftr_Form_Handler {
 
 		if ( ! empty( $empty_required_fields ) ) {
 
-			wp_die( json_encode( $empty_required_fields ) );
+			$plural = ( count( $empty_required_fields ) == 1 ) ? '' : 's';
+			wp_die( strval( count( $empty_required_fields ) ) . "_field{$plural}_missing" );
 		}
 	}
 
@@ -202,6 +203,10 @@ class Shiftr_Form_Handler {
 
 				default:
 					$value = sanitize_text_field( $_value );
+			}
+
+			if ( $field['type'] == 'tel' ) {
+				$value = $this->format_phone_number( $value );
 			}
 
 			$data[ $field['name'] ] = $value;
@@ -354,11 +359,16 @@ class Shiftr_Form_Handler {
 
 			if ( $field['type'] == 'file' ) continue;
 
+			$value = $this->get_value( $field['name'] );
+
+			if ( $field['type'] == 'tel' ) {
+				$value = $this->format_phone_number( $value );
+			}
 
 			$table_contents .= '<tr>';
 
 			$table_contents .= '<td>'. ucwords( $field['name'] ) .'</td>';
-			$table_contents .=  '<td>'. wp_unslash( $this->get_value( $field['name'] ) ) .'</td>';
+			$table_contents .=  '<td>'. wp_unslash( $value ) .'</td>';
 			
 			$table_contents .= '</tr>';
 		}
@@ -473,6 +483,32 @@ class Shiftr_Form_Handler {
 		return $emails;
 	}
 	
+
+	/**  
+	 *  format_phone_number
+	 *
+	 *  Used to chnage the phone number into a more readable format
+	 *
+	 *  @since 1.0
+	 *
+	 *	@param $number str The raw phone number
+	 *	@return $formatted str The formatted phone number
+	 */
+
+	function format_phone_number( $number ) {
+
+		// Format mobile number
+		if ( preg_match( '/^07/', $number ) ) {
+
+			$formatted = substr( $number, 0, 3 );
+			$formatted .= ' ' . substr( $number , 3, 3 );
+			$formatted .= ' ' . substr( $number , 6, 3 );
+			$formatted .= ' ' . substr( $number , 9, 2 );
+		}
+
+		return $formatted;
+	}
+
 
 	/**  
 	 *  trySMTP
