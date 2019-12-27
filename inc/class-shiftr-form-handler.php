@@ -123,12 +123,22 @@ class Shiftr_Form_Handler {
 
 			$_value = $this->get_value( $field['name'] );
 
-			if ( $field['type'] == 'textarea' ) {
-				$data[ $field['name'] ] = sanitize_textarea_field( $_value );
+			// Sanitize field value based on field type
+			switch( $field['type'] ) {
 
-			} else {
-				$data[ $field['name'] ] = sanitize_text_field( $_value );
+				case 'email':
+					$value = sanitize_email( $_value );
+					break;
+
+				case 'textarea':
+					$value = sanitize_textarea_field( $_value );
+					break;
+
+				default:
+					$value = sanitize_text_field( $_value );
 			}
+
+			$data[ $field['name'] ] = $value;
 		}
 
 		// List of args for the post
@@ -283,7 +293,7 @@ class Shiftr_Form_Handler {
 			$table_contents .= '<tr>';
 
 			$table_contents .= '<td>'. ucwords( $field['name'] ) .'</td>';
-			$table_contents .=  '<td>'. $this->get_value( $field['name'] ) .'</td>';
+			$table_contents .=  '<td>'. wp_unslash( $this->get_value( $field['name'] ) ) .'</td>';
 			
 			$table_contents .= '</tr>';
 		}
