@@ -155,3 +155,26 @@ class Shiftr_Settings {
 
 $shiftr = new Shiftr_Settings();
 
+
+/**  
+ *  shiftr
+ *
+ *  Return the $shiftr instance
+ *
+ *  @since 1.0
+ *
+ *  @return object The $shiftr instance
+ */
+
+function shiftr() {
+
+    global $shiftr;
+
+    if ( ! isset( $shiftr ) ) {
+
+        $shiftr = new Shiftr_Settings();
+    }
+
+    return $shiftr;
+}
+
