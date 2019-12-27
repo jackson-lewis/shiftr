@@ -74,7 +74,7 @@ class Shiftr_Form_Handler {
 
 			if ( ! wp_next_scheduled( 'shiftr_delete_expired_form_data' ) ) {
 
-				wp_schedule_event( time(), 'hourly', 'shiftr_delete_expired_form_data' );
+				wp_schedule_event( strtotime( '01:00' ), 'daily', 'shiftr_delete_expired_form_data' );
 			}
 		}
 	}
@@ -595,13 +595,14 @@ class Shiftr_Form_Handler {
 
 		global $shiftr;
 
+		// Update the $shiftr global with custom settings
+		include SHIFTR_FUNC . '/_shiftr-settings.php';
+
 		$days = $shiftr->forms->expiration_days;
 
 		if ( $days < 1 ) return;
 
 		$expiration_date = date( 'Y-m-d H:i:s', strtotime( "-$days days", strtotime( date( 'Y-m-d H:i:s' ) ) ) );
-
-		echo $days;
 
 		$posts = get_posts( array(
 			'post_type' 	=> 'shiftr_form_data',
@@ -611,7 +612,7 @@ class Shiftr_Form_Handler {
 
 		foreach ( $posts as $post ) {
 
-			setup_postsdata( $post );
+			setup_postdata( $post );
 
 			// Delete post if post date is after expiration date
 			if ( $expiration_date >= $post->post_date ) {
