@@ -115,7 +115,7 @@ class Shiftr_Form_Handler {
 
 		if ( ! isset( $_POST['_' . $this->form_ID . '_nonce'] ) ) {
 
-			wp_die( 'verification: nonce_not_found' );
+			wp_die( 'nonce_not_found' );
 		}
 
 		$nonce = $_POST['_' . $this->form_ID . '_nonce'];
@@ -123,8 +123,46 @@ class Shiftr_Form_Handler {
 		// Verify the nonce
 		if ( ! wp_verify_nonce( $nonce, 'shiftr_form_' . $this->form_ID . '_submission' ) ) {
 
-			wp_die( 'verification: nonce_not_verified' );
+			wp_die( 'nonce_not_verified' );
+		}
 
+		// Validate email address
+		$email = $this->get_value( 'email' );
+
+		if ( ! is_email( $email ) ) {
+
+			wp_die( 'invalid_email_address' );
+		}
+
+		// Check all required fields have a value
+		$empty_required_fields = array();
+
+		foreach ( $this->form_instance->fields as $field ) {
+
+			$defaults = array(
+				'type' 				=> '',
+				'name' 				=> '',
+				'required' 			=> true,
+				'label' 			=> '',
+				'include_in_send' 	=> true,
+				'rows'				=> 4
+			);
+
+			$field = wp_parse_args( $field, $defaults );
+
+			if ( $field['required'] ) {
+
+				// Check field value exists in $_POST
+				if ( ! $this->has_value( $field['name'] ) ) {
+
+					$empty_required_fields[] = $field['name'];
+				}
+			}
+		}
+
+		if ( ! empty( $empty_required_fields ) ) {
+
+			wp_die( json_encode( $empty_required_fields ) );
 		}
 	}
 
@@ -252,11 +290,9 @@ class Shiftr_Form_Handler {
 			$output = true;
 
 		} else {
-			$output = 'MAIL';
+			$output = 'mail_not_sent';
 		}
 
-		// Return string to JS function
-		echo $output;
 
 		// Delete all files if capture is not enabled
 		if ( ! $shiftr->forms->capture ) {
@@ -264,7 +300,8 @@ class Shiftr_Form_Handler {
 			foreach ( $this->files as $file ) unlink( $file );
 		}
 
-		wp_die();
+		// Return string to JS function
+		wp_die( $output );
 	}
 
 
@@ -590,6 +627,32 @@ class Shiftr_Form_Handler {
 
 		if ( isset( $_POST[ '_' . $this->form_ID . '_' . $field ] ) ) {
 			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+
+	/**  
+	 *  has_value
+	 *
+	 *  Check a $_POST property has a value
+	 *
+	 *  @since 1.0
+	 */
+
+	function has_value( $field = '' ) {
+
+		if ( isset( $_POST[ '_' . $this->form_ID . '_' . $field ] ) ) {
+			
+			if ( $_POST[ '_' . $this->form_ID . '_' . $field ] != '' ) {
+
+				return true;
+
+			} else {
+				return false;
+			}
 
 		} else {
 			return false;
