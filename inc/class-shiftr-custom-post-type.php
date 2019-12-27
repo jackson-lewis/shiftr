@@ -207,9 +207,23 @@ function shiftr_register_post_type( $name = '', $settings = [], $args = [] ) {
 }
 
 
-add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type ) {
+/**  
+ *  shiftr_sanity_check_public_post_types
+ *
+ *  Built-in filter; force post types as publicly false if not
+ *  defined as public in $shiftr->public_post_types
+ *
+ *  @since 1.0
+ *
+ *  @global $shiftr
+ *  @param $args array The args of registering a custom post type
+ *  @param $post_type str The name of the post type
+ *  @return array The filtered args for the post type
+ */
 
-    global $shiftr;
+function shiftr_sanity_check_public_post_types( $args, $post_type ) {
+
+    $shiftr = shiftr();
 
     // Check that post type has been cleared to be publicly visible
     if ( ! in_array( $post_type, $shiftr->public_post_types ) ) {
@@ -220,6 +234,7 @@ add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type
     }
 
     return $args;
+} 
 
-}, 10, 2 );
+add_filter( 'shiftr_custom_post_type_register_args', 'shiftr_sanity_check_public_post_types', 10, 2 );
 
