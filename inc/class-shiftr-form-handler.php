@@ -295,7 +295,7 @@ class Shiftr_Form_Handler {
 		$this->trySMTP();
 
 		// Try and sent the form
-		if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
+		if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files['absolute'] ) ) {
 
 			$output = true;
 
@@ -429,8 +429,8 @@ class Shiftr_Form_Handler {
 
 				$file = $this->upload_attachment( $field['name'] );
 
-				$files['absolute'] = $file['absolute'];
-				$files['filename'] = $file['filename'];
+				$files['absolute'][] = $file['absolute'];
+				$files['filename'][] = $file['filename'];
 			}
 		}
 
@@ -574,12 +574,7 @@ class Shiftr_Form_Handler {
 		$this->error = $wp_error;
 
 		// Add error object to db
-		add_post_meta( $this->data_ID, 'shiftr_form_mail_error', maybe_serialize( $this->error ) );
-
-		// Update data title with "FAILED" message
-		$data_title = get_the_title( $this->data_ID );
-
-		wp_update_post( array( 'ID' => $this->data_ID, 'post_title' => $data_title . ' (FAILED)' ) );
+		add_post_meta( $this->data_ID, 'shiftr_form_mail_error', base64_encode( maybe_serialize( $this->error ) ) );
 	}
 
 
