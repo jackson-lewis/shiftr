@@ -157,8 +157,14 @@ class Shiftr_Form_Handler {
 
 			if ( $field['required'] ) {
 
-				// Check field value exists in $_POST
-				if ( ! $this->has_value( $field['name'] ) ) {
+				if ( $field['type'] == 'file' ) {
+
+					if ( empty( $this->get_file( $field['name'] ) ) ) {
+
+						$empty_required_fields[] = $field['name'];
+					}
+
+				} else if ( ! $this->has_value( $field['name'] ) ) {
 
 					$empty_required_fields[] = $field['name'];
 				}
