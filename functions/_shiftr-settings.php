@@ -60,6 +60,15 @@ $shiftr->admin_show_comments = false;
 
 
 /* 
+	access_to_acf
+
+	Users by ID that can access ACF. If empty, nobody has access
+*/
+
+$shiftr->access_to_acf = array( 1 );
+
+
+/* 
 	remove_editor_by_post_type
 
 	Toggle display of the WP editor by post type

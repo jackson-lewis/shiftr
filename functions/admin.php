@@ -28,7 +28,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 		'menu_title'	=> 'Footer',
 		'parent_slug'	=> 'general-options',
 	));
-	
 }
 
 
@@ -45,12 +44,9 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 function shiftr_remove_acf_menu_item( $show ) {
 
-    if ( get_current_user_id() != 1 ) {
-        return false;
-        
-    } else {
-        return $show;
-    }
+	$shiftr = shiftr();
+
+    return current_user_can( 'manage_options' ) && in_array( get_current_user_id(), $shiftr->access_to_acf );
 }
 
 add_filter( 'acf/settings/show_admin', 'shiftr_remove_acf_menu_item' );

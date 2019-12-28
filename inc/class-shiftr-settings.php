@@ -56,6 +56,9 @@ class Shiftr_Settings {
     // Show Comments in Admin menu, default false
     public $admin_show_comments = false;
 
+    // Group of users by ID that can access ACF
+    public $access_to_acf = array();
+
     // Remove editor for specified post types
     public $remove_editor_by_post_type = array();
 
