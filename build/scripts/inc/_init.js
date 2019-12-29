@@ -27,6 +27,32 @@ function createEl( el ) {
     return document.createElement( el );
 }
 
+
+/**  
+ *  strToBool
+ *
+ *  Perform regex against string for true|false and return boolean
+ *
+ *  @since 1.0
+ *
+ *  @param str str The string to check against
+ *  @return bool|str Boolean if match found, string if no match
+ */
+
+function strToBool( str ) {
+
+    if ( str.match( /^true$/i ) ) {
+        return true;
+
+    } else if ( str.match( /^false$/i ) ) {
+        return false;
+
+    } else {
+        return str;
+    }
+}
+
+
 /*  ////  --|    Return window size
 
     * Twin functions, one for width and another for height
