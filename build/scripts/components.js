@@ -34,14 +34,14 @@
     }
 
 
-    //  ////  --|    Accordions
+    //  ////  --|    Accordions (Auto)
 
     if ( document.querySelector( '[data-shiftr-accordion]' ) ) {
 
         // Define all accordions
-        let accordion = document.querySelector( '.shiftr-accordion' );
+        let accordions = document.querySelectorAll( '[data-shiftr-accordion]' );
         
-        if ( accordion ) accordion.accordion(); 
+        accordions.forEach( accordion => accordion.accordion() );
     }
 
 

@@ -1,0 +1,88 @@
+/*
+
+    //  //// --|    Components / Accordion
+
+*/
+
+
+.shiftr-accordion {
+
+	--vertical-padding: 1rem;
+
+	.accordion--item {
+		margin-bottom: 2rem;
+		position: relative;
+
+		@include last-child;
+
+		.accordion--tab {
+			padding: 2rem calc( ( var( --vertical-padding ) * 2 ) + 3rem ) 2rem var( --vertical-padding );
+			position: relative;
+			cursor: pointer;
+
+			@include after {
+				width: calc( 100% - ( var( --vertical-padding ) * 2 ) );
+				height: .1rem;
+				left: var( --vertical-padding );
+				bottom: 0;
+
+				transition: 400ms;
+
+				opacity: 0;
+				background-color: $primary;
+			}
+
+			& > svg.status-indicator {
+				width: 3rem;
+				height: 3rem;
+				position: absolute;
+				top: 50%;
+				right: var( --vertical-padding );
+				transform: translateY( -50% ) rotateZ( -90deg );
+
+				transition: 200ms;
+			}
+		}
+
+		.accordion--panel {
+			padding: 2rem var( --vertical-padding );
+			position: relative;
+			
+			& > *:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		transition: 400ms;
+
+		$box-shadow: 0 0 1rem rgba( $d-grey, .1 ),
+            		 0 0 3rem rgba( $d-grey, .05 );
+
+		&:hover {
+			box-shadow: $box-shadow;
+		}
+		
+		&.is-expanded {
+
+			box-shadow: $box-shadow;
+
+			.accordion--tab {
+
+				@include after( false ) {
+					opacity: 1;
+				}
+
+				& > svg.status-indicator {
+					transform: translateY( -50% ) rotateZ( -90deg ) rotateY( 180deg );
+				}
+			}
+		}
+	}
+
+	@include x( s ) {
+		
+		--vertical-padding: 2rem;
+	}
+	
+}
+
