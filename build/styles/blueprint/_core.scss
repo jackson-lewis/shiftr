@@ -80,19 +80,21 @@ main.site-main {
 
 section {
 
+	$vertical-padding: 4rem;
+
 	&.site-section {
 		@extend .site-padding;
 		
-		padding-top: 4rem;
-		padding-bottom: 4rem;
+		padding-top: $vertical-padding;
+		padding-bottom: $vertical-padding;
 	}
 
 	// Sections with darken background
 	&.grey {
-		margin-top: 4rem;
-		margin-bottom: 4rem;
-		padding-top: 4rem;
-		padding-bottom: 4rem;
+		margin-top: $vertical-padding;
+		margin-bottom: $vertical-padding;
+		padding-top: $vertical-padding;
+		padding-bottom: $vertical-padding;
 
 		background-color: $l-grey;
 	}
