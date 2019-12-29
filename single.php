@@ -9,16 +9,16 @@
 ?>
 
 
-	<div class="hero-standard">
+	<div class="hero--standard">
 		<div class="container contain-line-width">
-			<header class="hero--content">
+			<div class="hero-featured-image">
+				<?php shiftr_featured_image(); ?>
+			</div>
+
+			<header class="hero-content">
 				<h1><?php the_title(); ?></h1>
 				<p><?php the_time( 'd F Y' ); ?></p>
 			</header>
-
-			<div class="hero--featured-image">
-				<?php shiftr_featured_image(); ?>
-			</div>
 		</div>
 	</div>
 

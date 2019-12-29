@@ -9,12 +9,14 @@
 ?>
 
 
-	<div class="hero-standard">
+	<div class="hero--standard">
 		<div class="container contain-line-width">
-			<h1><?php the_title(); ?></h1>
-
-			<div class="hero--featured-image">
+			<div class="hero-featured-image">
 				<?php shiftr_featured_image(); ?>
+			</div>
+
+			<div class="hero-content">
+				<h1><?php the_title(); ?></h1>
 			</div>
 		</div>
 	</div>
