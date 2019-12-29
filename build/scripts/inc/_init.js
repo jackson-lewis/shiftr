@@ -53,6 +53,36 @@ function strToBool( str ) {
 }
 
 
+/**  
+ *  parseComponentData
+ *
+ *  For use on parsing Shiftr component settings
+ *  Override component setting defaults with data attributes
+ *
+ *  @since 1.0
+ *
+ *  @param settings obj The settings of the component
+ *  @param el Element The component element
+ *  @param component str The Shiftr component name
+ *  @return obj The parsed settings
+ */
+
+function parseComponentData( settings = {}, el, component = '' ) {
+
+    if ( el && el.hasAttribute( `data-shiftr-${component}` ) ) {
+
+        Object.keys( settings ).forEach( s => {
+
+            if ( el.hasAttribute( `data-accordion-${s}` ) ) {
+                settings[s] = strToBool( el.getAttribute( `data-accordion-${s}` ) );
+            }
+        });
+    }
+
+    return settings;
+}
+
+
 /*  ////  --|    Return window size
 
     * Twin functions, one for width and another for height
