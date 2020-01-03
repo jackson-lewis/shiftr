@@ -31,20 +31,7 @@ Element.prototype.accordion = function( settings = {} ) {
     
 
     // Generate a ID for the accordion
-    let generateID = () => {
-
-        // Check if accordion already has id set
-        if ( accordion.hasAttribute( 'id' ) ) return accordion.id;
-
-        let $ID = 'acc_' + Math.floor( Math.random() * Math.floor( 100 ) );
-
-        // Rerun if element with id already exists
-        if ( document.getElementById( $ID ) ) generateID();
-
-        return $ID;
-    };
-    
-    let accordionID = generateID();
+    let accordionID = generateComponentID( this, 'accordion' );
 
 
     //  --|    function Open an item

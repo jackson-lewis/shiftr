@@ -83,6 +83,32 @@ function parseComponentData( settings = {}, el, component = '' ) {
 }
 
 
+/**  
+ *  generateComponentID
+ *
+ *  For use on generating a random ID for a Shiftr Component
+ *
+ *  @since 1.0
+ *
+ *  @param el Element The component element
+ *  @param component str The Shiftr component name
+ *  @return str The ID
+ */
+
+function generateComponentID( el, component = '' ) {
+
+    // Check if element already has id set
+    if ( el.hasAttribute( 'id' ) ) return el.id;
+
+    let $ID = `${component}_` + Math.floor( Math.random() * Math.floor( 100 ) );
+
+    // Rerun if element with id already exists
+    if ( document.getElementById( $ID ) ) generateComponentID( el, component );
+
+    return $ID;
+}
+
+
 /*  ////  --|    Return window size
 
     * Twin functions, one for width and another for height
