@@ -12,29 +12,18 @@
     }
 
 
-    //  ////  --|    Carousels
+    //  ////  --|    Carousels (Auto-discover)
 
     if ( document.querySelector( '[data-shiftr-carousel]' ) ) {
 
-        // Define all carousels
-        let carousel = document.querySelector( '.shiftr-carousel' );
-
-        if ( carousel ) carousel.carousel();
-    }
-
-
-    //  ////  --|    Galleries
-
-    if ( document.querySelector( '[data-shiftr-gallery]' ) ) {
-
-        // Define all galleries
-        let gallery = document.querySelector( '.shiftr-gallery' );
+        // Define all accordions
+        let carousels = document.querySelectorAll( '[data-shiftr-carousel]' );
         
-        if ( gallery ) gallery.gallery(); 
+        carousels.forEach( carousel => carousel.carousel() );
     }
 
 
-    //  ////  --|    Accordions (Auto)
+    //  ////  --|    Accordions (Auto-discover)
 
     if ( document.querySelector( '[data-shiftr-accordion]' ) ) {
 
@@ -44,6 +33,16 @@
         accordions.forEach( accordion => accordion.accordion() );
     }
 
+    
+    //  ////  --|    Galleries
+
+    if ( document.querySelector( '[data-shiftr-gallery]' ) ) {
+
+        // Define all galleries
+        let gallery = document.querySelector( '.shiftr-gallery' );
+        
+        if ( gallery ) gallery.gallery(); 
+    }
 
 })();
 
