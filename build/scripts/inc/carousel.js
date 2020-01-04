@@ -286,10 +286,9 @@ Element.prototype.carousel = function( settings = {} ) {
     }
 
 
-    let autoplay = ( a = _.autoplay ) => a;
     let initAutoplay = () => {
 
-        if ( ! autoplay() ) return;
+        if ( ! _.autoplay ) return;
 
         auto = setInterval( moveSlideNext, _.speed );
     };
@@ -297,7 +296,7 @@ Element.prototype.carousel = function( settings = {} ) {
     
     function pauseAutoplay() {
 
-        if ( ! autoplay() ) return;
+        if ( ! _.autoplay ) return;
 
         autoPaused = true;
         clearInterval( auto );
@@ -306,7 +305,7 @@ Element.prototype.carousel = function( settings = {} ) {
 
     function resumeAutoplay() {
 
-        if ( ! autoplay() ) return;
+        if ( ! _.autoplay ) return;
 
         if ( autoPaused ) initAutoplay();
         autoPaused = false;
