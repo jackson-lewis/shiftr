@@ -144,7 +144,17 @@ nav {
                 border-radius: .05rem;
             }
         }
-        
+    }
+
+    &.has-no-sub-navs {
+
+        ul {
+            li {
+                &.level-0-item {
+                    padding-right: 0;
+                }
+            }
+        }
     }
 
 

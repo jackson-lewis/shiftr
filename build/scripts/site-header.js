@@ -30,15 +30,12 @@
         } else {
             header.style.height = headerTransitionHeight;
         }
-
-        nav.classList.toggle( 'show' );
     };
 
     let toggleWindow = () => {
         toggle.classList.remove( 'transition' );
         header.setAttribute( 'style', '' );
         body.classList.remove( 'no-scroll' );
-        nav.classList.remove( 'show' );
     };
 
     x( l, () => {
@@ -55,6 +52,8 @@
 
 
     //  ////  --|    Sub-menu
+
+    nav.classList.add( subNavs.length <= 0 ? 'has-no-sub-navs' : 'has-sub-navs' );
 
     let displayClass = 'is-visible';
     
