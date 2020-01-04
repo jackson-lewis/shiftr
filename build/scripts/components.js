@@ -33,16 +33,6 @@
         accordions.forEach( accordion => accordion.accordion() );
     }
 
-    
-    //  ////  --|    Galleries
-
-    if ( document.querySelector( '[data-shiftr-gallery]' ) ) {
-
-        // Define all galleries
-        let gallery = document.querySelector( '.shiftr-gallery' );
-        
-        if ( gallery ) gallery.gallery(); 
-    }
 
 })();
 
