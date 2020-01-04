@@ -22,6 +22,16 @@ header.site-header {
                 0 0 3rem rgba( $d-grey, .15 ),
                 0 0 6rem rgba( $d-grey, .1 );
 
+    div.container {
+        height: 100%;
+
+        @include x( l ) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
     .site-logo {
         height: 4rem;
         display: block;
@@ -33,12 +43,34 @@ header.site-header {
         svg {
             min-height: 100%;
         }
+
+        @include x( l ) {
+            margin-right: 4rem;
+            position: relative;
+            top: unset;
+            left: unset;
+        }
     }
 
     transition: 600ms cubic-bezier( 0.23, 0.96, 0.59, 1 );
 
     @include x( l ) {
         overflow: visible;
+    }
+}
+
+
+.header--offset-contents {
+    width: 100%;
+    padding-top: 6rem;
+
+    @include x( l ) {
+        width: auto;
+        padding-top: 0;
+        flex-grow: 2;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
 

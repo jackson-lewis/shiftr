@@ -23,6 +23,7 @@
         e.stopPropagation();
 
         toggle.classList.toggle( 'transition' );
+        header.classList.toggle( 'offset-is-expanded' );
         body.classList.toggle( 'no-scroll' );
         
         if ( header.offsetHeight > nav.offsetHeight ) {
@@ -34,6 +35,7 @@
 
     let toggleWindow = () => {
         toggle.classList.remove( 'transition' );
+        header.classList.remove( 'offset-is-expanded' );
         header.setAttribute( 'style', '' );
         body.classList.remove( 'no-scroll' );
     };

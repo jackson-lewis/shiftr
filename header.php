@@ -33,14 +33,16 @@
                     <?php shiftr_inline_svg( 'shiftr-full', '/assets/_shiftr/' ); ?>
                 </a>
 
-                <?php shiftr_nav_primary(); ?>
-
                 <button class="nav-primary--toggle" aria-label="Toggle navigation">
                     <span class="before"></span>
                     <span class="before"></span>
                     <span class="after"></span>
                     <span class="after"></span>
                 </button>
+
+                <div class="header--offset-contents">
+                    <?php shiftr_nav_primary(); ?>
+                </div>
                 
             </div>
         </header>
