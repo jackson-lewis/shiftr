@@ -1,6 +1,6 @@
 /*
 
-	//  //// --|    ADMIN.SCSS
+    //  //// --|    ADMIN.SCSS
 
 */
 
@@ -9,292 +9,292 @@
 
 
 body#tinymce.wp-editor {
-	font-family: $base-font-family;
-	line-height: $base-line-height;
-	color: $d-grey; 
+    font-family: $base-font-family;
+    line-height: $base-line-height;
+    color: $d-grey; 
 
-	*::selection {
-		color: $white;
-		background-color: $secondary;
-		text-shadow: none;
-	}
+    *::selection {
+        color: $white;
+        background-color: $secondary;
+        text-shadow: none;
+    }
 
-	h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6 {
 
-		font-family: $heading-font-family;
-		font-weight: 700;
+        font-family: $heading-font-family;
+        font-weight: 700;
 
-		text-align: left;
-		text-transform: capitalize;
-		line-height: 1.4;
+        text-align: left;
+        text-transform: capitalize;
+        line-height: 1.4;
 
-		color: $black;
-	}
+        color: $black;
+    }
 
-	a {
-		color: inherit;
-		font-weight: 700;
-		line-height: $base-line-height;
+    a {
+        color: inherit;
+        font-weight: 700;
+        line-height: $base-line-height;
 
-		transition: 300ms;
+        transition: 300ms;
 
-		&:hover {
-			color: $primary;
-		}
-	}
+        &:hover {
+            color: $primary;
+        }
+    }
 
-	%button {
-		margin: 0;
-		padding: 10px 20px;
-		display: inline-block;
-		cursor: pointer;
+    %button {
+        margin: 0;
+        padding: 10px 20px;
+        display: inline-block;
+        cursor: pointer;
 
-		border: none;
-		border-radius: 4px;
-		font-size: 14px;
-		line-height: $base-line-height;
-		font-weight: 700;
-		text-transform: capitalize;
-		text-decoration: none;
-		appearance: none;
-		outline: 0;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: $base-line-height;
+        font-weight: 700;
+        text-transform: capitalize;
+        text-decoration: none;
+        appearance: none;
+        outline: 0;
 
-		transition: 300ms;
-	}
+        transition: 300ms;
+    }
 
-	.button-fill {
-		@extend %button;
+    .button-fill {
+        @extend %button;
 
-		color: $white;
-		background-color: $primary;
+        color: $white;
+        background-color: $primary;
 
-		&:hover {
-			color: $white;
-			background-color: rgba( $primary, .8 );
-		}
+        &:hover {
+            color: $white;
+            background-color: rgba( $primary, .8 );
+        }
 
-		&:focus {
-			box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-						0 .2rem 1rem rgba( $d-grey, .2 );
-		}
-	}
+        &:focus {
+            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+                        0 .2rem 1rem rgba( $d-grey, .2 );
+        }
+    }
 
-	.button-outline {
-		@extend %button;
+    .button-outline {
+        @extend %button;
 
-		padding: 9px 19px;
+        padding: 9px 19px;
 
-		color: $primary;
-		background-color: transparent;
-		border: 1px solid $primary;
+        color: $primary;
+        background-color: transparent;
+        border: 1px solid $primary;
 
-		&:hover {
-			color: $primary;
-			background-color: rgba( $primary, .1 );
-		}
+        &:hover {
+            color: $primary;
+            background-color: rgba( $primary, .1 );
+        }
 
-		&:focus {
-			box-shadow: 0 0 5px rgba( $d-grey, .2 ),
-						0 2px 1px rgba( $d-grey, .2 );
-		}
-	}
+        &:focus {
+            box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                        0 2px 1px rgba( $d-grey, .2 );
+        }
+    }
 
-	.button-text {
-		@extend %button;
+    .button-text {
+        @extend %button;
 
-		color: $primary;
-		background-color: transparent;
+        color: $primary;
+        background-color: transparent;
 
-		&:hover {
-			color: $primary;
-			background-color: rgba( $primary, .1 );
-		}
+        &:hover {
+            color: $primary;
+            background-color: rgba( $primary, .1 );
+        }
 
-		&:focus {
-			box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-						0 .2rem 1rem rgba( $d-grey, .2 );
-		}
-	}
+        &:focus {
+            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+                        0 .2rem 1rem rgba( $d-grey, .2 );
+        }
+    }
 }
 
 
 #wp-link-wrap {
-	height: 533px !important;
+    height: 533px !important;
 }
 
 .has-text-field #wp-link .query-results {
-	top: 233px !important;
+    top: 233px !important;
 }
 
 #wp-link .link-display-style {
-	padding-top: 3px;
+    padding-top: 3px;
 }
 
 // WYSIWYG Editor Types
 .shiftr-editor-min {
-	
-	iframe {
-		min-height: 0;
-		height: 140px !important;
-	}
+    
+    iframe {
+        min-height: 0;
+        height: 140px !important;
+    }
 
-	.mce-resizehandle {
-		display: none !important;
-	}
+    .mce-resizehandle {
+        display: none !important;
+    }
 }
 
 .shiftr-hide-label {
-	& > .acf-label {
-		display: none;
-	}
+    & > .acf-label {
+        display: none;
+    }
 }
 
 
 #shiftr-form-data-content {
-	
-	button.handlediv, h2.hndle {
-		display: none;
-	}
+    
+    button.handlediv, h2.hndle {
+        display: none;
+    }
 
-	.inside {
-		margin: 0;
-		padding: 24px;
+    .inside {
+        margin: 0;
+        padding: 24px;
 
-		& > div:first-child {
-			margin-bottom: 20px;
-			padding-bottom: 20px;
+        & > div:first-child {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
 
 
-			border-bottom: 1px solid #333333;
-		}
+            border-bottom: 1px solid #333333;
+        }
 
-		h2.shiftr-meta-box--heading {
-			margin-bottom: 20px;
-			padding: 0;
+        h2.shiftr-meta-box--heading {
+            margin-bottom: 20px;
+            padding: 0;
 
-			font-size: 22px;
-			font-weight: 300;
-		}
+            font-size: 22px;
+            font-weight: 300;
+        }
 
-		span {
-			font-size: 16px;
-		}
-	}
+        span {
+            font-size: 16px;
+        }
+    }
 
-	table.shiftr-form-data-content-table {
-		width: 100%;
+    table.shiftr-form-data-content-table {
+        width: 100%;
 
-		tr {
+        tr {
 
-			&:nth-of-type(even) {
-				background-color: #f6f6f6;
-			}
-		}
+            &:nth-of-type(even) {
+                background-color: #f6f6f6;
+            }
+        }
 
-		td {
-			padding: 15px 20px;
+        td {
+            padding: 15px 20px;
 
-			&:first-child {
-				width: 160px;
+            &:first-child {
+                width: 160px;
 
-				color: #555555;
-				font-weight: 700;
-				text-align: right;
-			}
-		}
-	}
+                color: #555555;
+                font-weight: 700;
+                text-align: right;
+            }
+        }
+    }
 }
 
 // Shiftr Contact Form Settings - Admin Page
 
 .shiftr-box {
-	min-width: 600px;
-	width: 50%;
-	margin: 20px 0;
-	background-color: #FFFFFF;
-	border: 1px solid #E5E5E5;
-	box-shadow: 0 1px 1px rgba( 0, 0, 0, .04 );
+    min-width: 600px;
+    width: 50%;
+    margin: 20px 0;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 1px 1px rgba( 0, 0, 0, .04 );
 
-	h2 {
-		margin: 0;
-		padding: 15px;
+    h2 {
+        margin: 0;
+        padding: 15px;
 
-		border-bottom: 1px solid #EEEEEE;
-	}
+        border-bottom: 1px solid #EEEEEE;
+    }
 
-	form {
-		padding: 15px;
+    form {
+        padding: 15px;
 
-		.shiftr-heading, .shiftr-subheading {
-			margin-bottom: 20px;
+        .shiftr-heading, .shiftr-subheading {
+            margin-bottom: 20px;
 
-			h3 {
-				margin: 0 0 4px;
-			}
+            h3 {
+                margin: 0 0 4px;
+            }
 
-			span {
-				display: block;
-				font-style: italic;
-				font-size: 13px;
-				color: #666666;
-			}
-		}
+            span {
+                display: block;
+                font-style: italic;
+                font-size: 13px;
+                color: #666666;
+            }
+        }
 
-		.shiftr-separator {
-			margin-top: 40px;
-			padding-top: 40px;
+        .shiftr-separator {
+            margin-top: 40px;
+            padding-top: 40px;
 
-			border-top: 1px solid #EEEEEE;
-		}
+            border-top: 1px solid #EEEEEE;
+        }
 
-		.shiftr-input {
-			width: 100%;
-			margin-bottom: 20px;
+        .shiftr-input {
+            width: 100%;
+            margin-bottom: 20px;
 
-			label {
-				display: block;
+            label {
+                display: block;
 
-				font-weight: 700;
-				font-size: 13px;
-			}
+                font-weight: 700;
+                font-size: 13px;
+            }
 
-			span {
-				display: block;
-				font-style: italic;
-				font-size: 13px;
-				color: #666666;
-			}
+            span {
+                display: block;
+                font-style: italic;
+                font-size: 13px;
+                color: #666666;
+            }
 
-			input {
-				width: 100%;
-				margin-top: 8px;
-			}
-		}
+            input {
+                width: 100%;
+                margin-top: 8px;
+            }
+        }
 
-		.shiftr-textarea {
-			width: 100%;
-			margin-bottom: 20px;
+        .shiftr-textarea {
+            width: 100%;
+            margin-bottom: 20px;
 
-			label {
-				display: block;
+            label {
+                display: block;
 
-				font-weight: 700;
-				font-size: 13px;
-			}
+                font-weight: 700;
+                font-size: 13px;
+            }
 
-			span {
-				display: block;
-				font-style: italic;
-				font-size: 13px;
-				color: #666666;
-			}
+            span {
+                display: block;
+                font-style: italic;
+                font-size: 13px;
+                color: #666666;
+            }
 
-			textarea {
-				width: 100%;
-				min-height: 82px;
-				margin-top: 8px;
-			}
-		}
-	}
+            textarea {
+                width: 100%;
+                min-height: 82px;
+                margin-top: 8px;
+            }
+        }
+    }
 }
 

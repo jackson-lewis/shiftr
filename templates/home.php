@@ -1,19 +1,19 @@
 <?php 
 
-	/*  Template Name: Home
+    /*  Template Name: Home
 
     */
 
-	get_header();
+    get_header();
 
 ?>
 
 
-	<main class="site-main">
+    <main class="site-main">
 
-		
+        
 
-	</main>
+    </main>
     
 
 <?php get_footer(); ?>

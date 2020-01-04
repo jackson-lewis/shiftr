@@ -1,13 +1,13 @@
-		<footer class="site-footer">
-			<div class="container">
-				
-				
-				
-			</div>
-		</footer>
+        <footer class="site-footer">
+            <div class="container">
+                
+                
+                
+            </div>
+        </footer>
 
-		<?php wp_footer(); ?>
+        <?php wp_footer(); ?>
         
-	</body>
+    </body>
     
 </html>

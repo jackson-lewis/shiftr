@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    The HTML for Shiftr welcome notice
+    /*  ////  --|    The HTML for Shiftr welcome notice
 
     */
 

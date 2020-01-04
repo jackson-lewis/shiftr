@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    Theme Support
+    /*  ////  --|    Theme Support
 
     */
 
@@ -15,12 +15,12 @@
 
 function shiftr_theme_support() {
 
-	add_theme_support( 'title-tag' );
-	add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
 
-	if ( function_exists( 'is_woocommerce' ) ) {
-		add_theme_support( 'woocommerce' );
-	}
+    if ( function_exists( 'is_woocommerce' ) ) {
+        add_theme_support( 'woocommerce' );
+    }
 }
 
 add_action( 'after_setup_theme', 'shiftr_theme_support' );
@@ -36,14 +36,14 @@ add_action( 'after_setup_theme', 'shiftr_theme_support' );
 
 function shiftr_filter_the_content( $content ) {
 
-	// Remove <p> tags wrapped around <img>
-	$content = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content );
+    // Remove <p> tags wrapped around <img>
+    $content = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content );
 
-	// Add Shiftr Lazy Loader
-	//$content = preg_replace( '/<img\s*class="(.*)" (.*) \/>/i', '<img class="lazy \1" \2>', $content );
+    // Add Shiftr Lazy Loader
+    //$content = preg_replace( '/<img\s*class="(.*)" (.*) \/>/i', '<img class="lazy \1" \2>', $content );
 
-	// Remove p tag surrounding anchor buttons
-	$content = preg_replace( '/<p>\s*(<a.*class=\"button-[fill|outline|text]*\".*>.*<\/a>)\s*<\/p>/', '\1', $content );
+    // Remove p tag surrounding anchor buttons
+    $content = preg_replace( '/<p>\s*(<a.*class=\"button-[fill|outline|text]*\".*>.*<\/a>)\s*<\/p>/', '\1', $content );
 
     return $content;
 }
@@ -65,19 +65,19 @@ add_filter( 'excerpt_more', '__return_empty_string' );
 
 function shiftr_fonts() {
 
-	global $shiftr;
+    global $shiftr;
 
-	$preconnect_attr = array(
-		'rel' => 'preconnect',
-		'href' => $shiftr->font_host
-	);
-	echo '<link ' . shiftr_output_attr( $preconnect_attr ) . '>';
+    $preconnect_attr = array(
+        'rel' => 'preconnect',
+        'href' => $shiftr->font_host
+    );
+    echo '<link ' . shiftr_output_attr( $preconnect_attr ) . '>';
 
-	$stylesheet_attr = array(
-		'rel' => 'stylesheet',
-		'href' => $shiftr->font_url
-	);
-	echo '<link ' . shiftr_output_attr( $stylesheet_attr ) . '>';
+    $stylesheet_attr = array(
+        'rel' => 'stylesheet',
+        'href' => $shiftr->font_url
+    );
+    echo '<link ' . shiftr_output_attr( $stylesheet_attr ) . '>';
 }
 
 add_action( 'wp_head', 'shiftr_fonts', 1 );

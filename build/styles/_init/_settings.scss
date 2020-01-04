@@ -8,42 +8,42 @@
 //  ////  --|    Breakpoints
 
 $breakpoints: ( 
-	s: 		450px,
-	m: 		768px,
-	l: 		1024px,
-	xl: 	1600px,
-	max: 	1920px
+    s:      450px,
+    m:      768px,
+    l:      1024px,
+    xl:     1600px,
+    max:    1920px
 );
 
 
 //  ////  --|    Container
 
-$container-width: 	124;
-$site-padding: 		1rem;
+$container-width:   124;
+$site-padding:      1rem;
 
 
 //  ////  --|    Typography
 
-$base-font-size: 		1.8;
-$base-line-height:		1.6; // This should always be unitless
+$base-font-size:        1.8;
+$base-line-height:      1.6; // This should always be unitless
 
-$base-font-family: 		'Nunito', sans-serif;
-$heading-font-family: 	'Nunito', sans-serif;
+$base-font-family:      'Nunito', sans-serif;
+$heading-font-family:   'Nunito', sans-serif;
 
-$baseline: 				( ( $base-font-size * 10 ) * $base-line-height );
+$baseline:              ( ( $base-font-size * 10 ) * $base-line-height );
 
-$max-line-width: 		$base-font-size * 38;
+$max-line-width:        $base-font-size * 38;
 
 
 //  ////  --|    Colors
 
 //  Lights
 $white:     #FAFAFA;
-$l-grey:	darken( $white, 5% );
+$l-grey:    darken( $white, 5% );
 
 //  Darks
 $black:     #080808;
-$d-grey:	lighten( $black, 10% );
+$d-grey:    lighten( $black, 10% );
 
 // Primary
 $primary:   #E44BB0;
@@ -52,10 +52,10 @@ $primary:   #E44BB0;
 $secondary: #444BB0;
 
 // Additional
-$blend:		mix( $primary, $secondary );
+$blend:     mix( $primary, $secondary );
 
 // Utilities
-$blue:   	#42C2FF;
-$green:		#04BF2F;
-$red:		#E30617;
+$blue:      #42C2FF;
+$green:     #04BF2F;
+$red:       #E30617;
 

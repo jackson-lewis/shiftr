@@ -12,7 +12,7 @@ Element.prototype.carousel = function( settings = {} ) {
 
     // The default settings
     let defaults = {
-    	startSlide: 0,
+        startSlide: 0,
         autoplay: true,
         speed: 4000,
         showNav: false,
@@ -91,15 +91,15 @@ Element.prototype.carousel = function( settings = {} ) {
 
         // Assign images for lazy load
         if ( _.lazyLoad ) {
-        	images.push( [] );
-	        var itemElements = items[i].querySelectorAll( '*' );
+            images.push( [] );
+            var itemElements = items[i].querySelectorAll( '*' );
 
-	        itemElements.forEach( el => {
+            itemElements.forEach( el => {
 
-	            if ( el.nodeName == 'IMG' ) {
-	                images[i].push( el );
-	            }
-	        });
+                if ( el.nodeName == 'IMG' ) {
+                    images[i].push( el );
+                }
+            });
         }
 
         if ( _.showNav ) {
@@ -145,22 +145,22 @@ Element.prototype.carousel = function( settings = {} ) {
     // Set-up our base element stores
     let setupStart = () => {
 
-    	let startIndex = items[_.startSlide] ? _.startSlide : 0;
+        let startIndex = items[_.startSlide] ? _.startSlide : 0;
 
-    	current = items[startIndex];
-	    prev = items[ getSlideIndex() == 0 ? lastSlideIndex() : getSlideIndex() - 1 ];
-	    next = items[ getSlideIndex() == lastSlideIndex() ? 0 : getSlideIndex() + 1 ];
+        current = items[startIndex];
+        prev = items[ getSlideIndex() == 0 ? lastSlideIndex() : getSlideIndex() - 1 ];
+        next = items[ getSlideIndex() == lastSlideIndex() ? 0 : getSlideIndex() + 1 ];
 
-	    current.classList.add( 'active' );
-	    current.dataset.carouselActive = 'true';
-	    current.setAttribute( 'aria-hidden', false );
+        current.classList.add( 'active' );
+        current.dataset.carouselActive = 'true';
+        current.setAttribute( 'aria-hidden', false );
 
-	    prev.classList.add( 'prev' );
-	    next.classList.add( 'next' );
+        prev.classList.add( 'prev' );
+        next.classList.add( 'next' );
 
-	    if ( _.showNav ) {
-	    	markers[startIndex].classList.add( 'active' );
-	    }
+        if ( _.showNav ) {
+            markers[startIndex].classList.add( 'active' );
+        }
 
         loadImages( getSlideIndex( prev ) );
         loadImages( getSlideIndex( next ) );
@@ -196,7 +196,7 @@ Element.prototype.carousel = function( settings = {} ) {
         current.setAttribute( 'aria-hidden', true );
 
         if ( _.showNav ) {
-        	markers[getSlideIndex()].classList.remove( 'active' );
+            markers[getSlideIndex()].classList.remove( 'active' );
         }
         
 
@@ -205,7 +205,7 @@ Element.prototype.carousel = function( settings = {} ) {
         newCurrent.setAttribute( 'aria-hidden', false );
 
         if ( _.showNav ) {
-        	markers[index].classList.add( 'active' );
+            markers[index].classList.add( 'active' );
         }
         
 
@@ -315,19 +315,19 @@ Element.prototype.carousel = function( settings = {} ) {
 
     function loadImages( index ) {
 
-    	if ( ! _.lazyLoad ) return;
+        if ( ! _.lazyLoad ) return;
 
-    	var slideImages = images[index];
+        var slideImages = images[index];
 
-    	for ( var i = 0; i < slideImages.length; i++ ) {
+        for ( var i = 0; i < slideImages.length; i++ ) {
 
-    		var img = slideImages[i];
+            var img = slideImages[i];
 
-    		if ( img.src == '' ) {
-    			img.src = img.dataset.src;
-    			img.setAttribute( 'srcset', img.dataset.srcset );
-    		}
-    	}
+            if ( img.src == '' ) {
+                img.src = img.dataset.src;
+                img.setAttribute( 'srcset', img.dataset.srcset );
+            }
+        }
     }
 
 
@@ -342,9 +342,9 @@ Element.prototype.carousel = function( settings = {} ) {
     // Start the magic
     let init = () => {
 
-    	setupStart();
-    	registerEventListeners();
-    	initAutoplay();
+        setupStart();
+        registerEventListeners();
+        initAutoplay();
     }
 
     init();

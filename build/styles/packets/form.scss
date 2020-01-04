@@ -15,141 +15,141 @@
 
 .shiftr-form {
 
-	.field {
+    .field {
 
-		span.validation {
-		    padding: .6rem 1.4rem .6rem 1rem;
-		    position: absolute;
-		    right: 1.4rem;
-		    top: 50%;
-		    transform: translateY( -50% ) scale( 0 );
-		    transform-origin: 100% 50%;
-		    opacity: 0;
+        span.validation {
+            padding: .6rem 1.4rem .6rem 1rem;
+            position: absolute;
+            right: 1.4rem;
+            top: 50%;
+            transform: translateY( -50% ) scale( 0 );
+            transform-origin: 100% 50%;
+            opacity: 0;
 
-		    color: $black;
-		    background-color: $white;
-		    border-radius: .4rem; 
-		    box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
+            color: $black;
+            background-color: $white;
+            border-radius: .4rem; 
+            box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
                         0 2rem 2rem rgba( $d-grey, .1 );
-		    font-size: 1.4rem;
-		    line-height: 1;
-		    z-index: 100;
+            font-size: 1.4rem;
+            line-height: 1;
+            z-index: 100;
 
-		    @include before {
-		    	width: .8rem;
-		        height: .8rem;
-		        top: 50%;
-		        right: -.4rem;
-		        transform: translateY( -50% );
+            @include before {
+                width: .8rem;
+                height: .8rem;
+                top: 50%;
+                right: -.4rem;
+                transform: translateY( -50% );
 
-		        background-color: $red;
-		        border-radius: .5rem;
-		    }
+                background-color: $red;
+                border-radius: .5rem;
+            }
 
-		    transition: 200ms ease-in-out;
+            transition: 200ms ease-in-out;
 
-		    &.pop {
-		        transform: translateY( -50% ) scale( 1 );
-		        opacity: 1;
-		    }
-		}
+            &.pop {
+                transform: translateY( -50% ) scale( 1 );
+                opacity: 1;
+            }
+        }
 
-		&.field-type-checkbox {
+        &.field-type-checkbox {
 
-			span.validation {
-				padding: .6rem 1rem 1rem 1rem;
-				top: -.5rem;
-		        left: 0;
-		        right: auto;
+            span.validation {
+                padding: .6rem 1rem 1rem 1rem;
+                top: -.5rem;
+                left: 0;
+                right: auto;
 
-		        transform: translateY( -100% ) scale( 0 );
-		        transform-origin: 50% 100%;
+                transform: translateY( -100% ) scale( 0 );
+                transform-origin: 50% 100%;
 
-		        @include before( false ) {
-		        	top: auto;
-		            right: 50%;
-		            bottom: 0;
-		            transform: translate( 50%, 50% );
-		        }
+                @include before( false ) {
+                    top: auto;
+                    right: 50%;
+                    bottom: 0;
+                    transform: translate( 50%, 50% );
+                }
 
-		        &.pop {
-			        transform: translateY( -100% ) scale( 1 );
-			        opacity: 1;
-			    }
-		    }
-		}
-	}
+                &.pop {
+                    transform: translateY( -100% ) scale( 1 );
+                    opacity: 1;
+                }
+            }
+        }
+    }
 
-	.form-submission {
-		width: calc( 100vw - 2rem );
-		max-width: 40rem;
-		padding: 1rem;
-		display: flex;
-		align-items: center;
-		position: fixed;
-		left: 1rem;
-		bottom: 1rem;
-		z-index: 9999;
+    .form-submission {
+        width: calc( 100vw - 2rem );
+        max-width: 40rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 9999;
 
-		background-color: $white;
-		color: $black;
-		border-radius: .4rem;
-		box-shadow: 0 0rem 1rem rgba( $d-grey, .1 ),
-					0 1rem 2rem rgba( $d-grey, .1 ),
+        background-color: $white;
+        color: $black;
+        border-radius: .4rem;
+        box-shadow: 0 0rem 1rem rgba( $d-grey, .1 ),
+                    0 1rem 2rem rgba( $d-grey, .1 ),
                     0 2rem 4rem rgba( $d-grey, .1 );
-		opacity: 0;
-		transform: translateY( 4rem ) scale( .8 );
+        opacity: 0;
+        transform: translateY( 4rem ) scale( .8 );
 
-		transition: 200ms cubic-bezier( .2, .7, .5, 1.2 );
+        transition: 200ms cubic-bezier( .2, .7, .5, 1.2 );
 
-		&.show {
-			opacity: 1;
-			transform: translateY( 0 ) scale( 1 );
-		}
+        &.show {
+            opacity: 1;
+            transform: translateY( 0 ) scale( 1 );
+        }
 
-		span {
+        span {
 
-			&:first-of-type {
-				margin-bottom: 1rem;
-				display: block;
+            &:first-of-type {
+                margin-bottom: 1rem;
+                display: block;
 
-				font-size: 2.2rem;
-			}
+                font-size: 2.2rem;
+            }
 
-			&:last-of-type {
-				font-size: 1.4rem;
-				font-weight: 700;
-				text-transform: uppercase;
-			}
-		}
+            &:last-of-type {
+                font-size: 1.4rem;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
 
-		button {
-			margin: 0;
-			align-self: flex-end;
-		}
+        button {
+            margin: 0;
+            align-self: flex-end;
+        }
 
-		@include x( m ) {
-			left: 50%;
-			bottom: 50%;
+        @include x( m ) {
+            left: 50%;
+            bottom: 50%;
 
-			transform: translate( -50%, calc( -50% + 4rem ) ) scale( .8 );
+            transform: translate( -50%, calc( -50% + 4rem ) ) scale( .8 );
 
-			&.show {
-				transform: translate( -50%, -50% ) scale( 1 );
-			}
-		}
+            &.show {
+                transform: translate( -50%, -50% ) scale( 1 );
+            }
+        }
 
-		@include x( l ) {
-			position: absolute;
-			left: 50%;
-			bottom: 50%;
+        @include x( l ) {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
 
-			transform: translate( -50%, 50% ) scale( .8 );
+            transform: translate( -50%, 50% ) scale( .8 );
 
-			&.show {
-				transform: translate( -50%, 50% ) scale( 1 );
-			}
-		}
-	}
+            &.show {
+                transform: translate( -50%, 50% ) scale( 1 );
+            }
+        }
+    }
 }
 

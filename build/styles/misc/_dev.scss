@@ -7,11 +7,11 @@
 
 
 
-//	CONTROLLERS
-$dev: 			false;	// Master
+//  CONTROLLERS
+$dev:           false;  // Master
 
-$scroll:		false; 	// Force scroll
-$boundaries: 	false;	// Element Boundary Markers
+$scroll:        false;  // Force scroll
+$boundaries:    false;  // Element Boundary Markers
 
 
 
@@ -23,21 +23,21 @@ $boundaries: 	false;	// Element Boundary Markers
 //  --|    Scroll
 @if ( $scroll and $dev ) {
 
-	body {
-		min-height: 200vh; // Set to 200 for dev build only
-	}
+    body {
+        min-height: 200vh; // Set to 200 for dev build only
+    }
 }
 
 
 //  --|    Boundaries
 @if ( $boundaries and $dev ) {
 
-	h1, h2, h3, h4, h5, h6 {
-		background-color: rgba( $primary, .1 );
-	} 
+    h1, h2, h3, h4, h5, h6 {
+        background-color: rgba( $primary, .1 );
+    } 
 
-	p, li {
-		background-color: rgba( $secondary, .1 );
-	}
+    p, li {
+        background-color: rgba( $secondary, .1 );
+    }
 }
 

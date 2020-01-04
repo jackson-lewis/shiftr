@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    Pagination
+    /*  ////  --|    Pagination
 
         With thanks to JointsWP for the pagination in this version of Shiftr
 

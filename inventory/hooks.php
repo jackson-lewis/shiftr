@@ -8,16 +8,16 @@
  *
  *  @since 1.0
  *
- *	@param $actions array The actions available in bulk actions
- *	@return array The actions
+ *  @param $actions array The actions available in bulk actions
+ *  @return array The actions
  */
 
 function shiftr_handle_bulk_actions( $actions ) {
 
-	unset( $actions['edit'] );
-	unset( $actions['trash'] );
+    unset( $actions['edit'] );
+    unset( $actions['trash'] );
 
-	return $actions;
+    return $actions;
 }
 
 add_filter( 'bulk_actions-edit-post_name', 'shiftr_handle_bulk_actions' );
@@ -30,19 +30,19 @@ add_filter( 'bulk_actions-edit-post_name', 'shiftr_handle_bulk_actions' );
  *
  *  @since 1.0
  *
- *	@param $actions array The actions available on a post
-  *	@param $post object Global $post object
- *	@return array The actions
+ *  @param $actions array The actions available on a post
+  * @param $post object Global $post object
+ *  @return array The actions
  */
 
 function shiftr_handle_post_actions( $actions, $post ) {
 
-	if ( $post->post_type == 'post_name' ) {
-		unset( $actions['inline hide-if-no-js'] );
-		unset( $actions['trash'] );
-	}
+    if ( $post->post_type == 'post_name' ) {
+        unset( $actions['inline hide-if-no-js'] );
+        unset( $actions['trash'] );
+    }
 
-	return $actions;
+    return $actions;
 }
 
 add_filter( 'post_row_actions', 'shiftr_handle_post_actions', 10, 2 );
@@ -55,21 +55,21 @@ add_filter( 'post_row_actions', 'shiftr_handle_post_actions', 10, 2 );
  *
  *  @since 1.0
  *
- *	@param $months array The months
-  *	@param $post_type str The post type name
- *	@return array The actions
+ *  @param $months array The months
+  * @param $post_type str The post type name
+ *  @return array The actions
  */
 
 function shiftr_handle_date_filter( $months, $post_type ) {
 
-	if ( $post_type == 'post_name' ) {
-		$months = array();
+    if ( $post_type == 'post_name' ) {
+        $months = array();
 
-		return $months; 
+        return $months; 
 
-	} else {
-		return $months;
-	}
+    } else {
+        return $months;
+    }
 }
 
 add_filter( 'months_dropdown_results', 'shiftr_handle_date_filter', 10, 2 );

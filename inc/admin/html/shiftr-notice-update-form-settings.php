@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    The HTML for Shiftr update settings
+    /*  ////  --|    The HTML for Shiftr update settings
 
     */
 

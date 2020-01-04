@@ -1,33 +1,33 @@
 <?php
 
-	/*  ////  --|    Admin
+    /*  ////  --|    Admin
 
     */
 
 
-/*	
-	--| Setup ACF options pages
+/*  
+    --| Setup ACF options pages
 
-	* @since 1.0
+    * @since 1.0
 
-	* Support for multiple options pages
+    * Support for multiple options pages
 */
 
 if ( function_exists( 'acf_add_options_page' ) ) {
-	
-	acf_add_options_page( array(
-		'page_title' 	=> 'General Options',
-		'menu_title'	=> 'Options',
-		'menu_slug' 	=> 'general-options',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
-	));
-	
-	acf_add_options_sub_page( array(
-		'page_title' 	=> 'Footer Options',
-		'menu_title'	=> 'Footer',
-		'parent_slug'	=> 'general-options',
-	));
+    
+    acf_add_options_page( array(
+        'page_title'    => 'General Options',
+        'menu_title'    => 'Options',
+        'menu_slug'     => 'general-options',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+    
+    acf_add_options_sub_page( array(
+        'page_title'    => 'Footer Options',
+        'menu_title'    => 'Footer',
+        'parent_slug'   => 'general-options',
+    ));
 }
 
 
@@ -38,13 +38,13 @@ if ( function_exists( 'acf_add_options_page' ) ) {
  *
  *  @since 1.0
  *
- *	@param $show bool If the menu item should appear in the menu
- *	@return bool If the menu item should appear in the menu
+ *  @param $show bool If the menu item should appear in the menu
+ *  @return bool If the menu item should appear in the menu
  */
 
 function shiftr_remove_acf_menu_item( $show ) {
 
-	$shiftr = shiftr();
+    $shiftr = shiftr();
 
     return current_user_can( 'manage_options' ) && in_array( get_current_user_id(), $shiftr->access_to_acf );
 }
@@ -59,18 +59,18 @@ add_filter( 'acf/settings/show_admin', 'shiftr_remove_acf_menu_item' );
  *
  *  @since 1.0
  *
- *	@global $wp_admin_bar
+ *  @global $wp_admin_bar
  */
 
 function shiftr_admin_bar_clean_up() {
 
-	global $wp_admin_bar;
+    global $wp_admin_bar;
 
-	$wp_admin_bar->remove_menu( 'customize' );
-	$wp_admin_bar->remove_menu( 'new-content' );
-	$wp_admin_bar->remove_menu( 'updates' );
-	$wp_admin_bar->remove_menu( 'comments' );
-	$wp_admin_bar->remove_menu( 'appearance' );
+    $wp_admin_bar->remove_menu( 'customize' );
+    $wp_admin_bar->remove_menu( 'new-content' );
+    $wp_admin_bar->remove_menu( 'updates' );
+    $wp_admin_bar->remove_menu( 'comments' );
+    $wp_admin_bar->remove_menu( 'appearance' );
 }
 
 add_action( 'wp_before_admin_bar_render', 'shiftr_admin_bar_clean_up' );
@@ -83,20 +83,20 @@ add_action( 'wp_before_admin_bar_render', 'shiftr_admin_bar_clean_up' );
  *
  *  @since 1.0
  *
- *	@global $shiftr
+ *  @global $shiftr
  */
 
 function shiftr_admin_menu_clean_up() {
 
-	global $shiftr;
+    global $shiftr;
 
-	if ( ! $shiftr->admin_show_posts ) {
-		remove_menu_page( 'edit.php' );
-	}
-	
-	if ( ! $shiftr->admin_show_comments ) {
-		remove_menu_page( 'edit-comments.php' );
-	}
+    if ( ! $shiftr->admin_show_posts ) {
+        remove_menu_page( 'edit.php' );
+    }
+    
+    if ( ! $shiftr->admin_show_comments ) {
+        remove_menu_page( 'edit-comments.php' );
+    }
 }
 
 add_action( 'admin_menu', 'shiftr_admin_menu_clean_up' );
@@ -109,19 +109,19 @@ add_action( 'admin_menu', 'shiftr_admin_menu_clean_up' );
  *
  *  @since 1.0
  *
- *	@global $shiftr Used to add the current theme version
+ *  @global $shiftr Used to add the current theme version
  */
 
 function shiftr_admin_styles() {
 
-	global $shiftr;
+    global $shiftr;
 
-	// Styles
-	wp_enqueue_style( 'shiftr-admin-styles', get_template_directory_uri() . '/assets/styles/admin.css', false, $shiftr->get( 'version' ) );
+    // Styles
+    wp_enqueue_style( 'shiftr-admin-styles', get_template_directory_uri() . '/assets/styles/admin.css', false, $shiftr->get( 'version' ) );
 
-	// Scripts
-	wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin/admin.js', array(), $shiftr->get( 'version' ), true );
-	wp_localize_script( 'shiftr-admin-script', 'shiftr', shiftr_js_object() );
+    // Scripts
+    wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin/admin.js', array(), $shiftr->get( 'version' ), true );
+    wp_localize_script( 'shiftr-admin-script', 'shiftr', shiftr_js_object() );
 }
 
 add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );
@@ -137,10 +137,10 @@ add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );
 
 function shiftr_editor_styles() {
 
-	global $shiftr;
+    global $shiftr;
 
-	add_editor_style( $shiftr->font_url );
-	add_editor_style( 'assets/styles/admin.css' );
+    add_editor_style( $shiftr->font_url );
+    add_editor_style( 'assets/styles/admin.css' );
 }
 
 add_action( 'admin_init', 'shiftr_editor_styles' );

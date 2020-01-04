@@ -1,19 +1,19 @@
 <?php 
 
-	/*  Template Name: _Default_Template_Name_
+    /*  Template Name: _Default_Template_Name_
 
     */
 
-	get_header();
+    get_header();
 
 ?>
 
 
-	<main class="site-main">
+    <main class="site-main">
 
-		
+        
 
-	</main>
+    </main>
     
 
 <?php get_footer(); ?>

@@ -8,14 +8,14 @@
  *
  *  @since 1.0
  *
- *	@global $shiftr
+ *  @global $shiftr
  */
 
 function shiftr_login_styles() {
 
-	global $shiftr;
+    global $shiftr;
 
-	wp_enqueue_style( 'shiftr-login', get_template_directory_uri() . '/assets/styles/login.css', false, $shiftr->get( 'version' ) );
+    wp_enqueue_style( 'shiftr-login', get_template_directory_uri() . '/assets/styles/login.css', false, $shiftr->get( 'version' ) );
 }
 
 add_action( 'login_enqueue_scripts', 'shiftr_login_styles', 10 );
@@ -28,15 +28,15 @@ add_action( 'login_enqueue_scripts', 'shiftr_login_styles', 10 );
  *
  *  @since 1.0
  *
- *	@global $shiftr
- *	@return str The site url
+ *  @global $shiftr
+ *  @return str The site url
  */
 
 function shiftr_login_site_url() {
 
-	global $shiftr;
+    global $shiftr;
 
-	return $shiftr->get( 'shiftr_url' );
+    return $shiftr->get( 'shiftr_url' );
 }
 
 add_filter( 'login_headerurl', 'shiftr_login_site_url' );
@@ -49,15 +49,15 @@ add_filter( 'login_headerurl', 'shiftr_login_site_url' );
  *
  *  @since 1.0
  *
- *	@global $shiftr
- *	@return str The site name
+ *  @global $shiftr
+ *  @return str The site name
  */
 
 function shiftr_login_site_name() {
 
-	global $shiftr;
+    global $shiftr;
 
-	return $shiftr->get( 'shiftr_name' );
+    return $shiftr->get( 'shiftr_name' );
 }
 
 add_filter( 'login_headertext', 'shiftr_login_site_name' );

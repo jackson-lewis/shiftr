@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    Editor
+    /*  ////  --|    Editor
 
     */
 
@@ -40,7 +40,7 @@ function shiftr_editor( $plugin_array ) {
  */
 
 function shiftr_editor_register_buttons( $buttons ) {
-	
+    
     // Shortcodes to add to editor
     array_push( $buttons, '|', 'email', 'phone' );
 
@@ -58,8 +58,8 @@ function shiftr_editor_register_buttons( $buttons ) {
 
 function shiftr_mce() {
 
-	add_filter( 'mce_external_plugins', 'shiftr_editor' );
-	add_filter( 'mce_buttons', 'shiftr_editor_register_buttons' );
+    add_filter( 'mce_external_plugins', 'shiftr_editor' );
+    add_filter( 'mce_buttons', 'shiftr_editor_register_buttons' );
 }
 
 add_action( 'admin_init', 'shiftr_mce' );

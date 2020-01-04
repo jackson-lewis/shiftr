@@ -6,79 +6,79 @@
 
 
 %button {
-	margin: 0;
-	padding: 1rem 2rem;
-	display: inline-block;
-	cursor: pointer;
+    margin: 0;
+    padding: 1rem 2rem;
+    display: inline-block;
+    cursor: pointer;
 
-	border: none;
-	border-radius: 0.4rem;
-	font-size: 1.4rem;
-	line-height: $base-line-height;
-	font-weight: 700;
-	text-transform: uppercase;
-	text-decoration: none;
-	appearance: none;
-	outline: 0;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    line-height: $base-line-height;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    appearance: none;
+    outline: 0;
 
-	transition: 300ms;
+    transition: 300ms;
 }
 
 .button-fill {
-	@extend %button;
+    @extend %button;
 
-	color: $white;
-	background-color: $primary;
+    color: $white;
+    background-color: $primary;
 
-	&:hover {
-		color: $white;
-		background-color: rgba( $primary, .8 );
-	}
+    &:hover {
+        color: $white;
+        background-color: rgba( $primary, .8 );
+    }
 
-	&:focus {
-		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-					0 .2rem 1rem rgba( $d-grey, .2 );
-	}
+    &:focus {
+        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+                    0 .2rem 1rem rgba( $d-grey, .2 );
+    }
 }
 
 .button-outline {
-	@extend %button;
+    @extend %button;
 
-	padding: .9rem 1.9rem;
+    padding: .9rem 1.9rem;
 
-	color: $primary;
-	background-color: transparent;
-	border: .1rem solid $primary;
+    color: $primary;
+    background-color: transparent;
+    border: .1rem solid $primary;
 
-	&:hover {
-		color: $primary;
-		background-color: rgba( $primary, .1 );
-	}
+    &:hover {
+        color: $primary;
+        background-color: rgba( $primary, .1 );
+    }
 
-	&:focus {
-		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-					0 .2rem 1rem rgba( $d-grey, .2 );
-	}
+    &:focus {
+        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+                    0 .2rem 1rem rgba( $d-grey, .2 );
+    }
 }
 
 .button-text {
-	@extend %button;
+    @extend %button;
 
-	color: $primary;
-	background-color: transparent;
+    color: $primary;
+    background-color: transparent;
 
-	&:hover {
-		color: $primary;
-		background-color: rgba( $primary, .1 );
-	}
+    &:hover {
+        color: $primary;
+        background-color: rgba( $primary, .1 );
+    }
 
-	&:focus {
-		box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-					0 .2rem 1rem rgba( $d-grey, .2 );
-	}
+    &:focus {
+        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
+                    0 .2rem 1rem rgba( $d-grey, .2 );
+    }
 }
 
 button {
-	@extend .button-fill;
+    @extend .button-fill;
 }
 

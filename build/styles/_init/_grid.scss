@@ -7,17 +7,17 @@
 
 @mixin grid( $gap: 1rem ) {
 
-	display: grid;
-	grid-gap: $gap;
+    display: grid;
+    grid-gap: $gap;
 }
 
 
 @mixin cols( $cols ) {
-	grid-template-columns: $cols;
+    grid-template-columns: $cols;
 }
 
 
 @mixin rows( $rows ) {
-	grid-template-rows: $rows;
+    grid-template-rows: $rows;
 }
 

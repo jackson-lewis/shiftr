@@ -131,52 +131,52 @@ function vh() {
     * Ensure breakpoint settings match those set in the styles
 */
 
-let s 	= 's';
-let m 	= 'm';
-let l 	= 'l';
-let xl 	= 'xl';
+let s   = 's';
+let m   = 'm';
+let l   = 'l';
+let xl  = 'xl';
 let max = 'max';
 
 
 function x( width, fn, callback = () => {}, runOnce = false ) {
 
-	var value;
+    var value;
 
-	switch ( width ) {
-		case s:     value = 450; break;
-		case m: 	value = 768; break;
-		case l: 	value = 1024; break;
-		case xl: 	value = 1600; break;
+    switch ( width ) {
+        case s:     value = 450; break;
+        case m:     value = 768; break;
+        case l:     value = 1024; break;
+        case xl:    value = 1600; break;
         case max:   value = 1920; break;
-		default:  	value = width;
-	}
+        default:    value = width;
+    }
 
-	let run = () => {
-		
-		var allow = false;
+    let run = () => {
+        
+        var allow = false;
 
-		if ( vw() >= value ) {
+        if ( vw() >= value ) {
 
-			if ( runOnce === true && allow === false ) return;
+            if ( runOnce === true && allow === false ) return;
 
-			fn();
+            fn();
 
-			allow = false;
+            allow = false;
 
-		} else {
-			
-			if ( runOnce === true && allow === true ) return;
+        } else {
+            
+            if ( runOnce === true && allow === true ) return;
 
-			callback();
+            callback();
 
-			allow = true;
-		} 
-	}
+            allow = true;
+        } 
+    }
 
 
-	document.addEventListener( 'DOMContentLoaded', run );
-	window.addEventListener( 'resize', run );
-	window.addEventListener( 'orientationchange', run );
+    document.addEventListener( 'DOMContentLoaded', run );
+    window.addEventListener( 'resize', run );
+    window.addEventListener( 'orientationchange', run );
 }
 
 

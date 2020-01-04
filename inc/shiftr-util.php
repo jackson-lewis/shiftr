@@ -11,11 +11,11 @@ define( 'SHIFTR_SPACE_ENTITY', '&nbsp;' );
  *
  *  @since 1.0
  *
- *	@param $file str The file name of the requested file
+ *  @param $file str The file name of the requested file
  */
 
 function shiftr_get_branding_url( $file = '' ) {
-	echo esc_url( get_template_directory_uri() . '/assets/branding/' . $file );
+    echo esc_url( get_template_directory_uri() . '/assets/branding/' . $file );
 }
 
 
@@ -26,12 +26,12 @@ function shiftr_get_branding_url( $file = '' ) {
  *
  *  @since 1.0
  *
- *	@param $file str The file name of the requested file
- *	@param $media_dir str The directory name where the file is expected
+ *  @param $file str The file name of the requested file
+ *  @param $media_dir str The directory name where the file is expected
  */
 
 function shiftr_get_asset_url( $file = '', $asset_dir = 'images' ) {
-	echo esc_url( get_template_directory_uri() . '/assets/' . $asset_dir . '/' . $file );
+    echo esc_url( get_template_directory_uri() . '/assets/' . $asset_dir . '/' . $file );
 }
 
 
@@ -42,21 +42,21 @@ function shiftr_get_asset_url( $file = '', $asset_dir = 'images' ) {
  *
  *  @since 1.0
  *
- *	@param $key str The suffix of the setting name
- *	@return str|null The value on success, null if setting does not exist
+ *  @param $key str The suffix of the setting name
+ *  @return str|null The value on success, null if setting does not exist
  */
 
 function shiftr_get_setting( $key = '' ) {
 
-	$value = get_option( 'shiftr_' . $key );
+    $value = get_option( 'shiftr_' . $key );
 
-	if ( ! $value ) {
-		return $value;
+    if ( ! $value ) {
+        return $value;
 
-	} else {
+    } else {
 
-		return null;
-	}
+        return null;
+    }
 }
 
 
@@ -67,13 +67,13 @@ function shiftr_get_setting( $key = '' ) {
  *
  *  @since 1.0
  *
- *	@param $str str The string to convert
- *	@return str The re-formatted string
+ *  @param $str str The string to convert
+ *  @return str The re-formatted string
  */
 
 function space_to_( $str = '' ) {
 
-	return str_replace( ' ', '_', $str );
+    return str_replace( ' ', '_', $str );
 }
 
 
@@ -84,13 +84,13 @@ function space_to_( $str = '' ) {
  *
  *  @since 1.0
  *
- *	@param $str str The string to convert
- *	@return str The re-formatted string
+ *  @param $str str The string to convert
+ *  @return str The re-formatted string
  */
 
 function space_to_nbsp( $str = '' ) {
 
-	return str_replace( ' ', SHIFTR_SPACE_ENTITY, $str );
+    return str_replace( ' ', SHIFTR_SPACE_ENTITY, $str );
 }
 
 
@@ -101,17 +101,17 @@ function space_to_nbsp( $str = '' ) {
  *
  *  @since 1.0
  *
- *	@param $str str The string to convert
- *	@return str The re-formatted string
+ *  @param $str str The string to convert
+ *  @return str The re-formatted string
  */
 
 function shiftr_to_nicename( $str = '' ) {
 
-	$nicename = str_replace( '-', ' ', $str );
-	$nicename = str_replace( '_', ' ', $str );
-	$nicename = ucwords( $nicename );
+    $nicename = str_replace( '-', ' ', $str );
+    $nicename = str_replace( '_', ' ', $str );
+    $nicename = ucwords( $nicename );
 
-	return $nicename;
+    return $nicename;
 }
 
 /**  
@@ -121,32 +121,32 @@ function shiftr_to_nicename( $str = '' ) {
  *
  *  @since 1.0
  *
- *	@param $str str The string to convert
- *	@return array The re-formatted array
+ *  @param $str str The string to convert
+ *  @return array The re-formatted array
  */
 
 function shiftr_js_object() {
 
-	global $post, $shiftr;
+    global $post, $shiftr;
 
-	if ( isset( $post ) ) {
-		$use_post_id = $post->ID;
-	} else {
-		$use_post_id = 0;
-	}
+    if ( isset( $post ) ) {
+        $use_post_id = $post->ID;
+    } else {
+        $use_post_id = 0;
+    }
 
 
-	$shiftr->js_object['shortcuts']['edit'] = str_replace( '$$$POSTID$$$', $use_post_id, $shiftr->js_object['shortcuts']['edit'] );
-	$shiftr->js_object['shortcuts']['view'] = str_replace( '$$$POSTPERMALINK$$$', get_the_permalink(), $shiftr->js_object['shortcuts']['view'] );
-	$shiftr->js_object['vars']['archive'] = is_home() || is_archive();
+    $shiftr->js_object['shortcuts']['edit'] = str_replace( '$$$POSTID$$$', $use_post_id, $shiftr->js_object['shortcuts']['edit'] );
+    $shiftr->js_object['shortcuts']['view'] = str_replace( '$$$POSTPERMALINK$$$', get_the_permalink(), $shiftr->js_object['shortcuts']['view'] );
+    $shiftr->js_object['vars']['archive'] = is_home() || is_archive();
 
-	// For admin
-	if ( is_admin() ) {
-		unset( $shiftr->js_object['form'] );
-		unset( $shiftr->js_object['vars'] );
-	}
+    // For admin
+    if ( is_admin() ) {
+        unset( $shiftr->js_object['form'] );
+        unset( $shiftr->js_object['vars'] );
+    }
 
-	return $shiftr->js_object;
+    return $shiftr->js_object;
 }
 
 
@@ -157,11 +157,11 @@ function shiftr_js_object() {
  *
  *  @since 1.0
  *
- *	@return bool If a Shiftr Form is being submitted
+ *  @return bool If a Shiftr Form is being submitted
  */
 
 function shiftr_is_sending_form() {
 
-	return defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['shiftr_form_id'] );
+    return defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['shiftr_form_id'] );
 }
 

@@ -1,6 +1,6 @@
 /*
 
-	//  //// --|    LOGIN.SCSS
+    //  //// --|    LOGIN.SCSS
 
 */
 
@@ -26,40 +26,40 @@
 
 
 .login {
-	background: linear-gradient( 0deg, $l-grey 0%, $white 100% );
+    background: linear-gradient( 0deg, $l-grey 0%, $white 100% );
 
-	a {
-		@include after( false ) {
-			display: none;
-		}
-	}
-	
-	h1 {
-		a {
-			width: 100%;
+    a {
+        @include after( false ) {
+            display: none;
+        }
+    }
+    
+    h1 {
+        a {
+            width: 100%;
 
-			background-image: url( '../media/_shiftr/shiftr-full.svg' );
-			background-size: contain;
-		}
-	}
+            background-image: url( '../media/_shiftr/shiftr-full.svg' );
+            background-size: contain;
+        }
+    }
 
-	form {
-		border-radius: .8rem;
-		box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
-					0 1rem 3rem rgba( $d-grey, .2 );
-	}
+    form {
+        border-radius: .8rem;
+        box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
+                    0 1rem 3rem rgba( $d-grey, .2 );
+    }
 
-	#login_error,
-	.message,
-	.success {
-		border-left: none;
-		border: .1rem solid $blue;
-		border-radius: .8rem;
-		font-size: 1.6rem;
-	}
+    #login_error,
+    .message,
+    .success {
+        border-left: none;
+        border: .1rem solid $blue;
+        border-radius: .8rem;
+        font-size: 1.6rem;
+    }
 
-	#login_error {
-		border-color: $red;
-	}
+    #login_error {
+        border-color: $red;
+    }
 }
 

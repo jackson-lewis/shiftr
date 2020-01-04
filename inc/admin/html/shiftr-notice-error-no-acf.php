@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    The HTML for Shiftr error messages with ACF not available
+    /*  ////  --|    The HTML for Shiftr error messages with ACF not available
 
     */
 

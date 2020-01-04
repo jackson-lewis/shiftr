@@ -7,13 +7,13 @@
 
 Element.prototype.accordion = function( settings = {} ) {
 
-	// The default settings
-	let defaults = {
+    // The default settings
+    let defaults = {
         itemsTarget:    '.accordion--item',
-		duration:       600,
+        duration:       600,
         firstOpen:      true,
         allowMultiOpen: false
-	};
+    };
 
     // Assign settings as defaults if settings are not set
     if ( Object.keys( settings ).length == 0 ) settings = defaults;
@@ -22,8 +22,8 @@ Element.prototype.accordion = function( settings = {} ) {
     let _ = parseComponentData( Object.assign( defaults, settings ), this, 'accordion' );
 
 
-    let accordion 		= this,
-        items     		= this.querySelectorAll( _.itemsTarget );
+    let accordion       = this,
+        items           = this.querySelectorAll( _.itemsTarget );
 
 
     // Verify that there is at least 1 item in the accordion
@@ -49,36 +49,36 @@ Element.prototype.accordion = function( settings = {} ) {
         panel.removeAttribute( 'hidden' );
 
         // Styling & transition
-    	panel.style.removeProperty( 'display' );
+        panel.style.removeProperty( 'display' );
 
-	    let display = window.getComputedStyle( panel ).display;
+        let display = window.getComputedStyle( panel ).display;
 
-	    if ( display === 'none' ) {
-			display = 'block';
-	    }
+        if ( display === 'none' ) {
+            display = 'block';
+        }
 
-	    panel.style.display = display;
+        panel.style.display = display;
 
-	    let height = panel.offsetHeight;
+        let height = panel.offsetHeight;
 
-	    panel.style.overflow = 'hidden';
-	    panel.style.height = 0;
-	    panel.style.paddingTop = 0;
-	    panel.style.paddingBottom = 0;
-	    panel.offsetHeight;
-	    panel.style.transitionProperty = "height, padding";
-	    panel.style.transitionDuration = _.duration + 'ms';
-	    panel.style.height = height + 'px';
+        panel.style.overflow = 'hidden';
+        panel.style.height = 0;
+        panel.style.paddingTop = 0;
+        panel.style.paddingBottom = 0;
+        panel.offsetHeight;
+        panel.style.transitionProperty = "height, padding";
+        panel.style.transitionDuration = _.duration + 'ms';
+        panel.style.height = height + 'px';
 
-	    panel.style.removeProperty( 'padding-top' );
-	    panel.style.removeProperty( 'padding-bottom' );
+        panel.style.removeProperty( 'padding-top' );
+        panel.style.removeProperty( 'padding-bottom' );
 
-	    setTimeout( e => {
-			panel.style.removeProperty( 'height' );
-			panel.style.removeProperty( 'overflow' );
-			panel.style.removeProperty( 'transition-duration' );
-			panel.style.removeProperty( 'transition-property' );
-	    }, _.duration );
+        setTimeout( e => {
+            panel.style.removeProperty( 'height' );
+            panel.style.removeProperty( 'overflow' );
+            panel.style.removeProperty( 'transition-duration' );
+            panel.style.removeProperty( 'transition-property' );
+        }, _.duration );
     };
 
 
@@ -97,24 +97,24 @@ Element.prototype.accordion = function( settings = {} ) {
         panel.setAttribute( 'hidden', '' );
 
         // Styling & transition
-    	panel.style.transitionProperty = 'height, padding';
-	    panel.style.transitionDuration = _.duration + 'ms';
-	    panel.style.height = panel.offsetHeight + 'px';
-	    panel.offsetHeight;
-	    panel.style.overflow = 'hidden';
-	    panel.style.height = 0;
-	    panel.style.paddingTop = 0;
-	    panel.style.paddingBottom = 0;
+        panel.style.transitionProperty = 'height, padding';
+        panel.style.transitionDuration = _.duration + 'ms';
+        panel.style.height = panel.offsetHeight + 'px';
+        panel.offsetHeight;
+        panel.style.overflow = 'hidden';
+        panel.style.height = 0;
+        panel.style.paddingTop = 0;
+        panel.style.paddingBottom = 0;
 
-	    setTimeout( e => {
-			panel.style.display = 'none';
-			panel.style.removeProperty( 'height' );
-			panel.style.removeProperty( 'padding-top' );
-			panel.style.removeProperty( 'padding-bottom' );
-			panel.style.removeProperty( 'overflow' );
-			panel.style.removeProperty( 'transition-duration' );
-			panel.style.removeProperty( 'transition-property' );
-	    }, _.duration );
+        setTimeout( e => {
+            panel.style.display = 'none';
+            panel.style.removeProperty( 'height' );
+            panel.style.removeProperty( 'padding-top' );
+            panel.style.removeProperty( 'padding-bottom' );
+            panel.style.removeProperty( 'overflow' );
+            panel.style.removeProperty( 'transition-duration' );
+            panel.style.removeProperty( 'transition-property' );
+        }, _.duration );
     };
 
 
@@ -157,7 +157,7 @@ Element.prototype.accordion = function( settings = {} ) {
     items.forEach( item => {
 
         // Assign item blocks
-    	let label = item.children[0],
+        let label = item.children[0],
             content = item.children[1];
 
         // Add SVG to label
@@ -177,10 +177,10 @@ Element.prototype.accordion = function( settings = {} ) {
         content.setAttribute( 'aria-labelledby', tabID );
         content.setAttribute( 'hidden', '' );
 
-    	// Set all items to 'none'
-    	content.style.display = 'none';
+        // Set all items to 'none'
+        content.style.display = 'none';
 
-    	label.addEventListener( 'click', e => {
+        label.addEventListener( 'click', e => {
             e.preventDefault();
 
             if ( ! _.allowMultiOpen ) {
@@ -194,10 +194,10 @@ Element.prototype.accordion = function( settings = {} ) {
 
             if ( window.getComputedStyle( content ).display === 'none' ) {
 
-            	expand( item );
+                expand( item );
 
             } else {
-            	contract( item );
+                contract( item );
             }
         });
 
@@ -209,11 +209,11 @@ Element.prototype.accordion = function( settings = {} ) {
     if ( _.firstOpen ) {
         let first = items[0];
 
-    	first.classList.add( 'is-expanded' );
+        first.classList.add( 'is-expanded' );
 
         first.children[0].setAttribute( 'aria-selected', true );
         first.children[1].removeAttribute( 'hidden' );
-    	first.children[1].style.display = 'block';
+        first.children[1].style.display = 'block';
     }
 }
 

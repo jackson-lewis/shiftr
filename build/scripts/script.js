@@ -1,7 +1,7 @@
 ( () => {
 
 
-	// Home of your custom JS
+    // Home of your custom JS
 
 
 })();

@@ -1,6 +1,6 @@
 <?php
 
-	/*  ////  --|    All Things Woocommerce
+    /*  ////  --|    All Things Woocommerce
 
     */
 

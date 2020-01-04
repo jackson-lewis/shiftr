@@ -6,15 +6,15 @@
 
 
 .shiftr-form {
-	max-width: 50rem;
-	margin: 0 auto;
-	position: relative;
+    max-width: 50rem;
+    margin: 0 auto;
+    position: relative;
 
-	.field {
-		margin-bottom: 1rem;
-		display: block;
+    .field {
+        margin-bottom: 1rem;
+        display: block;
 
-		@include last-child;
-	}
+        @include last-child;
+    }
 }
 

@@ -11,26 +11,26 @@
 
 function shiftr_body_class( $use_shiftr = true ) {
 
-	if ( ! $use_shiftr || function_exists( 'is_woocommerce' ) ) {
-		body_class();
+    if ( ! $use_shiftr || function_exists( 'is_woocommerce' ) ) {
+        body_class();
 
-		return true;
-	}
+        return true;
+    }
 
-	global $wp_query;
-	global $post;
+    global $wp_query;
+    global $post;
 
-	$classes = array();
+    $classes = array();
 
-	if ( is_front_page() ) {
-		$classes[] = 'site-home';
-	}
+    if ( is_front_page() ) {
+        $classes[] = 'site-home';
+    }
 
-	if ( is_home() ) {
-		$classes[] = 'posts-archive';
-	}
+    if ( is_home() ) {
+        $classes[] = 'posts-archive';
+    }
 
-	if ( is_archive() ) {
+    if ( is_archive() ) {
         $classes[] = 'archive';
     }
 
@@ -38,25 +38,25 @@ function shiftr_body_class( $use_shiftr = true ) {
         $classes[] = 'date';
     }
 
-	if ( is_404() ) {
-		$classes[] = 'error404';
-	}
+    if ( is_404() ) {
+        $classes[] = 'error404';
+    }
 
-	if ( is_singular() ) {
-		$classes[] = 'single-' . get_post_type( $post->ID );
+    if ( is_singular() ) {
+        $classes[] = 'single-' . get_post_type( $post->ID );
 
-		$classes[] = get_post_type( $post->ID ) . 'id-' . $post->ID;
-	}
+        $classes[] = get_post_type( $post->ID ) . 'id-' . $post->ID;
+    }
 
-	$template = get_post_meta( $post->ID, '_wp_page_template', true );
-	
-	if ( $template != '' ) {
-		$template = preg_replace( '/^.*\/(.*)\.php$/', '\1', $template );
+    $template = get_post_meta( $post->ID, '_wp_page_template', true );
+    
+    if ( $template != '' ) {
+        $template = preg_replace( '/^.*\/(.*)\.php$/', '\1', $template );
 
-		$classes[] = 'template-' . $template;
-	}
+        $classes[] = 'template-' . $template;
+    }
 
-	if ( is_user_logged_in() ) {
+    if ( is_user_logged_in() ) {
         $classes[] = 'logged-in';
     }
 
@@ -71,16 +71,16 @@ function shiftr_body_class( $use_shiftr = true ) {
  *
  *  @since 1.0
  *
- *	@return mixed|bool
+ *  @return mixed|bool
  */
 
 function shiftr_head_open() {
 
-	if ( get_field( 'head_before', 'option' ) ) {
-		the_field( 'head_before', 'option', false );
-	} else {
-		return false;
-	}
+    if ( get_field( 'head_before', 'option' ) ) {
+        the_field( 'head_before', 'option', false );
+    } else {
+        return false;
+    }
 }
 
 
@@ -88,20 +88,20 @@ function shiftr_head_open() {
  *  shiftr_body_open
  *
  *  Keeping the header.php file cleaner
- *	Update from WP 5.2 - now hooked on wp_body_open()
+ *  Update from WP 5.2 - now hooked on wp_body_open()
  *
  *  @since 1.0
  *
- *	@return mixed|bool
+ *  @return mixed|bool
  */
 
 function shiftr_body_open() {
 
-	if ( get_field( 'body_before', 'option' ) ) {
-		the_field( 'body_before', 'option', false );
-	} else {
-		return false;
-	}
+    if ( get_field( 'body_before', 'option' ) ) {
+        the_field( 'body_before', 'option', false );
+    } else {
+        return false;
+    }
 }
 
 add_action( 'wp_body_open', 'shiftr_body_open' );
