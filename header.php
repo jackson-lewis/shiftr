@@ -16,8 +16,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="<?php $shiftr->the( 'primary_color' ); ?>"> 
         
-        <link rel="icon" type="image/png" href="<?php shiftr_get_asset( 'sr@32.png', '_shiftr' ); ?>" sizes="32x32">
-        <link rel="apple-touch-icon" href="<?php shiftr_get_asset( 'sr@128.png', '_shiftr' ); ?>" />  
+        <link rel="icon" type="image/png" href="<?php shiftr_get_asset_url( 'sr@32.png', '_shiftr' ); ?>" sizes="32x32">
+        <link rel="apple-touch-icon" href="<?php shiftr_get_asset_url( 'sr@128.png', '_shiftr' ); ?>" />  
 
         <?php wp_head(); ?>
 
@@ -30,7 +30,7 @@
             <div class="container">
 
                 <a href="<?= home_url(); ?>" class="site-logo">
-                    <?php shiftr_inline_svg( 'shiftr-full', '/assets/media/_shiftr/' ); ?>
+                    <?php shiftr_inline_svg( 'shiftr-full', '/assets/_shiftr/' ); ?>
                 </a>
 
                 <?php shiftr_nav_primary(); ?>
