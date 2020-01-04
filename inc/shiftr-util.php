@@ -5,7 +5,7 @@ define( 'SHIFTR_SPACE_ENTITY', '&nbsp;' );
 
 
 /**  
- *  shiftr_get_branding
+ *  shiftr_get_branding_url
  *
  *  Output a file uri from within the branding directory
  *
@@ -14,13 +14,13 @@ define( 'SHIFTR_SPACE_ENTITY', '&nbsp;' );
  *	@param $file str The file name of the requested file
  */
 
-function shiftr_get_branding( $file = '' ) {
-	echo esc_url( get_template_directory_uri() . '/assets/media/branding/' . $file );
+function shiftr_get_branding_url( $file = '' ) {
+	echo esc_url( get_template_directory_uri() . '/assets/branding/' . $file );
 }
 
 
 /**  
- *  shiftr_get_asset
+ *  shiftr_get_asset_url
  *
  *  Output a file uri from within the media directory
  *
@@ -30,8 +30,8 @@ function shiftr_get_branding( $file = '' ) {
  *	@param $media_dir str The directory name where the file is expected
  */
 
-function shiftr_get_asset( $file = '', $media_dir = 'imagery' ) {
-	echo esc_url( get_template_directory_uri() . '/assets/media/' . $media_dir . '/' . $file );
+function shiftr_get_asset_url( $file = '', $asset_dir = 'images' ) {
+	echo esc_url( get_template_directory_uri() . '/assets/' . $asset_dir . '/' . $file );
 }
 
 
