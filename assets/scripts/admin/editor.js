@@ -19,7 +19,7 @@
             ed.addButton( "email", {
                 title : "Add email link", 
                 cmd : "email_link",
-                image : shiftr.theme + '/assets/media/icons/email.svg'
+                image : shiftr.theme + '/assets/icons/admin--email.svg'
             });
 
             //button functionality.
@@ -60,7 +60,7 @@
             ed.addButton( "phone", {
                 title : "Add phone link", 
                 cmd : "phone_link",
-                image : shiftr.theme + '/assets/media/icons/phone.svg'
+                image : shiftr.theme + '/assets/icons/admin--phone.svg'
             });
 
             //button functionality.
