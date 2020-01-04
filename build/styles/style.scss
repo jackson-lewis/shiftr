@@ -24,6 +24,7 @@
 @import 'foundation/inputs';
 @import 'foundation/specials';
 @import 'foundation/table';
+@import 'foundation/nav-primary-toggle';
 
 
 //  Core Page Layout
@@ -34,7 +35,6 @@
 
 //  Components
 @import 'components/nav';
-@import 'components/hamburger';
 @import 'components/hero';
 @import 'components/form';
 @import 'components/accordion';
