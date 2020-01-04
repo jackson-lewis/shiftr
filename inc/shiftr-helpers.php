@@ -54,7 +54,7 @@ function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr
  *	@return mixed Output SVG element or bool (false) if file not found
  */
 
-function shiftr_inline_svg( $file = '', $dir = '/assets/media/icons/' ) {
+function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
 	// Put together file path
 	$relative_path = get_template_directory() . $dir . $file . '.svg';
