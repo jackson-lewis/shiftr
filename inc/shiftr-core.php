@@ -45,15 +45,15 @@ function shiftr_body_class( $use_shiftr = true ) {
     if ( is_singular() ) {
         $classes[] = 'single-' . get_post_type( $post->ID );
 
-        $classes[] = get_post_type( $post->ID ) . 'id-' . $post->ID;
-    }
+        $classes[] = get_post_type( $post->ID ) . '_id-' . $post->ID;
 
-    $template = get_post_meta( $post->ID, '_wp_page_template', true );
+        $template = get_post_meta( $post->ID, '_wp_page_template', true );
     
-    if ( $template != '' ) {
-        $template = preg_replace( '/^.*\/(.*)\.php$/', '\1', $template );
+        if ( $template != '' ) {
+            $template = preg_replace( '/^.*\/(.*)\.php$/', '\1', $template );
 
-        $classes[] = 'template-' . $template;
+            $classes[] = 'template-' . $template;
+        }
     }
 
     if ( is_user_logged_in() ) {
