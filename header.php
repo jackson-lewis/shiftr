@@ -20,7 +20,6 @@
         <link rel="apple-touch-icon" href="<?php shiftr_get_asset_url( 'sr@128.png', '_shiftr' ); ?>" />  
 
         <?php wp_head(); ?>
-
     </head>
     
     <body <?php shiftr_body_class(); ?>>
