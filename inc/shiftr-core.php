@@ -76,8 +76,8 @@ function shiftr_body_class( $use_shiftr = true ) {
 
 function shiftr_head_open() {
 
-    if ( get_field( 'head_before', 'option' ) ) {
-        the_field( 'head_before', 'option', false );
+    if ( get_field( 'head_open', 'option' ) ) {
+        the_field( 'head_open', 'option', false );
     } else {
         return false;
     }
@@ -97,12 +97,34 @@ function shiftr_head_open() {
 
 function shiftr_body_open() {
 
-    if ( get_field( 'body_before', 'option' ) ) {
-        the_field( 'body_before', 'option', false );
+    if ( get_field( 'body_open', 'option' ) ) {
+        the_field( 'body_open', 'option', false );
     } else {
         return false;
     }
 }
 
 add_action( 'wp_body_open', 'shiftr_body_open' );
+
+
+/**  
+ *  shiftr_body_close
+ *
+ *  Keeping the footer.php file clean.
+ *
+ *  @since 1.0
+ *
+ *  @return mixed|bool
+ */
+
+function shiftr_body_close() {
+
+    if ( get_field( 'body_close', 'option' ) ) {
+        the_field( 'body_close', 'option', false );
+    } else {
+        return false;
+    }
+}
+
+add_action( 'wp_footer', 'shiftr_body_close', 1 );
 

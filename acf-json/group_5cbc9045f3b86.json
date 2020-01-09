@@ -1,10 +1,10 @@
 {
     "key": "group_5cbc9045f3b86",
-    "title": "Main Options",
+    "title": "Options - Main",
     "fields": [
         {
             "key": "field_5cc063322a937",
-            "label": "Company Details",
+            "label": "Contact Details",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -92,7 +92,7 @@
         },
         {
             "key": "field_5cc063442a938",
-            "label": "Theme Options",
+            "label": "Tracking",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -108,14 +108,14 @@
         },
         {
             "key": "field_5cc063542a939",
-            "label": "Head Before",
-            "name": "head_before",
+            "label": "Head Open",
+            "name": "head_open",
             "type": "wysiwyg",
             "instructions": "Output any code just after the opening &lt;head&gt; tag",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
@@ -127,14 +127,14 @@
         },
         {
             "key": "field_5cc063962a93a",
-            "label": "Body Before",
-            "name": "body_before",
+            "label": "Body Open",
+            "name": "body_open",
             "type": "wysiwyg",
             "instructions": "Output any code just after the opening &lt;body&gt; tag",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "",
                 "class": "",
                 "id": ""
             },
@@ -143,6 +143,76 @@
             "media_upload": 0,
             "toolbar": "full",
             "delay": 0
+        },
+        {
+            "key": "field_5e17327c8c4da",
+            "label": "Body Close",
+            "name": "body_close",
+            "type": "wysiwyg",
+            "instructions": "Output any code just before the closing &lt;body&gt; tag",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "text",
+            "media_upload": 0,
+            "toolbar": "full",
+            "delay": 0
+        },
+        {
+            "key": "field_5cc74c198e853",
+            "label": "Cookie Notice",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_5cc74c2b8e854",
+            "label": "Cookie Notice Message",
+            "name": "cookie_notice_message",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "shiftr-editor-min",
+                "id": ""
+            },
+            "default_value": "We use cookies. To accept, continue browsing, or view our Cookie Policy to learn more.",
+            "tabs": "visual",
+            "toolbar": "shiftr_basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_5e1732b28c4db",
+            "label": "Misc",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
         },
         {
             "key": "field_5db03f1ce97fc",
@@ -167,41 +237,6 @@
             "max_height": "",
             "max_size": "",
             "mime_types": ""
-        },
-        {
-            "key": "field_5cc74c198e853",
-            "label": "Cookie Consent Options",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
-            "key": "field_5cc74c2b8e854",
-            "label": "Cookie Consent Message",
-            "name": "cookie_consent_message",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "shiftr-editor-min",
-                "id": ""
-            },
-            "default_value": "We use cookies. To accept, continue browsing, or view our Cookie Policy to learn more.",
-            "tabs": "visual",
-            "toolbar": "shiftr_basic",
-            "media_upload": 0,
-            "delay": 0
         }
     ],
     "location": [
@@ -221,5 +256,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1576949570
+    "modified": 1578578716
 }
