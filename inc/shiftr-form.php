@@ -376,10 +376,10 @@ function shiftr_form_data_get_content() {
 
     global $post, $shiftr_forms;
 
-    $content = get_post_meta( $post->ID, '_shiftr_form_data_content', true );
+    $content = get_post_meta( $post->ID, 'shiftr_form_data_content', true );
     $content = unserialize( base64_decode( $content ) );
 
-    $form_id = get_post_meta( $post->ID, '_shiftr_form_data_form_id', true );
+    $form_id = get_post_meta( $post->ID, 'shiftr_form_data_form_id', true );
     $form    = get_the_title( $form_id );
 
     $form_post = get_post( $form_id );
@@ -405,7 +405,7 @@ function shiftr_form_data_get_content() {
                 
                 if ( $field['type'] == 'file' ) {
 
-                    $files = get_post_meta( $post->ID, '_shiftr_form_data_files', true );
+                    $files = get_post_meta( $post->ID, 'shiftr_form_data_files', true );
 
                     $files = unserialize( $files );
 

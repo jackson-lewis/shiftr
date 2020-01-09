@@ -235,12 +235,12 @@ class Shiftr_Form_Handler {
         // Create the post and assign post ID
         $this->data_ID = wp_insert_post( $args );
 
-        add_post_meta( $this->data_ID, '_shiftr_form_data_content', base64_encode( serialize( $data ) ) );
-        add_post_meta( $this->data_ID, '_shiftr_form_data_form_id', $this->form_ID );
+        add_post_meta( $this->data_ID, 'shiftr_form_data_content', base64_encode( serialize( $data ) ) );
+        add_post_meta( $this->data_ID, 'shiftr_form_data_form_id', $this->form_ID );
 
         if ( ! empty( $this->files ) ) {
 
-            add_post_meta( $this->data_ID, '_shiftr_form_data_files', serialize( $this->files['filename'] ) );
+            add_post_meta( $this->data_ID, 'shiftr_form_data_files', serialize( $this->files['filename'] ) );
         }
 
         do_action( 'shiftr_form_handler_capture_after', $this->form_ID, $this->data_ID );
