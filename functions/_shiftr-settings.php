@@ -120,7 +120,7 @@ $shiftr->js_object = array(
         'errorBody'         => get_option( 'shiftr_form_message_error_body' )
     ),
     'cookie' => array(
-        'message'       => get_field( 'cookie_consent_message', 'option' ),
+        'message'       => get_field( 'cookie_notice_message', 'option' ),
         'policyLink'    => get_permalink( 3 )
     ),
     'shortcuts' => array(
