@@ -139,16 +139,14 @@ class Shiftr_Form {
         // Assign nonce field
         $hidden_fields[] = wp_nonce_field( 'shiftr_form_' . $this->form_ID . '_submission', '_' . $this->form_ID . '_nonce', true, false );
 
-        if ( is_array( $hidden_fields ) ) {
+        echo '<div style="display:none;">';
 
-            echo '<div style="display:none;">';
-
-            foreach ( $hidden_fields as $field ) {
-                echo $field;
-            }
-
-            echo '</div>';
+        foreach ( $hidden_fields as $field ) {
+            echo $field;
         }
+
+        echo '</div>';
+
 
         // Check if form HTML override exists
         $form_override = SHIFTR_PARTS . '/forms/' . $this->form . '.php';
