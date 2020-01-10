@@ -131,7 +131,7 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
 
     if ( $id == 0 || is_string( $id ) ) {
 
-        $acf_field = is_string( $id ) : $id : 'image';
+        $acf_field = is_string( $id ) ? $id : 'image';
 
         if ( get_field( $acf_field ) ) {
             $id = get_field( $acf_field );
