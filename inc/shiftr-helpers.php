@@ -115,11 +115,11 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 /**  
  *  shiftr_image
  *
- *  Output an img tag with data from an ACF image field
+ *  Output an img tag HTML markup from attachment ID or ACF field name
  *
  *  @since 1.0
  *
- *  @param $id int The attachment ID
+ *  @param $id int|str The attachment ID or ACF field name
  *  @param $size str The size of the image to output
  *  @param $lazy bool Set if the image should be lazy loaded
  *  @param $attr array Attributes that should be added to the img tag
@@ -128,6 +128,21 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
 
     $html = '';
+
+    if ( $id == 0 || is_string( $id ) ) {
+
+        $acf_field = is_string( $id ) : $id : 'image';
+
+        if ( get_field( $acf_field ) ) {
+            $id = get_field( $acf_field );
+
+        } elseif ( get_sub_field( $acf_field ) ) {
+            $id = get_sub_field( $acf_field );
+
+        } else {
+            return false;
+        }
+    }
 
     if ( $id > 0 ) {
 
