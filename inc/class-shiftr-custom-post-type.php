@@ -97,6 +97,7 @@ class Shiftr_Custom_Post_Type {
             'description' => 'Just a custom post type',
             'menu_position' => $this->menu_position,
             'menu_icon' => $this->menu_icon,
+            'show_ui' => true,
             'rewrite'   => array( 'slug' => $this->name ),
             'has_archive' => str_replace( '_', '-', $this->name ),
             'hierarchical' => false,
