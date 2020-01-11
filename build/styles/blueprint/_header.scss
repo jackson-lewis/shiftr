@@ -16,7 +16,7 @@ header.site-header {
     z-index: 100;
     overflow: hidden;
 
-    background-color: rgba( darken( $white, 5% ), .96 );
+    background-color: rgba( $white, .96 );
     -webkit-backdrop-filter: blur( 2px );
     box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
                 0 0 3rem rgba( $d-grey, .15 ),
@@ -62,7 +62,11 @@ header.site-header {
 
 .header--offset-contents {
     width: 100%;
-    padding-top: 6rem;
+    max-height: calc( 100vh - 6rem );
+    padding-bottom: 6rem;
+    position: relative;
+    top: 6rem;
+    overflow-y: scroll;
 
     @include x( l ) {
         width: auto;
