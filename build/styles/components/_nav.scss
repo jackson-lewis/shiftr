@@ -53,6 +53,10 @@ nav {
 
             &.level-0-item {
                 padding-right: 5.8rem;
+
+                &.current-page {
+
+                }
             }
 
             &.has-sub-menu {
@@ -160,6 +164,7 @@ nav {
     // to match the chosen breakpoint for header type
     @include x( m ) {
         width: 50%;
+        margin-left: 50%;
     }
 
 
@@ -187,6 +192,10 @@ nav {
 
                         line-height: 1;
                     }
+
+                    &.current-page {
+
+                    }
                 }
 
                 &.has-sub-menu {
@@ -209,7 +218,7 @@ nav {
                         left: 50%;
                         transform: translateX( -50% );
                         
-                        background-color: rgba( darken( $white, 5% ), .96 );
+                        background-color: rgba( $white, .96 );
                         -webkit-backdrop-filter: blur( 2px );
                         box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
                                     0 3rem 3rem rgba( $d-grey, .1 );
