@@ -106,7 +106,7 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
             $attr['class'] .= ' ';
         }
         
-        $attr['class'] .= $args->classes;
+        $attr['class'] .= $args->class;
     }
 
     if ( $args->type == 'address' && $args->address == $args->content ) {
