@@ -1,6 +1,16 @@
 # Changelog
 
 
+## v1.0.2
+*22/01/20*
+
+* Some minor corrections of mis-spelt variables...
+* Headings to inherit color
+* Contents of header offset container can now be scrolled where content extends the height of the viewport
+* Removed use of nonces on Forms after a issue was highlighted where cached pages cause token to expire
+
+
+
 ## v1.0.1
 *10/01/20*
 
