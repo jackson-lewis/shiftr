@@ -118,19 +118,6 @@ class Shiftr_Form_Handler {
 
     function verification() {
 
-        if ( ! isset( $_POST['_' . $this->form_ID . '_nonce'] ) ) {
-
-            wp_die( 'nonce_not_found' );
-        }
-
-        $nonce = $_POST['_' . $this->form_ID . '_nonce'];
-
-        // Verify the nonce
-        if ( ! wp_verify_nonce( $nonce, 'shiftr_form_' . $this->form_ID . '_submission' ) ) {
-
-            wp_die( 'nonce_not_verified' );
-        }
-
         // Validate email address
         $email = $this->get_value( 'email' );
 

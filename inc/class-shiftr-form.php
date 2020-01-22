@@ -136,9 +136,6 @@ class Shiftr_Form {
         $hidden_fields[] = '<input type="hidden" name="action" value="shiftr_form_handler">';
         $hidden_fields[] = '<input type="hidden" name="shiftr_form_id" value="' . esc_attr( $this->form_ID ) . '">';
 
-        // Assign nonce field
-        $hidden_fields[] = wp_nonce_field( 'shiftr_form_' . $this->form_ID . '_submission', '_' . $this->form_ID . '_nonce', true, false );
-
         echo '<div style="display:none;">';
 
         foreach ( $hidden_fields as $field ) {

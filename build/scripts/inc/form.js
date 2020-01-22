@@ -215,16 +215,6 @@ Element.prototype.form = function( settings = {} ) {
                     copy.b = _.settings.successBody;
                     break;
 
-                case 'nonce_not_found':
-                    copy.h = 'Security Issue!';
-                    copy.b = 'The request was blocked because of a missing token.';
-                    break;
-
-                case 'nonce_not_verified':
-                    copy.h = 'Security Issue!';
-                    copy.b = 'The request was blocked because of an invalid token.';
-                    break;
-
                 case 'invalid_email_address':
                     copy.h = 'Security Issue!';
                     copy.b = 'The request was blocked because of an invalid email address.';
