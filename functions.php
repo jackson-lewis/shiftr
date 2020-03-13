@@ -42,6 +42,8 @@ if ( $shiftr_has_acf ) {
      *  @since 1.0
      */
 
+    require_once( SHIFTR_FUNC . '/shiftr-builtin-filters.php' );
+
     require_once( SHIFTR_FUNC . '/_shiftr-settings.php' );
     require_once( SHIFTR_FUNC . '/_shiftr-filters.php' );
     require_once( SHIFTR_FUNC . '/theme-support.php' );
