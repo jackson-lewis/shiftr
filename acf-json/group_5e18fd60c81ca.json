@@ -18,8 +18,8 @@
             "layouts": {
                 "layout_5e18fd701522b": {
                     "key": "layout_5e18fd701522b",
-                    "name": "full_width_content",
-                    "label": "Full Width Content",
+                    "name": "content",
+                    "label": "Content",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -92,8 +92,8 @@
                 },
                 "layout_5e18fd8f12c30": {
                     "key": "layout_5e18fd8f12c30",
-                    "name": "image_content",
-                    "label": "Image & Content",
+                    "name": "content_image",
+                    "label": "Content & Image",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -238,5 +238,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1578756629
+    "modified": 1584137958
 }
