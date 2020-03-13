@@ -37,9 +37,9 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
 
 /**  
- *  shiftr_image
+ *  get_shiftr_image
  *
- *  Output an img tag HTML markup from attachment ID or ACF field name
+ *  Return the HTML markup of an image from attachment ID or ACF field name
  *
  *  @since 1.0
  *
@@ -49,10 +49,14 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
  *  @param $attr array Attributes that should be added to the img tag
  */
 
-function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
+function get_shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
 
     $html = '';
 
+    // Check if string value may acutally be a integar before proceeding
+    $id = intval( $id ) ? intval( $id ) : $id;
+
+    // Capture ACF values automatically if field name is passed as $id
     if ( $id == 0 || is_string( $id ) ) {
 
         $acf_field = is_string( $id ) ? $id : 'image';
@@ -92,7 +96,26 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
         }
     }
 
-    echo $html;
+    return $html;
+}
+
+
+/**  
+ *  shiftr_image
+ *
+ *  Output the returned value from get_shiftr_image()
+ *
+ *  @since 1.0
+ *
+ *  @param $id int|str The attachment ID or ACF field name
+ *  @param $size str The size of the image to output
+ *  @param $lazy bool Set if the image should be lazy loaded
+ *  @param $attr array Attributes that should be added to the img tag
+ */
+
+function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
+
+    echo get_shiftr_image( $id, $size, $lazy, $attr );
 }
 
 
@@ -103,6 +126,7 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
  *
  *  @since 1.0
  *
+ *  @global $post The WP_Post object
  *  @param $id null|int The post ID
  *  @param $size str The size of the image to output
  *  @param $lazy bool Set if the image should be lazy loaded
@@ -110,30 +134,12 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
  */
 
 function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr = [] ) {
+    global $post;
 
-    $html = '';
+    // Allows ability to set placeholder images based on post type via $post
+    $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ), $post );
 
-    $html = get_the_post_thumbnail( $id, $size, $attr );
-
-    $patterns = array(
-        '/width=\"[0-9]*\"/',
-        '/height=\"[0-9]*\"/',
-        '/class=\"[a-zA-Z0-9\s\-_]*\"/'
-    );
-
-    $html = preg_replace( $patterns, '', $html );
-
-    if ( $lazy ) {
-        $patterns = array(
-            '/ (src=)/',
-            '/ (srcset=)/'
-        );
-
-        $html = preg_replace( $patterns, ' data-\1', $html );
-        $html = preg_replace( '/(<img\s)/', '\1 class="lazy" ', $html );
-    }
-
-    echo $html;
+    echo get_shiftr_image( $thumbnail_id, $size, $lazy, $attr );
 }
 
 
