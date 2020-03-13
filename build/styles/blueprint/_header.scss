@@ -70,11 +70,13 @@ header.site-header {
 
     @include x( l ) {
         width: auto;
-        padding-top: 0;
+        padding-bottom: 0;
+        top: 0;
         flex-grow: 2;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        overflow: visible;
     }
 }
 
