@@ -94,12 +94,7 @@ Element.prototype.carousel = function( settings = {} ) {
             images.push( [] );
             var itemElements = items[i].querySelectorAll( '*' );
 
-            itemElements.forEach( el => {
-
-                if ( el.nodeName == 'IMG' ) {
-                    images[i].push( el );
-                }
-            });
+            itemElements.forEach( el => el.nodeName == 'IMG' ? images[i].push( el ) : false );
         }
 
         if ( _.showNav ) {
@@ -136,9 +131,7 @@ Element.prototype.carousel = function( settings = {} ) {
 
     let markers;
     if ( _.showNav ) {
-        markers = Object.keys( nav.children ).map( key => {
-          return nav.children[key];
-        });
+        markers = Object.keys( nav.children ).map( key => nav.children[key] );
     }
 
 
