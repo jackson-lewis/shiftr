@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v1.0.5
+*13/03/20*
+
+* Some minor styling corrections and improvements
+* Minor JavaScript improvements to reduce engine crashes
+* Lazy loading support for media added via content
+* Break-proof wrapper added for buttons added via editor
+* Major update to image functions, use of wrapper functions around get_shiftr_image()
+* New shiftr_get_template() and shiftr_get_block() functions to include template files
+* Added the default structure for the ACF flexible content template to the inventory
+* Added new function file, shiftr-builtin-filters.php, where built-in filters can be added.
+
+
+
 ## v1.0.2
 *22/01/20*
 
