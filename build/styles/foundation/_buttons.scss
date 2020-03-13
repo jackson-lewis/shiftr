@@ -5,6 +5,26 @@
 */
 
 
+.content-button-wrapper {
+    margin: 0 -.5rem calc( #{get_baseline()} - 1rem );
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    &:last-child {
+        margin-bottom: -1rem;
+    }
+
+    a[class^="button-"] {
+        margin: 0 .5rem 1rem;
+    }
+
+    &[data-style*="center"] {
+        justify-content: center;
+    }
+}
+
+
 %button {
     margin: 0;
     padding: 1rem 2rem;
