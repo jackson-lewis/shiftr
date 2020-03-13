@@ -210,13 +210,13 @@ nav {
                     }
 
                     .sub-menu {
-                        width: 14rem;
+                        min-width: 16rem;
+                        width: max-content;
                         margin-top: 0;
                         padding: 1rem 2rem;
                         position: absolute;
                         top: 100%;
-                        left: 50%;
-                        transform: translateX( -50% );
+                        left: -2rem;
                         
                         background-color: rgba( $white, .96 );
                         -webkit-backdrop-filter: blur( 2px );
@@ -282,7 +282,7 @@ nav {
 
     0% {
         opacity: 0;
-        transform: translateX( -50% ) translateY( -10px );
+        transform: translateY( -10px );
     }
 
     20% {
@@ -291,7 +291,7 @@ nav {
 
     100% {
         opacity: 1;
-        transform: translateX( -50% ) translateY( 0 );
+        transform: translateY( 0 );
     }
 }
 
