@@ -6,7 +6,7 @@
 */
 
 
-function shiftr_filter_thumbnail_placeholder( $id, $post ) {
+function shiftr_builtin_filter_thumbnail_placeholder( $id, $post ) {
 
   $post_type = $post->post_type;
 
@@ -26,4 +26,4 @@ function shiftr_filter_thumbnail_placeholder( $id, $post ) {
   return $id;
 }
 
-add_filter( 'shiftr_featured_image_thumbnail_id', 'shiftr_filter_thumbnail_placeholder', 10, 2 );
+add_filter( 'shiftr_featured_image_thumbnail_id', 'shiftr_builtin_filter_thumbnail_placeholder', 10, 2 );
