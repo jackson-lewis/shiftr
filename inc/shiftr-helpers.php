@@ -41,7 +41,7 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
  *
  *  Return the HTML markup of an image from attachment ID or ACF field name
  *
- *  @since 1.0
+ *  @since 1.0.5
  *
  *  @param $id int|str The attachment ID or ACF field name
  *  @param $size str The size of the image to output
@@ -175,5 +175,54 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
         return false;
     } 
+}
+
+
+/**  
+ *  shiftr_get_template
+ *
+ *  Include a template part
+ *
+ *  @since 1.0.5
+ *
+ *  @param $template_name str The template file name and path relative from theme_root/parts/
+ *  @param $args array Any variables to pass into the template file
+ *  @param $template_path str The directory to locate the template, relative from the theme root
+ *  @return null on failure to find file
+ */
+
+function shiftr_get_template( $template_name, $args = array(), $template_path = 'parts/' ) {
+
+    $template = locate_template( $template_path . $template_name );
+
+    if ( ! file_exists( $template ) ) {
+        return;
+    }
+
+    // Pass arguments into template file
+    if ( ! empty( $args ) && is_array( $args ) ) {
+
+        extract( $args, EXTR_SKIP );
+    }
+
+    include $template;
+}
+
+
+/**  
+ *  shiftr_get_block
+ *
+ *  Include a template part, specific to blocks used in a ACF flexible content template
+ *
+ *  @since 1.0.5
+ *
+ *  @param $template_name str The template file name and path relative from theme_root/blocks/
+ *  @param $args array Any variables to pass into the template file
+ *  @param $template_path str The directory to locate the template, relative from the theme root
+ */
+
+function shiftr_get_block( $block_name, $args = array(), $template_path = 'blocks/' ) {
+
+    shiftr_get_template( $block_name, $args, $template_path );
 }
 
