@@ -119,6 +119,8 @@
 
     ( logo => {
 
+        if ( ! logo ) return;
+
         let svg = logo.children[0];
 
         let viewbox = svg.getAttribute( 'viewBox' ),
