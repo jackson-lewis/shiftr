@@ -400,6 +400,11 @@ class Shiftr_Form_Handler {
 
         if ( ! file_exists( $shiftr_upload_dir ) ) {
             wp_mkdir_p( $shiftr_upload_dir );
+
+            $silence_is_golden = fopen( $shiftr_upload_dir . '/index.php', 'w' );
+
+            fwrite( $silence_is_golden, "<?php // Silence is golden" );
+            fclose( $silence_is_golden );
         }
 
         $files = array(
