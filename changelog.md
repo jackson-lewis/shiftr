@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v1.0.6
+*13/05/20*
+
+* Added VS Code tasks, set to auto run when you open VS.
+
+
+
 ## v1.0.5
 *13/03/20*
 
