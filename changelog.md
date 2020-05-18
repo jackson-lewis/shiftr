@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.0.7
+*18/05/20*
+
+* Removed VS Code tasks from theme, instead tasks is used in the [WordPress Enhanced Workflow](https://github.com/jackson-lewis/wordpress-enhanced-workflow). It is probably more convenient and makes more sense for tasks to be managed by the project workflow instead of the theme.
+* VS Code search exclude has been expanded to exclude compiled JS files from the search results.
+
+
+
 ## v1.0.6
 *13/05/20*
 
