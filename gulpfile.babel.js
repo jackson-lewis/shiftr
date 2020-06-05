@@ -13,8 +13,10 @@
  * CSS Grid support is enabled. For more info on how to effectively use CSS Grid whlist
  * getting the most from Autoprefixer, see https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
  */
-import { series, watch, src, dest } from 'gulp'
+import { series, parallel, watch, src, dest } from 'gulp'
 import sourcemaps from 'gulp-sourcemaps'
+import browserSync from 'browser-sync'
+browserSync.create()
 
 // Sass
 import sass from 'gulp-sass'
@@ -28,6 +30,7 @@ import concat from 'gulp-concat'
 
 const SRC = {
     styles: `build/styles/*.scss`,
+    inc_scripts: `build/scripts/inc/*.js`,
     frontend_scripts: `build/scripts/frontend/*.js`,
     backend_scripts: `build/scripts/backend/*.js`,
     php: `**/**/*.php`
@@ -58,7 +61,7 @@ const DEST = {
  * and minified.
  */
 const styles = () => 
-    src( [ SRC.styles, `build/styles/packets/*.scss` ] )
+    src( [ `build/styles/*.scss`, `build/styles/packets/*.scss` ] )
     .pipe( sourcemaps.init() )
     .pipe( sass() )
     .pipe( postcss([ autoprefixer({
@@ -66,7 +69,7 @@ const styles = () =>
     }) ]) )
     .pipe( sourcemaps.write( `.maps` ) )
     .pipe( dest( DEST.styles ) )
-
+    .pipe( browserSync.stream() )
 
 exports.styles = styles
 
@@ -81,14 +84,14 @@ exports.styles = styles
  * [ `build/scripts/inc/*.js`, `build/scripts/*.js` ]
  */
 const frontendScripts = () => 
-    src( SRC.frontend_scripts )
+    src( [ SRC.inc_scripts, SRC.frontend_scripts ] )
     .pipe( sourcemaps.init() )
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
+    .pipe( concat( `main.js` ) )
     .pipe( sourcemaps.write( `.maps` ) )
     .pipe( dest( DEST.scripts ) )
-
 
 exports.frontendScripts = frontendScripts
 
@@ -99,9 +102,9 @@ const backendScripts = () =>
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
+    .pipe( concat( `backend.js` ) )
     .pipe( sourcemaps.write( `.maps` ) )
     .pipe( dest( DEST.scripts ) )
-
 
 exports.backendScripts = backendScripts
 
@@ -110,15 +113,24 @@ exports.backendScripts = backendScripts
  * Browser Sync will watch for changes to all php, scss and js files
  * in the theme. Files to watch are specified in the watch task.
  */
-
+const reload = done => {
+    browserSync.reload()
+    done()
+}
 
 
 /**
  * Build code and watch for changes via Browser Sync
  */
 exports.watch = () =>
-    watch( SRC.styles, series( styles ) )
-    watch( SRC.scripts, series( frontendScripts ) )
+    browserSync.init({
+        proxy: `shiftr.source`,
+        open: false
+    })
+
+    watch( `build/styles/**/*.scss`, styles )
+    watch( SRC.frontend_scripts, series( frontendScripts, reload ) )
+    watch( SRC.php ).on( `change`, series( reload ) )
 
 
 /**
