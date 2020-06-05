@@ -14,6 +14,7 @@
  * getting the most from Autoprefixer, see https://css-tricks.com/css-grid-in-ie-css-grid-and-the-new-autoprefixer/
  */
 import { series, parallel, watch, src, dest } from 'gulp'
+import gulpif from 'gulp-if'
 import sourcemaps from 'gulp-sourcemaps'
 import browserSync from 'browser-sync'
 browserSync.create()
@@ -22,11 +23,18 @@ browserSync.create()
 import sass from 'gulp-sass'
 import postcss from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
+import cleanCSS from 'gulp-clean-css'
 
 // JavaScript
 import babel from 'gulp-babel'
 import concat from 'gulp-concat'
+import uglify from 'gulp-uglify'
 
+
+/**
+ * Settings
+ */
+const proxy = `shiftr.source`
 
 const SRC = {
     styles: `build/styles/*.scss`,
@@ -43,36 +51,34 @@ const DEST = {
 
 
 /**
- * We handle environments using `gulp-environments`
- * 
- * Pretty simple, we only use development and production.
- * 
- * Development code should be used for both dev and staging environments.
+ * This sets the environment to dev by default
  */
+const ENV = process.env.NODE_ENV || `development`
 
+const isDev = () => ENV === `development`
+const isProduction = () => ENV === `production`
 
 
 /**
  * Compiles the scss files
  * 
  * Source maps are only available on development
- * 
+ * ®®
  * For production code, files are stripped of comments
  * and minified.
  */
-const styles = () => 
+const styles = () =>
     src( [ `build/styles/*.scss`, `build/styles/packets/*.scss` ] )
-    .pipe( sourcemaps.init() )
-    .pipe( sass() )
+    .pipe( gulpif( isDev(), sourcemaps.init() ) )
+    .pipe( sass().on( `error`, sass.logError ) )
     .pipe( postcss([ autoprefixer({
         grid: true
     }) ]) )
-    .pipe( sourcemaps.write( `.maps` ) )
+    .pipe( gulpif( isProduction(), cleanCSS() ) )
+    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
     .pipe( dest( DEST.styles ) )
     .pipe( browserSync.stream() )
-
-exports.styles = styles
-
+    
 
 /**
  * Compiles the JavaScript files
@@ -80,33 +86,29 @@ exports.styles = styles
  * Source files are only available on development
  * 
  * Concatinated file is minified on production
- * 
- * [ `build/scripts/inc/*.js`, `build/scripts/*.js` ]
  */
-const frontendScripts = () => 
+const frontendScripts = () =>
     src( [ SRC.inc_scripts, SRC.frontend_scripts ] )
-    .pipe( sourcemaps.init() )
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
+    .pipe( gulpif( isDev(), sourcemaps.init() ) )
     .pipe( concat( `main.js` ) )
-    .pipe( sourcemaps.write( `.maps` ) )
+    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
+    .pipe( gulpif( isProduction(), uglify() ) )
     .pipe( dest( DEST.scripts ) )
+    
 
-exports.frontendScripts = frontendScripts
-
-
-const backendScripts = () => 
+const backendScripts = () =>
     src( SRC.backend_scripts )
-    .pipe( sourcemaps.init() )
+    .pipe( gulpif( isDev(), sourcemaps.init() ) )
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
     .pipe( concat( `backend.js` ) )
-    .pipe( sourcemaps.write( `.maps` ) )
+    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
+    .pipe( gulpif( isProduction(), uglify() ) )
     .pipe( dest( DEST.scripts ) )
-
-exports.backendScripts = backendScripts
 
 
 /**
@@ -122,15 +124,18 @@ const reload = done => {
 /**
  * Build code and watch for changes via Browser Sync
  */
-exports.watch = () =>
+exports.watch = () => {
     browserSync.init({
-        proxy: `shiftr.source`,
-        open: false
+        proxy: proxy,
+        open: false,
+        notify: false
     })
 
     watch( `build/styles/**/*.scss`, styles )
     watch( SRC.frontend_scripts, series( frontendScripts, reload ) )
     watch( SRC.php ).on( `change`, series( reload ) )
+}
+    
 
 
 /**
@@ -139,7 +144,7 @@ exports.watch = () =>
  * Development code with be built by default, so for production code
  * run `gulp build --env production`
  */
-exports.build = series( styles, frontendScripts, backendScripts )
+exports.build = parallel( styles, frontendScripts, backendScripts )
 
 /**
  * This is the changelog content about Gulp Update
