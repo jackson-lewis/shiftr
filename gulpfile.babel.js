@@ -26,9 +26,14 @@ import autoprefixer from 'autoprefixer'
 import cleanCSS from 'gulp-clean-css'
 
 // JavaScript
-import babel from 'gulp-babel'
+//import babel from 'gulp-babel'
 import concat from 'gulp-concat'
 import uglify from 'gulp-uglify'
+
+import { rollup } from 'gulp-better-rollup'
+import babel from '@rollup/plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
 
 /**
@@ -109,6 +114,14 @@ const backendScripts = () =>
     .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
     .pipe( gulpif( isProduction(), uglify() ) )
     .pipe( dest( DEST.scripts ) )
+
+
+const es6Scripts = () =>
+    src( `build/scripts/frontend/modules.js` )
+    .pipe( rollup({ plugins: [babel({ babelHelpers: 'bundled' }), resolve(), commonjs()] }, 'umd') )
+    .pipe( dest( DEST.scripts ) )
+
+exports.es6 = es6Scripts
 
 
 /**
