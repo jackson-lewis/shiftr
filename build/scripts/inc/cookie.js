@@ -8,18 +8,12 @@
 
     if ( document.cookie.indexOf( cookieName ) == -1 ) {
 
-        let stylesheet = createEl( 'link' );
-        stylesheet.setAttribute( 'rel', 'stylesheet' );
-        stylesheet.setAttribute( 'href', `${shiftr.theme}/assets/styles/cookie-notice.css` );
-        stylesheet.setAttribute( 'type', 'text/css' );
-        head.appendChild( stylesheet );
-
         // Create notice
-        let el = document.createElement( 'div' ),
-            inner = document.createElement( 'div' ),
-            message = document.createElement( 'p' ),
-            dismiss = document.createElement( 'button' ),
-            learnMore = document.createElement( 'a' );
+        let el = createEl( 'div' ),
+            inner = createEl( 'div' ),
+            message = createEl( 'p' ),
+            dismiss = createEl( 'button' ),
+            learnMore = createEl( 'a' );
 
         el.classList.add( 'shiftr-cookie-notice' );
 
