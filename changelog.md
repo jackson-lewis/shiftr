@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v1.1.1
+*12/06/20*
+
+* Corrected theme version in package.json to v1.1.0
+* Cookie notice styling has been moved into main css bundle. Lighthouse was asking a few times to preconnect to the resource which was annoying. It also makes more sense logically to include the styling in the main bundle as it will always have to be downloaded anyway on initial user visit.
+
+
 ## v1.1
 *12/06/20*
 
@@ -11,7 +18,7 @@ Task names have also been updated.
 `build` Previously `compile-production`, compiles CSS and JS assets for production, minification and comments stripped.
 `build-dev` Previously just the standard `compile` task, although not to be used in the CD process, it gives the option to compile assets without building them for production or running watch.
 
-`gulp-environments` has been dropped in favour of using `env.process.NOE_ENV` as it reduces dependancies.
+`gulp-environments` has been dropped in favour of using `env.process.NODE_ENV` as it reduces dependancies.
 
 Overall, not all the same packages are used in this update, as some were not needed, or other were replaced with ones that seemed to be better or were more of a package. For instance, `gulp-clean-css` will minify and strip comments.
 
