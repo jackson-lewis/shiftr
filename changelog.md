@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.1
+*12/06/20*
+
+Major overhaul of the task runner processes. The Gulpfile has been completely rebuilt from the ground up and now uses Gulp v4. The functionality of the tasks remains the same, just rebuilt to work faster and more efficiently. Any previously known bugs have now been resolved, such as JS errors crashing watch, and CSS stops injecting changes after a JS change in the same watch session.
+
+Task names have also been updated.
+`watch` Previously `build`, watches for file changes and either injects changes or reloads page. 
+`build` Previously `compile-production`, compiles CSS and JS assets for production, minification and comments stripped.
+`build-dev` Previously just the standard `compile` task, although not to be used in the CD process, it gives the option to compile assets without building them for production or running watch.
+
+`gulp-environments` has been dropped in favour of using `env.process.NOE_ENV` as it reduces dependancies.
+
+Overall, not all the same packages are used in this update, as some were not needed, or other were replaced with ones that seemed to be better or were more of a package. For instance, `gulp-clean-css` will minify and strip comments.
+
+> The following update has been completed and tested against node v12.18.0 and npm v6.14.4
+
+
+
 ## v1.0.8
 *12/06/20*
 

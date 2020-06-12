@@ -19,10 +19,10 @@
 function shiftr_editor( $plugin_array ) {
 
     // Add Email plugin
-    $plugin_array['email_link_plugin'] =  get_template_directory_uri() . '/assets/scripts/admin/editor.js';
+    $plugin_array['email_link_plugin'] =  get_template_directory_uri() . '/assets/scripts/editor.js';
 
     // Add Phone plugin
-    $plugin_array['phone_link_plugin'] =  get_template_directory_uri() . '/assets/scripts/admin/editor.js';
+    $plugin_array['phone_link_plugin'] =  get_template_directory_uri() . '/assets/scripts/editor.js';
 
     return $plugin_array;
 }

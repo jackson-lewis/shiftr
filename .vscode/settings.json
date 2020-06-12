@@ -1,7 +1,6 @@
 {
     "search.exclude": {
         "**/*.css": true,
-        "assets/scripts/script.js": true,
-        "assets/scripts/script-min.js": true
+        "assets/scripts/*.js": true
     }
 }

@@ -1,7 +1,6 @@
 ( function() {
 
     /*  ////  --|    Shiftr Editor Extension
-
         * Just some magic
     */
 
@@ -88,4 +87,3 @@
     tinymce.PluginManager.add( "phone_link_plugin", tinymce.plugins.phone_link_plugin );
 
 })();
-

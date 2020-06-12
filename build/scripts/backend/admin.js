@@ -1,7 +1,6 @@
 ( function() {
 
     /*  ////  --|    Shiftr Admin Script
-
         * Just some magic
     */
 
@@ -64,4 +63,3 @@
 
 
 })( jQuery );
-
