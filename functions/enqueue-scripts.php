@@ -31,9 +31,11 @@ function shiftr_scripts() {
     wp_deregister_script( 'wp-embed' );
 
     // Scripts
-    wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/main.js', array(), null, true );
-    wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
-    wp_enqueue_script( 'shiftr-script-modules', get_template_directory_uri() . '/assets/scripts/modules.js', array(), null, true );
+    //wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/main.js', array(), null, true );
+    //wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
+    wp_enqueue_script( 'shiftr-script-bundle', get_template_directory_uri() . '/assets/scripts/bundle.js', array(), null, true );
+    wp_localize_script( 'shiftr-script-bundle', 'shiftr', shiftr_js_object() );
+    wp_enqueue_script( 'shiftr-script-product', get_template_directory_uri() . '/assets/scripts/product.js', array(), null, true );
 
     // Styles
     wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', array(), $shiftr->get( 'version' ) );

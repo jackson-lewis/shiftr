@@ -1,5 +1,5 @@
-( () => {
 
+export default ( settings = {} ) => {
     /*  ////  --|    LAZY LOADER 2.0
 
         * The second iteration of the Lazy Loader
@@ -7,71 +7,71 @@
         * Handles img, iframe and background-images all in one
         * Updated to ES6 with arrow functions and interpolation
     */
+   const targetClass = settings.targetClass || `.lazy`
 
 
-    var lazyContent = [].slice.call( document.querySelectorAll( '.lazy' ) ),
-        listed = ['IMG', 'IFRAME'];
+   var lazyContent = [].slice.call( document.querySelectorAll( `.${targetClass}` ) ),
+    listed = ['IMG', 'IFRAME'];
 
     if ( 'IntersectionObserver' in window ) {
 
-        var lazyObserver = new IntersectionObserver( ( entries, observer ) => {
+    var lazyObserver = new IntersectionObserver( ( entries, observer ) => {
 
-            entries.forEach( entry => {
+        entries.forEach( entry => {
 
-                if ( entry.isIntersecting ) {
+            if ( entry.isIntersecting ) {
 
-                    var lazyItem = entry.target;
+                var lazyItem = entry.target;
 
-                    if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
-                        lazyItem.src = lazyItem.dataset.src;
-                        if ( lazyItem.dataset.srcset ) {
-                            lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
-                        }
-                        lazyItem.classList.remove( 'lazy' );
+                if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
+                    lazyItem.src = lazyItem.dataset.src;
+                    if ( lazyItem.dataset.srcset ) {
+                        lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
+                    }
+                    lazyItem.classList.remove( targetClass );
 
-                    } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( 'lazy' ); }
+                } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( targetClass ); }
 
-                    lazyObserver.unobserve( lazyItem );
-                }
-            });
-        }, { rootMargin: `0px 0px ${window.innerHeight}px 0px` });
+                lazyObserver.unobserve( lazyItem );
+            }
+        });
+    }, { rootMargin: `0px 0px ${window.innerHeight}px 0px` });
 
-        lazyContent.forEach( lazyItem => { lazyObserver.observe( lazyItem ); });
+    lazyContent.forEach( lazyItem => { lazyObserver.observe( lazyItem ); });
     } else {
 
-        var active = false,
-            lazyLoad = function lazyLoad() {
+    var active = false,
+        lazyLoad = function lazyLoad() {
 
-            if ( active === false ) { active = true;
+        if ( active === false ) { active = true;
 
-                setTimeout( () => { lazyContent.forEach( lazyItem => {
+            setTimeout( () => { lazyContent.forEach( lazyItem => {
 
-                        if ( lazyItem.getBoundingClientRect().top <= window.innerHeight &&
-                             lazyItem.getBoundingClientRect().bottom >= window.innerHeight &&
-                             getComputedStyle( lazyItem ).display != 'none' ) { 
+                    if ( lazyItem.getBoundingClientRect().top <= window.innerHeight &&
+                            lazyItem.getBoundingClientRect().bottom >= window.innerHeight &&
+                            getComputedStyle( lazyItem ).display != 'none' ) { 
 
-                            if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
-                                lazyItem.src = lazyItem.dataset.src;
-                                if ( lazyItem.dataset.srcset ) {
-                                    lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
-                                }
-                                lazyItem.classList.remove( 'lazy' );
+                        if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
+                            lazyItem.src = lazyItem.dataset.src;
+                            if ( lazyItem.dataset.srcset ) {
+                                lazyItem.setAttribute( 'srcset', lazyItem.dataset.srcset );
+                            }
+                            lazyItem.classList.remove( targetClass );
 
-                            } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( 'lazy' ); }
+                        } else { lazyItem.classList.add( 'visible' ); lazyItem.classList.remove( targetClass ); }
 
-                            lazyContent = lazyContent.filter( item => item !== lazyItem );
+                        lazyContent = lazyContent.filter( item => item !== lazyItem );
 
-                            if ( lazyContent.length == 0 ) {
-                                document.removeEventListener( 'scroll', lazyLoad );
-                                window.removeEventListener( 'resize', lazyLoad );
-                                window.removeEventListener( 'orientationchange', lazyLoad ); }
-                        }
-                    }); active = false; }, 200 ); } };
+                        if ( lazyContent.length == 0 ) {
+                            document.removeEventListener( 'scroll', lazyLoad );
+                            window.removeEventListener( 'resize', lazyLoad );
+                            window.removeEventListener( 'orientationchange', lazyLoad ); }
+                    }
+                }); active = false; }, 200 ); } };
 
-        document.addEventListener( 'scroll', lazyLoad );
-        window.addEventListener( 'resize', lazyLoad );
-        window.addEventListener( 'orientationchange', lazyLoad );
+    document.addEventListener( 'scroll', lazyLoad );
+    window.addEventListener( 'resize', lazyLoad );
+    window.addEventListener( 'orientationchange', lazyLoad );
     }
-    
-})();
+}
 

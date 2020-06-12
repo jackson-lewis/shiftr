@@ -30,10 +30,9 @@ import cleanCSS from 'gulp-clean-css'
 import concat from 'gulp-concat'
 import uglify from 'gulp-uglify'
 
-import { rollup } from 'gulp-better-rollup'
-import babel from '@rollup/plugin-babel'
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
+
+import gulpWebpack from 'webpack-stream'
+import webpack from 'webpack'
 
 
 /**
@@ -43,6 +42,7 @@ const proxy = `shiftr.source`
 
 const SRC = {
     styles: `build/styles/*.scss`,
+    scripts: `build/scripts/**/*.js`,
     inc_scripts: `build/scripts/inc/*.js`,
     frontend_scripts: `build/scripts/frontend/*.js`,
     backend_scripts: `build/scripts/backend/*.js`,
@@ -117,11 +117,11 @@ const backendScripts = () =>
 
 
 const es6Scripts = () =>
-    src( `build/scripts/frontend/modules.js` )
-    .pipe( rollup({ plugins: [babel({ babelHelpers: 'bundled' }), resolve(), commonjs()] }, 'umd') )
+    src( `build/scripts/frontend/*.js` )
+    .pipe( gulpWebpack( require( `./webpack.${ENV}.config.js` ), webpack ) )
     .pipe( dest( DEST.scripts ) )
 
-exports.es6 = es6Scripts
+exports.webpack = es6Scripts
 
 
 /**
@@ -145,7 +145,7 @@ exports.watch = () => {
     })
 
     watch( `build/styles/**/*.scss`, styles )
-    watch( SRC.frontend_scripts, series( frontendScripts, reload ) )
+    watch( SRC.scripts, series( es6Scripts, reload ) )
     watch( SRC.php ).on( `change`, series( reload ) )
 }
     

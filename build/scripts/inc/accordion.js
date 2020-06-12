@@ -1,11 +1,13 @@
 
 
+import { parseComponentData, generateComponentID } from './_init'
+
 /*  ////  --|    Element.prototype.accordion( settings = {} )
 
     * Create an accordion component
 */
 
-Element.prototype.accordion = function( settings = {} ) {
+export default function( settings = {} ) {
 
     // The default settings
     let defaults = {

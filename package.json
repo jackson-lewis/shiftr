@@ -23,14 +23,11 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/register": "^7.10.1",
-    "@rollup/plugin-babel": "^5.0.3",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
     "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
-    "gulp-better-rollup": "^4.0.1",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
@@ -38,6 +35,11 @@
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
-    "rollup": "^1.32.1"
+    "rollup": "^1.32.1",
+    "webpack": "^4.43.0",
+    "webpack-stream": "^5.2.1"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.4.1"
   }
 }

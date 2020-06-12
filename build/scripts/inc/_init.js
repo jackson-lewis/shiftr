@@ -15,7 +15,7 @@ let header    = document.querySelector( '.site-header' ),
     body      = document.body;
 
 
-function on_load( fn = e => {} ) {
+function onLoad( fn = e => {} ) {
 
     document.addEventListener( 'DOMContentLoaded', e => {
         fn;
@@ -222,4 +222,11 @@ function x( width, fn, callback = () => {}, runOnce = false ) {
 
 })();
 
+const Layout = {
+    header,
+    head,
+    body
+}
+
+export { Layout, onLoad, createEl, strToBool, parseComponentData, generateComponentID, vw, vh, x }
     
