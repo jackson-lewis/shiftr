@@ -31,11 +31,11 @@ function shiftr_scripts() {
     wp_deregister_script( 'wp-embed' );
 
     // Scripts
-    wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/script.js', array(), null, true );
+    wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/main.js', array(), null, true );
     wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
 
     // Styles
-    wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/style.css', array(), $shiftr->get( 'version' ) );
+    wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', array(), $shiftr->get( 'version' ) );
 
     // Remove WP Glutenburg styling as not supported by the theme yet
     wp_dequeue_style( 'wp-block-library' );

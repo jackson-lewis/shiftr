@@ -1,43 +1,38 @@
 {
-  "name": "pd",
+  "name": "shiftr",
   "version": "1.0.0",
-  "description": "Some description about your project",
+  "description": "This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "gulp watch",
+    "build-dev": "gulp build",
+    "build": "NODE_ENV='production' gulp build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackson-lewis/shiftr.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "not dead"
-  ],
-  "devDependencies": {
-    "autoprefixer": "^9.7.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.26.7",
-    "chalk": "^2.4.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1",
-    "gulp-clean-css": "^4.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-environments": "^0.1.2",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-strip-comments": "^2.5.2",
-    "gulp-strip-css-comments": "^2.0.0"
+  "bugs": {
+    "url": "https://github.com/jackson-lewis/shiftr/issues"
   },
-  "dependencies": {
-    "braces": "^3.0.2",
-    "clean-css": "^4.2.1",
-    "gulp-minifier": "^2.0.0",
-    "gulp-minify": "^3.1.0",
-    "lighthouse-automatic": "^1.0.6",
-    "lodash": "^4.17.15",
-    "minimatch": "^3.0.4",
-    "sshpk": "^1.16.1"
+  "homepage": "https://github.com/jackson-lewis/shiftr#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "autoprefixer": "^9.8.0",
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^3.0.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2"
   }
 }

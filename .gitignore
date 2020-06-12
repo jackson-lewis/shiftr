@@ -11,4 +11,6 @@ dev/
 
 # Compiled Assets
 assets/scripts/*.js
+assets/scripts/.maps/
 assets/styles/*.css
+assets/styles/.maps/
