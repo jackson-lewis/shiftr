@@ -57,6 +57,7 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_FUNC . '/forms.php' );
     require_once( SHIFTR_FUNC . '/sidebar.php' );
     require_once( SHIFTR_FUNC . '/goodbye-emoji.php' );
+    require_once( SHIFTR_FUNC . '/native-lazy-loading.php' );
 
     if ( function_exists( 'is_woocommerce' ) ) {
         require_once( SHIFTR_FUNC . '/woocommerce.php' );

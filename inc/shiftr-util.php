@@ -165,3 +165,17 @@ function shiftr_is_sending_form() {
     return defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['shiftr_form_id'] );
 }
 
+
+/**
+ * Return the state of the lazy loading ability.
+ * 
+ * @since 1.1.x
+ * @global $shiftr
+ * 
+ * @return bool True is enabled, false if disabled
+ */
+function shiftr_lazy_loading_enabled() {
+    global $shiftr;
+
+    return $shiftr->lazy_loading;
+}

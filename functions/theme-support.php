@@ -39,22 +39,6 @@ function shiftr_filter_the_content( $content ) {
     // Remove <p> tags wrapped around <img>
     $content = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content );
 
-    // Add Shiftr Lazy Loader
-    $regex = array(
-        'patterns' => array(
-            '/<img([^>]*)\sclass="([^"]*)"\s([^>]*)\s?>/',
-            '/<img([^>]*)\ssrc="([^"]*)"\s([^>]*)\s?>/',
-            '/<img([^>]*)\ssrcset="([^"]*)"\s([^>]*)\s?>/'
-        ),
-        'replacements' => array(
-            '<img \1 class="lazy \2" \3>',
-            '<img \1 data-src="\2" \3>',
-            '<img \1 data-srcset="\2" \3>'
-        )
-    );
-
-    $content = preg_replace( $regex['patterns'], $regex['replacements'], $content );
-
     // Remove p tag surrounding anchor buttons
     $content = preg_replace( '/<p\s?(?:style)?[=]?[\"]?([^\">]*)[\"]?>\s*(<a\sclass="[^"]*(?:button\-)[^"]*".*>[a-zA-z0-9\-_&!\?£%\(\)>\s]*<\/a>)\s*<\/p>/', '<div class="content-button-wrapper" data-style="\1">\2</div>', $content );
 
