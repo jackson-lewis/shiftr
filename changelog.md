@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v1.0.8
+*12/06/20*
+
+* Cookie notice accessibility improvements. The "Accept" and "Learn more" links are now more descriptive to assistive technologies.
+
+
+
 ## v1.0.7
 *18/05/20*
 

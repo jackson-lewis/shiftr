@@ -27,11 +27,11 @@
 
         dismiss.classList.add( 'button-fill' ); 
         dismiss.setAttribute( 'id', 'shiftr-cookie-accept' );
-        dismiss.innerHTML = 'Accept';
+        dismiss.innerHTML = 'Accept<span class="screen-reader-text"> cookies on this site.</span>';
 
         learnMore.classList.add( 'button-text' );
         learnMore.setAttribute( 'href', shiftr.cookie.policyLink );
-        learnMore.innerHTML = 'Learn More';
+        learnMore.innerHTML = 'Learn More<span class="screen-reader-text"> about cookies on this site.</span>';
 
         inner.appendChild( message );
         inner.appendChild( dismiss );
