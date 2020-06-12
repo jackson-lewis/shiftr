@@ -1,13 +1,7 @@
 ( () => {
 
-
-    // Home of your custom JS
-
-
     /**
-     * My first comment!
+     * Custom JS
      */
 
-     console.log( `it is me! Really!` );
 })();
-

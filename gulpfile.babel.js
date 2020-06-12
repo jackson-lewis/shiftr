@@ -38,10 +38,10 @@ const proxy = `shiftr.source`
 
 const SRC = {
     styles: `build/styles/*.scss`,
-    inc_scripts: `build/scripts/inc/*.js`,
-    frontend_scripts: `build/scripts/frontend/*.js`,
-    backend_scripts: `build/scripts/backend/*.js`,
-    php: `**/**/*.php`
+    stylesPackets: `build/styles/packets/*.scss`,
+    incScripts: `build/scripts/inc/*.js`,
+    frontendScripts: `build/scripts/frontend/*.js`,
+    backendScripts: `build/scripts/backend/*.js`
 }
 
 const DEST = {
@@ -68,7 +68,7 @@ const isProduction = () => ENV === `production`
  * and minified.
  */
 const styles = () =>
-    src( [ `build/styles/*.scss`, `build/styles/packets/*.scss` ] )
+    src( [ SRC.styles, SRC.stylesPackets ] )
     .pipe( gulpif( isDev(), sourcemaps.init() ) )
     .pipe( sass().on( `error`, sass.logError ) )
     .pipe( postcss([ autoprefixer({
@@ -88,7 +88,7 @@ const styles = () =>
  * Concatinated file is minified on production
  */
 const frontendScripts = () =>
-    src( [ SRC.inc_scripts, SRC.frontend_scripts ] )
+    src( [ SRC.incScripts, SRC.frontendScripts ] )
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
@@ -100,12 +100,11 @@ const frontendScripts = () =>
     
 
 const backendScripts = () =>
-    src( SRC.backend_scripts )
+    src( SRC.backendScripts )
     .pipe( gulpif( isDev(), sourcemaps.init() ) )
     .pipe( babel({
         presets: [ `@babel/env` ]
     }) )
-    .pipe( concat( `backend.js` ) )
     .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
     .pipe( gulpif( isProduction(), uglify() ) )
     .pipe( dest( DEST.scripts ) )
@@ -132,8 +131,9 @@ exports.watch = () => {
     })
 
     watch( `build/styles/**/*.scss`, styles )
-    watch( SRC.frontend_scripts, series( frontendScripts, reload ) )
-    watch( SRC.php ).on( `change`, series( reload ) )
+    watch( `build/scripts/frontend/*.js`, series( frontendScripts, reload ) )
+    watch( `build/scripts/backend/*.js`, series( backendScripts, reload ) )
+    watch( `**/**/*.php` ).on( `change`, series( reload ) )
 }
     
 

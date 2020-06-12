@@ -120,7 +120,7 @@ function shiftr_admin_styles() {
     wp_enqueue_style( 'shiftr-admin-styles', get_template_directory_uri() . '/assets/styles/admin.css', false, $shiftr->get( 'version' ) );
 
     // Scripts
-    wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin/admin.js', array(), $shiftr->get( 'version' ), true );
+    wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin.js', array(), $shiftr->get( 'version' ), true );
     wp_localize_script( 'shiftr-admin-script', 'shiftr', shiftr_js_object() );
 }
 
