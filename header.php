@@ -28,15 +28,15 @@
         <header class="site-header">
             <div class="container">
 
-                <a href="<?= home_url(); ?>" class="site-logo">
+                <a href="<?= home_url(); ?>" class="site-logo" aria-label="<?php echo bloginfo( 'name' ); ?> home">
                     <?php shiftr_inline_svg( 'shiftr-full', '/assets/_shiftr/' ); ?>
                 </a>
 
                 <button class="nav-primary--toggle" aria-label="Toggle navigation">
-                    <span class="before"></span>
-                    <span class="before"></span>
-                    <span class="after"></span>
-                    <span class="after"></span>
+                    <span class="before" aria-hidden="true"></span>
+                    <span class="before" aria-hidden="true"></span>
+                    <span class="after" aria-hidden="true"></span>
+                    <span class="after" aria-hidden="true"></span>
                 </button>
 
                 <div class="header--offset-contents">
