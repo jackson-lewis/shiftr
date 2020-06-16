@@ -97,6 +97,15 @@ input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), tex
             background-color: $blue;
         }
     }
+
+    button[type="submit"] {
+        &[disabled] {
+            pointer-events: none;
+
+            opacity: .5;
+            filter: grayscale( 100% );
+        }
+    }
 }
 
 
