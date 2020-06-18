@@ -24,6 +24,12 @@ $shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&
 
 
 /* 
+    Toggle the use of lazy loading
+*/
+$shiftr->lazy_loading = true;
+
+
+/* 
     cookie_notice
 
     Should the cookie notice be displayed on the front-end

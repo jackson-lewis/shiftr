@@ -47,6 +47,9 @@ class Shiftr_Settings {
     // Set the project primary colour
     public $primary_color = '#F73771';
 
+    // Should lazy loading be enabled
+    public $lazy_loading = true;
+
     // Should jQuery be used on front-end
     public $use_jquery = false;
 

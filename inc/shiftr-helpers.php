@@ -73,27 +73,7 @@ function get_shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) 
     }
 
     if ( $id > 0 ) {
-
         $html = wp_get_attachment_image( $id, $size, false, $attr );
-
-        $patterns = array(
-            '/width=\"[0-9]*\"/',
-            '/height=\"[0-9]*\"/',
-            '/class=\"[a-zA-Z0-9\s\-_]*\"/'
-        );
-
-        $html = preg_replace( $patterns, '', $html );
-
-
-        if ( $lazy ) {
-            $patterns = array(
-                '/ (src=)/',
-                '/ (srcset=)/'
-            );
-
-            $html = preg_replace( $patterns, ' data-\1', $html );
-            $html = preg_replace( '/(<img\s)/', '\1 class="lazy" ', $html );
-        }
     }
 
     return $html;
