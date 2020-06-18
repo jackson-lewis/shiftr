@@ -29,6 +29,7 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_INC . '/class-shiftr-form.php' );
     require_once( SHIFTR_INC . '/class-shiftr-form-handler.php' );
     require_once( SHIFTR_INC . '/class-shiftr-walker.php' );
+    require_once( SHIFTR_INC . '/class-shiftr-native-lazy-loading.php' );
     require_once( SHIFTR_INC . '/shiftr-helpers.php' );
     require_once( SHIFTR_INC . '/shiftr-core.php' );
     require_once( SHIFTR_INC . '/shiftr-form.php' );
@@ -57,7 +58,6 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_FUNC . '/forms.php' );
     require_once( SHIFTR_FUNC . '/sidebar.php' );
     require_once( SHIFTR_FUNC . '/goodbye-emoji.php' );
-    require_once( SHIFTR_FUNC . '/native-lazy-loading.php' );
 
     if ( function_exists( 'is_woocommerce' ) ) {
         require_once( SHIFTR_FUNC . '/woocommerce.php' );
