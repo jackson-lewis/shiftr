@@ -69,8 +69,4 @@ const LazyLoading = () => {
     }
 }
 
-
-/**
- * Exports
- */
-export default LazyLoading
+LazyLoading();

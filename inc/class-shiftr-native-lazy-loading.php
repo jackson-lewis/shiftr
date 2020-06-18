@@ -9,7 +9,7 @@ class Shiftr_Native_Lazy_Loading {
     /**
      * @var string The url to the fallback script
      */
-    var $fallback_script_url = SHIFTR_ASSETS . '/scripts/lazyLoading.js';
+    var $fallback_script_url = '/assets/scripts/lazyLoading.js';
 
     /**
      * @var string The class name used as the fallback
@@ -163,7 +163,7 @@ class Shiftr_Native_Lazy_Loading {
 ( function() {
     var initLazyLoader = function() {
 
-        if ( 'loading' in HTMLImageElement.prototype ) {
+        if ( ! 'loading' in HTMLImageElement.prototype ) {
 
             var lazyElements = [].slice.call( document.querySelectorAll( '.lazy' ) );
 
@@ -193,7 +193,7 @@ class Shiftr_Native_Lazy_Loading {
             var script = document.createElement( 'script' );
 
             script.id = 'shiftr-native-lazy-load-fallback';
-            script.src = '<?php echo esc_js( $this->fallback_script_url ); ?>';
+            script.src = '<?php echo esc_js( get_template_directory_uri() . $this->fallback_script_url ); ?>';
             script.defer = true;
 
             document.body.appendChild( script );
