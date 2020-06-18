@@ -1,6 +1,6 @@
 {
   "name": "shiftr",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.",
   "main": "gulpfile.babel.js",
   "scripts": {
@@ -24,15 +24,14 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/register": "^7.10.1",
     "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
     "gulp-if": "^3.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2"
+    "webpack-stream": "^5.2.1"
   }
 }

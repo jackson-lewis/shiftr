@@ -1,25 +1,19 @@
-( cookieName => {
+/**
+ * Display the cookie notice if the cookie confirmation cookie
+ * is not found.
+ */
+const CookieNotice = () => {
 
-    /*  ////  --|    Cookie
-
-        * Handle the Shiftr Cookie Consent
-    */
-
+    const cookieName = `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept`
 
     if ( document.cookie.indexOf( cookieName ) == -1 ) {
 
-        let stylesheet = createEl( 'link' );
-        stylesheet.setAttribute( 'rel', 'stylesheet' );
-        stylesheet.setAttribute( 'href', `${shiftr.theme}/assets/styles/cookie-notice.css` );
-        stylesheet.setAttribute( 'type', 'text/css' );
-        head.appendChild( stylesheet );
-
         // Create notice
-        let el = document.createElement( 'div' ),
-            inner = document.createElement( 'div' ),
-            message = document.createElement( 'p' ),
-            dismiss = document.createElement( 'button' ),
-            learnMore = document.createElement( 'a' );
+        let el = createEl( 'div' ),
+            inner = createEl( 'div' ),
+            message = createEl( 'p' ),
+            dismiss = createEl( 'button' ),
+            learnMore = createEl( 'a' );
 
         el.classList.add( 'shiftr-cookie-notice' );
 
@@ -67,9 +61,10 @@
             }, 1000 );
 
         });
-
     }
+}
 
-
-})( `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept` );
-
+/**
+ * Exports
+ */
+export default CookieNotice

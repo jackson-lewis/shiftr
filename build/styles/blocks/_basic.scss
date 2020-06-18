@@ -1,0 +1,85 @@
+/*
+
+    //  //// --|    Blocks / Basic
+
+*/
+
+
+section.site-section {
+
+    /**
+     * All the global stuff related to the blocks
+     */
+    &:last-of-type {
+
+        &.background-black,
+        &.background-grey {
+            margin-bottom: 0;
+        }
+    }
+
+    div.content {
+
+        & > *:last-child:not(.content-button-wrapper) {
+            margin-bottom: 0;
+        }
+    }
+
+    &.block--content_image {
+
+        div.content {
+            margin-bottom: 5rem;
+        }
+
+        @include x( l ) {
+
+            div.container {
+                width: auto;
+                display: grid;
+                grid-gap: 3rem;
+                grid-template: 'b__ci_content b__ci_image' auto / 1fr 1fr;
+            }
+            
+            div.content {
+                margin: 0;
+                padding: 4rem 0;
+                grid-area: b__ci_content;
+            }
+
+            div.image {
+                margin: 0;
+                position: relative;
+                grid-area: b__ci_image;
+
+                img {
+                    @include object-fit;
+                }
+            }
+
+            &.image_position-left {
+                
+                /*
+                Autoprefixer wants the area names to be unique so added the __l_ prefix
+                */
+                div.container {
+                    grid-template: '__l_b__ci_image __l_b__ci_content' auto / 1fr 1fr;
+                }
+
+                div.content {
+                    grid-area: __l_b__ci_content;
+                }
+
+                div.image {
+                    grid-area: __l_b__ci_image;
+                }
+            }
+        }
+
+        @include x( 1200 ) {
+            
+            div.content {
+                padding: 4rem 5rem;
+            }
+        }
+    }
+}

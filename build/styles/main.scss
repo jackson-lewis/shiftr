@@ -34,6 +34,7 @@
 
 
 //  Components
+@import 'components/cookie-notice';
 @import 'components/nav';
 @import 'components/hero';
 @import 'components/form';
@@ -42,7 +43,8 @@
 
 
 //  Blocks
-//@import 'blocks/block';
+@import 'blocks/basic';
+@import 'blocks/accordion';
 
 
 //  Templates

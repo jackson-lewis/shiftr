@@ -9,44 +9,145 @@
     width: 100%;
     margin: 0;
     position: relative;
-    display: block;
+    display: flex;
 
-    .hero-featured-image {
+    color: $white;
 
+    h1, h2, h3, h4, h5, h6 {
+        color: inherit;
+    }
+
+    .hero-feature-image,
+    .hero-gallery {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        overflow: hidden;
+
+        img {
+            @include object-fit;
+        }
+    }
+
+    .hero-container {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        z-index: 20;
+        
+        background-color: rgba( #000000, .4 );
     }
 
     .hero-content {
+        width: 100%;
+        padding: 6rem #{$site-padding / 2};
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        z-index: 20;
 
+        background-color: rgba( #000000, .3 );
+        color: $white;
+        text-align: center;
+
+        h1 {
+            max-width: none;
+            margin-bottom: 2rem;
+
+            font-weight: 400;
+            color: inherit;
+        }
+
+        p {
+            margin-left: auto;
+            margin-right: auto;
+
+            font-size: calc( 1.752rem + 0.13vw );
+            line-height: 2;
+        }
+
+        div.container > *:last-child {
+            margin-bottom: 0;
+
+            &[class="content-button-wrapper"] {
+                margin-bottom: -1.5rem;
+            }
+        }
+
+        .content-button-wrapper {
+            margin: 0 -1.5rem -1.5rem;
+            justify-content: center;
+
+            a[class^="button-"] {
+                min-width: 70%;
+                max-width: 40rem;
+                margin: 0 1.5rem 1.5rem;
+            }
+        }
     }
 
-    & + main {
-        padding-top: 0;
+    @include x( 375 ) {
+
+        .hero-content {
+            padding-left: $site-padding;
+            padding-right: $site-padding;
+        }
+    }
+
+    @include x( m ) {
+        
+        .hero-content {
+            padding: 8rem #{$site-padding / 2};
+
+            .content-button-wrapper {
+
+                a[class^="button-"] {
+                    min-width: 0;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    @include x( l ) {
+        
+        .hero-content {
+
+            p {
+                &:last-of-type {
+                    margin-bottom: get_baseline( 5 );
+                }
+            }
+        }
+    }
+
+    @include x( xl ) {
+
+        .hero-content {
+            padding: 12rem $site-padding;
+        }
     }
 }
 
 
 .hero--standard {
-    @extend .site-padding;
     @extend %hero;
 
-    padding-top: 7rem;
+    min-height: calc( 100vh - 6rem );
+    max-height: 120rem;
 
-    .hero-featured-image {
-        max-height: 50vh;
-        margin-bottom: 1rem;
-        overflow: hidden;
-
-        img {
-            width: 100%;
-            max-height: 100%;
-
-            object-fit: cover;
-            font-family: 'object-fit';
+    .hero-gallery {
+        .carousel-stage {
+            height: 100%;
         }
     }
 
-    .hero-content {
-
+    @include x( m ) {
+        min-height: 50vh;
     }
 }
 

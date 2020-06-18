@@ -35,6 +35,7 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_INC . '/shiftr-form.php' );
     require_once( SHIFTR_INC . '/shiftr-contact-link.php' );
     require_once( SHIFTR_INC . '/shiftr-components.php' );
+    require_once( SHIFTR_INC . '/flexi-builder-helpers.php' );
 
 
     /** 

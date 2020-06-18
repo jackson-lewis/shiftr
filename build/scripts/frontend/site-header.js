@@ -1,3 +1,14 @@
+/**
+ * Control the behaviour of the site header. This includes 
+ * the hamburger menu and dropdown menus. It would also be where 
+ * to handle a search bar should one exist.
+ */
+import { Layout, x } from '../inc/global'
+
+
+const { header, body } = Layout; // Semi-colon here forces Layout to not be a function...
+
+
 ( () => {
 
     //  ////  --|    Top-level variables
@@ -40,7 +51,7 @@
         body.classList.remove( 'no-scroll' );
     };
 
-    x( l, () => {
+    x( 1024, () => {
         toggle.removeEventListener( 'click', toggleMenu );
         nav.removeEventListener( 'click', stop );
         window.removeEventListener( 'click', toggleWindow );
@@ -59,7 +70,7 @@
 
     let displayClass = 'is-visible';
     
-    x( l, () => {
+    x( 1024, () => {
 
         subNavs.forEach( sub => {
 

@@ -26,6 +26,22 @@ function shiftr_theme_support() {
 add_action( 'after_setup_theme', 'shiftr_theme_support' );
 
 
+/**
+ * Control the post type support
+ * 
+ * @since v1.2
+ */
+function shiftr_post_type_support() {
+
+    echo get_page_template_slug();
+
+    if ( get_page_template_slug() == 'templates/flexi-builder.php' ) {
+        remove_post_type_support( 'page', 'thumbnail' );
+    }
+
+}
+add_action( 'init', 'shiftr_post_type_support' );
+
 /**  
  *  shiftr_filter_the_content
  *
