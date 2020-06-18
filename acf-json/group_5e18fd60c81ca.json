@@ -116,7 +116,7 @@
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "30",
+                                        "width": "20",
                                         "class": "",
                                         "id": ""
                                     },
@@ -125,9 +125,7 @@
                                         "grey": "Grey",
                                         "black": "Black"
                                     },
-                                    "default_value": [
-                                        "white"
-                                    ],
+                                    "default_value": "white",
                                     "allow_null": 0,
                                     "multiple": 0,
                                     "ui": 1,
@@ -167,25 +165,6 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_5e18fda912c32",
-                            "label": "Content",
-                            "name": "content",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "50",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "visual",
-                            "toolbar": "shiftr_full",
-                            "media_upload": 0,
-                            "delay": 0
-                        },
-                        {
                             "key": "field_5e18fe4e80c21",
                             "label": "Settings",
                             "name": "settings",
@@ -195,7 +174,7 @@
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
-                                "class": "",
+                                "class": "hide-label",
                                 "id": ""
                             },
                             "layout": "block",
@@ -273,27 +252,27 @@
                                     "ajax": 0,
                                     "return_format": "value",
                                     "placeholder": ""
-                                },
-                                {
-                                    "key": "field_5e2ec71e53728",
-                                    "label": "Stylised List",
-                                    "name": "stylised_list",
-                                    "type": "true_false",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "20",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "message": "",
-                                    "default_value": 0,
-                                    "ui": 1,
-                                    "ui_on_text": "",
-                                    "ui_off_text": ""
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_5e18fda912c32",
+                            "label": "Content",
+                            "name": "content",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "visual",
+                            "toolbar": "shiftr_full",
+                            "media_upload": 0,
+                            "delay": 0
                         },
                         {
                             "key": "field_5e18fd9b12c31",
@@ -323,104 +302,76 @@
                     "min": "",
                     "max": ""
                 },
-                "layout_5e2ec83110244": {
-                    "key": "layout_5e2ec83110244",
-                    "name": "feature_posts",
-                    "label": "Feature Posts",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_5e2ec85510247",
-                            "label": "Feature Posts",
-                            "name": "feature_posts",
-                            "type": "post_object",
-                            "instructions": "Option to specify which posts to show, default is all.",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "post"
-                            ],
-                            "taxonomy": "",
-                            "allow_null": 0,
-                            "multiple": 1,
-                            "return_format": "id",
-                            "ui": 1
-                        },
-                        {
-                            "key": "field_5e2ec87d10248",
-                            "label": "Filter by Category",
-                            "name": "filter_by_category",
-                            "type": "taxonomy",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "30",
-                                "class": "",
-                                "id": ""
-                            },
-                            "taxonomy": "category",
-                            "field_type": "select",
-                            "allow_null": 1,
-                            "add_term": 0,
-                            "save_terms": 0,
-                            "load_terms": 0,
-                            "return_format": "id",
-                            "multiple": 0
-                        },
-                        {
-                            "key": "field_5e2ec84e10246",
-                            "label": "Block After",
-                            "name": "block_after",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "mini-editor hide-label",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "visual",
-                            "toolbar": "shiftr_full",
-                            "media_upload": 0,
-                            "delay": 0
-                        },
-                        {
-                            "key": "field_5e2ec83710245",
-                            "label": "Block Heading",
-                            "name": "block_heading",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "mini-editor hide-label",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "visual",
-                            "toolbar": "shiftr_full",
-                            "media_upload": 0,
-                            "delay": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
                 "layout_5e2ecada7eecf": {
                     "key": "layout_5e2ecada7eecf",
                     "name": "gallery",
                     "label": "Gallery",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_5e2ecae17eed0",
+                            "label": "Settings",
+                            "name": "settings",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "hide-label",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_5e5d31987bf00",
+                                    "label": "ID",
+                                    "name": "id",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "20",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": ""
+                                },
+                                {
+                                    "key": "field_5e2ecae17eed1",
+                                    "label": "Background",
+                                    "name": "background",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "30",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": {
+                                        "white": "White",
+                                        "grey": "Grey",
+                                        "black": "Black"
+                                    },
+                                    "default_value": [
+                                        "black"
+                                    ],
+                                    "allow_null": 0,
+                                    "multiple": 0,
+                                    "ui": 1,
+                                    "ajax": 0,
+                                    "return_format": "value",
+                                    "placeholder": ""
+                                }
+                            ]
+                        },
                         {
                             "key": "field_5e2ecb007eed5",
                             "label": "Block Heading",
@@ -485,9 +436,19 @@
                             "toolbar": "shiftr_full",
                             "media_upload": 0,
                             "delay": 0
-                        },
+                        }
+                    ],
+                    "min": "",
+                    "max": "1"
+                },
+                "layout_5e317d79c58e9": {
+                    "key": "layout_5e317d79c58e9",
+                    "name": "accordion",
+                    "label": "Accordion",
+                    "display": "block",
+                    "sub_fields": [
                         {
-                            "key": "field_5e2ecae17eed0",
+                            "key": "field_5e317d84c58ea",
                             "label": "Settings",
                             "name": "settings",
                             "type": "group",
@@ -496,13 +457,13 @@
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
-                                "class": "",
+                                "class": "hide-label",
                                 "id": ""
                             },
                             "layout": "block",
                             "sub_fields": [
                                 {
-                                    "key": "field_5e5d31987bf00",
+                                    "key": "field_5e5d3068000e8",
                                     "label": "ID",
                                     "name": "id",
                                     "type": "text",
@@ -521,7 +482,7 @@
                                     "maxlength": ""
                                 },
                                 {
-                                    "key": "field_5e2ecae17eed1",
+                                    "key": "field_5e317d84c58eb",
                                     "label": "Background",
                                     "name": "background",
                                     "type": "select",
@@ -547,19 +508,28 @@
                                     "ajax": 0,
                                     "return_format": "value",
                                     "placeholder": ""
+                                },
+                                {
+                                    "key": "field_5e317db8c58ef",
+                                    "label": "Use FAQs",
+                                    "name": "use_faqs",
+                                    "type": "true_false",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "30",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "message": "",
+                                    "default_value": 1,
+                                    "ui": 1,
+                                    "ui_on_text": "",
+                                    "ui_off_text": ""
                                 }
                             ]
-                        }
-                    ],
-                    "min": "",
-                    "max": "1"
-                },
-                "layout_5e317d79c58e9": {
-                    "key": "layout_5e317d79c58e9",
-                    "name": "accordion",
-                    "label": "Accordion",
-                    "display": "block",
-                    "sub_fields": [
+                        },
                         {
                             "key": "field_5e317d93c58ec",
                             "label": "Block Heading",
@@ -694,89 +664,98 @@
                             "toolbar": "shiftr_full",
                             "media_upload": 0,
                             "delay": 0
-                        },
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_5e2ec83110244": {
+                    "key": "layout_5e2ec83110244",
+                    "name": "feature_posts",
+                    "label": "Feature Posts",
+                    "display": "block",
+                    "sub_fields": [
                         {
-                            "key": "field_5e317d84c58ea",
-                            "label": "Settings",
-                            "name": "settings",
-                            "type": "group",
+                            "key": "field_5e2ec83710245",
+                            "label": "Block Heading",
+                            "name": "block_heading",
+                            "type": "wysiwyg",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
+                                "class": "mini-editor hide-label",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "visual",
+                            "toolbar": "shiftr_full",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_5e2ec85510247",
+                            "label": "Feature Posts",
+                            "name": "feature_posts",
+                            "type": "post_object",
+                            "instructions": "Option to specify which posts to show, default is all.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "70",
                                 "class": "",
                                 "id": ""
                             },
-                            "layout": "block",
-                            "sub_fields": [
-                                {
-                                    "key": "field_5e5d3068000e8",
-                                    "label": "ID",
-                                    "name": "id",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "20",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "maxlength": ""
-                                },
-                                {
-                                    "key": "field_5e317d84c58eb",
-                                    "label": "Background",
-                                    "name": "background",
-                                    "type": "select",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "30",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "choices": {
-                                        "white": "White",
-                                        "grey": "Grey",
-                                        "black": "Black"
-                                    },
-                                    "default_value": [
-                                        "black"
-                                    ],
-                                    "allow_null": 0,
-                                    "multiple": 0,
-                                    "ui": 1,
-                                    "ajax": 0,
-                                    "return_format": "value",
-                                    "placeholder": ""
-                                },
-                                {
-                                    "key": "field_5e317db8c58ef",
-                                    "label": "Use FAQs",
-                                    "name": "use_faqs",
-                                    "type": "true_false",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "30",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "message": "",
-                                    "default_value": 1,
-                                    "ui": 1,
-                                    "ui_on_text": "",
-                                    "ui_off_text": ""
-                                }
-                            ]
+                            "post_type": [
+                                "post"
+                            ],
+                            "taxonomy": "",
+                            "allow_null": 0,
+                            "multiple": 1,
+                            "return_format": "id",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_5e2ec87d10248",
+                            "label": "Filter by Category",
+                            "name": "filter_by_category",
+                            "type": "taxonomy",
+                            "instructions": "Optional. No default if not set.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "taxonomy": "category",
+                            "field_type": "select",
+                            "allow_null": 1,
+                            "add_term": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "return_format": "id",
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_5e2ec84e10246",
+                            "label": "Block After",
+                            "name": "block_after",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "mini-editor hide-label",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "visual",
+                            "toolbar": "shiftr_full",
+                            "media_upload": 0,
+                            "delay": 0
                         }
                     ],
                     "min": "",
@@ -807,5 +786,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1591988246
+    "modified": 1592472768
 }

@@ -10,7 +10,38 @@
  */
 
 get_header();
+
+$hero_type = get_field( 'hero_type' );
 ?>
+
+
+<div class="hero--standard">
+    <?php if ( $hero_type == 'default' || ! $hero_type ) : ?>
+    <div class="hero-feature-image">
+        <?php shiftr_image( get_field( 'hero_feature_image' ) ); ?>
+    </div>
+    <?php elseif ( $hero_type == 'gallery' ) : $gallery = get_field( 'hero_gallery' ); ?>
+    <div id="hero-carousel" class="shiftr-carousel hero-gallery" data-shiftr-carousel data-carousel-showArrows="false" data-carousel-speed="6000">
+        <div class="carousel-stage">
+            <?php foreach ( $gallery as $image ) : ?>
+    
+            <div class="carousel-item">
+                <?php shiftr_image( $image ); ?>
+            </div>
+    
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="container">
+                <?php the_field( 'hero_content' ); ?>
+            </div> 
+        </div>
+    </div>
+</div>
 
 
 <main class="site-main">
@@ -71,38 +102,13 @@ if ( have_rows( 'flexi_blocks' ) ) :
     break;
 
     /**
-     * Basic block
-     * 
-     * Two Image fields for displaying two images side-by-side.
-     * There is a JS function that watches for this block, to force 
-     * set an average hieght of the images. This is due to varying browwer
-     * handling of Grid and how elements fill a grid area.
-     */
-    case 'image_image':
-?>
-
-
-<div class="container">
-    <div class="image">
-        <?php shiftr_image( get_sub_field( 'image_1' ) ); ?>
-    </div>
-    <div class="image">
-        <?php shiftr_image( get_sub_field( 'image_2' ) ); ?>
-    </div>
-</div>
-   
-
-<?php
-    break;
-
-    /**
      * Accordion
      * 
      * Behavour should be configured using HTML data attributes.
      */
     case 'accordion':
 
-        shiftr_get_block( $block, array( $settings ) );
+        shiftr_get_block( 'accordion', array( 'settings' => $settings ) );
 ?>
         
 
@@ -118,7 +124,7 @@ if ( have_rows( 'flexi_blocks' ) ) :
 
         if ( empty( $images ) ) break;
 
-        shiftr_get_block( $block, array( $images ) );
+        shiftr_get_block( $block, array( 'images' => $images ) );
 ?>
 
 
@@ -150,7 +156,7 @@ if ( have_rows( 'flexi_blocks' ) ) :
 
         $posts = new WP_Query( $args );
 
-        shiftr_get_block( $block, array( $posts ) );
+        shiftr_get_block( $block, array( 'posts' => $posts ) );
 ?>
 
 

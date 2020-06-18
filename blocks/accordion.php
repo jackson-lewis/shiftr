@@ -46,7 +46,8 @@
             'numberposts' => -1,
             'post__in' => get_sub_field( 'featured_questions' ) ? get_sub_field( 'featured_questions' ) : array()
         ));
-        
+
+        if ( ! empty( $posts ) ) :
         ?>
 
     <div class="shiftr-accordion" data-shiftr-accordion>
@@ -65,6 +66,7 @@
         <?php endforeach; wp_reset_postdata(); ?>
 
     </div>
+        <?php endif; ?>
 
     <?php endif; ?>
 
