@@ -1,15 +1,9 @@
-
-
-/*  Element.prototype.floater
- *
- *  @since 1.0
- *
- *  @param settings Object The settings for the floater target element
- *  @polyfill Object.assign
- *
+/**
+ * Floater component
+ * 
+ * @param {object} settings The settings of the component
  */
-
-Element.prototype.floater = function( settings = {} ) {
+export default Element.prototype.floater = function( settings = {} ) {
 
     // The default settings
     let defaults = {

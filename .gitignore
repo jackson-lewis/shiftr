@@ -13,3 +13,4 @@ dev/
 assets/scripts/*.js
 assets/styles/*.css
 assets/**/.maps/
+assets/**/*.map

@@ -1,15 +1,15 @@
-
-
-/*  Element.prototype.follower
- *
- *  @since 1.0
- *
- *  @param settings Object The settings for the floater target element
- *  @polyfill Object.assign
- *
+/**
+ * Imports
  */
+import { generateComponentID, parseComponentData } from '../inc/component-functions'
 
-Element.prototype.follower = function( settings = {} ) {
+
+/**
+ * Follower component
+ * 
+ * @param {object} settings The settings of the component
+ */
+export default Element.prototype.follower = function( settings = {} ) {
 
     // The default settings
     let defaults = {

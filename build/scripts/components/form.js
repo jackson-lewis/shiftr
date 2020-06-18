@@ -1,11 +1,15 @@
+/**
+ * Imports
+ */
+import { createEl } from '../inc/global'
 
 
-/*  ////  --|    Element.prototype.form( settings = {} )
-
-    * Shiftr Form Handler
-*/
-
-Element.prototype.form = function( settings = {} ) {
+/**
+ * Form component
+ * 
+ * @param {object} settings The settings of the component
+ */
+export default Element.prototype.form = function( settings = {} ) {
 
     // The default settings
     let defaults = {
