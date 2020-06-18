@@ -1,10 +1,10 @@
-( cookieName => {
+/**
+ * Display the cookie notice if the cookie confirmation cookie
+ * is not found.
+ */
+const CookieNotice = () => {
 
-    /*  ////  --|    Cookie
-
-        * Handle the Shiftr Cookie Consent
-    */
-
+    const cookieName = `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept`
 
     if ( document.cookie.indexOf( cookieName ) == -1 ) {
 
@@ -61,9 +61,10 @@
             }, 1000 );
 
         });
-
     }
+}
 
-
-})( `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept` );
-
+/**
+ * Exports
+ */
+export default CookieNotice

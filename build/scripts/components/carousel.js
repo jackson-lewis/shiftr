@@ -1,14 +1,15 @@
+/**
+ * Imports
+ */
+import { generateComponentID, parseComponentData } from '../inc/component-functions'
 
 
-/*  ////  --|    Element.prototype.carousel( settings = Object )
-
-    @since 1.0
-    @version 1.0
-
-    @polyfills: Object.assign
-*/
-
-Element.prototype.carousel = function( settings = {} ) {
+/**
+ * Carousel component
+ * 
+ * @param {object} settings The settings of the component
+ */
+export default Element.prototype.carousel = function( settings = {} ) {
 
     // The default settings
     let defaults = {
