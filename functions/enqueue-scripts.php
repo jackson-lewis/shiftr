@@ -14,7 +14,7 @@
  *
  *  @since 1.0
  *
- *  @global $shiftr
+ *  @global $shiftr To access the theme version
  */
 
 function shiftr_scripts() {
@@ -31,8 +31,9 @@ function shiftr_scripts() {
     wp_deregister_script( 'wp-embed' );
 
     // Scripts
-    wp_enqueue_script( 'shiftr-script', get_template_directory_uri() . '/assets/scripts/main.js', array(), null, true );
-    wp_localize_script( 'shiftr-script', 'shiftr', shiftr_js_object() );
+    wp_register_script( 'shiftr-script-main', get_template_directory_uri() . '/assets/scripts/main.js', array(), $shiftr->get( 'version' ), true );
+    wp_enqueue_script( 'shiftr-script-main' );
+    wp_localize_script( 'shiftr-script-main', 'shiftr', shiftr_js_object() );
 
     // Styles
     wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', array(), $shiftr->get( 'version' ) );
@@ -42,4 +43,3 @@ function shiftr_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'shiftr_scripts', 999 );
-
