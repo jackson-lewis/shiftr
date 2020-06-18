@@ -25,7 +25,7 @@ header.site-header {
     div.container {
         height: 100%;
 
-        @include x( l ) {
+        @include x( $header-breakpoint ) {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,7 +44,7 @@ header.site-header {
             min-height: 100%;
         }
 
-        @include x( l ) {
+        @include x( $header-breakpoint ) {
             margin-right: 4rem;
             position: relative;
             top: unset;
@@ -54,7 +54,7 @@ header.site-header {
 
     transition: 600ms cubic-bezier( 0.23, 0.96, 0.59, 1 );
 
-    @include x( l ) {
+    @include x( $header-breakpoint ) {
         overflow: visible;
     }
 }
@@ -68,7 +68,7 @@ header.site-header {
     top: 6rem;
     overflow-y: scroll;
 
-    @include x( l ) {
+    @include x( $header-breakpoint ) {
         width: auto;
         padding-bottom: 0;
         top: 0;
