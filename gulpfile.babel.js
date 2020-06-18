@@ -125,8 +125,3 @@ exports.watch = () => {
  * run `gulp build --env production`
  */
 exports.build = parallel( styles, scripts )
-
-/**
- * This is the changelog content about Gulp Update
- * General cleanup of the gulpfile.js and Gulp tasks. This is involved all task to be renamed, where most importantly, the previously called `build` task has been renamed to `watch`. And the `compile` task is now `build`. The reason behind this is to bring the naming convention more inline with industry standards, so it made more sense for the task that compile the files (primarily for production) to be called `build`. Each task along with the file itself has been given descriptions to provide more information abuot how the tasks are designed to work.
- */
