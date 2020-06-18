@@ -120,6 +120,13 @@ section {
         
         scroll-margin-top: var( --header-height );
         margin-bottom: $vertical-padding;
+
+        &:first-of-type {
+            &.background-black,
+            &.background-grey {
+                margin-top: -10rem;
+            }
+        }
     }
 
     // Sections with darken background
