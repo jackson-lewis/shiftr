@@ -1,6 +1,7 @@
 /**
  * Imports
  */
+import { createEl } from '../inc/global'
 import { generateComponentID, parseComponentData } from '../inc/component-functions'
 
 

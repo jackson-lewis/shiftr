@@ -2,6 +2,9 @@
  * Display the cookie notice if the cookie confirmation cookie
  * is not found.
  */
+import { createEl } from './global'
+
+
 const CookieNotice = () => {
 
     const cookieName = `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept`

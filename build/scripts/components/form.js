@@ -1,7 +1,10 @@
 /**
  * Imports
  */
-import { createEl } from '../inc/global'
+import { Layout, createEl } from '../inc/global'
+
+
+const { head } = Layout
 
 
 /**
