@@ -163,7 +163,7 @@ class Shiftr_Native_Lazy_Loading {
 ( function() {
     var initLazyLoader = function() {
 
-        if ( ! 'loading' in HTMLImageElement.prototype ) {
+        if ( 'loading' in HTMLImageElement.prototype ) {
 
             var lazyElements = [].slice.call( document.querySelectorAll( '.lazy' ) );
 
