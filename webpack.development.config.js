@@ -22,6 +22,7 @@ module.exports = {
             `./build/scripts/frontend/site-header.js`,
             `./build/scripts/frontend/main.js`
         ],
+        lazyLoading: `./build/scripts/inc/lazy-loading-fallback.js`,
         admin: `./build/scripts/backend/admin.js`,
         editor: `./build/scripts/backend/editor.js`
     },

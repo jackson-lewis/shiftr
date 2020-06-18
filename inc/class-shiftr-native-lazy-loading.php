@@ -9,7 +9,7 @@ class Shiftr_Native_Lazy_Loading {
     /**
      * @var string The url to the fallback script
      */
-    var $fallback_script_url = SHIFTR_ASSETS . '/scripts/native-lazy-load-fallback.js';
+    var $fallback_script_url = SHIFTR_ASSETS . '/scripts/lazyLoading.js';
 
     /**
      * @var string The class name used as the fallback

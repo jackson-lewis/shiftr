@@ -6,7 +6,6 @@
  */
 import { polyfill__ObjectAssign, polyfill__forEach, polyfill__objectFit } from '../inc/polyfill'
 import CookieNotice from '../inc/cookie'
-import LazyLoading from '../inc/lazyloading'
 
 
 /**
@@ -21,4 +20,3 @@ polyfill__objectFit()
  * Load core components
  */
 CookieNotice()
-LazyLoading()
