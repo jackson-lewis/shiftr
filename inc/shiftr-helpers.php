@@ -193,6 +193,13 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
 function shiftr_get_template( $template_name, $args = array(), $template_path = 'parts/' ) {
 
+    /**
+     * This allows flexibility to omit the .php extension when calling a template file
+     */
+    if ( ! stripos( $template_name, '.php' ) ) {
+        $template_name .= '.php';
+    }
+
     $template = locate_template( $template_path . $template_name );
 
     if ( ! file_exists( $template ) ) {
