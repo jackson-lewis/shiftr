@@ -144,7 +144,8 @@ body#tinymce.wp-editor {
     }
 }
 
-.shiftr-hide-label {
+.shiftr-hide-label,
+.hide-label {
     & > .acf-label {
         display: none;
     }
