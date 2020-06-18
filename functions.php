@@ -29,11 +29,13 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_INC . '/class-shiftr-form.php' );
     require_once( SHIFTR_INC . '/class-shiftr-form-handler.php' );
     require_once( SHIFTR_INC . '/class-shiftr-walker.php' );
+    require_once( SHIFTR_INC . '/class-shiftr-native-lazy-loading.php' );
     require_once( SHIFTR_INC . '/shiftr-helpers.php' );
     require_once( SHIFTR_INC . '/shiftr-core.php' );
     require_once( SHIFTR_INC . '/shiftr-form.php' );
     require_once( SHIFTR_INC . '/shiftr-contact-link.php' );
     require_once( SHIFTR_INC . '/shiftr-components.php' );
+    require_once( SHIFTR_INC . '/flexi-builder-helpers.php' );
 
 
     /** 

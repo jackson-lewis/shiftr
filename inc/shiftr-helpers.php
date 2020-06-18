@@ -73,27 +73,7 @@ function get_shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) 
     }
 
     if ( $id > 0 ) {
-
         $html = wp_get_attachment_image( $id, $size, false, $attr );
-
-        $patterns = array(
-            '/width=\"[0-9]*\"/',
-            '/height=\"[0-9]*\"/',
-            '/class=\"[a-zA-Z0-9\s\-_]*\"/'
-        );
-
-        $html = preg_replace( $patterns, '', $html );
-
-
-        if ( $lazy ) {
-            $patterns = array(
-                '/ (src=)/',
-                '/ (srcset=)/'
-            );
-
-            $html = preg_replace( $patterns, ' data-\1', $html );
-            $html = preg_replace( '/(<img\s)/', '\1 class="lazy" ', $html );
-        }
     }
 
     return $html;
@@ -192,6 +172,13 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
  */
 
 function shiftr_get_template( $template_name, $args = array(), $template_path = 'parts/' ) {
+
+    /**
+     * This allows flexibility to omit the .php extension when calling a template file
+     */
+    if ( ! stripos( $template_name, '.php' ) ) {
+        $template_name .= '.php';
+    }
 
     $template = locate_template( $template_path . $template_name );
 

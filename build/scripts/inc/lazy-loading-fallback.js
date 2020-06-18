@@ -1,14 +1,7 @@
-( () => {
-
-    /*  ////  --|    LAZY LOADER 2.0
-
-        * The second iteration of the Lazy Loader
-        * Now contained within function
-        * Handles img, iframe and background-images all in one
-        * Updated to ES6 with arrow functions and interpolation
-    */
-
-
+/**
+ * Lazy Loading of images and iframes
+ */
+const LazyLoading = () => {
     var lazyContent = [].slice.call( document.querySelectorAll( '.lazy' ) ),
         listed = ['IMG', 'IFRAME'];
 
@@ -47,8 +40,8 @@
                 setTimeout( () => { lazyContent.forEach( lazyItem => {
 
                         if ( lazyItem.getBoundingClientRect().top <= window.innerHeight &&
-                             lazyItem.getBoundingClientRect().bottom >= window.innerHeight &&
-                             getComputedStyle( lazyItem ).display != 'none' ) { 
+                            lazyItem.getBoundingClientRect().bottom >= window.innerHeight &&
+                            getComputedStyle( lazyItem ).display != 'none' ) { 
 
                             if ( listed.indexOf( lazyItem.nodeName ) >= 0 ) {
                                 lazyItem.src = lazyItem.dataset.src;
@@ -66,12 +59,14 @@
                                 window.removeEventListener( 'resize', lazyLoad );
                                 window.removeEventListener( 'orientationchange', lazyLoad ); }
                         }
-                    }); active = false; }, 200 ); } };
+                    }); active = false; }, 200 );
+                }
+            };
 
         document.addEventListener( 'scroll', lazyLoad );
         window.addEventListener( 'resize', lazyLoad );
         window.addEventListener( 'orientationchange', lazyLoad );
     }
-    
-})();
+}
 
+LazyLoading();

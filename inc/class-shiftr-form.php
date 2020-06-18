@@ -213,7 +213,7 @@ class Shiftr_Form {
 
         $field_tag = 'input';
 
-        $input_tag_types = array( 'text', 'name', 'email', 'date', 'password', 'search', 'checkbox', 'radio', 'submit' );
+        $input_tag_types = array( 'text', 'name', 'email', 'date', 'password', 'search', 'checkbox', 'radio' );
         $input_grouped_types = array( 'text', 'name', 'email', 'tel', 'date', 'password', 'search' );
 
         // Wrap attributes
@@ -291,17 +291,20 @@ class Shiftr_Form {
             }
 
         } else {
-            
-            if ( $args->type != 'checkbox' && $args->type != 'radio' ) {
-                $field_atts['aria-label'] = $args->label;
-            }
-            
-            if ( $args->type != 'checkbox' && $args->type != 'radio' && $args->type != 'select' ) {
 
-                $field_atts['placeholder'] = $args->label;
+            if ( $args->type != 'submit' ) {
 
-                if ( $args->required ) {
-                    $field_atts['placeholder'] .= '*';
+                if ( $args->type != 'checkbox' && $args->type != 'radio' ) {
+                    $field_atts['aria-label'] = $args->label;
+                }
+                
+                if ( $args->type != 'checkbox' && $args->type != 'radio' && $args->type != 'select' ) {
+    
+                    $field_atts['placeholder'] = $args->label;
+    
+                    if ( $args->required ) {
+                        $field_atts['placeholder'] .= '*';
+                    }
                 }
             }
         }
@@ -324,6 +327,7 @@ class Shiftr_Form {
 
         // Add valueto submit button
         if ( $args->type == 'submit' ) {
+            $field_atts['type'] = 'submit';
             $field_atts['value'] = $args->value;
         }
 
@@ -353,6 +357,10 @@ class Shiftr_Form {
                 echo '</label>';
                 echo '</div>';
             }
+
+        } elseif ( $args->type == 'submit' ) {
+
+            echo '<button ' . shiftr_output_attr( $field_atts, true ) . '>' . $args->label . '</button>';
 
         } else {
 

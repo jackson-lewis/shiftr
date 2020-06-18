@@ -1,0 +1,45 @@
+/*
+
+    //  //// --|    Blocks / Accordion
+
+    There isn't an awful lot needed here as the Accordion component itself
+    has its own default styling. We mainly need to adjust the accordion for
+    the background-black variant of the block.
+
+*/
+
+
+section.site-section {
+    &.background-black {
+
+        .shiftr-accordion {
+            .accordion--item {
+                .accordion--tab {
+                    & > svg.status-indicator {
+                        fill: $white;
+                    }
+                }
+
+                $box-shadow: 0 0 1rem rgba( $l-grey, .1 ),
+                             0 0 3rem rgba( $l-grey, .05 );
+
+                &:hover {
+                    box-shadow: $box-shadow;
+                }
+                
+                &.is-expanded {
+        
+                    box-shadow: $box-shadow;
+                }
+            }
+        }
+    }
+
+    .block-heading {
+        margin-bottom: get_baseline( 5 );
+    }
+
+    .block-after {
+        margin-top: get_baseline( 5 );
+    }
+}

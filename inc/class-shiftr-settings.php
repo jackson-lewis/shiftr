@@ -7,8 +7,8 @@ class Shiftr_Settings {
     protected $shiftr_name = 'Shape Shiftr';
     protected $shiftr_url = 'https://shapeshiftr.co.uk';
 
-    private $version = '1.0.1';
-    private $version_date = '10/01/20'; 
+    private $version = '1.2';
+    private $version_date = '19/06/20'; 
 
 
     // Contact Details
@@ -46,6 +46,9 @@ class Shiftr_Settings {
 
     // Set the project primary colour
     public $primary_color = '#F73771';
+
+    // Should lazy loading be enabled
+    public $lazy_loading = true;
 
     // Should jQuery be used on front-end
     public $use_jquery = false;

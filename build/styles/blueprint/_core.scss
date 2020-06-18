@@ -28,6 +28,8 @@ img, video {
 //  --|    Body core styling
 
 body {
+    --header-height: #{$default-header-height};
+
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -41,13 +43,17 @@ body {
     &.no-scroll {
         overflow-y: hidden;
     }
+
+    @include x( $header-breakpoint ) {
+        --header-height: 6rem;
+    }
 }
 
 
 //  --|    Main core styling
 
 main.site-main {
-    padding-top: 6rem;
+    padding-top: 10rem;
     position: relative;
 }
 
@@ -76,27 +82,94 @@ main.site-main {
 }
 
 
+.block-heading {
+    margin-bottom: get_baseline();
+
+    * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.block-after {
+    margin-top: get_baseline();
+    
+    & > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
 //  --|    Section core styling
 
 section {
 
-    $vertical-padding: 4rem;
+    $vertical-padding: 10rem;
 
     &.site-section {
         @extend .site-padding;
         
-        padding-top: $vertical-padding;
-        padding-bottom: $vertical-padding;
+        scroll-margin-top: var( --header-height );
+        margin-bottom: $vertical-padding;
+
+        &:first-of-type {
+            &.background-black,
+            &.background-grey {
+                margin-top: -10rem;
+            }
+        }
     }
 
     // Sections with darken background
-    &.grey {
-        margin-top: $vertical-padding;
-        margin-bottom: $vertical-padding;
+    &.background-black {
+        padding-top: $vertical-padding;
+        padding-bottom: $vertical-padding;
+
+        background-color: $black;
+        color: $white;
+    }
+
+    &.background-grey {
         padding-top: $vertical-padding;
         padding-bottom: $vertical-padding;
 
         background-color: $l-grey;
+    }
+
+    &.background-grey,
+    &.background-black {
+
+        & + .background-grey,
+        & + .background-black {
+            margin-top: -10rem;
+        }
+    }
+
+    &.background-black {
+        color: $white;
+
+        h1, h2, h3, h4, h5, h6 {
+            color: inherit;
+        }
+
+        & + .background-black {
+            padding-top: 0;
+        }
+    }
+
+    &.background-grey {
+        & + .background-grey {
+            padding-top: 0;
+        }
     }
 }   
 

@@ -26,9 +26,7 @@ import autoprefixer from 'autoprefixer'
 import cleanCSS from 'gulp-clean-css'
 
 // JavaScript
-import babel from 'gulp-babel'
-import concat from 'gulp-concat'
-import uglify from 'gulp-uglify'
+import webpack from 'webpack-stream'
 
 
 /**
@@ -85,28 +83,11 @@ const styles = () =>
  * 
  * Source files are only available on development
  * 
- * Concatinated file is minified on production
+ * Minified on production build only
  */
-const frontendScripts = () =>
-    src( [ SRC.incScripts, SRC.frontendScripts ] )
-    .pipe( babel({
-        presets: [ `@babel/env` ]
-    }) )
-    .pipe( gulpif( isDev(), sourcemaps.init() ) )
-    .pipe( concat( `main.js` ) )
-    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
-    .pipe( gulpif( isProduction(), uglify() ) )
-    .pipe( dest( DEST.scripts ) )
-    
-
-const backendScripts = () =>
-    src( SRC.backendScripts )
-    .pipe( gulpif( isDev(), sourcemaps.init() ) )
-    .pipe( babel({
-        presets: [ `@babel/env` ]
-    }) )
-    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
-    .pipe( gulpif( isProduction(), uglify() ) )
+const scripts = () =>
+    src( [ SRC.incScripts, SRC.frontendScripts, SRC.backendScripts ] )
+    .pipe( webpack( require( `./webpack.${ENV}.config.js` ) ) )
     .pipe( dest( DEST.scripts ) )
 
 
@@ -131,8 +112,7 @@ exports.watch = () => {
     })
 
     watch( `build/styles/**/*.scss`, styles )
-    watch( `build/scripts/frontend/*.js`, series( frontendScripts, reload ) )
-    watch( `build/scripts/backend/*.js`, series( backendScripts, reload ) )
+    watch( `build/scripts/**/*.js`, series( scripts, reload ) )
     watch( `**/**/*.php` ).on( `change`, series( reload ) )
 }
     
@@ -144,9 +124,4 @@ exports.watch = () => {
  * Development code with be built by default, so for production code
  * run `gulp build --env production`
  */
-exports.build = parallel( styles, frontendScripts, backendScripts )
-
-/**
- * This is the changelog content about Gulp Update
- * General cleanup of the gulpfile.js and Gulp tasks. This is involved all task to be renamed, where most importantly, the previously called `build` task has been renamed to `watch`. And the `compile` task is now `build`. The reason behind this is to bring the naming convention more inline with industry standards, so it made more sense for the task that compile the files (primarily for production) to be called `build`. Each task along with the file itself has been given descriptions to provide more information abuot how the tasks are designed to work.
- */
+exports.build = parallel( styles, scripts )

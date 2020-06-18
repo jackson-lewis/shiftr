@@ -114,7 +114,7 @@
         }
     }
 
-    @include x( l ) {
+    @include x( $header-breakpoint ) {
         display: none;
     }
 }

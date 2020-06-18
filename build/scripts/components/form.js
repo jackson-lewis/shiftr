@@ -1,11 +1,18 @@
+/**
+ * Imports
+ */
+import { Layout, createEl } from '../inc/global'
 
 
-/*  ////  --|    Element.prototype.form( settings = {} )
+const { head } = Layout
 
-    * Shiftr Form Handler
-*/
 
-Element.prototype.form = function( settings = {} ) {
+/**
+ * Form component
+ * 
+ * @param {object} settings The settings of the component
+ */
+export default Element.prototype.form = function( settings = {} ) {
 
     // The default settings
     let defaults = {
@@ -34,7 +41,8 @@ Element.prototype.form = function( settings = {} ) {
     let form    = this,
         inputs  = form.querySelectorAll( 'input, textarea' ),
         selects = form.querySelectorAll( 'select' ),
-        submit  = form.querySelector( 'input[type="submit"]' ) || this,
+        submitButton  = form.querySelector( '[type="submit"]' ) || false,
+        submitButtonOrgLabel = submitButton.innerHTML,
 
         vc      = _.validationClasses;
 
@@ -152,12 +160,10 @@ Element.prototype.form = function( settings = {} ) {
         }
     }
 
-
-    let submit_hover = e => {
-        getStylesheet();
-    };
-
-    submit.addEventListener( 'mouseover', submit_hover );
+    /**
+     * Try to fetch the stylesheet if not already
+     */
+    submitButton.addEventListener( 'mouseover', getStylesheet );
 
 
     if ( _.submission ) {
@@ -166,6 +172,8 @@ Element.prototype.form = function( settings = {} ) {
             e.preventDefault();
 
             form.classList.add( 'send-in-progress' );
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Sending...';
 
             let data = new FormData( form ),
                 xhr = new XMLHttpRequest();
@@ -255,6 +263,7 @@ Element.prototype.form = function( settings = {} ) {
 
             setTimeout( () => {
                 message.classList.add( 'show' );
+                submitButton.innerHTML = 'Sent!';
             }, 100 );
 
             closer.addEventListener( 'click', e => {
@@ -302,7 +311,13 @@ Element.prototype.form = function( settings = {} ) {
 
             setTimeout( () => {
                 el.classList.remove( 'show' );
-            }, 100 );       
+            }, 100 );
+            
+            /**
+             * Enabling the button again is the very last thing we need to do
+             */
+            submitButton.disabled = false;
+            submitButton.innerHTML = submitButtonOrgLabel;
         }
     }
 
@@ -320,7 +335,7 @@ Element.prototype.form = function( settings = {} ) {
             cssRequested = true;
         }
 
-        submit.removeEventListener( 'mouseover', submit_hover );
+        submitButton.removeEventListener( 'mouseover', getStylesheet );
     }
 }
 

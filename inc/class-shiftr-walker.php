@@ -39,6 +39,9 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
         $name = $item->title;
         $permalink = $item->url;
 
+        // Make the current item available to start_lvl and end_lvl
+        $this->current_item = $item;
+
         if ( is_home() ) {
             $post_slug = get_post_type_archive_link( 'post' );
 
@@ -69,7 +72,7 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
         $output .= "<a href=\"{$permalink}\">";
         $output .= $name;
         $output .= '</a>';
-        $output .= ( $args->walker->has_children ) ? "<button id=\"menu-item-control--{$item->ID}\"></button>" : '';
+        $output .= ( $args->walker->has_children ) ? "<button aria-label=\"${name} menu\"></button>" : '';
     }
 
 
