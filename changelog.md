@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v1.2
+*19/06/20*
+
+* Webpack has been added to Gulp. All JavaScript files have been converted to work on an export/import basis, giving total flexibility as to what is included in the site assets.
+* **New feature:** Native Lazy Loading is here! A new class is dedicated to handling the lazy loading on the site. There is also the option in Shiftr settings to disable the lazy loading should it be needed to for whatever reason.
+* **New feature:** Flexi Blocks Builder template has finally made its way into the theme as a pre-loaded template. The current starter blocks are: Content, Content & Image and Accordion. More are to follow in the future releases. The template has been very popular and become very simple to work with, so we've put in a real solid foundation to start on going forward.
+
+#### Minor updates
+* Accessibility improvements, mainly in the header and navigation.
+* API samples for Mailchimp and Instagram are now in the Inventory
+* Form submission behaviour has been improved, now the submit button is disabled on click to prevent dual submissions. There is also a clear sending indication when submit button clicked.
+* Use of the `backdrop-filter` property has been updated on the header to include `saturate()` and also we use the non-prefixed declaration has support has improved since first added to the theme.
+* Scripts are now properly registered via `wp_register_script()`. Such a minor thing, just want to make sure we follow correct practices.
+
+
 ## v1.1.1
 *12/06/20*
 
