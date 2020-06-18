@@ -28,6 +28,8 @@ img, video {
 //  --|    Body core styling
 
 body {
+    --header-height: #{$default-header-height};
+
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -40,6 +42,10 @@ body {
     // Prevent scroll when header is open
     &.no-scroll {
         overflow-y: hidden;
+    }
+
+    @include x( $header-breakpoint ) {
+        --header-height: 6rem;
     }
 }
 
@@ -112,12 +118,8 @@ section {
     &.site-section {
         @extend .site-padding;
         
-        scroll-margin-top: 6rem;
+        scroll-margin-top: var( --header-height );
         margin-bottom: $vertical-padding;
-
-        @include x( m ) {
-            scroll-margin-top: 7rem;
-        }
     }
 
     // Sections with darken background
