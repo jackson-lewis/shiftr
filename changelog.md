@@ -1,6 +1,12 @@
 # Changelog
 
 
+## v1.2.1
+*26/06/20*
+
+* **Bug fix:** The form name was not being found in Forms > Data in admin. Well, that has been resolved!
+
+
 ## v1.2
 *19/06/20*
 

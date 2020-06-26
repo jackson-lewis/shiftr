@@ -182,7 +182,7 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
 
     if ( $column == 'data_from_form' ) {
 
-        $form_id = get_post_meta( $post_id, '_shiftr_form_data_form_id', true );
+        $form_id = get_post_meta( $post_id, 'shiftr_form_data_form_id', true );
 
         if ( $form_id > 0 ) {
             echo get_the_title( $form_id );
@@ -422,7 +422,7 @@ function shiftr_form_data_get_content() {
 
             ?>
             <tr>
-                <td><?= esc_html( strtoupper( $name ) ); ?></td>
+                <td><?= esc_html( strtoupper( shiftr_to_nicename( $name ) ) ); ?></td>
                 <td>
                 <?php 
 
