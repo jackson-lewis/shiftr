@@ -14,6 +14,8 @@
     <div class="shiftr-box">
         <h2>Default Settings</h2>
 
+        <?php do_action( 'admin_notices' ); ?>
+
         <form method="post">
             <div class="shiftr-textarea">
                 <label>Recepients</label>

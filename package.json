@@ -1,6 +1,6 @@
 {
   "name": "shiftr",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.",
   "main": "gulpfile.babel.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/jackson-lewis/shiftr.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jackson Lewis",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jackson-lewis/shiftr/issues"

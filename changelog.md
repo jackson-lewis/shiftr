@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.2
+*07/07/20*
+
+**Bug fixes:**
+* `Undefined variable: update_return in inc/shiftr-form.php on line 314` now resolved
+* Admin notice is now displayed when updating the Form settings
+
+**Other:**
+* The Shiftr logo has been removed frmo the login screen. Felt it was best to keep it more standard with the WP logo.
+* The before and after hooks to the Form capture method have been updated to use the form instance as the arg. The `$data` variable itself is now passed to the `shiftr_form_handler_capture_after` hook to amke life easier.
+
+
 ## v1.2.1
 *26/06/20*
 

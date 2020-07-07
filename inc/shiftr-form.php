@@ -166,7 +166,7 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
         // Construct record title
         $title = strval( $post_id );
 
-        $content = get_post_meta( $post_id, '_shiftr_form_data_content', true );
+        $content = get_post_meta( $post_id, 'shiftr_form_data_content', true );
 
         $content = unserialize( base64_decode( $content ) );
 
@@ -306,8 +306,9 @@ function shiftr_update_form_setting( $option_name ) {
     if ( isset( $_POST[$option_name] ) ) {
         $new_value = $_POST[$option_name];
 
-        if ( get_option( $option_name ) != $new_value ) {
+        $update_return = false;
 
+        if ( get_option( $option_name ) != $new_value ) {
             $update_return = update_option( $option_name, $new_value );
         }
 
@@ -319,7 +320,12 @@ function shiftr_update_form_setting( $option_name ) {
 
 
 function shiftr_notice_update_form_setting() {
-    shiftr_get_admin_notice_html( 'update-form-settings' );
+
+    ?>
+<div class="notice notice-success is-dismissible">
+    <p>Settings updated successfully</p>
+</div>
+    <?php
 }
 
 
@@ -383,8 +389,16 @@ function shiftr_form_data_get_content() {
     $form    = get_the_title( $form_id );
 
     $form_post = get_post( $form_id );
-    $form_instance = $shiftr_forms[ $form_post->post_name ];
 
+    $form_instance = false;
+    if ( isset( $shiftr_forms[ $form_post->post_name ] ) ) {
+        $form_instance = $shiftr_forms[ $form_post->post_name ];
+    } else {
+        ?>
+        <p><strong>Error!</strong> The form could not be found.</p>
+        <?php 
+        return;
+    }
     ?>
 
     <div>
