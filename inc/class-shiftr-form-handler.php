@@ -176,7 +176,7 @@ class Shiftr_Form_Handler {
 
     function capture() {
 
-        do_action( 'shiftr_form_handler_capture_before', $this->form_ID );
+        do_action( 'shiftr_form_handler_capture_before', $this->form_instance );
 
         global $shiftr;
 
@@ -230,7 +230,7 @@ class Shiftr_Form_Handler {
             add_post_meta( $this->data_ID, 'shiftr_form_data_files', serialize( $this->files['filename'] ) );
         }
 
-        do_action( 'shiftr_form_handler_capture_after', $this->form_ID, $this->data_ID );
+        do_action( 'shiftr_form_handler_capture_after', $this->form_instance, $data, $this->data_ID );
     }
 
 
