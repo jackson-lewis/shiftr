@@ -166,7 +166,7 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
         // Construct record title
         $title = strval( $post_id );
 
-        $content = get_post_meta( $post_id, '_shiftr_form_data_content', true );
+        $content = get_post_meta( $post_id, 'shiftr_form_data_content', true );
 
         $content = unserialize( base64_decode( $content ) );
 
@@ -389,8 +389,16 @@ function shiftr_form_data_get_content() {
     $form    = get_the_title( $form_id );
 
     $form_post = get_post( $form_id );
-    $form_instance = $shiftr_forms[ $form_post->post_name ];
 
+    $form_instance = false;
+    if ( isset( $shiftr_forms[ $form_post->post_name ] ) ) {
+        $form_instance = $shiftr_forms[ $form_post->post_name ];
+    } else {
+        ?>
+        <p><strong>Error!</strong> The form could not be found.</p>
+        <?php 
+        return;
+    }
     ?>
 
     <div>
