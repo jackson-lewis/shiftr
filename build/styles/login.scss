@@ -29,21 +29,18 @@
     background: linear-gradient( 0deg, $l-grey 0%, $white 100% );
 
     a {
+        &.privacy-policy-link {
+            color: #0073aa;
+        }
+
         @include after( false ) {
             display: none;
         }
     }
-    
-    h1 {
-        a {
-            width: 100%;
 
-            background-image: url( '../_shiftr/shiftr-full.svg' );
-            background-size: contain;
-        }
-    }
 
     form {
+        border: none;
         border-radius: .8rem;
         box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
                     0 1rem 3rem rgba( $d-grey, .2 );
