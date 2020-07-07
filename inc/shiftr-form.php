@@ -306,8 +306,9 @@ function shiftr_update_form_setting( $option_name ) {
     if ( isset( $_POST[$option_name] ) ) {
         $new_value = $_POST[$option_name];
 
-        if ( get_option( $option_name ) != $new_value ) {
+        $update_return = false;
 
+        if ( get_option( $option_name ) != $new_value ) {
             $update_return = update_option( $option_name, $new_value );
         }
 
@@ -319,7 +320,12 @@ function shiftr_update_form_setting( $option_name ) {
 
 
 function shiftr_notice_update_form_setting() {
-    shiftr_get_admin_notice_html( 'update-form-settings' );
+
+    ?>
+<div class="notice notice-success is-dismissible">
+    <p>Settings updated successfully</p>
+</div>
+    <?php
 }
 
 
