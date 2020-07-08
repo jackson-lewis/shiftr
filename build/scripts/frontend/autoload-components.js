@@ -5,7 +5,7 @@
  */
 import form from '../components/form'
 import carousel from '../components/carousel'
-import accordion from '../components/accordion'
+import Accordion from '../components/accordion'
 
 
 /**
@@ -34,5 +34,8 @@ if ( document.querySelector( '[data-shiftr-carousel]' ) ) {
 if ( document.querySelector( '[data-shiftr-accordion]' ) ) {
     const accordions = document.querySelectorAll( '[data-shiftr-accordion]' );
     
-    accordions.forEach( accordion => accordion.accordion() );
+    accordions.forEach( el => {
+        const a = new Accordion( el )
+        a.init()
+    });
 }
