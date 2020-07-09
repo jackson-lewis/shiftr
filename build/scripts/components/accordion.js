@@ -49,8 +49,7 @@ class Accordion extends ShiftrComponent {
         var index = 0
         this.items.forEach( item => {
 
-            const tab = item.children[0],
-                  panel = item.children[1]
+            const [ tab, panel ] = item.children
 
             const tabID = `${this.componentID}-tab_${index}`,
                   panelID = `${this.componentID}-panel_${index}`
@@ -110,8 +109,7 @@ class Accordion extends ShiftrComponent {
     open( item ) {
         item.classList.add( 'is-expanded' );
 
-        const tab = item.children[0],
-              panel = item.children[1];
+        const [ tab, panel ] = item.children
 
         // ARIA
         tab.setAttribute( 'aria-selected', 'true' );
@@ -157,8 +155,7 @@ class Accordion extends ShiftrComponent {
     close( item ) {
         item.classList.remove( 'is-expanded' );
 
-        const tab = item.children[0],
-              panel = item.children[1];
+        const [ tab, panel ] = item.children
 
         // ARIA
         tab.setAttribute( 'aria-selected', false );
