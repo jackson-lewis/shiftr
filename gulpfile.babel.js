@@ -35,11 +35,11 @@ import webpack from 'webpack-stream'
 const proxy = `shiftr.source`
 
 const SRC = {
-    styles: `build/styles/*.scss`,
-    stylesPackets: `build/styles/packets/*.scss`,
-    incScripts: `build/scripts/inc/*.js`,
-    frontendScripts: `build/scripts/frontend/*.js`,
-    backendScripts: `build/scripts/backend/*.js`
+    styles: `src/styles/*.scss`,
+    stylesPackets: `src/styles/packets/*.scss`,
+    incScripts: `src/scripts/inc/*.js`,
+    frontendScripts: `src/scripts/frontend/*.js`,
+    backendScripts: `src/scripts/backend/*.js`
 }
 
 const DEST = {
@@ -111,8 +111,8 @@ exports.watch = () => {
         notify: false
     })
 
-    watch( `build/styles/**/*.scss`, styles )
-    watch( `build/scripts/**/*.js`, series( scripts, reload ) )
+    watch( `src/styles/**/*.scss`, styles )
+    watch( `src/scripts/**/*.js`, series( scripts, reload ) )
     watch( `**/**/*.php` ).on( `change`, series( reload ) )
 }
     
