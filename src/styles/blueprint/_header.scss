@@ -17,7 +17,7 @@ header.site-header {
     overflow: hidden;
 
     background-color: rgba( $white, .90 );
-    backdrop-filter: blur( 2px ) saturate( 180% );
+    backdrop-filter: blur( 4px ) saturate( 180% );
     box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
                 0 0 3rem rgba( $d-grey, .15 ),
                 0 0 6rem rgba( $d-grey, .1 );
