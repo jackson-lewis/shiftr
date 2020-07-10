@@ -2,345 +2,441 @@
  * Imports
  */
 import { createEl } from '../inc/global'
-import { generateComponentID, parseComponentData } from '../inc/component-functions'
+import ShiftrComponent from '../inc/component-functions'
 
 
 /**
  * Carousel component
- * 
- * @param {object} settings The settings of the component
  */
-export default Element.prototype.carousel = function( settings = {} ) {
+export default class Carousel extends ShiftrComponent {
 
-    // The default settings
-    let defaults = {
-        startSlide: 0,
-        autoplay: true,
-        speed: 4000,
-        showNav: false,
-        interactiveNav: true,
-        customMarker: null,
-        showArrows: true,
-        arrowPrevTarget: '',
-        arrowNextTarget: '',
-        allowTouchEvents: true,
-        infiniteLoop: true,
-        transitionStyle: 'fade',
-        lazyLoad: true
-    };
+    componentSlug() {
+        return `carousel`
+    }
 
-
-    // Assign settings as defaults if settings are not set
-    if ( Object.keys( settings ).length == 0 ) settings = defaults;
-
-
-    // Override the defaults with any defined settings
-    let _ = parseComponentData( Object.assign( defaults, settings ), this, 'carousel' );
-
-
-    // The main carousel elements
-    let carousel  = this,
-        stage     = this.querySelector( '.carousel-stage' ),
-        items     = this.querySelectorAll( '.carousel-item' );
-
-
-    // This will store the current element
-    var images = [],
-
-        current,
-        prev,
-        next,
-
-        auto,
-        autoPaused,
-
-        touchDownX = 0,
-        touchDownY = 0,
-        movementX = 0,
-        movementY = 0;
-
-
-    // Assign transition style class to parent
-    carousel.classList.add( `transition-style--${_.transitionStyle}` );
-
-
-    // Verify there are items in the stage
-    if ( items.length == 0 ) return;
-
-
-    // Generate a ID for the carousel
-    let carouselID = generateComponentID( this, 'carousel' );
-    
-    carousel.setAttribute( 'id', carouselID );
-
-    // Init the Carousel
-    let nav;
-    if ( _.showNav ) {
-        nav = createEl( 'div' );
-        nav.classList.add( 'carousel-nav' );
-
-        carousel.appendChild( nav );
+    defaultSettings() {
+        return {
+            startSlide: 0,
+            autoplay: true,
+            speed: 4000,
+            showNav: true,
+            interactiveNav: true,
+            customMarker: null,
+            showArrows: false,
+            allowTouchEvents: true,
+            transitionStyle: 'fade',
+            lazyLoad: true
+        }
     }
 
 
-    for ( var i = 0; i < items.length; i++ ) {
+    /**
+     * We want some extra things to happen here
+     */
+    constructor( ...args ) {
+        super( ...args )
 
-        items[i].dataset.carouselIndex = i;
-        items[i].dataset.carouselActive = 'false';
-        items[i].setAttribute( 'aria-hidden', true );
-        items[i].setAttribute( 'aria-label', `${i+1} of ${items.length}` );
-        items[i].id = `${carouselID}-item_${i+1}`;
+        /**
+         * Assign the core elements of the component
+         */
+        this.stage = this.target.querySelector( `.carousel-stage` )
+        this.slides = this.target.querySelectorAll( '.carousel-item' )
 
-        // Assign images for lazy load
-        if ( _.lazyLoad ) {
-            images.push( [] );
-            var itemElements = items[i].querySelectorAll( '*' );
+        this.autoplay = this.settings.autoplay ? true : null
+        this.slideImages = []
+    }
 
-            itemElements.forEach( el => el.nodeName == 'IMG' ? images[i].push( el ) : false );
+
+    /**
+     * Initiate the component
+     */
+    init() {
+        /**
+         * Add the transition style class, this is used for setting 
+         * the styling based on the carousel type
+         */
+        this.target.classList.add( `transition-style--${this.settings.transitionStyle}` )
+
+        /**
+         * Define the start index slide
+         */
+        this.index = this.slides[ this.settings.startSlide ] ? this.settings.startSlide : 0
+
+        /**
+         * Utils
+         */
+        this.lastSlideIndex = this.slides.length - 1
+
+        /**
+         * Prepare all slides for a11y and index indicators
+         */
+        this.slides.forEach( ( slide, index ) => {
+            slide.dataset.carouselIndex = index
+            slide.dataset.carouselActive = 'false'
+            slide.setAttribute( 'aria-hidden', true )
+            slide.setAttribute( 'aria-label', `Slide ${index + 1} of ${this.slides.length}` )
+            slide.id = `${this.target.id}-slide_${index + 1}`
+
+            /**
+             * Get all images that need to be lazy loaded
+             */
+            if ( this.settings.lazyLoad ) {
+                this.slideImages.push( [] )
+                const imgElements = slide.querySelectorAll( 'img' )
+    
+                imgElements.forEach( img => {
+                    this.slideImages[index].push( img )
+                })
+            }
+        })
+
+        /**
+         * Apply navigation if set
+         */
+        if ( this.settings.showNav ) {
+            this.navigation()
         }
 
-        if ( _.showNav ) {
+        /**
+         * Prepare the first slide as current state
+         */
+        this.updateCurrent( this.index )
 
-            var marker, inner;
+        /**
+         * Init autoplay
+         */
+        if ( this.settings.autoplay ) {
+            this.initAutoplay()
+        }
 
-            if ( typeof _.customMarker === 'function' ) {
+        /**
+         * Logic for touch events
+         */
+        if ( this.settings.allowTouchEvents ) {
+            this.registerTouchEvents()
+        }
 
-                marker = _.customMarker( i, items );
+        /**
+         * Logic for arrow controls
+         */
+        if ( this.settings.showArrows ) {
+            this.registerArrowEvents()
+        }
+    }
 
+
+    /**
+     * Setup the navigation and attach event listeners to markers
+     */
+    navigation() {
+        /**
+         * Create navigation wrapper and add to Carousel component
+         */
+        this.nav = createEl( 'div' )
+        this.nav.classList.add( 'carousel-nav' )
+        this.target.appendChild( this.nav )
+
+        /**
+         * Stores all the slide markers in the navigation
+         */
+        this.navMarkers = []
+
+        /**
+         * Loop all slides and create a marker for each
+         */
+        this.slides.forEach( ( slide, index ) => {
+            var marker, inner
+
+            if ( typeof this.settings.customMarker === 'function' ) {
+
+                marker = this.settings.customMarker( index, slide )
             } else {
 
-                marker = createEl( 'button' );
-                inner = createEl( 'span' );
-
-                marker.appendChild( inner );
+                marker = createEl( 'button' )
+                inner = createEl( 'span' )
+                marker.appendChild( inner )
             }
 
-            marker.dataset.carouselMarker = i;
-            marker.setAttribute( 'aria-controls', `${carouselID}-item_${i+1}` );
-            marker.setAttribute( 'aria-label', `Slide ${i+1}` );
-            marker.id = `${carouselID}-marker_${i+1}`;
+            marker.dataset.carouselMarker = index
+            marker.setAttribute( 'aria-controls', `${this.target.id}-slide_${index + 1}` )
+            marker.setAttribute( 'aria-label', `Slide ${index + 1}` )
+            marker.id = `${this.target.id}-marker_${index + 1}`
 
-            if ( ! _.interactiveNav ) {
-
-                marker.setAttribute( 'disabled', '' );
+            /**
+             * Handle interactivity of the marker
+             */
+            if ( this.settings.interactiveNav ) {
+                marker.addEventListener( `click`, () => this.move( index, true ) )
+            } else {
+                marker.disabled = true
             }
 
-            // Add marker to navigation element
-            nav.appendChild( marker );
+            if ( index == this.index ) {
+                marker.classList.add( `active` )
+            }
+
+            /** Add marker to navMarkers array */
+            this.navMarkers.push( marker )
+
+            /** Add marker to Carousel navigation */
+            this.nav.appendChild( marker )
+        })
+    }
+
+
+    /**
+     * Move to a new slide
+     * 
+     * @param {integer} index The slide index to move to
+     * @param {object|bool} event The event or false
+     */
+    move( index = 0, event = false ) {
+        /**
+         * Bail if requested index is the current index
+         */
+        if ( index == this.index ) {
+            return
+        }
+
+        /**
+         * Pause autoplay if event is set
+         */
+        if ( event && this.settings.autoplay ) {
+            this.pauseAutoplay()
+        }
+
+        /**
+         * Update the current index
+         */
+        this.updateCurrent( index )
+
+        /**
+         * Resume autoplay if paused
+         */
+        if ( event && this.settings.autoplay ) {
+            this.resumeAutoplay()
         }
     }
 
 
-    let markers;
-    if ( _.showNav ) {
-        markers = Object.keys( nav.children ).map( key => nav.children[key] );
+    /**
+     * Wrapper to move to previous slide
+     * 
+     * @param {bool} event Whether an event happened or not
+     */
+    previous( event = false ) {
+        this.move( this.getPreviousSlideIndex(), event )
     }
 
 
-    // Set-up our base element stores
-    let setupStart = () => {
-
-        let startIndex = items[_.startSlide] ? _.startSlide : 0;
-
-        current = items[startIndex];
-        prev = items[ getSlideIndex() == 0 ? lastSlideIndex() : getSlideIndex() - 1 ];
-        next = items[ getSlideIndex() == lastSlideIndex() ? 0 : getSlideIndex() + 1 ];
-
-        current.classList.add( 'active' );
-        current.dataset.carouselActive = 'true';
-        current.setAttribute( 'aria-hidden', false );
-
-        prev.classList.add( 'prev' );
-        next.classList.add( 'next' );
-
-        if ( _.showNav ) {
-            markers[startIndex].classList.add( 'active' );
-        }
-
-        loadImages( getSlideIndex( prev ) );
-        loadImages( getSlideIndex( next ) );
+    /**
+     * Wrapper to move to next slide
+     * 
+     * @param {bool} event Whether an event happened or not
+     */
+    next( event = false ) {
+        this.move( this.getNextSlideIndex(), event )
     }
 
 
-    let moveSlidePrev = e => {
-
-        if ( ! _.infiniteLoop && isFirstSlide() ) return;
-
-        moveSlide( isFirstSlide() ? lastSlideIndex() : getSlideIndex() - 1, ( typeof e !== 'undefined' ) ? e : null );
-    } 
-
-
-    let moveSlideNext = e => {
-
-        if ( ! _.infiniteLoop && isLastSlide() ) return;
-
-        moveSlide( isLastSlide() ? 0 : getSlideIndex() + 1, ( typeof e !== 'undefined' ) ? e : null );
-    } 
+    /**
+     * Update the current slide of the Carousel
+     * 
+     * @param {integer} index The new index of current
+     */
+    updateCurrent( index = 0 ) {
+        /**
+         * Remove state on current slide index
+         */
+        if ( this.current ) {
+            this.current.classList.remove( 'active' );  
+            this.current.dataset.carouselActive = 'false';
+            this.current.setAttribute( 'aria-hidden', true );
     
+            if ( this.settings.showNav ) {
+                this.navMarkers[this.index].classList.remove( 'active' );
+            }
 
-    let moveSlide = ( index, e ) => {
-
-        // Pause autoplay
-        if ( e !== null ) pauseAutoplay();
-
-        // Update current
-        let newCurrent = items[index];
-
-        current.classList.remove( 'active' );  
-        current.dataset.carouselActive = 'false';
-        current.setAttribute( 'aria-hidden', true );
-
-        if ( _.showNav ) {
-            markers[getSlideIndex()].classList.remove( 'active' );
+            this.previousSlide.classList.remove( `prev` )
+            this.nextSlide.classList.remove( `next` )
         }
-        
 
-        newCurrent.classList.add( 'active' );
-        newCurrent.dataset.carouselActive = 'true';  
-        newCurrent.setAttribute( 'aria-hidden', false );
+        /**
+         * Update the current index
+         */
+        this.index = index;
+        this.current = this.slides[this.index]
+        this.previousSlide = this.slides[this.getPreviousSlideIndex()]
+        this.nextSlide = this.slides[this.getNextSlideIndex()]
 
-        if ( _.showNav ) {
-            markers[index].classList.add( 'active' );
+        /**
+         * Set state on updated slide index
+         */
+        this.current.classList.add( 'active' );
+        this.current.dataset.carouselActive = 'true';  
+        this.current.setAttribute( 'aria-hidden', false );
+
+        if ( this.settings.showNav ) {
+            this.navMarkers[this.index].classList.add( 'active' );
         }
-        
 
-        current = newCurrent;
+        this.previousSlide.classList.add( `prev` )
+        this.nextSlide.classList.add( `next` )
 
-        // Update prev
-        let newPrev = isFirstSlide() ? items[ lastSlideIndex() ] : items[ getSlideIndex() - 1 ],
-            newNext = isLastSlide() ? items[0] : items[ getSlideIndex() + 1 ];
-
-        prev.classList.remove( 'prev' );
-        newPrev.classList.add( 'prev' );
-
-        next.classList.remove( 'next' );
-        newNext.classList.add( 'next' );
-
-        prev = newPrev;
-        next = newNext;
-
-        loadImages( getSlideIndex( prev ) );
-        loadImages( getSlideIndex( next ) );
-
-        resumeAutoplay();
-    }   
-
-
-    let touchStart = e => {
-
-        touchDownX = e.touches[0].clientX;
-        touchDownY = e.touches[0].clientY;
+        this.loadSlideImages( this.getPreviousSlideIndex() )
+        this.loadSlideImages( this.getNextSlideIndex() )
     }
 
 
-    let touchMove = e => {
-
-        movementX = touchDownX - e.touches[0].clientX;
-        movementY = touchDownY - e.touches[0].clientY;
+    /**
+     * Initiate the autoplay
+     */
+    initAutoplay() {
+        this.autplay = setInterval( this.next.bind( this ), this.settings.speed )
     }
 
 
-    let touchEnd = e => {
+    /**
+     * Pause the autoplay
+     */
+    pauseAutoplay() {
+        clearInterval( this.autoplay )
+    }
 
-        // Prevent accidential swipes
-        if ( movementX <= -50 || movementX >= 50 ) {
 
-            return movementX > 0 ? moveSlideNext( e ) : moveSlidePrev( e );
+    /**
+     * Resume the autoplay
+     */
+    resumeAutoplay() {
+        this.initAutoplay()
+    }
+
+
+    /**
+     * Get the index of the next slide relative to `this.index`
+     * 
+     * @return {integer} The index of the next slide
+     */
+    getNextSlideIndex() {
+        return this.index == this.lastSlideIndex ? 0 : this.index + 1
+    }
+
+
+    /**
+     * Get the index of the previous slide relative to `this.index`
+     * 
+     * @return {integer} The index of the previous slide
+     */
+    getPreviousSlideIndex() {
+        return this.index == 0 ? this.lastSlideIndex : this.index - 1
+    }
+
+
+    /**
+     * Load the images of a target slide
+     * 
+     * @param {integer} index The slide index to load images of
+     */
+    loadSlideImages( index = 0 ) {
+        /**
+         * Sanity check lazy loading is enabled
+         */
+        if ( ! this.settings.lazyLoad ) {
+            return
         }
-    }
 
+        /** Get the array of slide images */
+        var slideImages = this.slideImages[index]
 
-    let registerEventListeners = () => {
-
-        if ( _.showArrows ) {
-
-            carousel
-                .querySelector( _.arrowPrevTarget != '' ? _.arrowPrevTarget : '.carousel-button:first-of-type' )
-                .addEventListener( 'click', moveSlidePrev );
-            carousel
-                .querySelector( _.arrowNextTarget != '' ? _.arrowNextTarget : '.carousel-button:last-of-type' )
-                .addEventListener( 'click', moveSlideNext );
+        /** Check images are actually there */
+        if ( slideImages.length == 0 ) {
+            return
         }
 
-        if ( _.showNav && _.interactiveNav ) {
+        slideImages.forEach( image => {
 
-            markers.forEach( marker => {
+            if ( ! image.src ) {
+                image.src = image.dataset.src 
+                delete image.dataset.src
 
-                marker.addEventListener( 'click', e => {
+                if ( image.dataset.srcset ) {
+                    image.srcset = image.dataset.srcset 
+                    delete image.dataset.srcset
+                }
 
-                    moveSlide( getMarkerIndex( marker ), e );
-                });
-            });
-        }
+                if ( image.dataset.sizes ) {
+                    image.sizes = image.dataset.sizes 
+                    delete image.dataset.sizes
+                }
+            }
+        })
 
-        if ( _.allowTouchEvents ) {
-            carousel.addEventListener( 'touchstart', touchStart );
-            carousel.addEventListener( 'touchmove', touchMove );
-            carousel.addEventListener( 'touchend', touchEnd );
-        }
+        /** Empty the array so we don't try to loop the images again */
+        this.slideImages[index] = []
     }
 
 
-    let initAutoplay = () => {
-
-        if ( ! _.autoplay ) return;
-
-        auto = setInterval( moveSlideNext, _.speed );
-    };
-
-    
-    function pauseAutoplay() {
-
-        if ( ! _.autoplay ) return;
-
-        autoPaused = true;
-        clearInterval( auto );
+    /**
+     * Touch start event handling
+     */
+    touchStart( e ) {
+        this.touchDownX = e.touches[0].clientX;
+        this.touchDownY = e.touches[0].clientY;
     }
 
 
-    function resumeAutoplay() {
-
-        if ( ! _.autoplay ) return;
-
-        if ( autoPaused ) initAutoplay();
-        autoPaused = false;
+    /**
+     * Touch move event handling
+     */
+    touchMove( e ) {
+        this.touchMoveX = this.touchDownX - e.touches[0].clientX;
+        this.touchMoveY = this.touchDownY - e.touches[0].clientY;
     }
 
 
-    function loadImages( index ) {
+    /**
+     * Touch end event handling
+     */
+    touchEnd() {
+        if ( this.touchMoveX <= -50 || this.touchMoveX >= 50 ) {
 
-        if ( ! _.lazyLoad ) return;
-
-        var slideImages = images[index];
-
-        for ( var i = 0; i < slideImages.length; i++ ) {
-
-            var img = slideImages[i];
-
-            if ( img.src == '' ) {
-                img.src = img.dataset.src;
-                img.setAttribute( 'srcset', img.dataset.srcset );
+            if ( this.touchMoveX > 0 ) {
+                this.next( true )
+            } else {
+                this.previous( true )
             }
         }
     }
 
 
-    // The super sexy utility functions
-    let getMarkerIndex  = m => parseInt( m.dataset.carouselMarker, 10 );
-    let lastSlideIndex  = () => items.length - 1;
-    let getSlideIndex   = ( s = current ) => parseInt( s.dataset.carouselIndex, 10 );
-    let isFirstSlide    = ( s = current ) => getSlideIndex( s ) == 0;
-    let isLastSlide     = ( s = current ) => getSlideIndex( s ) == lastSlideIndex();
-    
+    /**
+     * Register event listeners to touch events
+     */
+    registerTouchEvents() {
+        this.touchDownX = 0
+        this.touchDownY = 0
+        this.touchMoveX = 0
+        this.touchMoveY = 0
 
-    // Start the magic
-    let init = () => {
-
-        setupStart();
-        registerEventListeners();
-        initAutoplay();
+        this.stage.addEventListener( 'touchstart', this.touchStart.bind( this ) );
+        this.stage.addEventListener( 'touchmove', this.touchMove.bind( this ) );
+        this.stage.addEventListener( 'touchend', this.touchEnd.bind( this ) );
     }
 
-    init();
+
+    /**
+     * Register event listeners to arrow button controls
+     */
+    registerArrowEvents() {
+        this.previousArrow = this.target.querySelector( `#shiftr-carousel--previous` )
+        this.nextArrow = this.target.querySelector( `#shiftr-carousel--next` )
+
+        if ( this.previousArrow ) {
+            this.previousArrow.addEventListener( `click`, () => this.previous( true ) )
+        }
+
+        if ( this.nextArrow ) {
+            this.nextArrow.addEventListener( `click`, () => this.next( true ) )
+        }
+    }
 }
-
