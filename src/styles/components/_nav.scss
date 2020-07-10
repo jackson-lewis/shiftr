@@ -168,7 +168,7 @@ nav {
     }
 
 
-    @include x( l ) {
+    @include x( $header-breakpoint ) {
         width: auto;
         padding: 0;
         display: block;
@@ -191,6 +191,7 @@ nav {
                         padding: 2.2rem 0;
 
                         line-height: 1;
+                        white-space: nowrap;
                     }
 
                     &.current-page {
@@ -219,7 +220,7 @@ nav {
                         left: -2rem;
                         
                         background-color: rgba( $white, .90 );
-                        backdrop-filter: blur( 2px ) saturate( 180% );
+                        backdrop-filter: blur( 4px ) saturate( 180% );
                         box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
                                     0 3rem 3rem rgba( $d-grey, .1 );
 
