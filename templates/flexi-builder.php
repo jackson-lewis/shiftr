@@ -18,14 +18,14 @@ $hero_type = get_field( 'hero_type' );
 <div class="hero--standard">
     <?php if ( $hero_type == 'default' || ! $hero_type ) : ?>
     <div class="hero-feature-image">
-        <?php shiftr_image( get_field( 'hero_feature_image' ) ); ?>
+        <?php shiftr_image( get_field( 'hero_feature_image' ), 'large', false ); ?>
     </div>
     <?php elseif ( $hero_type == 'gallery' ) : $gallery = get_field( 'hero_gallery' ); ?>
     <div id="hero-carousel" class="shiftr-carousel hero-gallery" data-shiftr-carousel data-carousel-showArrows="false" data-carousel-speed="6000">
         <div class="carousel-stage">
             <?php foreach ( $gallery as $image ) : ?>
     
-            <div class="carousel-item">
+            <div class="carousel-slide">
                 <?php shiftr_image( $image ); ?>
             </div>
     

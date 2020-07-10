@@ -16,7 +16,7 @@
         overflow: hidden;
     }
 
-    .carousel-item {
+    .carousel-slide {
         width: 100%;
         height: 100%;
         display: none;
@@ -42,7 +42,7 @@
 
     &.transition-style--fade {
 
-        .carousel-item {
+        .carousel-slide {
             transition: transform 800ms ease-in-out, opacity 600ms 200ms ease;
 
             opacity: 0;
@@ -57,7 +57,7 @@
 
     &.transition-style--slide {
 
-        .carousel-item {
+        .carousel-slide {
             transition: transform 800ms ease-in-out, opacity 600ms 200ms ease;
             
             &.active {
@@ -85,7 +85,7 @@
         z-index: 20;
 
         border-radius: 4rem;
-        background: url( ../media/icons/chevron.svg ) no-repeat;
+        background: url( ../icons/chevron.svg ) no-repeat;
         background-size: 1rem auto;
         background-position: 50% 50%;
         border: .1rem solid $primary;

@@ -40,7 +40,7 @@ export default class Carousel extends ShiftrComponent {
          * Assign the core elements of the component
          */
         this.stage = this.target.querySelector( `.carousel-stage` )
-        this.slides = this.target.querySelectorAll( '.carousel-item' )
+        this.slides = this.target.querySelectorAll( '.carousel-slide' )
 
         this.autoplay = this.settings.autoplay ? true : null
         this.slideImages = []
