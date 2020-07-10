@@ -7,7 +7,7 @@ import { createEl } from './global'
 
 const CookieNotice = () => {
 
-    const cookieName = `shiftr_cookie_${shiftr.name.toLowerCase().replace( ' ', '' )}_accept`
+    const cookieName = `shiftr_accept_cookie`
 
     if ( document.cookie.indexOf( cookieName ) == -1 ) {
 
