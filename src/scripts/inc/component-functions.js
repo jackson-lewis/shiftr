@@ -1,3 +1,46 @@
+/**
+ * The parent class to creating Shiftr Components
+ */
+class ShiftrComponent {
+
+    componentSlug() {
+        return ``
+    }
+
+    defaultSettings() {
+        return {}
+    }
+
+    /**
+     * Assign the target and parse settings
+     * 
+     * @param {string|DOMElement} target The target element     
+     * @param {object} settings Any settings to override default
+     */
+    constructor( target, settings = {} ) {
+
+        if ( typeof target === 'string' ) {
+            this.target = document.querySelector( target ) || false
+        } else {
+            this.target = target
+        }
+
+        if ( ! this.target ) {
+            throw new Error( 'target is not defined.' )
+        }
+
+        if ( Object.keys( settings ).length == 0 ) {
+            settings = this.defaultSettings()
+        }
+
+        this.settings = parseComponentData( Object.assign( this.defaultSettings(), settings ), this.target, this.componentSlug() )
+
+        this.componentID = generateComponentID( this.target, this.componentSlug() )
+        this.target.id = this.componentID
+    }
+}
+
+
 /**  
  *  strToBool
  *
@@ -76,6 +119,6 @@ function generateComponentID( el, component = '' ) {
     return $ID;
 }
 
-
+export default ShiftrComponent
 export { strToBool, parseComponentData, generateComponentID }
     

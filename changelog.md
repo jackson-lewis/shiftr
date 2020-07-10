@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.3
+*10/07/20*
+
+* JavaScript based components have been re-written as ES6 classes and utilize modern syntax such as destructuring.
+* The `Floater` and `Follower` components have been removed due to in-frequent use. `Floater` has been dropped in favour of the css property `position: static`.
+* The JS codebase has been been neatened up, with great improvements to the `Carousel`.
+* The source assets directory has been renamed from `build` to `src`. We felt the naming was a better suit, as build can be viewed as the directory holding the production assets.
+* The Inventory has been removed. We have decided to keep this private in-house for the time being.
+
+#### Minor updates
+* Styling updates to the `.site-header`
+* Shiftr built-in cookie has been renamed to `shiftr_accept_cookie`
+* Shortcuts has been removed for both front and backend
+* Some minor bug fixes
+
+
 ## v1.2.2
 *07/07/20*
 

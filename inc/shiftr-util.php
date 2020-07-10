@@ -127,23 +127,11 @@ function shiftr_to_nicename( $str = '' ) {
 
 function shiftr_js_object() {
 
-    global $post, $shiftr;
-
-    if ( isset( $post ) ) {
-        $use_post_id = $post->ID;
-    } else {
-        $use_post_id = 0;
-    }
-
-
-    $shiftr->js_object['shortcuts']['edit'] = str_replace( '$$$POSTID$$$', $use_post_id, $shiftr->js_object['shortcuts']['edit'] );
-    $shiftr->js_object['shortcuts']['view'] = str_replace( '$$$POSTPERMALINK$$$', get_the_permalink(), $shiftr->js_object['shortcuts']['view'] );
-    $shiftr->js_object['vars']['archive'] = is_home() || is_archive();
+    global $shiftr;
 
     // For admin
     if ( is_admin() ) {
         unset( $shiftr->js_object['form'] );
-        unset( $shiftr->js_object['vars'] );
     }
 
     return $shiftr->js_object;

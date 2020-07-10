@@ -20,6 +20,21 @@
             position: relative;
             cursor: pointer;
 
+            @include before {
+                width: 3rem;
+                height: 3rem;
+                position: absolute;
+                top: 50%;
+                right: var( --vertical-padding );
+                transform: translateY( -50% ) rotateZ( 90deg ) rotateY( 0deg );
+
+                background: url( ../icons/chevron.svg ) no-repeat;
+                background-size: 1rem auto;
+                background-position: 50% 50%;
+
+                transition: 300ms;
+            }
+
             @include after {
                 width: calc( 100% - ( var( --vertical-padding ) * 2 ) );
                 height: .1rem;
@@ -30,17 +45,6 @@
 
                 opacity: 0;
                 background-color: $primary;
-            }
-
-            & > svg.status-indicator {
-                width: 3rem;
-                height: 3rem;
-                position: absolute;
-                top: 50%;
-                right: var( --vertical-padding );
-                transform: translateY( -50% ) rotateZ( -90deg );
-
-                transition: 200ms;
             }
         }
 
@@ -68,12 +72,12 @@
 
             .accordion--tab {
 
-                @include after( false ) {
-                    opacity: 1;
+                @include before( false ) {
+                    transform: translateY( -50% ) rotateZ( 90deg ) rotateY( 180deg );
                 }
 
-                & > svg.status-indicator {
-                    transform: translateY( -50% ) rotateZ( -90deg ) rotateY( 180deg );
+                @include after( false ) {
+                    opacity: 1;
                 }
             }
         }

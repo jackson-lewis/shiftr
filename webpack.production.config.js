@@ -16,14 +16,14 @@ module.exports = {
     },
     entry: {
         main: [
-            `./build/scripts/frontend/core.js`,
-            `./build/scripts/frontend/autoload-components.js`,
-            `./build/scripts/frontend/site-header.js`,
-            `./build/scripts/frontend/main.js`
+            `./src/scripts/frontend/core.js`,
+            `./src/scripts/frontend/autoload-components.js`,
+            `./src/scripts/frontend/site-header.js`,
+            `./src/scripts/frontend/main.js`
         ],
-        lazyLoading: `./build/scripts/inc/lazy-loading-fallback.js`,
-        admin: `./build/scripts/backend/admin.js`,
-        editor: `./build/scripts/backend/editor.js`
+        lazyLoading: `./src/scripts/inc/lazy-loading-fallback.js`,
+        admin: `./src/scripts/backend/admin.js`,
+        editor: `./src/scripts/backend/editor.js`
     },
     output: {
         path: path.resolve( __dirname, `assets/scripts` ),

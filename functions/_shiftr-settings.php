@@ -1,103 +1,47 @@
 <?php
-
-
-/* 
-    font_host
-
-    Used to preconnect to the hosted font files
-
-    Example: <link rel="preconnect" href="https://fonts.gstatic.com/">
-*/
-
+/**
+ * Used to preconnect to the hosted font files
+ * 
+ * Example: <link rel="preconnect" href="https://fonts.gstatic.com/">
+ */
 $shiftr->font_host = 'https://fonts.gstatic.com/';
 
-
-/* 
-    font_url
-
-    The url path to the hosted fonts
-
-    Example: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap">
-*/
-
+/**
+ * The url path to the hosted fonts
+ * 
+ * Example: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap">
+ */
 $shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
 
-
-/* 
-    Toggle the use of lazy loading
-*/
+/** Toggle the use of lazy loading */
 $shiftr->lazy_loading = true;
 
-
-/* 
-    cookie_notice
-
-    Should the cookie notice be displayed on the front-end
-*/
-
+/** Toggle display of cookie notice on the frontend */
 $shiftr->cookie_notice = true;
 
-
-/* 
-    use_jquery
-
-    Should jQuery be used on the front-end
-*/
-
+/** Toggle inclusion of jQuery on the frontend */
 $shiftr->use_jquery = false;
 
-
-/* 
-    admin_show_posts
-
-    Toggle display of 'Posts' link in the admin menu
-*/
-
+/** Toggle display of the `Posts` admin menu link */
 $shiftr->admin_show_posts = true;
 
-
-/* 
-    admin_show_comments
-
-    Toggle display of 'Comments' link in the admin menu
-*/
-
+/** Toggle display of the `Comments` admin menu link */
 $shiftr->admin_show_comments = false;
 
-
-/* 
-    access_to_acf
-
-    Users by ID that can access ACF. If empty, nobody has access
-*/
-
+/**
+ * Assign users by ID that can access ACF
+ * 
+ * If empty, all admins have access
+ * */
 $shiftr->access_to_acf = array( 1 );
 
-
-/* 
-    remove_editor_by_post_type
-
-    Toggle display of the WP editor by post type
-*/
-
+/** Toggle display of the Editor by post type */
 $shiftr->remove_editor_by_post_type = array();
 
-
-/* 
-    public_post_types
-
-    Define all custom post types that should be publicly visible
-*/
-
+/** Must explicitly define a custom post type as publicly visible */
 $shiftr->public_post_types = array();
 
-
-/* 
-    forms
-
-    Define all custom post types that should be publicly visible
-*/
-
+/** Shiftr Form global settings */
 $shiftr->forms = (object) array(
     'capture' => true,
     'expiration_days' => 30,
@@ -107,18 +51,12 @@ $shiftr->forms = (object) array(
     )
 );
 
-
-/* 
-    js_object
-
-    Pass variables into JavaScript for various execution, for both front-end and admin pages
-*/
-
+/** The Shiftr JavaScript object */
 $shiftr->js_object = array(
     'name'  => get_bloginfo( 'name' ),
     'url'   => get_bloginfo( 'url' ),
     'theme' => get_template_directory_uri(),
-    'ajax'  => admin_url( 'admin-ajax.php' ),
+    'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
     'form'  => array(
         'successHeading'    => get_option( 'shiftr_form_message_success_heading' ),
         'successBody'       => get_option( 'shiftr_form_message_success_body' ),
@@ -128,14 +66,5 @@ $shiftr->js_object = array(
     'cookie' => array(
         'message'       => get_field( 'cookie_notice_message', 'option' ),
         'policyLink'    => get_permalink( 3 )
-    ),
-    'shortcuts' => array(
-        'admin' => admin_url(),
-        'edit'  => admin_url( 'post.php?post=$$$POSTID$$$&action=edit' ),
-        'view'  => '$$$POSTPERMALINK$$$'
-    ),
-    'vars' => array(
-        'archive' => is_archive()
     )
 );
-
