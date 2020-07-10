@@ -22,11 +22,8 @@ export default class Carousel extends ShiftrComponent {
             showNav: true,
             interactiveNav: true,
             customMarker: null,
-            showArrows: true,
-            arrowPrevTarget: '',
-            arrowNextTarget: '',
+            showArrows: false,
             allowTouchEvents: true,
-            infiniteLoop: true,
             transitionStyle: 'fade',
             lazyLoad: true
         }

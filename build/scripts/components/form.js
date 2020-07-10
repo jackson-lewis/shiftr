@@ -21,7 +21,6 @@ export default class Form extends ShiftrComponent {
 
     defaultSettings() {
         return {
-            states: true,
             validate: true,
             submission: true,
             validationClasses: {
