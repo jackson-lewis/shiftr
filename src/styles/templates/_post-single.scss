@@ -1,0 +1,48 @@
+/*
+
+    //  //// --|    Templates / Post Single
+
+*/
+body.single-post {
+
+    main.site-main {
+        padding-top: 6rem;
+
+        @include x( m ) {
+            padding-top: 8rem;
+        }
+    }
+}
+
+.hero--post_single {
+    margin-bottom: get_baseline( 2 );
+
+    .post-featured-image {
+        width: 100%;
+        margin-bottom: get_baseline();
+        position: relative;
+
+        @include x( m ) {
+            padding-top: 33%;
+            overflow: hidden;
+
+            border-radius: .4rem;
+
+            img {
+                @include object-fit;
+            }
+        }
+    }
+
+    .post-header {
+        @extend .site-padding;
+
+        & > div.container {
+            max-width: line_width();
+        }
+
+        h1 {
+            margin-bottom: get_baseline( .25 );
+        }
+    }
+}

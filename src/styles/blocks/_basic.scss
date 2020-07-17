@@ -18,13 +18,6 @@ section.site-section {
         }
     }
 
-    div.content {
-
-        & > *:last-child:not(.content-button-wrapper) {
-            margin-bottom: 0;
-        }
-    }
-
     &.block--content_image {
 
         div.content {

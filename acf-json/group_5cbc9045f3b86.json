@@ -31,7 +31,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "info@shapeshiftr.co.uk",
+            "default_value": "info@your-business.co.uk",
             "placeholder": "",
             "prepend": "",
             "append": ""
@@ -49,7 +49,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "0751 102 4460",
+            "default_value": "077 123 456 78",
             "placeholder": "",
             "prepend": "",
             "append": "",
@@ -256,5 +256,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1578578716
+    "modified": 1595015881
 }

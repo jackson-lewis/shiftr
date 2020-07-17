@@ -1,6 +1,7 @@
 {
     "search.exclude": {
         "**/*.css": true,
-        "assets/scripts/*.js": true
+        "assets/scripts/*.js": true,
+        "**/*.map": true
     }
 }

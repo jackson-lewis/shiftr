@@ -1,0 +1,81 @@
+/*
+
+    //  //// --|    Templates / Post Archive
+
+*/
+.hero--post_archive {
+    margin-bottom: get_baseline( 2 );
+
+    .hero-archive-content {
+        text-align: center;
+
+        h1 {
+            text-align: inherit;
+        }
+    }
+}
+
+
+.loop--posts {
+    max-width: 90rem;
+    margin: auto;
+
+    .card--post {
+        margin-bottom: 2rem;
+        padding: 2rem;
+
+        background-color: $l-grey;
+        border-radius: .4rem;
+
+        .image {
+            max-height: 20rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+
+            border-radius: .4rem;
+
+            img {
+                @include object-fit();
+            }
+        }
+
+        h3 {
+            width: 100%;
+            margin-bottom: 1rem;
+
+            object-fit: cover;
+        }
+        
+
+        .details {
+            display: flex;
+
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            span.date {
+                display: inline-block;
+            } 
+        }
+
+        @include last_child();
+
+        @include x( m ) {
+            @include grid( 2rem );
+
+            grid-template:
+                "image details details" auto / 1fr 1fr 1fr;
+
+            .image {
+                grid-area: image;
+                margin-bottom: 0;
+            }
+
+            .details {
+                grid-area: details;
+                display: block;
+            }
+        }
+    }
+}

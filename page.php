@@ -1,41 +1,26 @@
- <?php 
-    
-    /*  Display the default page template
-
-    */
-
-    get_header();
-
+<?php 
+/**
+ * Default page template
+ */
+get_header();
 ?>
 
+<main class="site-main">
 
-    <div class="hero--standard">
-        <div class="container contain-line-width">
-            <div class="hero-featured-image">
-                <?php shiftr_featured_image(); ?>
-            </div>
+    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+    <section class="site-section">
+        <article class="container content">
+            <?php
 
-            <div class="hero-content">
-                <h1><?php the_title(); ?></h1>
-            </div>
-        </div>
-    </div>
+            the_title( '<h1>', '</h1>' );
+            the_content();
 
+            ?>
+        </article>
+    </section>
+    <?php endwhile; endif; ?>
 
-    <main class="site-main">
-
-        <section class="site-section">
-            <div class="container contain-line-width">
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-        
-                    <?php the_content(); ?>
-
-                <?php endwhile; endif; ?>
-            </div>
-        </section>
-
-    </main>
+</main>
     
 
 <?php get_footer(); ?>
-
