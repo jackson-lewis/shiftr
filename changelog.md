@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v1.3.1
+*17/07/20*
+
+* Introducing Fluid Typography🥳 All headings and body font sizes are now controlled using `clamp()`, with basic fallback where not supported.
+* Big cleanup of the Posts templates
+* The margin of all headings and other type elements has been adjusted to fit harmoniously together in `.content`, `.block-heading` and `.block-after`. We have also combined these three elements to share all major styling of their decendants for improved consistency.
+* 404 template has been revamped. It is simpler to control and includes some placeholder notice for admins to see, which instructs them how to add content to the 404 page.
+
+#### Minor updates
+* Bug fixes!!
+* Sourcemaps excluded from VS Code search
+* Login page is more inline with standard WP, only basic styling enhancements remain
+
+
 ## v1.3
 *10/07/20*
 
