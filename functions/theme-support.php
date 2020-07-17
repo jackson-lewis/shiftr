@@ -33,6 +33,10 @@ add_action( 'after_setup_theme', 'shiftr_theme_support' );
  */
 function shiftr_post_type_support() {
 
+    if ( ! isset( $_GET['post'] ) ) {
+        return;
+    }
+
     if ( get_page_template_slug( $_GET['post'] ) == 'templates/flexi-builder.php' ) {
         remove_post_type_support( 'page', 'thumbnail' );
     }

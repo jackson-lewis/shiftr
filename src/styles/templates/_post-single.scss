@@ -15,7 +15,7 @@ body.single-post {
 }
 
 .hero--post_single {
-    margin-bottom: get_baseline( 5 );
+    margin-bottom: get_baseline( 2 );
 
     .post-featured-image {
         width: 100%;
@@ -42,7 +42,7 @@ body.single-post {
         }
 
         h1 {
-            margin-bottom: get_baseline( 40 );
+            margin-bottom: get_baseline( .25 );
         }
     }
 }

@@ -16,7 +16,7 @@
 </div>
 
 <?php if ( $posts->have_posts() ) : ?>
-<div class="loop--post">
+<div class="loop--posts">
 <?php
 
     while( $posts->have_posts() ) :
@@ -24,26 +24,18 @@
 
         ?>
         <div class="card--post">
+
             <div class="image">
-                <?php shiftr_featured_image( get_the_ID(), 'thumbnail' ); ?>
+                <?php shiftr_featured_image( get_the_ID(), 'small' ); ?>
             </div>
+
             <div class="details">
-                <?php
-
-                $categories = get_the_category();
-
-                // We are force disabling this for now
-                if ( ! empty( $categories ) && false ) :
-                ?>
-                <div class="post-categories">
-                    <?php foreach ( $categories as $category ) : ?>
-                        <span class="category"><?= $category->name; ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-                <h3 id="post--<?= get_the_ID(); ?>"><?php the_title(); ?></h3>
-                <a href="<?php the_permalink(); ?>" class="link-inline-arrow">Read article <span class="screen-reader-text">on <span aria-labelledby="post--<?= get_the_ID(); ?>"></span></span></a>
+                <h3 id="card--post-<?php echo get_the_ID(); ?>"><?php the_title(); ?></h3>
+                <span class="date"><?php the_time( 'd F Y' ); ?></span>
+                <p><?php the_excerpt(); ?></p>
+                <a href="<?php the_permalink(); ?>" class="button-fill">Read <span class="screen-reader-text" aria-labelledby="card--post-<?php echo get_the_ID(); ?>"></span></a>
             </div>
+
         </div>
         <?php
         
