@@ -33,14 +33,12 @@ add_action( 'after_setup_theme', 'shiftr_theme_support' );
  */
 function shiftr_post_type_support() {
 
-    echo get_page_template_slug();
-
-    if ( get_page_template_slug() == 'templates/flexi-builder.php' ) {
+    if ( get_page_template_slug( $_GET['post'] ) == 'templates/flexi-builder.php' ) {
         remove_post_type_support( 'page', 'thumbnail' );
     }
 
 }
-add_action( 'init', 'shiftr_post_type_support' );
+add_action( 'admin_init', 'shiftr_post_type_support', 100 );
 
 /**  
  *  shiftr_filter_the_content

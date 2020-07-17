@@ -106,7 +106,6 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
  *
  *  @since 1.0
  *
- *  @global $post The WP_Post object
  *  @param $id null|int The post ID
  *  @param $size str The size of the image to output
  *  @param $lazy bool Set if the image should be lazy loaded
@@ -114,10 +113,13 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
  */
 
 function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr = [] ) {
-    global $post;
+
+    if ( $id === null ) {
+        $id = $post->ID;
+    }
 
     // Allows ability to set placeholder images based on post type via $post
-    $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ), $post );
+    $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ) );
 
     echo get_shiftr_image( $thumbnail_id, $size, $lazy, $attr );
 }
