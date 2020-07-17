@@ -17,9 +17,11 @@ html {
 
 body, input, textarea, button, select {
     font-family: $base-font-family;
-    font-size: rem( $base-font-size );
     font-weight: 400;
     font-style: normal;
+
+    font-size: rem( $base-min-font-size );
+    font-size: _clamp( rem( $base-min-font-size ), 3vw, rem( $base-max-font-size ) );
 
     color: $d-grey; 
 
@@ -53,22 +55,27 @@ h1, h2, h3, h4, h5, h6 {
     color: inherit;
 }
 
-$headers:   'h1' 4,
-            'h2' 3.2,
-            'h3' 2.6,
-            'h4' 2.2,
-            'h5' 1.8,
-            'h6' 1.4;
+$headers:   'h1' 3.8rem calc( 5vw + 1rem ) 6.4rem,
+            'h2' 3.2rem calc( 4vw + 1rem ) 5rem,
+            'h3' 2.6rem calc( 3vw + 1rem ) 3.8rem,
+            'h4' 2.2rem calc( 2vw + .5rem ) 3rem,
+            'h5' 1.8rem calc( 2vw + .5rem ) 2.4rem,
+            'h6' 1.6rem calc( 2vw + .5rem ) 1.8rem;
 
 @each $heading in $headers {
 
     #{ nth( $heading, 1 ) } {
-        font-size: #{ nth( $heading, 2 ) }rem;
+        font-size: nth( $heading, 2 );
+        font-size: _clamp( nth( $heading, 2 ), nth( $heading, 3 ), nth( $heading, 4 ) );
 
-        max-width: line_width();
+        @supports not (font-size: clamp(1px,1vw,2px)) {
+            @include x( l ) {
+                font-size: nth( $heading, 4 );
+            }
+        }
+        
     }
 }
-
 
 //  ////  --|    Anchor Links
 
