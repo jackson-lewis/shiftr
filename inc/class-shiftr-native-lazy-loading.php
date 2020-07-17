@@ -29,6 +29,10 @@ class Shiftr_Native_Lazy_Loading {
      * Hook the print_script method to wp_footer
      */
     function init() {
+        if ( is_admin() ) {
+            return;
+        }
+        
         add_action( 'wp_footer', array( $this, 'print_script' ) );
         add_filter( 'wp_get_attachment_image_attributes', array( $this, 'filter_attributes' ), 999 );
         add_filter( 'the_content', array( $this, 'filter_the_content' ), 999 );
