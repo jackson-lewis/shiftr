@@ -12,15 +12,14 @@
 
 
 ul, ol {
-    margin-top: 0;
-    margin-bottom: 2.4rem;
+    margin: 0;
     padding-left: 0.4rem;
 
     line-height: $base-line-height;
 
     li {
         // Space out by half a line height
-        margin-bottom: get_baseline( 20 );
+        margin-bottom: get_baseline( .25 );
 
         @include last-child;
     }
