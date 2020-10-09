@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.3.2
+*09/10/20*
+
+* Styling bug fix on cookie notice using old version of vertical rhythem
+* Added GTM event tracking to Forms.
+* Minor code refactoring of Form component
+
+
 ## v1.3.1
 *17/07/20*
 
