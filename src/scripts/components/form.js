@@ -83,9 +83,7 @@ export default class Form extends ShiftrComponent {
                     })
     
                     field.addEventListener( `blur`, () => {
-                        fieldWrapper.classList.remove( focus )
-                        fieldWrapper.classList.remove( success )
-                        fieldWrapper.classList.remove( error )
+                        fieldWrapper.classList.remove( focus, success, error )
     
                         if ( this.settings.validate && field.value != '' ) {
     
@@ -202,7 +200,7 @@ export default class Form extends ShiftrComponent {
             this.displaySubmitMessage( 'xhr_error' )
         };
 
-        xhr.open( 'POST', shiftr.ajax )
+        xhr.open( 'POST', shiftr.ajaxUrl )
         xhr.send( data )
     }
 
@@ -275,6 +273,17 @@ export default class Form extends ShiftrComponent {
 
         this.target.appendChild( message.wrapper );
 
+        /**
+         * Support for Google Tag Manager tracking
+         */
+        if ( response == 1 ) {
+            window.dataLayer = window.dataLayer || []
+            window.dataLayer.push({
+                'event': 'formSubmission',
+                'form': this.target.dataset.shiftrForm
+            })
+        }
+
         setTimeout( () => {
             message.wrapper.classList.add( 'show' );
             this.submitButton.innerHTML = 'Sent!';
@@ -303,23 +312,14 @@ export default class Form extends ShiftrComponent {
         if ( response == '1' ) {
             const { success, error } = this.actionClass
 
+            this.target.reset()
+
             // Empty all fields of values
             for ( var i = 0; i < this.fields.length; i++ ) {
-
                 const field = this.fields[i]
-                const { parentElement: fieldWrapper } = field
 
-                if ( field.nodeName === `SELECT` ) {
-                    fieldWrapper.classList.remove( success )
-                    fieldWrapper.classList.remove( error )
-    
-                } else if ( field.type != `checkbox` && field.type != `radio` ) {
-                    field.value = ``
-                    fieldWrapper.classList.remove( success )
-                    fieldWrapper.classList.remove( error )
-
-                } else if ( field.type == `checkbox` || field.type == `radio` ) {
-                    field.checked = false
+                if ( field.nodeName === `SELECT` || ( field.type != `checkbox` && field.type != `radio` ) ) {
+                    field.parentElement.classList.remove( success, error )
                 }
             }
         }
