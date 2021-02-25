@@ -7,10 +7,10 @@ import ShiftrComponent from '../inc/component-functions'
 /**
  * Shiftr Component: Accordion
  */
-class Accordion extends ShiftrComponent {
+export default class Accordion extends ShiftrComponent {
 
     componentSlug() {
-        return `accordion`
+        return 'accordion'
     }
 
     defaultSettings() {
@@ -37,16 +37,16 @@ class Accordion extends ShiftrComponent {
     init() {
         
         if ( this.items.length <= 0 ) {
-            console.warn( `This Accordion component contains no items.` )
+            console.warn( 'This Accordion component contains no items.' )
             return false;
         }
 
-        this.target.setAttribute( `role`, `tablist` )
+        this.target.setAttribute( 'role', 'tablist' )
 
         /**
          * Prepare each item
          */
-        var index = 0
+        let index = 0
         this.items.forEach( item => {
 
             const [ tab, panel ] = item.children
@@ -61,28 +61,28 @@ class Accordion extends ShiftrComponent {
             tab.setAttribute( 'aria-controls', panelID )
 
             // handle the content
-            panel.style.display = `none`
+            panel.style.display = 'none'
             panel.setAttribute( 'id', panelID )
             panel.setAttribute( 'role', 'tabpanel' )
             panel.setAttribute( 'aria-labelledby', tabID )
             panel.setAttribute( 'hidden', '' )
 
             tab.addEventListener( 'click', e => {
-                e.preventDefault();
+                e.preventDefault()
     
                 if ( ! this.settings.allowMultiOpen ) {
-                    const current = this.target.querySelector( '.accordion--item.is-expanded' ) || null;
+                    const current = this.target.querySelector( '.accordion--item.is-expanded' ) || null
     
                     if ( current != item && current !== null ) {
-                        this.close( current );
+                        this.close( current )
                     }
                 }
     
                 if ( window.getComputedStyle( panel ).display === 'none' ) {
-                    this.open( item );
+                    this.open( item )
     
                 } else {
-                    this.close( item );
+                    this.close( item )
                 }
             });
 
@@ -107,81 +107,77 @@ class Accordion extends ShiftrComponent {
      * Open an Accordion item
      */
     open( item ) {
-        item.classList.add( 'is-expanded' );
+        item.classList.add( 'is-expanded' )
 
         const [ tab, panel ] = item.children
 
         // ARIA
-        tab.setAttribute( 'aria-selected', 'true' );
-
-        panel.removeAttribute( 'hidden' );
+        tab.setAttribute( 'aria-selected', 'true' )
+        panel.removeAttribute( 'hidden' )
 
         // Styling & transition
-        panel.style.removeProperty( 'display' );
+        panel.style.removeProperty( 'display' )
 
-        const display = window.getComputedStyle( panel ).display;
+        const display = window.getComputedStyle( panel ).display
 
         if ( display === 'none' ) {
-            display = 'block';
+            display = 'block'
         }
 
-        panel.style.display = display;
+        panel.style.display = display
 
-        const height = panel.offsetHeight;
+        const height = panel.offsetHeight
 
-        panel.style.overflow = 'hidden';
-        panel.style.height = 0;
-        panel.style.paddingTop = 0;
-        panel.style.paddingBottom = 0;
-        panel.offsetHeight;
-        panel.style.transitionProperty = "height, padding";
-        panel.style.transitionDuration = this.settings.duration + 'ms';
-        panel.style.height = height + 'px';
+        panel.style.overflow = 'hidden'
+        panel.style.height = 0
+        panel.style.paddingTop = 0
+        panel.style.paddingBottom = 0
+        panel.offsetHeight
+        panel.style.transitionProperty = "height, padding"
+        panel.style.transitionDuration = this.settings.duration + 'ms'
+        panel.style.height = height + 'px'
 
-        panel.style.removeProperty( 'padding-top' );
-        panel.style.removeProperty( 'padding-bottom' );
+        panel.style.removeProperty( 'padding-top' )
+        panel.style.removeProperty( 'padding-bottom' )
 
-        setTimeout( e => {
-            panel.style.removeProperty( 'height' );
-            panel.style.removeProperty( 'overflow' );
-            panel.style.removeProperty( 'transition-duration' );
-            panel.style.removeProperty( 'transition-property' );
-        }, this.settings.duration );
+        setTimeout( () => {
+            panel.style.removeProperty( 'height' )
+            panel.style.removeProperty( 'overflow' )
+            panel.style.removeProperty( 'transition-duration' )
+            panel.style.removeProperty( 'transition-property' )
+        }, this.settings.duration )
     }
 
     /**
      * Close an Accordion item
      */
     close( item ) {
-        item.classList.remove( 'is-expanded' );
+        item.classList.remove( 'is-expanded' )
 
         const [ tab, panel ] = item.children
 
         // ARIA
-        tab.setAttribute( 'aria-selected', false );
-
-        panel.setAttribute( 'hidden', '' );
+        tab.setAttribute( 'aria-selected', false )
+        panel.setAttribute( 'hidden', '' )
 
         // Styling & transition
-        panel.style.transitionProperty = 'height, padding';
-        panel.style.transitionDuration = this.settings.duration + 'ms';
-        panel.style.height = panel.offsetHeight + 'px';
-        panel.offsetHeight;
-        panel.style.overflow = 'hidden';
-        panel.style.height = 0;
-        panel.style.paddingTop = 0;
-        panel.style.paddingBottom = 0;
+        panel.style.transitionProperty = 'height, padding'
+        panel.style.transitionDuration = this.settings.duration + 'ms'
+        panel.style.height = panel.offsetHeight + 'px'
+        panel.offsetHeight
+        panel.style.overflow = 'hidden'
+        panel.style.height = 0
+        panel.style.paddingTop = 0
+        panel.style.paddingBottom = 0
 
-        setTimeout( e => {
+        setTimeout( () => {
             panel.style.display = 'none';
-            panel.style.removeProperty( 'height' );
-            panel.style.removeProperty( 'padding-top' );
-            panel.style.removeProperty( 'padding-bottom' );
-            panel.style.removeProperty( 'overflow' );
-            panel.style.removeProperty( 'transition-duration' );
-            panel.style.removeProperty( 'transition-property' );
-        }, this.settings.duration );
+            panel.style.removeProperty( 'height' )
+            panel.style.removeProperty( 'padding-top' )
+            panel.style.removeProperty( 'padding-bottom' )
+            panel.style.removeProperty( 'overflow' )
+            panel.style.removeProperty( 'transition-duration' )
+            panel.style.removeProperty( 'transition-property' )
+        }, this.settings.duration )
     }
 }
-
-export default Accordion

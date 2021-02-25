@@ -38,7 +38,14 @@
         // Custom HTML added to the link dialog
         if( $('#wp-link-display-style').length < 1 ) {
 
-            $('#link-options').append( '<div class="link-display-style"> <label><span>Link Style</span> <select id="wp-link-display-style"><option value="">None</option><option value="button-fill">Button Fill</option><option value="button-outline">Button Outline</option><option value="button-text">Button Text</option></select></label></div>');
+            const options = [
+                '<option value="">None</option>',
+                '<option value="button-fill">Button Fill</option>',
+                '<option value="button-outline">Button Outline</option>',
+                '<option value="button-text">Button Text</option>'
+            ]
+
+            $('#link-options').append( `<div class="link-display-style"> <label><span>Link Style</span> <select id="wp-link-display-style">${ options.join( '' ) }</select></label></div>` );
         }
 
         wpLink.getAttrs = function() {

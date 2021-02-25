@@ -11,7 +11,7 @@ import ShiftrComponent from '../inc/component-functions'
 export default class Carousel extends ShiftrComponent {
 
     componentSlug() {
-        return `carousel`
+        return 'carousel'
     }
 
     defaultSettings() {
@@ -39,7 +39,7 @@ export default class Carousel extends ShiftrComponent {
         /**
          * Assign the core elements of the component
          */
-        this.stage = this.target.querySelector( `.carousel-stage` )
+        this.stage = this.target.querySelector( '.carousel-stage' )
         this.slides = this.target.querySelectorAll( '.carousel-slide' )
 
         this.autoplay = this.settings.autoplay ? true : null
@@ -166,13 +166,13 @@ export default class Carousel extends ShiftrComponent {
              * Handle interactivity of the marker
              */
             if ( this.settings.interactiveNav ) {
-                marker.addEventListener( `click`, () => this.move( index, true ) )
+                marker.addEventListener( 'click', () => this.move( index, true ) )
             } else {
                 marker.disabled = true
             }
 
             if ( index == this.index ) {
-                marker.classList.add( `active` )
+                marker.classList.add( 'active' )
             }
 
             /** Add marker to navMarkers array */
@@ -249,22 +249,22 @@ export default class Carousel extends ShiftrComponent {
          * Remove state on current slide index
          */
         if ( this.current ) {
-            this.current.classList.remove( 'active' );  
-            this.current.dataset.carouselActive = 'false';
-            this.current.setAttribute( 'aria-hidden', true );
+            this.current.classList.remove( 'active' ); 
+            this.current.dataset.carouselActive = 'false'
+            this.current.setAttribute( 'aria-hidden', true )
     
             if ( this.settings.showNav ) {
-                this.navMarkers[this.index].classList.remove( 'active' );
+                this.navMarkers[this.index].classList.remove( 'active' )
             }
 
-            this.previousSlide.classList.remove( `prev` )
-            this.nextSlide.classList.remove( `next` )
+            this.previousSlide.classList.remove( 'prev' )
+            this.nextSlide.classList.remove( 'next' )
         }
 
         /**
          * Update the current index
          */
-        this.index = index;
+        this.index = index
         this.current = this.slides[this.index]
         this.previousSlide = this.slides[this.getPreviousSlideIndex()]
         this.nextSlide = this.slides[this.getNextSlideIndex()]
@@ -272,16 +272,16 @@ export default class Carousel extends ShiftrComponent {
         /**
          * Set state on updated slide index
          */
-        this.current.classList.add( 'active' );
-        this.current.dataset.carouselActive = 'true';  
-        this.current.setAttribute( 'aria-hidden', false );
+        this.current.classList.add( 'active' )
+        this.current.dataset.carouselActive = 'true'
+        this.current.setAttribute( 'aria-hidden', false )
 
         if ( this.settings.showNav ) {
-            this.navMarkers[this.index].classList.add( 'active' );
+            this.navMarkers[this.index].classList.add( 'active' )
         }
 
-        this.previousSlide.classList.add( `prev` )
-        this.nextSlide.classList.add( `next` )
+        this.previousSlide.classList.add( 'prev' )
+        this.nextSlide.classList.add( 'next' )
 
         this.loadSlideImages( this.getPreviousSlideIndex() )
         this.loadSlideImages( this.getNextSlideIndex() )
@@ -380,8 +380,8 @@ export default class Carousel extends ShiftrComponent {
      * Touch start event handling
      */
     touchStart( e ) {
-        this.touchDownX = e.touches[0].clientX;
-        this.touchDownY = e.touches[0].clientY;
+        this.touchDownX = e.touches[0].clientX
+        this.touchDownY = e.touches[0].clientY
     }
 
 
@@ -389,8 +389,8 @@ export default class Carousel extends ShiftrComponent {
      * Touch move event handling
      */
     touchMove( e ) {
-        this.touchMoveX = this.touchDownX - e.touches[0].clientX;
-        this.touchMoveY = this.touchDownY - e.touches[0].clientY;
+        this.touchMoveX = this.touchDownX - e.touches[0].clientX
+        this.touchMoveY = this.touchDownY - e.touches[0].clientY
     }
 
 
@@ -418,9 +418,9 @@ export default class Carousel extends ShiftrComponent {
         this.touchMoveX = 0
         this.touchMoveY = 0
 
-        this.stage.addEventListener( 'touchstart', this.touchStart.bind( this ) );
-        this.stage.addEventListener( 'touchmove', this.touchMove.bind( this ) );
-        this.stage.addEventListener( 'touchend', this.touchEnd.bind( this ) );
+        this.stage.addEventListener( 'touchstart', this.touchStart.bind( this ) )
+        this.stage.addEventListener( 'touchmove', this.touchMove.bind( this ) )
+        this.stage.addEventListener( 'touchend', this.touchEnd.bind( this ) )
     }
 
 
@@ -428,15 +428,15 @@ export default class Carousel extends ShiftrComponent {
      * Register event listeners to arrow button controls
      */
     registerArrowEvents() {
-        this.previousArrow = this.target.querySelector( `#shiftr-carousel--previous` )
-        this.nextArrow = this.target.querySelector( `#shiftr-carousel--next` )
+        this.previousArrow = this.target.querySelector( '#shiftr-carousel--previous' )
+        this.nextArrow = this.target.querySelector( '#shiftr-carousel--next' )
 
         if ( this.previousArrow ) {
-            this.previousArrow.addEventListener( `click`, () => this.previous( true ) )
+            this.previousArrow.addEventListener( 'click', () => this.previous( true ) )
         }
 
         if ( this.nextArrow ) {
-            this.nextArrow.addEventListener( `click`, () => this.next( true ) )
+            this.nextArrow.addEventListener( 'click', () => this.next( true ) )
         }
     }
 }

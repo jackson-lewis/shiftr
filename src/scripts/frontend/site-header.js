@@ -13,133 +13,125 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
 
     //  ////  --|    Top-level variables
 
-    let toggle    = document.querySelector( '.nav-primary--toggle' ),
-        nav       = document.querySelector( '.nav-primary' ),
-        subNavs   = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : [];
+    const toggle    = document.querySelector( '.nav-primary--toggle' ),
+          nav       = document.querySelector( '.nav-primary' ),
+          subNavs   = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : []
 
 
     // Check nav actually exists before going any further
-    if ( ! nav ) return;
+    if ( ! nav ) return
 
 
     //  ////  --|    Toggle hidden navigation
         
-    let headerTransitionHeight = '100vh';
+    const headerTransitionHeight = '100vh'
 
-    let stop = e => {
-        e.stopPropagation();
+    const stop = e => {
+        e.stopPropagation()
     }
 
-    let toggleMenu = e => {
-        e.stopPropagation();
+    const toggleMenu = e => {
+        e.stopPropagation()
 
-        toggle.classList.toggle( 'transition' );
-        header.classList.toggle( 'offset-is-expanded' );
-        body.classList.toggle( 'no-scroll' );
+        toggle.classList.toggle( 'transition' )
+        header.classList.toggle( 'offset-is-expanded' )
+        body.classList.toggle( 'no-scroll' )
         
         if ( header.offsetHeight > nav.offsetHeight ) {
-            header.setAttribute( 'style', '' );
+            header.setAttribute( 'style', '' )
         } else {
-            header.style.height = headerTransitionHeight;
+            header.style.height = headerTransitionHeight
         }
-    };
+    }
 
-    let toggleWindow = () => {
-        toggle.classList.remove( 'transition' );
-        header.classList.remove( 'offset-is-expanded' );
-        header.setAttribute( 'style', '' );
-        body.classList.remove( 'no-scroll' );
-    };
+    const toggleWindow = () => {
+        toggle.classList.remove( 'transition' )
+        header.classList.remove( 'offset-is-expanded' )
+        header.setAttribute( 'style', '' )
+        body.classList.remove( 'no-scroll' )
+    }
 
     x( 1024, () => {
-        toggle.removeEventListener( 'click', toggleMenu );
-        nav.removeEventListener( 'click', stop );
-        window.removeEventListener( 'click', toggleWindow );
+        toggle.removeEventListener( 'click', toggleMenu )
+        nav.removeEventListener( 'click', stop )
+        window.removeEventListener( 'click', toggleWindow )
 
     }, () => {
-        toggle.addEventListener( 'click', toggleMenu );
-        nav.addEventListener( 'click', stop );
-        window.addEventListener( 'click', toggleWindow );
+        toggle.addEventListener( 'click', toggleMenu )
+        nav.addEventListener( 'click', stop )
+        window.addEventListener( 'click', toggleWindow )
 
-    }, true );
+    }, true )
 
 
     //  ////  --|    Sub-menu
-
-    nav.classList.add( subNavs.length <= 0 ? 'has-no-sub-navs' : 'has-sub-navs' );
-
-    let displayClass = 'is-visible';
+    nav.classList.add( subNavs.length <= 0 ? 'has-no-sub-navs' : 'has-sub-navs' )
+    const displayClass = 'is-visible'
     
     x( 1024, () => {
 
         subNavs.forEach( sub => {
+            const link = sub.children[0],
+                  menu = sub.children[2]
 
-            let link = sub.children[0],
-                menu = sub.children[2],
-                removeOpen;
+            let removeOpen
 
             link.addEventListener( 'mouseover', e => {
-                e.preventDefault();
+                e.preventDefault()
 
-                clearTimeout( removeOpen );
+                clearTimeout( removeOpen )
 
                 if ( sub.classList.contains( displayClass ) !== true ) {
-                    sub.classList.add( displayClass );
+                    sub.classList.add( displayClass )
                 }
-            });
+            })
 
             link.addEventListener( 'mouseleave', e => {
-
                 removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass );
-                }, 200 );
-            });
+                    sub.classList.remove( displayClass )
+                }, 200 )
+            })
 
             menu.addEventListener( 'mouseover', () => {
-                
-                clearTimeout( removeOpen );
-            });
+                clearTimeout( removeOpen )
+            })
 
             menu.addEventListener( 'mouseleave', () => {
-
                 removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass );
-                }, 200 );
-            });
+                    sub.classList.remove( displayClass )
+                }, 200 )
+            })
 
-        });
+        })
 
     }, () => {
 
         subNavs.forEach( sub => {
 
-            let toggle = sub.children[1],
-                menu = sub.children[2];
+            const toggle = sub.children[1]
 
             toggle.addEventListener( 'click', e => {
-                e.preventDefault();
+                e.preventDefault()
 
-                sub.classList.toggle( displayClass );
-            });
+                sub.classList.toggle( displayClass )
+            })
 
-        });
-    });
+        })
+    }); // Semi-colon needed to prevent webpack from breaking
 
 
     //  ////  --|    Primary Logo Sizing
 
     ( logo => {
-        if ( ! logo ) return;
-
-        let svg = logo.children[0];
+        if ( ! logo ) return
+        let svg = logo.children[0]
 
         let viewbox = svg.getAttribute( 'viewBox' ),
             values  = viewbox.split( ' ' ),
-            width   = logo.offsetHeight * ( values[2] / values[3] );
+            width   = logo.offsetHeight * ( values[2] / values[3] )
 
-        svg.style.width = `${ width }px`;
+        svg.style.width = `${ width }px`
 
-    })( document.querySelector( '.site-logo' ) );
+    })( document.querySelector( '.site-logo' ) )
 
 })();
-
