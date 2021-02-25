@@ -28,6 +28,9 @@ img, video {
 //  --|    Body core styling
 :root {
     --border-radius: 4px;
+
+    --link-blue: #{$link-blue};
+    --link-blue-hover: #{$link-blue-hover};
 }
 
 body {

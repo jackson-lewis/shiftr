@@ -75,22 +75,25 @@ $headers:   'h1' 2.375rem calc( 5vw + 10px ) 4rem,
 //  ////  --|    Anchor Links
 
 a {
-    color: $primary;
-    font-weight: 700;
-    line-height: $base-line-height;
-    text-decoration: underline;
-
-    transition: 300ms;
-
-    &:hover {
-        text-decoration: none;
-    }
+    color: inherit;
+    text-decoration: none;
 }
 
 //  If <p> follows <a> then add margin-top
 //  to the <p> tag
 a + p {
     margin-top: get_baseline();
+}
+
+p a {
+    text-decoration: underline;
+    color: var( --link-blue );
+
+    transition: 50ms;
+
+    &:hover {
+        color: var( --link-blue-hover );
+    }
 }
 
 
