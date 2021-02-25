@@ -26,6 +26,9 @@ img, video {
 
 
 //  --|    Body core styling
+:root {
+    --border-radius: 4px;
+}
 
 body {
     --header-height: #{$default-header-height};

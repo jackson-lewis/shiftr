@@ -28,7 +28,7 @@
 
             color: $black;
             background-color: $white;
-            border-radius: 4px;
+            border-radius: var( --border-radius );
             box-shadow: 0 10px 10px rgba( $d-grey, .1 ),
                         0 20px 20px rgba( $d-grey, .1 );
             font-size: .875rem;
@@ -93,7 +93,7 @@
 
         background-color: $white;
         color: $black;
-        border-radius: 4px;
+        border-radius: var( --border-radius );
         box-shadow: 0 0 10px rgba( $d-grey, .1 ),
                     0 10px 20px rgba( $d-grey, .1 ),
                     0 20px 40px rgba( $d-grey, .1 );

@@ -32,7 +32,7 @@
     cursor: pointer;
 
     border: none;
-    border-radius: 4px;
+    border-radius: var( --border-radius );
     font-size: .875rem;
     line-height: $base-line-height;
     font-weight: 700;

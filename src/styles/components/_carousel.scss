@@ -148,7 +148,7 @@
                 display: block;
 
                 background-color: rgba( $primary, .4 );
-                border-radius: 4px;
+                border-radius: var( --border-radius );
 
                 transition: 400ms;
             }

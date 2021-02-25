@@ -37,7 +37,7 @@
 
     form {
         border: none;
-        border-radius: 8px;
+        border-radius: calc( var( --border-radius ) * 2 );
         box-shadow: 0 5px 10px rgba( $d-grey, .2 ),
                     0 15px 30px rgba( $d-grey, .1 );
     }
@@ -47,7 +47,7 @@
     .success {
         border-left: none;
         border: 1px solid $blue;
-        border-radius: 8px;
+        border-radius: var( --border-radius );
         font-size: 1rem;
     }
 
