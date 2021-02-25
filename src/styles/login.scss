@@ -20,6 +20,12 @@
 //  Foundation
 @import 'foundation/typography';
 
+:root {
+    --border-radius: 4px;
+
+    --link-blue: #{$link-blue};
+    --link-blue-hover: #{$link-blue-hover};
+}
 
 .login {
     background: linear-gradient( 0deg, $l-grey 0%, $white 100% );
@@ -48,6 +54,8 @@
         border-left: none;
         border: 1px solid $blue;
         border-radius: var( --border-radius );
+        background-color: transparent;
+        box-shadow: none;
         font-size: 1rem;
     }
 
