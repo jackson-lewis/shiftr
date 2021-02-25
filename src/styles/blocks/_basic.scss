@@ -18,6 +18,12 @@ section.site-section {
         }
     }
 
+    &.background-black {
+        .content {
+            @extend %inverted-button-base;
+        }
+    }
+
     &.block--content_image {
 
         div.content {

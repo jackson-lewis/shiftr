@@ -43,6 +43,8 @@
     }
 
     .hero-content {
+        @extend %inverted-button-base;
+        
         width: 100%;
         padding: 60px #{$site-padding / 2};
         display: flex;
