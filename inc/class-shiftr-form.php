@@ -221,6 +221,7 @@ class Shiftr_Form {
 
         if ( in_array( $args->type, $input_grouped_types ) ) {
             $wrap_atts['class'] .= ' field-type--input';
+            $field_atts['class'] = 'form-input';
 
         } else {
             $wrap_atts['class'] .= ' field-type--' . $args->type ;
@@ -312,6 +313,7 @@ class Shiftr_Form {
         // Add rows attribute if field is textarea
         if ( $args->type == 'textarea' ) {
             $field_atts['rows'] = $args->rows;
+            $field_atts['class'] = 'form-textarea';
         }
 
         if ( $args->type == 'file' ) {
@@ -329,6 +331,7 @@ class Shiftr_Form {
         if ( $args->type == 'submit' ) {
             $field_atts['type'] = 'submit';
             $field_atts['value'] = $args->value;
+            $field_atts['class'] = 'button-fill';
         }
 
         if ( $args->type == 'radio' ) {
