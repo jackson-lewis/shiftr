@@ -113,6 +113,7 @@ function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
  */
 
 function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr = [] ) {
+    global $post;
 
     if ( $id === null ) {
         $id = $post->ID;
