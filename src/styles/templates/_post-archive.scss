@@ -17,23 +17,23 @@
 
 
 .loop--posts {
-    max-width: 90rem;
+    max-width: 900px;
     margin: auto;
 
     .card--post {
-        margin-bottom: 2rem;
-        padding: 2rem;
+        margin-bottom: 20px;
+        padding: 20px;
 
         background-color: $l-grey;
-        border-radius: .4rem;
+        border-radius: 4px;
 
         .image {
-            max-height: 20rem;
-            margin-bottom: 1rem;
+            max-height: 200px;
+            margin-bottom: 10px;
             overflow: hidden;
             position: relative;
 
-            border-radius: .4rem;
+            border-radius: 4px;
 
             img {
                 @include object-fit();
@@ -42,7 +42,7 @@
 
         h3 {
             width: 100%;
-            margin-bottom: 1rem;
+            margin-bottom: 10px;
 
             object-fit: cover;
         }
@@ -62,7 +62,7 @@
         @include last_child();
 
         @include x( m ) {
-            @include grid( 2rem );
+            @include grid( 20px );
 
             grid-template:
                 "image details details" auto / 1fr 1fr 1fr;

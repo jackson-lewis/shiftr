@@ -66,29 +66,29 @@
 
             &.prev {
                 opacity: 0;
-                transform: translateX( calc( -100% - 2rem ) );
+                transform: translateX( calc( -100% - 20px ) );
             }
 
             &.next {
                 opacity: 0;
-                transform: translateX( calc( 100% + 2rem ) );
+                transform: translateX( calc( 100% + 20px ) );
             }
         }
     }
 
     .carousel-button,
     .carousel-button {
-        width: 4rem;
-        height: 4rem;
+        width: 40px;
+        height: 40px;
         position: absolute;
-        top: calc( 50% - 2rem );
+        top: calc( 50% - 20px );
         z-index: 20;
 
-        border-radius: 4rem;
+        border-radius: 40px;
         background: url( ../icons/chevron.svg ) no-repeat;
-        background-size: 1rem auto;
+        background-size: 10px auto;
         background-position: 50% 50%;
-        border: .1rem solid $primary;
+        border: 1px solid $primary;
     }
 
     .carousel-button:first-of-type {
@@ -103,21 +103,21 @@
 
     .carousel-nav {
         width: 100%;
-        max-width: 80rem;
+        max-width: 800px;
         margin: 0 auto;
-        padding-top: 1rem;
+        padding-top: 10px;
         display: flex;
         justify-content: center;
         z-index: 20;
         
         button {
-            width: 4rem;
-            height: 4rem;
-            margin: 0 .4rem;
+            width: 40px;
+            height: 40px;
+            margin: 0 4px;
             padding: 0;
             cursor: pointer;
 
-            border-radius: 2rem;
+            border-radius: 20px;
             border: none;
             background-color: transparent;
             outline: none;
@@ -143,12 +143,12 @@
 
             span {
                 width: 80%;
-                height: .4rem;
+                height: 4px;
                 margin: 0 10%;
                 display: block;
 
                 background-color: rgba( $primary, .4 );
-                border-radius: .2rem;
+                border-radius: 4px;
 
                 transition: 400ms;
             }

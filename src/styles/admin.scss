@@ -74,8 +74,8 @@ body#tinymce.wp-editor {
         }
 
         &:focus {
-            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                        0 .2rem 1rem rgba( $d-grey, .2 );
+            box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                        0 2px 10px rgba( $d-grey, .2 );
         }
     }
 
@@ -111,8 +111,8 @@ body#tinymce.wp-editor {
         }
 
         &:focus {
-            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                        0 .2rem 1rem rgba( $d-grey, .2 );
+            box-shadow: 0 0 .50px rgba( $d-grey, .2 ),
+                        0 2px 10px rgba( $d-grey, .2 );
         }
     }
 }

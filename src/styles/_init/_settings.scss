@@ -18,19 +18,19 @@ $breakpoints: (
 // This is the breakpoint value at which the header state changes
 // from mobile to desktop version.
 $header-breakpoint: 768;
-$default-header-height: 6rem;
+$default-header-height: 60px;
 
 
 //  ////  --|    Container
 
-$container-width:   124;
-$site-padding:      1rem;
+$container-width:   1240px;
+$site-padding:      10px;
 
 
 //  ////  --|    Typography
 
-$base-min-font-size:        1.6;
-$base-max-font-size:        1.8;
+$base-min-font-size:        1;
+$base-max-font-size:        1.125;
 $base-line-height:          1.75; // This should always be unitless
 
 $base-font-family:          'Nunito', sans-serif;

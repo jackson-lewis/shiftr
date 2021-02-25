@@ -18,9 +18,9 @@ header.site-header {
 
     background-color: rgba( $white, .90 );
     backdrop-filter: blur( 4px ) saturate( 180% );
-    box-shadow: 0 0 1rem rgba( $d-grey, .2 ),
-                0 0 3rem rgba( $d-grey, .15 ),
-                0 0 6rem rgba( $d-grey, .1 );
+    box-shadow: 0 0 10px rgba( $d-grey, .2 ),
+                0 0 30px rgba( $d-grey, .15 ),
+                0 0 60px rgba( $d-grey, .1 );
 
     div.container {
         height: 100%;
@@ -33,10 +33,10 @@ header.site-header {
     }
 
     .site-logo {
-        height: 4rem;
+        height: 40px;
         display: block;
         position: absolute;
-        top: 1rem;
+        top: 10px;
         left: 0;
         z-index: 50;
 
@@ -45,7 +45,7 @@ header.site-header {
         }
 
         @include x( $header-breakpoint ) {
-            margin-right: 4rem;
+            margin-right: 40px;
             position: relative;
             top: unset;
             left: unset;
@@ -64,7 +64,7 @@ header.site-header {
     width: 100%;
     max-height: calc( 100vh - $default-header-height );
     max-height: calc( 100vh - var( --header-height ) );
-    padding-bottom: 6rem;
+    padding-bottom: 60px;
     position: relative;
     top: $default-header-height;
     top: var( --header-height );

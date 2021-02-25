@@ -5,7 +5,7 @@
 */
 
 
-@mixin grid( $gap: 1rem ) {
+@mixin grid( $gap: 10px ) {
 
     display: grid;
     grid-gap: $gap;

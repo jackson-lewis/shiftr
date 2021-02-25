@@ -7,28 +7,28 @@
 
 table {
     width: 100%;
-    margin-bottom: 2.4rem;
+    margin-bottom: 24px;
 
     line-height: $base-line-height;
 
     // Uses same styling as <h6>
     th {
-        padding-bottom: 0rem;
+        padding-bottom: 0;
 
         color: $black;
-        font-size: 2rem;
+        font-size: 1.25rem;
         font-weight: 700;
         line-height: 1.5;
         text-align: left;
     }
 
     td {
-        padding-top: 1.8rem;
-        padding-bottom: 0.5rem;
+        padding-top: 18px;
+        padding-bottom: 5px;
 
-        border-bottom: 0.1rem solid $black;
+        border-bottom: 1px solid $black;
 
-        font-size: 1.6rem;
+        font-size: 1rem;
         font-weight: 400;
         line-height: $base-line-height;
     }

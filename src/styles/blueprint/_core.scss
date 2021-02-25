@@ -45,7 +45,7 @@ body {
     }
 
     @include x( $header-breakpoint ) {
-        --header-height: 6rem;
+        --header-height: 60px;
     }
 }
 
@@ -53,7 +53,7 @@ body {
 //  --|    Main core styling
 
 main.site-main {
-    padding-top: 10rem;
+    padding-top: 100px;
     position: relative;
 }
 
@@ -72,7 +72,7 @@ main.site-main {
 
 .container {
     width: 100%;
-    max-width: rem( $container-width );
+    max-width: $container-width;
     margin: 0 auto;
     position: relative;
 }
@@ -142,7 +142,7 @@ main.site-main {
 
 section {
 
-    $vertical-padding: 10rem;
+    $vertical-padding: 100px;
 
     &.site-section {
         @extend .site-padding;
@@ -153,7 +153,7 @@ section {
         &:first-of-type {
             &.background-black,
             &.background-grey {
-                margin-top: -10rem;
+                margin-top: -100px;
             }
         }
     }
@@ -179,7 +179,7 @@ section {
 
         & + .background-grey,
         & + .background-black {
-            margin-top: -10rem;
+            margin-top: -100px;
         }
     }
 

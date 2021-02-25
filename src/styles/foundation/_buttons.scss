@@ -6,17 +6,17 @@
 
 
 .content-button-wrapper {
-    margin: 0 -.5rem calc( #{get_baseline()} - 1rem );
+    margin: 0 -5px calc( #{get_baseline()} - 10px );
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 
     &:last-child {
-        margin-bottom: -1rem;
+        margin-bottom: -10px;
     }
 
     a[class^="button-"] {
-        margin: 0 .5rem 1rem;
+        margin: 0 5px 10px;
     }
 
     &[data-style*="center"] {
@@ -27,13 +27,13 @@
 
 %button {
     margin: 0;
-    padding: 1rem 2rem;
+    padding: 10px 20px;
     display: inline-block;
     cursor: pointer;
 
     border: none;
-    border-radius: 0.4rem;
-    font-size: 1.4rem;
+    border-radius: 4px;
+    font-size: .875rem;
     line-height: $base-line-height;
     font-weight: 700;
     text-transform: uppercase;
@@ -56,19 +56,19 @@
     }
 
     &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+        box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                    0 2px 10px rgba( $d-grey, .2 );
     }
 }
 
 .button-outline {
     @extend %button;
 
-    padding: .9rem 1.9rem;
+    padding: 9px 19px;
 
     color: $primary;
     background-color: transparent;
-    border: .1rem solid $primary;
+    border: 1px solid $primary;
 
     &:hover {
         color: $primary;
@@ -76,8 +76,8 @@
     }
 
     &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+        box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                    0 2px 10px rgba( $d-grey, .2 );
     }
 }
 
@@ -93,8 +93,8 @@
     }
 
     &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+        box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                    0 2px 10px rgba( $d-grey, .2 );
     }
 }
 

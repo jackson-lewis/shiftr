@@ -6,12 +6,12 @@
 
 
 .nav-primary--toggle {
-    width: 4.8rem;
-    height: 4.8rem;
-    padding: 1.55rem 0;
+    width: 48px;
+    height: 48px;
+    padding: 15.5px 0;
     display: inline-block;
     position: absolute;
-    top: .6rem;
+    top: 6px;
     right: 0;
     cursor: pointer;
     z-index: 50;
@@ -31,7 +31,7 @@
         z-index: -1;
 
         background-color: transparent;
-        border-radius: 2.4rem;
+        border-radius: 24px;
 
         transition: 300ms;
     }
@@ -47,11 +47,11 @@
     }
 
     span {
-        width: 2.6rem;
-        height: .1rem;
+        width: 26px;
+        height: 1px;
         display: block;
         position: absolute;
-        left: 1.1rem;
+        left: 11px;
 
         background-color: $black;
 
@@ -60,16 +60,16 @@
             transform-origin: 50% 50%;
 
             &:nth-child(1) {
-                top: 1.9rem;
+                top: 19px;
             }
 
             &:nth-child(2)  {
-                bottom: 1.9rem;
+                bottom: 19px;
             }
         }
 
         &.after {
-            top: 2.4rem;
+            top: 24px;
 
             visibility: hidden;
 
@@ -88,11 +88,11 @@
                 opacity: 0;
 
                 &:nth-child(1) {
-                    transform: translate( 0, .4rem );
+                    transform: translate( 0, 4px );
                 }
 
                 &:nth-child(2) {
-                    transform: translate( 0, -.4rem );
+                    transform: translate( 0, -4px );
                 }
             }
 

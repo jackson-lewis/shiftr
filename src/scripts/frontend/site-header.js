@@ -129,17 +129,15 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
     //  ////  --|    Primary Logo Sizing
 
     ( logo => {
-
         if ( ! logo ) return;
 
         let svg = logo.children[0];
 
         let viewbox = svg.getAttribute( 'viewBox' ),
             values  = viewbox.split( ' ' ),
-            ratio   = values[2] / values[3],
-            width   = ( logo.offsetHeight / 10 ) * ratio;
+            width   = logo.offsetHeight * ( values[2] / values[3] );
 
-        svg.style.width = `${ width }rem`;
+        svg.style.width = `${ width }px`;
 
     })( document.querySelector( '.site-logo' ) );
 

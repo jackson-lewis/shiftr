@@ -13,7 +13,7 @@
 
 ul, ol {
     margin: 0;
-    padding-left: 0.4rem;
+    padding-left: 4px;
 
     line-height: $base-line-height;
 
@@ -28,7 +28,7 @@ ul, ol {
 ul {
     list-style: circle outside;
 
-    padding-left: 2rem;
+    padding-left: 20px;
 }
 
 ol {
@@ -38,6 +38,6 @@ ol {
 // Support for nested lists (only 1 level)
 ul ul, ul ol, ol ol, ol ul {
     margin-bottom: 0;
-    padding-left: 3rem;
+    padding-left: 30px;
 }
 

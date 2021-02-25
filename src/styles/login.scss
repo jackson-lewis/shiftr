@@ -37,18 +37,18 @@
 
     form {
         border: none;
-        border-radius: .8rem;
-        box-shadow: 0 .5rem 1rem rgba( $d-grey, .2 ),
-                    0 1.5rem 3rem rgba( $d-grey, .1 );
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba( $d-grey, .2 ),
+                    0 15px 30px rgba( $d-grey, .1 );
     }
 
     #login_error,
     .message,
     .success {
         border-left: none;
-        border: .1rem solid $blue;
-        border-radius: .8rem;
-        font-size: 1.6rem;
+        border: 1px solid $blue;
+        border-radius: 8px;
+        font-size: 1rem;
     }
 
     #login_error {

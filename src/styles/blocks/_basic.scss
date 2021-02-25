@@ -21,7 +21,7 @@ section.site-section {
     &.block--content_image {
 
         div.content {
-            margin-bottom: 5rem;
+            margin-bottom: 50px;
         }
 
         @include x( l ) {
@@ -29,13 +29,13 @@ section.site-section {
             div.container {
                 width: auto;
                 display: grid;
-                grid-gap: 3rem;
+                grid-gap: 30px;
                 grid-template: 'b__ci_content b__ci_image' auto / 1fr 1fr;
             }
             
             div.content {
                 margin: 0;
-                padding: 4rem 0;
+                padding: 40px 0;
                 grid-area: b__ci_content;
             }
 
@@ -71,7 +71,7 @@ section.site-section {
         @include x( 1200 ) {
             
             div.content {
-                padding: 4rem 5rem;
+                padding: 40px 50px;
             }
         }
     }

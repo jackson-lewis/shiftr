@@ -10,11 +10,6 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; border: 0 }
 
 
 //  ////  --|    Core Styling
-
-html {
-    font-size: 62.5%; // This causes 1rem to equal 10px
-}
-
 body, input, textarea, button, select {
     font-family: $base-font-family;
     font-weight: 400;
@@ -55,12 +50,12 @@ h1, h2, h3, h4, h5, h6 {
     color: inherit;
 }
 
-$headers:   'h1' 3.8rem calc( 5vw + 1rem ) 6.4rem,
-            'h2' 3.2rem calc( 4vw + 1rem ) 5rem,
-            'h3' 2.6rem calc( 3vw + 1rem ) 3.8rem,
-            'h4' 2.2rem calc( 2vw + .5rem ) 3rem,
-            'h5' 1.8rem calc( 2vw + .5rem ) 2.4rem,
-            'h6' 1.6rem calc( 2vw + .5rem ) 1.8rem;
+$headers:   'h1' 2.375rem calc( 5vw + 10px ) 4rem,
+            'h2' 2rem calc( 4vw + 10px ) 3.125rem,
+            'h3' 1.625rem calc( 3vw + 10px ) 2.375rem,
+            'h4' 1.375rem calc( 2vw + 5px ) 1.875rem,
+            'h5' 1.125rem calc( 2vw + 5px ) 1.5rem,
+            'h6' 1rem calc( 2vw + 5px ) 1.125rem;
 
 @each $heading in $headers {
 
@@ -108,11 +103,11 @@ $blockquotes: false;
     blockquote {
         max-width: line_width();
 
-        margin: 0 auto 2.4rem auto;
-        padding: 0.7rem 0rem 1.7rem 4rem;
+        margin: 0 auto 24px auto;
+        padding: 7px 0 17px 40px;
         position: relative;
 
-        font-size: 2.8rem;
+        font-size: 1.75rem;
         font-style: italic;
         line-height: 1.5;
 
@@ -121,14 +116,14 @@ $blockquotes: false;
         @if ( $caption ) {
 
             span {
-                margin-top: 0.9rem;
-                padding-top: 0.5rem;
-                padding-bottom: 0.9rem;
+                margin-top: 9px;
+                padding-top: 5px;
+                padding-bottom: 9px;
                 display: block;
 
-                border-top: 0.1rem solid $primary;
+                border-top: 1px solid $primary;
 
-                font-size: 1.6rem;
+                font-size: 1rem;
                 font-style: normal;
                 font-weight: 700;
                 line-height: 1.5;
@@ -139,11 +134,11 @@ $blockquotes: false;
         @include before {
             content: "\201C"; 
 
-            top: 1.8rem;
-            left: 0.6rem;
+            top: 18px;
+            left: 6px;
 
             color: $primary;
-            font-size: 5.6rem;
+            font-size: 3.5rem;
             line-height: 1;
         }
     }
