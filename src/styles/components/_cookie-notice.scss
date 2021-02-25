@@ -14,17 +14,17 @@
 
 
 .shiftr-cookie-notice {
-    width: 100vw;
+    width: calc( 100vw - 8px );
     max-width: 500px;
     padding: 10px 20px;
     position: fixed;
-    left: 0;
-    bottom: 0;
+    left: 4px;
+    bottom: 4px;
     transform: translateY( calc( 100% + 10px ) );
     z-index: 9999;
     
     opacity: 0;
-    background-color: rgba( $l-grey, .96 );
+    background-color: $l-grey;
     border-radius: var( --border-radius );
     box-shadow: 0 0 10px rgba( $d-grey, .2 ),
                 0 0 30px rgba( $d-grey, .15 ),
@@ -52,7 +52,6 @@
 
     button.button-fill {
         margin-right: 10px;
-        padding: 7.5px 15px;
     }
 
     @include x( m ) {
