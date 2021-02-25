@@ -186,6 +186,7 @@ select {
         position: relative;
         display: inline-block;
         z-index: 20;
+        cursor: pointer;
 
         vertical-align: middle;
     }  
@@ -249,6 +250,7 @@ select {
             position: relative;
             display: inline-block;
             z-index: 20;
+            cursor: pointer;
 
             vertical-align: middle;
         }
