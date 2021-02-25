@@ -13,8 +13,8 @@ $shiftr->font_host = 'https://fonts.gstatic.com/';
  */
 $shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
 
-/** Toggle the use of lazy loading */
-$shiftr->lazy_loading = true;
+/** Toggle the use of lazy loading on background-images */
+$shiftr->bg_lazy_loading = true;
 
 /** Toggle display of cookie notice on the frontend */
 $shiftr->cookie_notice = true;

@@ -165,5 +165,5 @@ function shiftr_is_sending_form() {
 function shiftr_lazy_loading_enabled() {
     global $shiftr;
 
-    return $shiftr->lazy_loading;
+    return apply_filters( 'shiftr_lazy_loading_enabled', $shiftr->bg_lazy_loading );
 }
