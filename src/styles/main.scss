@@ -24,7 +24,6 @@
 @import 'foundation/inputs';
 @import 'foundation/specials';
 @import 'foundation/table';
-@import 'foundation/menu-toggle';
 
 
 //  Core Page Layout
@@ -36,6 +35,7 @@
 //  Components
 @import 'components/cookie-notice';
 @import 'components/nav';
+@import 'components/mobile-menu';
 @import 'components/hero';
 @import 'components/form';
 @import 'components/accordion';

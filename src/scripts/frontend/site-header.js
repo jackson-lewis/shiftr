@@ -3,126 +3,149 @@
  * the hamburger menu and dropdown menus. It would also be where 
  * to handle a search bar should one exist.
  */
-import { Layout, x } from '../inc/global'
+import { Layout, x, vh } from '../inc/global'
 
 
 const { header, body } = Layout; // Semi-colon here forces Layout to not be a function...
 
 
 ( () => {
-
-    //  ////  --|    Top-level variables
-
-    const toggle    = document.querySelector( '.nav-primary--toggle' ),
-          nav       = document.querySelector( '.nav-primary' ),
-          subNavs   = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : []
-
-
-    // Check nav actually exists before going any further
-    if ( ! nav ) return
+    const mobileMenuTrigger  = document.querySelector( '#mobile-menu-trigger' ),
+          mobileMenuClose    = document.querySelector( '#mobile-menu-close' ),
+          mobileMenu         = document.querySelector( 'nav.nav-primary-mobile' ),
+          mobileMenuSubMenus = mobileMenu?.querySelectorAll( 'li.has-sub-menu' ) || [],
+          menu               = document.querySelector( 'header.site-header nav.nav-primary' ),
+          menuSubMenus       = menu?.querySelectorAll( 'li.has-sub-menu' ) || [],
+          headerWrapper      = header.parentElement
 
 
-    //  ////  --|    Toggle hidden navigation
-        
-    const headerTransitionHeight = '100vh'
+    /**
+     * Sticky peek-a-boo header
+     */
+    let previousScroll = 0
+    const displayStickyHeader = () => {
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop
+        const threshold = vh() / 4
 
-    const stop = e => {
-        e.stopPropagation()
-    }
+        /** Sticky header can only be available after the threshold */
+        if ( scrollPos >= threshold ) {
+            header.classList.add( 'pre-set-sticky' )
 
-    const toggleMenu = e => {
-        e.stopPropagation()
+            setTimeout( () => {
+                header.classList.add( 'set-sticky' )
+            }, 50 )
 
-        toggle.classList.toggle( 'transition' )
-        header.classList.toggle( 'offset-is-expanded' )
-        body.classList.toggle( 'no-scroll' )
-        
-        if ( header.offsetHeight > nav.offsetHeight ) {
-            header.setAttribute( 'style', '' )
-        } else {
-            header.style.height = headerTransitionHeight
-        }
-    }
-
-    const toggleWindow = () => {
-        toggle.classList.remove( 'transition' )
-        header.classList.remove( 'offset-is-expanded' )
-        header.setAttribute( 'style', '' )
-        body.classList.remove( 'no-scroll' )
-    }
-
-    x( 1024, () => {
-        toggle.removeEventListener( 'click', toggleMenu )
-        nav.removeEventListener( 'click', stop )
-        window.removeEventListener( 'click', toggleWindow )
-
-    }, () => {
-        toggle.addEventListener( 'click', toggleMenu )
-        nav.addEventListener( 'click', stop )
-        window.addEventListener( 'click', toggleWindow )
-
-    }, true )
-
-
-    //  ////  --|    Sub-menu
-    nav.classList.add( subNavs.length <= 0 ? 'has-no-sub-navs' : 'has-sub-navs' )
-    const displayClass = 'is-visible'
-    
-    x( 1024, () => {
-
-        subNavs.forEach( sub => {
-            const link = sub.children[0],
-                  menu = sub.children[2]
-
-            let removeOpen
-
-            link.addEventListener( 'mouseover', e => {
-                e.preventDefault()
-
-                clearTimeout( removeOpen )
-
-                if ( sub.classList.contains( displayClass ) !== true ) {
-                    sub.classList.add( displayClass )
+            /** Catch scroll up */
+            if ( scrollPos < previousScroll ) {
+                
+                /** Match scroll up against a threshold that must be reached */
+                if ( previousScroll > scrollPos + 60 ) {
+                    header.classList.add( 'is-visible' )
+                } else {
+                    return
                 }
-            })
 
-            link.addEventListener( 'mouseleave', e => {
-                removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass )
-                }, 200 )
-            })
+            } else {
+                header.classList.remove( 'is-visible' )
+            }
 
-            menu.addEventListener( 'mouseover', () => {
-                clearTimeout( removeOpen )
-            })
+        } else if ( scrollPos > previousScroll || scrollPos <= 0 ) {
+            header.classList.remove( 'pre-set-sticky', 'set-sticky', 'is-visible' )
+        }
 
-            menu.addEventListener( 'mouseleave', () => {
-                removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass )
-                }, 200 )
-            })
+        previousScroll = scrollPos
+    }
+    window.addEventListener( 'scroll', displayStickyHeader, { passive: true } )
 
+
+    /**
+     * Mobile menu
+     */
+    mobileMenu.addEventListener( 'click', e => e.stopPropagation() )
+
+    const openMobileMenu = e => {
+        e.stopPropagation()
+
+        mobileMenu.setAttribute( 'aria-hidden', false )
+        headerWrapper.classList.add( 'mobile-menu-active' )
+        body.classList.add( 'no-scroll', 'overlay-active' )
+
+        setTimeout( () => {
+            window.addEventListener( 'click', closeMobileMenu )
+        }, 200 )
+    }
+    mobileMenuTrigger.addEventListener( 'click', openMobileMenu )
+
+    const closeMobileMenu = e => {
+        e.preventDefault()
+
+        mobileMenu.setAttribute( 'aria-hidden', true )
+        headerWrapper.classList.remove( 'mobile-menu-active' )
+        body.classList.remove( 'no-scroll', 'overlay-active' )
+
+        setTimeout( () => {
+            window.removeEventListener( 'click', closeMobileMenu )
+        }, 200 )
+    }
+    mobileMenuClose.addEventListener( 'click', closeMobileMenu )
+
+
+    /**
+     * Sub menu event handling
+     */
+    menu?.classList.add( menuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
+    mobileMenu?.classList.add( mobileMenuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
+    const displayClass = 'is-visible'
+
+    // Primary sub-menus
+    menuSubMenus.forEach( ({ children, classList }) => {
+        const link = children[0],
+              subMenuEl = children[1]
+
+        let removeOpen
+
+        link.addEventListener( 'mouseover', e => {
+            e.preventDefault()
+
+            clearTimeout( removeOpen )
+
+            if ( classList.contains( displayClass ) !== true ) {
+                classList.add( displayClass )
+            }
         })
 
-    }, () => {
-
-        subNavs.forEach( sub => {
-
-            const toggle = sub.children[1]
-
-            toggle.addEventListener( 'click', e => {
-                e.preventDefault()
-
-                sub.classList.toggle( displayClass )
-            })
-
+        link.addEventListener( 'mouseleave', e => {
+            removeOpen = setTimeout( () => {
+                classList.remove( displayClass )
+            }, 200 )
         })
-    }); // Semi-colon needed to prevent webpack from breaking
+
+        subMenuEl.addEventListener( 'mouseover', () => {
+            clearTimeout( removeOpen )
+        })
+
+        subMenuEl.addEventListener( 'mouseleave', () => {
+            removeOpen = setTimeout( () => {
+                classList.remove( displayClass )
+            }, 200 )
+        })
+    })
+
+    // Mobile sub-menus
+    mobileMenuSubMenus.forEach( subMenu => {
+        const toggle = subMenu.children[1]
+
+        toggle.addEventListener( 'click', e => {
+            e.preventDefault()
+            subMenu.classList.toggle( displayClass )
+        })
+    })
 
 
-    //  ////  --|    Primary Logo Sizing
-
-    ( logo => {
+    /**
+     * Dynamically size SVG site logo
+     */
+    ;( logo => {
         if ( ! logo ) return
         let svg = logo.children[0]
 

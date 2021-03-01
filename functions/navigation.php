@@ -35,11 +35,27 @@ function shiftr_nav_primary() {
             'container'         => 'nav',
             'container_class'   => 'nav-primary',
             'menu_class'        => '',
-            'menu_id'           => '',
+            'menu_id'           => 'nav-primary',
             'theme_location'    => 'header-primary',
             'depth'             => 3,
             'fallback_cb'       => false,
             'walker'            => new Shiftr_Nav_Primary_Walker()
+        )
+    );
+}
+
+function shiftr_nav_primary_mobile() {
+
+    wp_nav_menu( 
+        array(
+            'container'         => 'nav',
+            'container_class'   => 'nav-primary-mobile',
+            'menu_class'        => '',
+            'menu_id'           => 'nav-primary-mobile',
+            'theme_location'    => 'header-primary',
+            'depth'             => 3,
+            'fallback_cb'       => false,
+            'walker'            => new Shiftr_Nav_Primary_Mobile_Walker()
         )
     );
 }
