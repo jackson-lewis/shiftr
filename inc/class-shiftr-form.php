@@ -319,7 +319,7 @@ class Shiftr_Form {
         if ( $args->type == 'file' ) {
             
             if ( isset( $args->file_types ) ) {
-                $field_atts['accept'] = $args->file_types;
+                $field_atts['accept'] = shiftr_form_get_file_types( (array) $args, 'attr' );
             }
 
             if ( isset( $args->allow_multiple ) && $args->allow_multiple ) {
