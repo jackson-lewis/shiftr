@@ -99,7 +99,7 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
 // Register the Shiftr forms post type
 $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
     array(
-        'label'         => 'Form Data',
+        'label'         => 'Form Submissions',
         'name'          => 'shiftr_form_data',
         'plural'        => false
     ),
@@ -128,8 +128,8 @@ add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type
 
     if ( $post_type == 'shiftr_form_data' ) {
 
-        $args['labels']['all_items'] = 'Data';
-        $args['labels']['edit_item'] = 'View Data';
+        $args['labels']['all_items'] = 'Submissions';
+        $args['labels']['edit_item'] = 'View Submission';
     }
 
     return $args;
@@ -142,7 +142,7 @@ add_filter( 'manage_shiftr_form_data_posts_columns', function( $columns ) {
     unset( $columns['title'] );
     unset( $columns['date'] );
 
-    $columns['data_id']         = 'Data ID';
+    $columns['data_id']         = 'Submission ID';
     $columns['data_date']       = 'Date';
     $columns['data_from_form']  = 'Form';
 
@@ -413,11 +413,12 @@ function shiftr_form_data_get_content() {
             $key = 0;
 
             foreach ( $content as $name => $value ) :
-
                 $field = $form_instance->fields[ $key ];
+
+                $label = isset( $field['label']  ) ? $field['label'] : $name;
             ?>
             <tr>
-                <td><?php echo esc_html( strtoupper( shiftr_to_nicename( $name ) ) ); ?></td>
+                <td><?php echo esc_html( strtoupper( shiftr_to_nicename( $label ) ) ); ?></td>
                 <td><?php echo esc_html( wp_unslash( $value ) ); ?></td>
             </tr>
             <?php $key++; endforeach; ?>

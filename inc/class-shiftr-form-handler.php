@@ -185,8 +185,12 @@ class Shiftr_Form_Handler {
 
         // Ignores the 'include_in_send' field setting
         foreach ( $this->form_instance->fields as $field ) {
-
             $_value = $this->get_value( $field['name'] );
+
+            // Don't capture accept terms and conditions field
+            if ( $field['name'] == 'accept_terms' ) {
+                continue;
+            }
 
             // Sanitize field value based on field type
             switch( $field['type'] ) {
@@ -352,7 +356,7 @@ class Shiftr_Form_Handler {
 
             $table_contents .= ( $i % 2 ) ? '<tr style="background-color:rgba(120,120,120,0.25);">' : '<tr>';
 
-            $table_contents .= '<td style="width:160px;padding:15px 20px;color:#555555;font-weight:700;text-align:right;">'. ucwords( $field['name'] ) .'</td>';
+            $table_contents .= '<td style="width:160px;padding:15px 20px;color:#555555;font-weight:700;text-align:right;">'. ucwords( $field['label'] ?: $field['name'] ) .'</td>';
             $table_contents .=  '<td style="padding:15px 20px;">'. wp_unslash( $value ) .'</td>';
             
             $table_contents .= '</tr>';
