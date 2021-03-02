@@ -415,48 +415,10 @@ function shiftr_form_data_get_content() {
             foreach ( $content as $name => $value ) :
 
                 $field = $form_instance->fields[ $key ];
-
-                
-                if ( $field['type'] == 'file' ) {
-
-                    $files = get_post_meta( $post->ID, 'shiftr_form_data_files', true );
-
-                    $files = unserialize( $files );
-
-                    $upload_dir = wp_upload_dir();
-                    $shiftr_upload_dir = $upload_dir['baseurl'] . '/shiftr-forms/';
-
-                    $file_value = array();
-
-                    foreach ( $files as $file ) {
-
-                        $file_value[] = '<a href="' . esc_url( $shiftr_upload_dir . $file ) . '" target="_blank">' . esc_html( $file ) . '</a>';
-                    }
-                }
-
             ?>
             <tr>
-                <td><?= esc_html( strtoupper( shiftr_to_nicename( $name ) ) ); ?></td>
-                <td>
-                <?php 
-
-                if ( $field['type'] == 'file' ) {
-                    echo wp_kses(
-                        wp_unslash( implode( ', ', $file_value ) ),
-                        array(
-                            'a' => array(
-                                'href' => array(),
-                                'target' => array()
-                            )
-                        )
-                    );
-
-                } else {
-                    echo esc_html( wp_unslash( $value ) );
-                }
-
-                ?>
-                </td>
+                <td><?php echo esc_html( strtoupper( shiftr_to_nicename( $name ) ) ); ?></td>
+                <td><?php echo esc_html( wp_unslash( $value ) ); ?></td>
             </tr>
             <?php $key++; endforeach; ?>
         </tbody>
