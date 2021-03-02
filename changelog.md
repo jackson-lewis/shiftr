@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v1.4
+*02/03/21*
+
+This is a big one! It has been a whole 5 months since the last update so there is lots to cram into this one.
+
+* Changed html `font-size` value back to default, causing `1rem` to equal `16px`.
+* All new header and brand new mobile menu which works better on larger screens where necessary.
+* All new Buttons! These have been fully rebuilt and more accessibilty and make use of `:focus-visible`. `<button>` also no longer have Shiftr button styling applied by default, this makes working with custom buttons much easier. There is a new generic `.button` class if needed.
+* General cleanup of JavaScript files, changed `let` to `const` where appropriate
+* `input` selector in styles is more responsibily set, not using `:not()` anymore which made it harder to override.
+* The login screen has had minor styling tweaks.
+* Anchor `<a>` tag is no longer underlined globally.
+* Hello CSS variables! The only global use currently is for setting a globally defined `border-radius` with `--border-radius`.
+* The `last-child` mixin has beened udpated from `:last-of-type` to `:last-child` which is better suited for more use-cases.
+* Shiftr's implementation of native lazy loading has been removed in favour of WordPress' core implementation. Although Shiftr's version has been re-purposed to work specifically with background-images via a `.lazy-bg` selector.
+* `.js` clas gets added to `<html>` element on page load for specific JS-only styles
+* Updated browserlist
+
+
+#### Form updates
+* Security patch, the whole file attachment process has been rebuilt, and safe guards against unsafe files.
+* SMTP support has been removed as this has not been successfully integrated.
+* The way a form is registered to WordPress as a post has been imrpoved, it is now more reliable and less error prone.
+* The wording of "Data" has been changed to "Submission" as it is more obvious.
+
+
 ## v1.3.2
 *09/10/20*
 
