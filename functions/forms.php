@@ -35,7 +35,7 @@
     //          ),
     //          array(
     //              'type'      => 'checkbox',
-    //              'name'      => 'accept',
+    //              'name'      => 'accept_terms',
     //              'label'     => 'I agree to the Terms & Conditions.',
     //              'include_in_send' => false
     //          )
