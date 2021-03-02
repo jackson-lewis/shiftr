@@ -92,7 +92,7 @@
 
 // Last Child bottom styling removal
 @mixin last-child( $padding: false ) {
-    &:last-of-type {
+    &:last-child {
         
         @if $padding == false {
             margin-bottom: 0;

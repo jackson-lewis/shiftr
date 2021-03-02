@@ -55,11 +55,11 @@ const polyfill__forEach = () => {
 const polyfill__objectFit = () => {
 
     const doPolyfill = () => {
-        let images = document.getElementsByTagName( 'img' );
+        const images = document.getElementsByTagName( 'img' );
     
-        for ( var i = 0; i < images.length; i++ ) {
+        for ( let i = 0; i < images.length; i++ ) {
 
-            let img = images[i],
+            const img = images[i],
                 img_styles = window.getComputedStyle( img );
 
             if ( img_styles.getPropertyValue( 'font-family' ) == '"object-fit"' ) {

@@ -1,11 +1,11 @@
 /**
  * Core document elements
  */
-let header    = document.querySelector( 'header.site-header' ),    
-    head      = document.getElementsByTagName( 'head' )[0],
-    body      = document.body;
+const header    = document.querySelector( 'header.site-header' ),    
+      head      = document.getElementsByTagName( 'head' )[0],
+      body      = document.body;
 
-const Layout = { header, head, body };
+const Layout = { header, head, body }
 
 
 /**
@@ -16,7 +16,7 @@ const Layout = { header, head, body };
  */
 function createEl( el ) {
 
-    return document.createElement( el );
+    return document.createElement( el )
 }
 
 
@@ -26,7 +26,7 @@ function createEl( el ) {
  * @return {integer} The window.innerWidth
  */
 function vw() {
-    return window.innerWidth;
+    return window.innerWidth
 }
 
 
@@ -36,7 +36,7 @@ function vw() {
  * @return {integer} The window.innerHeight
  */
 function vh() {
-    return window.innerHeight;
+    return window.innerHeight
 }
 
 
@@ -45,11 +45,11 @@ function vh() {
     * Ensure breakpoint settings match those set in the styles
 */
 
-let s   = 's';
-let m   = 'm';
-let l   = 'l';
-let xl  = 'xl';
-let max = 'max';
+const s   = 's';
+const m   = 'm';
+const l   = 'l';
+const xl  = 'xl';
+const max = 'max';
 
 
 /**
@@ -61,37 +61,37 @@ let max = 'max';
  * @param {boolean} runOnce Whether to run only on load
  */
 function x( width, fn, callback = () => {}, runOnce = false ) {
-    var value;
+    let value
 
     switch ( width ) {
-        case s:     value = 450; break;
-        case m:     value = 768; break;
-        case l:     value = 1024; break;
-        case xl:    value = 1600; break;
-        case max:   value = 1920; break;
-        default:    value = width;
+        case s:     value = 450; break
+        case m:     value = 768; break
+        case l:     value = 1024; break
+        case xl:    value = 1600; break
+        case max:   value = 1920; break
+        default:    value = width
     }
 
-    let run = () => {
-        var allow = false;
+    const run = () => {
+        let allow = false
 
         if ( vw() >= value ) {
             if ( runOnce && ! allow ) return;
-            fn();
+            fn()
 
-            allow = false;
+            allow = false
 
         } else {
             if ( runOnce && allow ) return;
-            callback();
+            callback()
 
-            allow = true;
+            allow = true
         } 
     }
 
-    document.addEventListener( 'DOMContentLoaded', run );
-    window.addEventListener( 'resize', run );
-    window.addEventListener( 'orientationchange', run );
+    document.addEventListener( 'DOMContentLoaded', run )
+    window.addEventListener( 'resize', run )
+    window.addEventListener( 'orientationchange', run )
 }
 
 /**

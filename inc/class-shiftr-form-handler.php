@@ -12,9 +12,6 @@ class Shiftr_Form_Handler {
     /* int The form ID */
     var $form_ID = 0;
 
-    /* array SMTP contants */
-    var $SMTP_constants = array( 'HOST', 'AUTH', 'PORT', 'USERNAME', 'PASSWORD', 'SECURE' );
-
     /* null Store the phpmailerException if there is one */
     var $error = null;
 
@@ -23,6 +20,9 @@ class Shiftr_Form_Handler {
 
     /* int The assigned ID of the data post */
     var $data_ID = 0;
+
+    /** string The current secret dir for uploads */
+    var $secret_uploads_dir;
 
 
     /**  
@@ -96,7 +96,7 @@ class Shiftr_Form_Handler {
 
         $this->verification();
 
-        $this->manage_attachments();
+        $this->maybe_upload_attachments();
 
         // Check data capture is enabled
         if ( $shiftr->forms->capture ) {
@@ -185,8 +185,12 @@ class Shiftr_Form_Handler {
 
         // Ignores the 'include_in_send' field setting
         foreach ( $this->form_instance->fields as $field ) {
-
             $_value = $this->get_value( $field['name'] );
+
+            // Don't capture accept terms and conditions field
+            if ( $field['name'] == 'accept_terms' ) {
+                continue;
+            }
 
             // Sanitize field value based on field type
             switch( $field['type'] ) {
@@ -224,11 +228,6 @@ class Shiftr_Form_Handler {
 
         add_post_meta( $this->data_ID, 'shiftr_form_data_content', base64_encode( serialize( $data ) ) );
         add_post_meta( $this->data_ID, 'shiftr_form_data_form_id', $this->form_ID );
-
-        if ( ! empty( $this->files ) ) {
-
-            add_post_meta( $this->data_ID, 'shiftr_form_data_files', serialize( $this->files['filename'] ) );
-        }
 
         do_action( 'shiftr_form_handler_capture_after', $this->form_instance, $data, $this->data_ID );
     }
@@ -284,11 +283,8 @@ class Shiftr_Form_Handler {
         $recepients = apply_filters( 'shiftr_form_handler_recepients', $recepients, $this->form );
         $headers = apply_filters( 'shiftr_form_handler_headers', $headers, $this->form );
 
-        // Configure $phpmailer to use SMTP if credentials available
-        $this->trySMTP();
-
         // Try and sent the form
-        if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files['absolute'] ) ) {
+        if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
 
             $output = true;
 
@@ -296,12 +292,7 @@ class Shiftr_Form_Handler {
             $output = 'mail_not_sent';
         }
 
-
-        // Delete all files if capture is not enabled
-        if ( ! $shiftr->forms->capture ) {
-
-            foreach ( $this->files as $file ) unlink( $file );
-        }
+        do_action( 'shiftr_form_handle_after', $this );
 
         // Return string to JS function
         wp_die( $output );
@@ -365,7 +356,7 @@ class Shiftr_Form_Handler {
 
             $table_contents .= ( $i % 2 ) ? '<tr style="background-color:rgba(120,120,120,0.25);">' : '<tr>';
 
-            $table_contents .= '<td style="width:160px;padding:15px 20px;color:#555555;font-weight:700;text-align:right;">'. ucwords( $field['name'] ) .'</td>';
+            $table_contents .= '<td style="width:160px;padding:15px 20px;color:#555555;font-weight:700;text-align:right;">'. ucwords( $field['label'] ?: $field['name'] ) .'</td>';
             $table_contents .=  '<td style="padding:15px 20px;">'. wp_unslash( $value ) .'</td>';
             
             $table_contents .= '</tr>';
@@ -386,26 +377,14 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  manage_attachments
-     *
-     *  Find all files and attach to email
+     *  Upload attachments if any
      *
      *  @since 1.0
      */
 
-    function manage_attachments() {
+    function maybe_upload_attachments() {
 
-        $upload_dir = wp_upload_dir();
-        $shiftr_upload_dir = $upload_dir['basedir'] . '/shiftr-form-attachments';
-
-        if ( ! file_exists( $shiftr_upload_dir ) ) {
-            wp_mkdir_p( $shiftr_upload_dir );
-        }
-
-        $files = array(
-            'absolute' => array(),
-            'filename' => array()
-        );
+        $files = array();
 
         foreach ( $this->form_instance->fields as $field ) {
 
@@ -422,10 +401,14 @@ class Shiftr_Form_Handler {
 
             if ( $field['type'] == 'file' ) {
 
-                $file = $this->upload_attachment( $field['name'] );
+                if ( $this->validate_attachment( $field ) || true ) {
+                    $file = $this->upload_attachment( $field['name'] );
 
-                $files['absolute'][] = $file['absolute'];
-                $files['filename'][] = $file['filename'];
+                    $files[] = $file['path'];
+
+                } else {
+                    wp_die( 'file_upload_failed' );
+                }
             }
         }
 
@@ -441,25 +424,106 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
 
-    function upload_attachment( $field_name = '' ) {
-
+    function upload_attachment( $field_name = '', $field = null ) {
         $file = $_FILES[ '_' . $this->form_ID . '_' . $field_name ];
 
-        $upload_dir = wp_upload_dir();
-        $shiftr_upload_dir = $upload_dir['basedir'] . '/shiftr-form-attachments';
+        $secret_dir = $this->generate_secret_dir( $field_name );
+        $this->secret_uploads_dir = $secret_dir;
 
-        $filepath = $shiftr_upload_dir . '' . basename( $file['name'] );
-        $file_type = strtolower( pathinfo( $filepath, PATHINFO_EXTENSION ) );
+        add_filter( 'upload_dir', array( $this, 'uploads_filter' ) );
+        
+        $upload = wp_handle_upload( $file, array(
+            'test_form' => false
+        ));
 
-        $target_file_name = $field_name . '_' . $this->form_ID . '__' . date( 'j-m-Y-H-i-s' ) . '.' . $file_type;
-        $target_file = $shiftr_upload_dir . '/' . $target_file_name;
+        remove_filter( 'upload_dir', array( $this, 'uploads_filter' ) );
 
-        if ( move_uploaded_file( $file['tmp_name'], $target_file ) ) {
+        if ( $upload && ! isset( $upload['error'] ) ) {
+            add_action( 'shiftr_form_handle_after', array( $this, 'delete_uploaded_files' ) );
 
-            return array( 'absolute' => $target_file, 'filename' => $target_file_name );
+            return array(
+                'path' => $upload['file']
+            );
+        }
 
-        } else {
-            return '';
+        return array();
+    }
+
+
+    /**
+     * Validate the file
+     * 
+     * @since 1.3.5
+     */
+    function validate_attachment( $field ) {
+        $file = $_FILES[ '_' . $this->form_ID . '_' . $field['name'] ];
+
+        if ( ! empty( $file['error'] ) && $file['error'] !== UPLOAD_ERR_NO_FILE ) {
+            return false;
+        }
+
+        if ( empty( $file['tmp_name'] ) ) {
+            return false;
+        }
+        
+        /** Validate file type */
+        $file_type_pattern = shiftr_form_get_file_types( $field );
+        $file_type_pattern = '/\.(' . $file_type_pattern . ')$/i';
+
+        if ( empty( $file['name'] ) || ! preg_match( $file_type_pattern, $file['name'] ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function uploads_filter( $args ) {
+        $secret_dir = '/' . $this->secret_uploads_dir;
+
+        if ( $secret_dir ) {
+            $args['path'] = str_replace( $args['subdir'], '', $args['path'] );
+            $args['url'] = str_replace( $args['subdir'], '', $args['url'] );
+            $args['subdir'] = $secret_dir;
+            $args['path'] .= $secret_dir;
+            $args['url'] .= $secret_dir;
+    
+            if ( ! file_exists( $args['path'] ) ) {
+                wp_mkdir_p( $args['path'] );
+            }
+        }
+
+        return $args;
+    }
+
+    function generate_secret_dir( $field_name ) {
+        return md5( $this->form_ID . $field_name );
+    }
+
+
+    function delete_uploaded_files( $handler ) {
+        $uploads = wp_get_upload_dir();
+
+        foreach ( $this->form_instance->fields as $field ) {
+
+            $defaults = array(
+                'type'              => '',
+                'name'              => '',
+                'required'          => true,
+                'label'             => '',
+                'include_in_send'   => true,
+                'rows'              => 4
+            );
+
+            $field = wp_parse_args( $field, $defaults );
+
+            if ( $field['type'] == 'file' ) {
+                $dir = $uploads['basedir'] . '/' . $this->generate_secret_dir( $field['name'] );
+
+                if ( is_dir( $dir ) ) {
+                    array_map( 'unlink', glob( $dir . '/*' ) );
+                    rmdir( $dir );
+                }
+            }
         }
     }
 
@@ -507,52 +571,6 @@ class Shiftr_Form_Handler {
         }
 
         return $formatted;
-    }
-
-
-    /**  
-     *  trySMTP
-     *
-     *  Attempt to use SMTP if credentials can be found
-     *
-     *  @since 1.0
-     */
-
-    function trySMTP() {
-
-        if ( ! defined( 'SHIFTR_FORM_USE_SMTP' ) ) return;
-
-        if ( SHIFTR_FORM_USE_SMTP ) {
-            add_action( 'phpmailer_init', array( $this, 'SMTP' ) );
-        }
-    }
-
-
-    /**  
-     *  SMTP
-     *
-     *  Use SMTP
-     *
-     *  @since 1.0
-     */
-
-    function SMTP( $phpmailer ) {
-
-        // Check all the SMTP contants are defined before proceeding
-        foreach ( $this->SMTP_constants as $constant ) {
-
-            if ( ! defined( "SHIFTR_FORM_SMTP_{$constant}" ) ) return false;
-        }
-
-        $phpmailer->isSMTP();
-        $phpmailer->isHTML( true );
-        
-        $phpmailer->SMTPAuth    = SHIFTR_FORM_SMTP_AUTH;
-        $phpmailer->SMTPSecure  = SHIFTR_FORM_SMTP_SECURE;
-        $phpmailer->Host        = SHIFTR_FORM_SMTP_HOST;
-        $phpmailer->Port        = SHIFTR_FORM_SMTP_PORT;
-        $phpmailer->Username    = SHIFTR_FORM_SMTP_USERNAME;
-        $phpmailer->Password    = SHIFTR_FORM_SMTP_PASSWORD;
     }
 
 

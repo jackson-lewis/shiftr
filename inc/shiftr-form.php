@@ -99,7 +99,7 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
 // Register the Shiftr forms post type
 $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
     array(
-        'label'         => 'Form Data',
+        'label'         => 'Form Submissions',
         'name'          => 'shiftr_form_data',
         'plural'        => false
     ),
@@ -128,8 +128,8 @@ add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type
 
     if ( $post_type == 'shiftr_form_data' ) {
 
-        $args['labels']['all_items'] = 'Data';
-        $args['labels']['edit_item'] = 'View Data';
+        $args['labels']['all_items'] = 'Submissions';
+        $args['labels']['edit_item'] = 'View Submission';
     }
 
     return $args;
@@ -142,7 +142,7 @@ add_filter( 'manage_shiftr_form_data_posts_columns', function( $columns ) {
     unset( $columns['title'] );
     unset( $columns['date'] );
 
-    $columns['data_id']         = 'Data ID';
+    $columns['data_id']         = 'Submission ID';
     $columns['data_date']       = 'Date';
     $columns['data_from_form']  = 'Form';
 
@@ -413,50 +413,13 @@ function shiftr_form_data_get_content() {
             $key = 0;
 
             foreach ( $content as $name => $value ) :
-
                 $field = $form_instance->fields[ $key ];
 
-                
-                if ( $field['type'] == 'file' ) {
-
-                    $files = get_post_meta( $post->ID, 'shiftr_form_data_files', true );
-
-                    $files = unserialize( $files );
-
-                    $upload_dir = wp_upload_dir();
-                    $shiftr_upload_dir = $upload_dir['baseurl'] . '/shiftr-form-attachments/';
-
-                    $file_value = array();
-
-                    foreach ( $files as $file ) {
-
-                        $file_value[] = '<a href="' . esc_url( $shiftr_upload_dir . $file ) . '" target="_blank">' . esc_html( $file ) . '</a>';
-                    }
-                }
-
+                $label = isset( $field['label']  ) ? $field['label'] : $name;
             ?>
             <tr>
-                <td><?= esc_html( strtoupper( shiftr_to_nicename( $name ) ) ); ?></td>
-                <td>
-                <?php 
-
-                if ( $field['type'] == 'file' ) {
-                    echo wp_kses(
-                        wp_unslash( implode( ', ', $file_value ) ),
-                        array(
-                            'a' => array(
-                                'href' => array(),
-                                'target' => array()
-                            )
-                        )
-                    );
-
-                } else {
-                    echo esc_html( wp_unslash( $value ) );
-                }
-
-                ?>
-                </td>
+                <td><?php echo esc_html( strtoupper( shiftr_to_nicename( $label ) ) ); ?></td>
+                <td><?php echo esc_html( wp_unslash( $value ) ); ?></td>
             </tr>
             <?php $key++; endforeach; ?>
         </tbody>
@@ -479,3 +442,67 @@ function shiftr_form_get_error() {
     echo '</code></pre>';
 }
 
+
+/**
+ * Get the accepted file types for a file input
+ * 
+ * @since 1.4
+ * @param array $field The field 
+ * @param string $format The format to return, regex or attribute
+ * @return string The list of file types in the requested format
+ */
+function shiftr_form_get_file_types( $field, $format = 'regex' ) {
+
+    $file_types = array();
+    $formatted_file_types = array();
+
+    $default_file_types = array(
+        'png',
+        'jpg',
+        'jpeg',
+        'gif',
+        'pdf',
+        'doc',
+        'docx',
+        'ppt',
+        'pptx',
+        'pages',
+        'keynote'
+    );
+
+    if ( empty( $field['file_types'] ) ) {
+        $file_types = $default_file_types;
+
+    } else {
+        $file_types = explode( ',', $field['file_types'] );
+    }
+
+    if ( is_array( $file_types ) ) {
+
+        foreach ( $file_types as $type ) {
+
+            if ( is_string( $type ) ) {
+                $type = preg_split( '/[\s,]+/', $type );
+            }
+
+            $formatted_file_types = array_merge( $formatted_file_types, (array) $type );
+        }
+
+        $formatted_file_types = array_unique( array_filter( $formatted_file_types ) );
+    }
+
+    $output = '';
+
+    foreach ( $file_types as $type ) {
+        $type = trim( $type, ' ,|' );
+
+        if ( $format === 'attr' ) {
+            $output .= sprintf( '.%s,', $type );
+        } else {
+            $output .= $type;
+            $output .= '|';
+        }
+    }
+
+    return trim( $output, ' ,|' );
+}

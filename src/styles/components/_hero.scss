@@ -43,8 +43,10 @@
     }
 
     .hero-content {
+        @extend %inverted-button-base;
+        
         width: 100%;
-        padding: 6rem #{$site-padding / 2};
+        padding: 60px #{$site-padding / 2};
         display: flex;
         align-items: flex-end;
         position: relative;
@@ -56,7 +58,7 @@
 
         h1 {
             max-width: none;
-            margin-bottom: 2rem;
+            margin-bottom: 20px;
 
             font-weight: 400;
             color: inherit;
@@ -66,7 +68,7 @@
             margin-left: auto;
             margin-right: auto;
 
-            font-size: calc( 1.752rem + 0.13vw );
+            font-size: calc( 1.125rem + 0.13vw );
             line-height: 2;
         }
 
@@ -74,18 +76,18 @@
             margin-bottom: 0;
 
             &[class="content-button-wrapper"] {
-                margin-bottom: -1.5rem;
+                margin-bottom: -15px;
             }
         }
 
         .content-button-wrapper {
-            margin: 0 -1.5rem -1.5rem;
+            margin: 0 -15px -15px;
             justify-content: center;
 
             a[class^="button-"] {
                 min-width: 70%;
-                max-width: 40rem;
-                margin: 0 1.5rem 1.5rem;
+                max-width: 400px;
+                margin: 0 15px 15px;
             }
         }
     }
@@ -101,7 +103,7 @@
     @include x( m ) {
         
         .hero-content {
-            padding: 8rem #{$site-padding / 2};
+            padding: 80px #{$site-padding / 2};
 
             .content-button-wrapper {
 
@@ -128,7 +130,7 @@
     @include x( xl ) {
 
         .hero-content {
-            padding: 12rem $site-padding;
+            padding: 120px $site-padding;
         }
     }
 }
@@ -137,8 +139,8 @@
 .hero--standard {
     @extend %hero;
 
-    min-height: calc( 100vh - 6rem );
-    max-height: 120rem;
+    min-height: calc( 100vh - 60px );
+    max-height: 1200px;
 
     .hero-gallery {
         .carousel-stage {

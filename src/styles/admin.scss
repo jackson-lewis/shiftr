@@ -19,6 +19,10 @@ body#tinymce.wp-editor {
         text-shadow: none;
     }
 
+    :root {
+        --border-radius: 4px;
+    }
+
     h1, h2, h3, h4, h5, h6 {
 
         font-family: $heading-font-family;
@@ -50,7 +54,7 @@ body#tinymce.wp-editor {
         cursor: pointer;
 
         border: none;
-        border-radius: 4px;
+        border-radius: var( --border-radius );
         font-size: 14px;
         line-height: $base-line-height;
         font-weight: 700;
@@ -74,8 +78,8 @@ body#tinymce.wp-editor {
         }
 
         &:focus {
-            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                        0 .2rem 1rem rgba( $d-grey, .2 );
+            box-shadow: 0 0 5px rgba( $d-grey, .2 ),
+                        0 2px 10px rgba( $d-grey, .2 );
         }
     }
 
@@ -111,8 +115,8 @@ body#tinymce.wp-editor {
         }
 
         &:focus {
-            box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                        0 .2rem 1rem rgba( $d-grey, .2 );
+            box-shadow: 0 0 .50px rgba( $d-grey, .2 ),
+                        0 2px 10px rgba( $d-grey, .2 );
         }
     }
 }

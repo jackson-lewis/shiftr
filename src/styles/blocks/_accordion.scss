@@ -20,8 +20,8 @@ section.site-section {
                     }
                 }
 
-                $box-shadow: 0 0 1rem rgba( $l-grey, .1 ),
-                             0 0 3rem rgba( $l-grey, .05 );
+                $box-shadow: 0 0 10px rgba( $l-grey, .1 ),
+                             0 0 30px rgba( $l-grey, .05 );
 
                 &:hover {
                     box-shadow: $box-shadow;

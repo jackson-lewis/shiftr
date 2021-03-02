@@ -76,23 +76,32 @@ class Shiftr_Form {
      */
 
     function get_form_ID() {
+        $form_post_id = 0;
 
-        $form_post = get_page_by_title( $this->form, OBJECT, 'shiftr_form' );
+        $form_post = get_posts( array(
+            'post_type' => 'shiftr_form',
+            'name' => $this->form,
+            'numberposts' => 1,
+            'fields' => 'ids'
+        ));
+
+        if ( ! empty( $form_post ) ) {
+            $form_post_id = array_shift( $form_post );
+        }
 
         // Create post if one does not exist
-        if ( ! $form_post instanceof WP_Post ) {
+        if ( $form_post_id <= 0 ) {
 
             $form_post_id = wp_insert_post( array(
                 'post_author' => 1,
                 'post_title' => $this->nicename,
+                'post_name' => $this->form,
                 'post_status' => 'publish',
                 'post_type' => 'shiftr_form'
             ));
-
-            $form_post = get_post( $form_post_id );
         }
 
-        return $form_post->ID;
+        return $form_post_id;
     }
 
 
@@ -221,6 +230,7 @@ class Shiftr_Form {
 
         if ( in_array( $args->type, $input_grouped_types ) ) {
             $wrap_atts['class'] .= ' field-type--input';
+            $field_atts['class'] = 'form-input';
 
         } else {
             $wrap_atts['class'] .= ' field-type--' . $args->type ;
@@ -312,12 +322,13 @@ class Shiftr_Form {
         // Add rows attribute if field is textarea
         if ( $args->type == 'textarea' ) {
             $field_atts['rows'] = $args->rows;
+            $field_atts['class'] = 'form-textarea';
         }
 
         if ( $args->type == 'file' ) {
             
             if ( isset( $args->file_types ) ) {
-                $field_atts['accept'] = $args->file_types;
+                $field_atts['accept'] = shiftr_form_get_file_types( (array) $args, 'attr' );
             }
 
             if ( isset( $args->allow_multiple ) && $args->allow_multiple ) {
@@ -329,6 +340,7 @@ class Shiftr_Form {
         if ( $args->type == 'submit' ) {
             $field_atts['type'] = 'submit';
             $field_atts['value'] = $args->value;
+            $field_atts['class'] = 'button-fill';
         }
 
         if ( $args->type == 'radio' ) {

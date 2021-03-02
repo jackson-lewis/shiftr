@@ -3,145 +3,158 @@
  * the hamburger menu and dropdown menus. It would also be where 
  * to handle a search bar should one exist.
  */
-import { Layout, x } from '../inc/global'
+import { Layout, vh } from '../inc/global'
 
 
 const { header, body } = Layout; // Semi-colon here forces Layout to not be a function...
 
 
 ( () => {
-
-    //  ////  --|    Top-level variables
-
-    let toggle    = document.querySelector( '.nav-primary--toggle' ),
-        nav       = document.querySelector( '.nav-primary' ),
-        subNavs   = nav ? nav.querySelectorAll( 'li.has-sub-menu' ) : [];
-
-
-    // Check nav actually exists before going any further
-    if ( ! nav ) return;
+    const mobileMenuTrigger  = document.querySelector( '#mobile-menu-trigger' ),
+          mobileMenuClose    = document.querySelector( '#mobile-menu-close' ),
+          mobileMenu         = document.querySelector( '.mobile-menu' ),
+          mobileMenuSubMenus = mobileMenu?.querySelectorAll( 'li.has-sub-menu' ) || [],
+          menu               = document.querySelector( 'header.site-header nav.nav-primary' ),
+          menuSubMenus       = menu?.querySelectorAll( 'li.has-sub-menu' ) || [],
+          headerWrapper      = header.parentElement
 
 
-    //  ////  --|    Toggle hidden navigation
-        
-    let headerTransitionHeight = '100vh';
+    /**
+     * Sticky peek-a-boo header
+     */
+    let previousScroll = 0
+    const displayStickyHeader = () => {
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop
+        const threshold = vh() / 4
 
-    let stop = e => {
-        e.stopPropagation();
-    }
+        /** Sticky header can only be available after the threshold */
+        if ( scrollPos >= threshold ) {
+            header.classList.add( 'pre-set-sticky' )
 
-    let toggleMenu = e => {
-        e.stopPropagation();
+            setTimeout( () => {
+                header.classList.add( 'set-sticky' )
+            }, 50 )
 
-        toggle.classList.toggle( 'transition' );
-        header.classList.toggle( 'offset-is-expanded' );
-        body.classList.toggle( 'no-scroll' );
-        
-        if ( header.offsetHeight > nav.offsetHeight ) {
-            header.setAttribute( 'style', '' );
-        } else {
-            header.style.height = headerTransitionHeight;
-        }
-    };
-
-    let toggleWindow = () => {
-        toggle.classList.remove( 'transition' );
-        header.classList.remove( 'offset-is-expanded' );
-        header.setAttribute( 'style', '' );
-        body.classList.remove( 'no-scroll' );
-    };
-
-    x( 1024, () => {
-        toggle.removeEventListener( 'click', toggleMenu );
-        nav.removeEventListener( 'click', stop );
-        window.removeEventListener( 'click', toggleWindow );
-
-    }, () => {
-        toggle.addEventListener( 'click', toggleMenu );
-        nav.addEventListener( 'click', stop );
-        window.addEventListener( 'click', toggleWindow );
-
-    }, true );
-
-
-    //  ////  --|    Sub-menu
-
-    nav.classList.add( subNavs.length <= 0 ? 'has-no-sub-navs' : 'has-sub-navs' );
-
-    let displayClass = 'is-visible';
-    
-    x( 1024, () => {
-
-        subNavs.forEach( sub => {
-
-            let link = sub.children[0],
-                menu = sub.children[2],
-                removeOpen;
-
-            link.addEventListener( 'mouseover', e => {
-                e.preventDefault();
-
-                clearTimeout( removeOpen );
-
-                if ( sub.classList.contains( displayClass ) !== true ) {
-                    sub.classList.add( displayClass );
-                }
-            });
-
-            link.addEventListener( 'mouseleave', e => {
-
-                removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass );
-                }, 200 );
-            });
-
-            menu.addEventListener( 'mouseover', () => {
+            /** Catch scroll up */
+            if ( scrollPos < previousScroll ) {
                 
-                clearTimeout( removeOpen );
-            });
+                /** Match scroll up against a threshold that must be reached */
+                if ( previousScroll > scrollPos + 60 ) {
+                    header.classList.add( 'is-visible' )
+                } else {
+                    return
+                }
 
-            menu.addEventListener( 'mouseleave', () => {
+            } else {
+                header.classList.remove( 'is-visible' )
+            }
 
-                removeOpen = setTimeout( () => {
-                    sub.classList.remove( displayClass );
-                }, 200 );
-            });
+        } else if ( scrollPos > previousScroll || scrollPos <= 0 ) {
+            header.classList.remove( 'pre-set-sticky', 'set-sticky', 'is-visible' )
+        }
 
-        });
-
-    }, () => {
-
-        subNavs.forEach( sub => {
-
-            let toggle = sub.children[1],
-                menu = sub.children[2];
-
-            toggle.addEventListener( 'click', e => {
-                e.preventDefault();
-
-                sub.classList.toggle( displayClass );
-            });
-
-        });
-    });
+        previousScroll = scrollPos
+    }
+    window.addEventListener( 'scroll', displayStickyHeader, { passive: true } )
 
 
-    //  ////  --|    Primary Logo Sizing
+    /**
+     * Mobile menu
+     */
+    mobileMenu.addEventListener( 'click', e => e.stopPropagation() )
 
-    ( logo => {
+    const openMobileMenu = e => {
+        e.stopPropagation()
 
-        if ( ! logo ) return;
+        mobileMenu.setAttribute( 'aria-hidden', false )
+        headerWrapper.classList.add( 'mobile-menu-active' )
+        body.classList.add( 'no-scroll', 'overlay-active' )
 
-        let svg = logo.children[0];
+        setTimeout( () => {
+            window.addEventListener( 'click', closeMobileMenu )
+        }, 200 )
+    }
+    mobileMenuTrigger.addEventListener( 'click', openMobileMenu )
+
+    const closeMobileMenu = e => {
+        e.preventDefault()
+
+        mobileMenu.setAttribute( 'aria-hidden', true )
+        headerWrapper.classList.remove( 'mobile-menu-active' )
+        body.classList.remove( 'no-scroll', 'overlay-active' )
+
+        setTimeout( () => {
+            window.removeEventListener( 'click', closeMobileMenu )
+        }, 200 )
+    }
+    mobileMenuClose.addEventListener( 'click', closeMobileMenu )
+
+
+    /**
+     * Sub menu event handling
+     */
+    menu?.classList.add( menuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
+    mobileMenu.querySelector( 'nav' )?.classList.add( mobileMenuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
+    const displayClass = 'is-visible'
+
+    // Primary sub-menus
+    menuSubMenus.forEach( ({ children, classList }) => {
+        const link = children[0],
+              subMenuEl = children[1]
+
+        let removeOpen
+
+        link.addEventListener( 'mouseover', e => {
+            e.preventDefault()
+
+            clearTimeout( removeOpen )
+
+            if ( classList.contains( displayClass ) !== true ) {
+                classList.add( displayClass )
+            }
+        })
+
+        link.addEventListener( 'mouseleave', e => {
+            removeOpen = setTimeout( () => {
+                classList.remove( displayClass )
+            }, 200 )
+        })
+
+        subMenuEl.addEventListener( 'mouseover', () => {
+            clearTimeout( removeOpen )
+        })
+
+        subMenuEl.addEventListener( 'mouseleave', () => {
+            removeOpen = setTimeout( () => {
+                classList.remove( displayClass )
+            }, 200 )
+        })
+    })
+
+    // Mobile sub-menus
+    mobileMenuSubMenus.forEach( subMenu => {
+        const toggle = subMenu.children[1]
+
+        toggle.addEventListener( 'click', e => {
+            e.preventDefault()
+            subMenu.classList.toggle( displayClass )
+        })
+    })
+
+
+    /**
+     * Dynamically size SVG site logo
+     */
+    ;( logo => {
+        if ( ! logo ) return
+        let svg = logo.children[0]
 
         let viewbox = svg.getAttribute( 'viewBox' ),
             values  = viewbox.split( ' ' ),
-            ratio   = values[2] / values[3],
-            width   = ( logo.offsetHeight / 10 ) * ratio;
+            width   = logo.offsetHeight * ( values[2] / values[3] )
 
-        svg.style.width = `${ width }rem`;
+        svg.style.width = `${ width }px`
 
-    })( document.querySelector( '.site-logo' ) );
+    })( document.querySelector( '.site-logo' ) )
 
 })();
-

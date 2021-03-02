@@ -6,10 +6,10 @@
 body.single-post {
 
     main.site-main {
-        padding-top: 6rem;
+        padding-top: 60px;
 
         @include x( m ) {
-            padding-top: 8rem;
+            padding-top: 80px;
         }
     }
 }
@@ -26,7 +26,7 @@ body.single-post {
             padding-top: 33%;
             overflow: hidden;
 
-            border-radius: .4rem;
+            border-radius: var( --border-radius );
 
             img {
                 @include object-fit;

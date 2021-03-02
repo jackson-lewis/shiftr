@@ -4,7 +4,7 @@
 class ShiftrComponent {
 
     componentSlug() {
-        return ``
+        return ''
     }
 
     defaultSettings() {
@@ -55,13 +55,13 @@ class ShiftrComponent {
 function strToBool( str ) {
 
     if ( str.match( /^true$/i ) ) {
-        return true;
+        return true
 
     } else if ( str.match( /^false$/i ) ) {
-        return false;
+        return false
 
     } else {
-        return str;
+        return str
     }
 }
 
@@ -86,12 +86,12 @@ function parseComponentData( settings = {}, el, component = '' ) {
         Object.keys( settings ).forEach( s => {
 
             if ( el.hasAttribute( `data-${component}-${s}` ) ) {
-                settings[s] = strToBool( el.getAttribute( `data-${component}-${s}` ) );
+                settings[s] = strToBool( el.getAttribute( `data-${component}-${s}` ) )
             }
-        });
+        })
     }
 
-    return settings;
+    return settings
 }
 
 
@@ -111,12 +111,12 @@ function generateComponentID( el, component = '' ) {
     // Check if element already has id set
     if ( el.hasAttribute( 'id' ) ) return el.id;
 
-    let $ID = `${component}_` + Math.floor( Math.random() * Math.floor( 100 ) );
+    const $ID = `${component}_` + Math.floor( Math.random() * Math.floor( 100 ) )
 
     // Rerun if element with id already exists
-    if ( document.getElementById( $ID ) ) generateComponentID( el, component );
+    if ( document.getElementById( $ID ) ) generateComponentID( el, component )
 
-    return $ID;
+    return $ID
 }
 
 export default ShiftrComponent

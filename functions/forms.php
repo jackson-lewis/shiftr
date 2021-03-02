@@ -23,9 +23,10 @@
     //              'name'      => 'email'
     //          ),
     //          array(
-    //              'type'      => 'tel',
-    //              'name'      => 'phone',
-    //              'required'  => false
+    //              'type'      => 'file',
+    //              'name'      => 'cv',
+    //              'required'  => false,
+    //              'file_types' => 'pdf,docx'
     //          ),
     //          array(
     //              'type'      => 'textarea',
@@ -34,7 +35,7 @@
     //          ),
     //          array(
     //              'type'      => 'checkbox',
-    //              'name'      => 'accept',
+    //              'name'      => 'accept_terms',
     //              'label'     => 'I agree to the Terms & Conditions.',
     //              'include_in_send' => false
     //          )

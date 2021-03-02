@@ -14,7 +14,7 @@ $labels: true;
     label {
         display: block;
 
-        font-size: 1.4rem;
+        font-size: .875rem;
         font-weight: 700;
         line-height: $base-line-height;
         color: $d-grey;
@@ -25,18 +25,18 @@ $labels: true;
 
 
 //  ////  --|    Input fields
-
-input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), textarea {
+.form-input,
+.form-textarea {
     width: 100%;
-    max-width: 50rem;
-    padding: .8rem 3.4rem .8rem 1.6rem;
+    max-width: 500px;
+    padding: 8px 34px 8px 16px;
     display: block;
 
     line-height: 1;
 
     background-color: $l-grey;
     border: none;
-    border-radius: 0.4rem;
+    border-radius: var( --border-radius );
     -webkit-appearance: none;
     transition: 200ms;
 
@@ -57,10 +57,10 @@ input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), tex
     @if ( $labels ) {
 
         label {
-            padding-left: 1rem;
+            padding-left: 10px;
 
             text-transform: uppercase;
-            letter-spacing: .15rem;
+            letter-spacing: .009rem;
         }
     }
 }
@@ -73,13 +73,13 @@ input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), tex
         position: relative;
 
         @include after {
-            width: .8rem;
-            height: .8rem;
+            width: 8px;
+            height: 8px;
             top: 50%;
-            right: 1rem;
+            right: 10px;
             transform: translateY( -50% );
         
-            border-radius: .5rem;
+            border-radius: 5px;
             background-color: transparent;
 
             transition: 200ms cubic-bezier( .2, .7, .5, 1.3 );
@@ -111,7 +111,7 @@ input:not([type="submit"],[type="button"],[type="checkbox"],[type="radio"]), tex
 
 //  --|    TEXTAREA
 
-textarea {
+.form-textarea {
     line-height: $base-line-height;
 
     resize: none;
@@ -122,15 +122,15 @@ textarea {
 
 select {
     width: 100%;
-    height: 4rem;
-    padding: .8rem 3.4rem .8rem 1.6rem;
+    height: 40px;
+    padding: 8px 34px 8px 16px;
     display: block;
 
     line-height: $base-line-height;
 
     background-color: $l-grey;
     border: none;
-    border-radius: 0.4rem;
+    border-radius: var( --border-radius );
     appearance: none;
     outline: 0;
 }
@@ -142,7 +142,9 @@ select {
 .field-type--checkbox {
     
     input {
-        appearance: none;
+        width: 1px;
+        height: 1px;
+        position: absolute;
         opacity: 0;
 
         &:checked + label span.custom-checkbox {
@@ -151,28 +153,33 @@ select {
                 transform: scale( 1 );
             }
         }
+
+        &:focus-visible + label {
+            border-radius: var( --border-radius );
+            box-shadow: 0 0 0 2px $white, 0 0 0 4px $black;
+        }
     }
 
     span.custom-checkbox {
-        width: 1.4rem;
-        height: 1.4rem;
+        width: 14px;
+        height: 14px;
         display: block;
         position: absolute;
-        top: calc( 50% - .1rem );
+        top: calc( 50% - 1px );
         left: 0;
         transform: translateY( -50% );
         z-index: 10;
 
-        border-radius: .4rem;
-        border: .1rem solid $primary;
+        border-radius: var( --border-radius );
+        border: 1px solid $primary;
         
         @include after {
-            width: 1rem;
-            height: 1rem;
-            top: .1rem;
-            left: .1rem;
+            width: 10px;
+            height: 10px;
+            top: 1px;
+            left: 1px;
 
-            border-radius: .3rem;
+            border-radius: calc( var( --border-radius ) - 1px );
             background-color: $primary;
             transform: scale( 0 );
 
@@ -182,10 +189,11 @@ select {
 
     label {
         padding-bottom: 0;
-        padding-left: 2.5rem;
+        padding-left: 25px;
         position: relative;
         display: inline-block;
         z-index: 20;
+        cursor: pointer;
 
         vertical-align: middle;
     }  
@@ -217,25 +225,25 @@ select {
         }
 
         span.custom-radio {
-            width: 1.4rem;
-            height: 1.4rem;
+            width: 14px;
+            height: 14px;
             display: block;
             position: absolute;
-            top: calc( 50% - .1rem );
+            top: calc( 50% - 1px );
             left: 0;
             transform: translateY( -50% );
             z-index: 10;
 
-            border-radius: .4rem;
-            border: .1rem solid $primary;
+            border-radius: var( --border-radius );
+            border: 1px solid $primary;
             
             @include after {
-                width: 1rem;
-                height: 1rem;
-                top: .1rem;
-                left: .1rem;
+                width: 10px;
+                height: 10px;
+                top: 1px;
+                left: 1px;
 
-                border-radius: .3rem;
+                border-radius: calc( var( --border-radius ) - 1px );
                 background-color: $primary;
                 transform: scale( 0 );
 
@@ -245,10 +253,11 @@ select {
 
         label {
             padding-bottom: 0;
-            padding-left: 2.5rem;
+            padding-left: 25px;
             position: relative;
             display: inline-block;
             z-index: 20;
+            cursor: pointer;
 
             vertical-align: middle;
         }

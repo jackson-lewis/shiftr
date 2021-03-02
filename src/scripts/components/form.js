@@ -16,7 +16,7 @@ export default class Form extends ShiftrComponent {
     cssRequested = false
 
     componentSlug() {
-        return `form`
+        return 'form'
     }
 
     defaultSettings() {
@@ -39,8 +39,8 @@ export default class Form extends ShiftrComponent {
     constructor( ...args ) {
         super( ...args )
 
-        this.fields = this.target.querySelectorAll( `input:not([type="hidden"]):not([type="submit"]), textarea, select` )
-        this.submitButton = this.target.querySelector( `[type="submit"]` )
+        this.fields = this.target.querySelectorAll( 'input:not([type="hidden"]):not([type="submit"]), textarea, select' )
+        this.submitButton = this.target.querySelector( '[type="submit"]' )
         this.submitButtonOrgLabel = this.submitButton.innerHTML
 
         this.actionClass = this.settings.validationClasses
@@ -53,7 +53,7 @@ export default class Form extends ShiftrComponent {
     init() {
         this.fieldEvents()
         this.submitButton.addEventListener( 'mouseover', this.getStyles.bind( this ) );
-        this.target.addEventListener( `submit`, this.submit.bind( this ) )
+        this.target.addEventListener( 'submit', this.submit.bind( this ) )
     }
 
 
@@ -69,20 +69,20 @@ export default class Form extends ShiftrComponent {
             const { parentElement: fieldWrapper } = field
             field.validateErrorActive = false
 
-            if ( field.nodeName === `SELECT` ) {
-                field.addEventListener( `change`, () => {
+            if ( field.nodeName === 'SELECT' ) {
+                field.addEventListener( 'change', () => {
                     fieldWrapper.classList.add( success )
                 })
 
             } else {
-                if ( field.type != `checkbox` && field.type != `radio` ) {
+                if ( field.type != 'checkbox' && field.type != 'radio' ) {
                     
-                    field.addEventListener( `focus`, () => {
+                    field.addEventListener( 'focus', () => {
                         this.getStyles()
                         fieldWrapper.classList.add( focus )
                     })
     
-                    field.addEventListener( `blur`, () => {
+                    field.addEventListener( 'blur', () => {
                         fieldWrapper.classList.remove( focus, success, error )
     
                         if ( this.settings.validate && field.value != '' ) {
@@ -97,10 +97,10 @@ export default class Form extends ShiftrComponent {
                         }
                     })
 
-                } else if ( field.type == `checkbox` || field.type == `radio` ) {
+                } else if ( field.type == 'checkbox' || field.type == 'radio' ) {
 
                     if ( this.settings.validate ) {
-                        field.addEventListener( 'change', e => {
+                        field.addEventListener( 'change', () => {
         
                             if ( field.checked ) {
                                 fieldWrapper.classList.remove( error )
@@ -133,19 +133,19 @@ export default class Form extends ShiftrComponent {
      */
     displayValidationError( field ) {
         const { parentElement: fieldWrapper } = field
-        const notice = createEl( 'span' );
+        const notice = createEl( 'span' )
 
-        notice.classList.add( 'validation' );
-        notice.innerHTML = field.validationMessage;
-        fieldWrapper.appendChild( notice );
-
-        setTimeout( () => {
-            notice.classList.add( 'pop' );
-        }, 200 );
+        notice.classList.add( 'validation' )
+        notice.innerHTML = field.validationMessage
+        fieldWrapper.appendChild( notice )
 
         setTimeout( () => {
-            this.clearValidationError( field );
-        }, 6000 );
+            notice.classList.add( 'pop' )
+        }, 200 )
+
+        setTimeout( () => {
+            this.clearValidationError( field )
+        }, 6000 )
     }
 
 
@@ -156,15 +156,15 @@ export default class Form extends ShiftrComponent {
      */
     clearValidationError( field ) {
         const { parentElement: fieldWrapper } = field
-        const notice = fieldWrapper.querySelector( 'span.validation' );
+        const notice = fieldWrapper.querySelector( 'span.validation' )
         
         if ( notice ) {
-            notice.classList.remove( 'pop' );
+            notice.classList.remove( 'pop' )
 
             setTimeout( () => {
-                fieldWrapper.removeChild( notice );
+                fieldWrapper.removeChild( notice )
                 field.validateErrorActive = false
-            }, 400 );
+            }, 400 )
         }
     }
 
@@ -208,7 +208,7 @@ export default class Form extends ShiftrComponent {
     /**
      * @param {string} response The responseText from the XMLHttpRequest
      */
-    displaySubmitMessage( response = `` ) {
+    displaySubmitMessage( response = '' ) {
 
         const message = {
             wrapper: createEl( 'div' ),
@@ -218,12 +218,12 @@ export default class Form extends ShiftrComponent {
             errorRef: createEl( 'span' ),
             close: createEl( 'button' ),
             copy: {
-                heading: ``,
-                content: ``
+                heading: '',
+                content: ''
             }
         }
 
-        message.wrapper.classList.add( 'form-submission' );
+        message.wrapper.classList.add( 'form-submission' )
 
         const { submitMessageCopy } = this.settings
 
@@ -232,46 +232,46 @@ export default class Form extends ShiftrComponent {
 
             // '1' equals true. 
             case '1':
-                message.copy.heading = submitMessageCopy.successHeading;
-                message.copy.content = submitMessageCopy.successBody;
-                break;
+                message.copy.heading = submitMessageCopy.successHeading
+                message.copy.content = submitMessageCopy.successBody
+                break
 
             case 'invalid_email_address':
-                message.copy.heading = 'Security Issue!';
-                message.copy.content = 'The request was blocked because of an invalid email address.';
-                break;
+                message.copy.heading = 'Security Issue!'
+                message.copy.content = 'The request was blocked because of an invalid email address.'
+                break
 
             default:
-                message.copy.heading = submitMessageCopy.errorHeading;
-                message.copy.content = submitMessageCopy.errorBody;
+                message.copy.heading = submitMessageCopy.errorHeading
+                message.copy.content = submitMessageCopy.errorBody
         }
 
 
         if ( response.match( /[1-9]{1}_field[s]?_missing/g ) ) {
-            message.copy.heading = 'Security Issue!';
-            message.copy.content = 'The request was blocked because some fields were missing.';
+            message.copy.heading = 'Security Issue!'
+            message.copy.content = 'The request was blocked because some fields were missing.'
         }
 
 
-        message.heading.innerHTML = message.copy.heading;
-        message.content.innerHTML = message.copy.content;
+        message.heading.innerHTML = message.copy.heading
+        message.content.innerHTML = message.copy.content
 
-        message.close.innerHTML = 'Close';
-        message.close.setAttribute( 'id', 'close-submission' );
-        message.close.classList.add( 'button' );
+        message.close.innerHTML = 'Close'
+        message.close.setAttribute( 'id', 'close-submission' )
+        message.close.classList.add( 'button' )
 
-        message.container.appendChild( message.heading );
-        message.container.appendChild( message.content );
+        message.container.appendChild( message.heading )
+        message.container.appendChild( message.content )
 
         if ( response != '1' ) {
-            message.errorRef.innerHTML = `ERROR REF: ${response}`;
-            message.container.appendChild( message.errorRef );
+            message.errorRef.innerHTML = `ERROR REF: ${response}`
+            message.container.appendChild( message.errorRef )
         }
         
-        message.wrapper.appendChild( message.container );
-        message.wrapper.appendChild( message.close );
+        message.wrapper.appendChild( message.container )
+        message.wrapper.appendChild( message.close )
 
-        this.target.appendChild( message.wrapper );
+        this.target.appendChild( message.wrapper )
 
         /**
          * Support for Google Tag Manager tracking
@@ -285,21 +285,21 @@ export default class Form extends ShiftrComponent {
         }
 
         setTimeout( () => {
-            message.wrapper.classList.add( 'show' );
-            this.submitButton.innerHTML = 'Sent!';
-        }, 100 );
+            message.wrapper.classList.add( 'show' )
+            this.submitButton.innerHTML = 'Sent!'
+        }, 100 )
 
         message.close.addEventListener( 'click', e => {
-            e.preventDefault();
-            clearTimeout( autoClear );
-            this.clearSubmitMessage( message.wrapper, response );
-        });
+            e.preventDefault()
+            clearTimeout( autoClear )
+            this.clearSubmitMessage( message.wrapper, response )
+        })
 
-        const autoClearDelay = response == `1` ? 8100 : 30000
+        const autoClearDelay = response == '1' ? 8100 : 30000
 
         var autoClear = setTimeout( () => {
-            this.clearSubmitMessage( message.wrapper, response );
-        }, autoClearDelay );
+            this.clearSubmitMessage( message.wrapper, response )
+        }, autoClearDelay )
     }
 
 
@@ -318,21 +318,21 @@ export default class Form extends ShiftrComponent {
             for ( var i = 0; i < this.fields.length; i++ ) {
                 const field = this.fields[i]
 
-                if ( field.nodeName === `SELECT` || ( field.type != `checkbox` && field.type != `radio` ) ) {
+                if ( field.nodeName === 'SELECT' || ( field.type != 'checkbox' && field.type != 'radio' ) ) {
                     field.parentElement.classList.remove( success, error )
                 }
             }
         }
 
         setTimeout( () => {
-            message.classList.remove( 'show' );
-        }, 100 );
+            message.classList.remove( 'show' )
+        }, 100 )
         
         /**
          * Enabling the button again is the very last thing we need to do
          */
-        this.submitButton.disabled = false;
-        this.submitButton.innerHTML = this.submitButtonOrgLabel;
+        this.submitButton.disabled = false
+        this.submitButton.innerHTML = this.submitButtonOrgLabel
     }
 
 

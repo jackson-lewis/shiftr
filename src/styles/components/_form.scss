@@ -6,12 +6,12 @@
 
 
 .shiftr-form {
-    max-width: 50rem;
+    max-width: 500px;
     margin: 0 auto;
     position: relative;
 
     .field {
-        margin-bottom: 1rem;
+        margin-bottom: 10px;
         display: block;
 
         @include last-child;

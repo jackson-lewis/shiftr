@@ -31,248 +31,68 @@ nav {
 }
 
 
-//  ////  --|    Primary Nav
-
 .nav-primary {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    
-    ul {
-        width: auto;
-        margin: 0 auto;
-        padding: 3rem 0;
-        display: block;
-        position: relative;
+
+    ul#nav-primary {
+        display: flex;
 
         li {
-            margin-bottom: .8rem;
-            display: block;
-
-            text-align: right;
+            font-size: 1rem;
+            
+            &:last-child {
+                margin-right: 0;
+            }
 
             &.level-0-item {
-                padding-right: 5.8rem;
-
-                &.current-page {
-
-                }
-            }
-
-            &.has-sub-menu {
-                padding-right: 0;
-                position: relative;
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                flex-wrap: wrap;
+                margin: 0;
+                margin-right: 30px;
 
                 & > a {
-                    margin-right: 1rem;
-                }
-
-                button {
-                    width: 4.4rem;
-                    height: 4.4rem;
-                    padding: 0;
-                    
-                    border-radius: 2.4rem;
-                    background: url( ../icons/chevron.svg ) no-repeat;
-                    background-position: 50% 50%;
-                    background-size: 1.2rem 1.2rem;
-                    outline: none;
-                    appearance: none;
-                    transform: rotate( 90deg );
-
-                    transition: 150ms;
-                }
-
-                .sub-menu {
-                    width: 100%;
-                    margin-top: 1rem;
-                    padding: 1rem;
-                    display: none;
-                    position: relative;
-
-                    background-color: $l-grey;
+                    padding: 4px 0;
                 }
             }
-
-            &.is-visible {
-
-                button {
-                    transform: rotate( 270deg );
-                }
-
-                .sub-menu {
-                    display: block;
-                }
-            }
-
-            @include last-child;
-
-            & > a {
-                padding: .8rem 0;
-                display: inline-block;
-
-                color: $black;
-                font-size: 1.8rem;
-                font-weight: 700;
-                text-align: right;
-                text-decoration: none;
-
-                @include after( false ) {
-                    display: none;
-                }
-
-                &:hover {
-                    color: $primary;
-                }
-            }
-        }
-
-        &#menu-primary {
             
-            @include before {
-                width: 100%;
-                height: .1rem;
-                top: 0;
-                left: 0;
+            &.has-sub-menu {
+                position: relative;
 
-                background-color: darken( $l-grey, 15% );
-                border-radius: .05rem;
-            }
-        }
-    }
+                .sub-menu {
+                    min-width: 160px;
+                    width: max-content;
+                    margin-top: 0;
+                    padding: 20px;
+                    position: absolute;
+                    top: 100%;
+                    left: -20px;
+                    display: none;
+                    
+                    border-radius: var( --border-radius );
+                    background-color: $white;
+                    box-shadow: 0 3px 6px rgba( #333333, .2 ),
+                                0 9px 18px rgba( #666666, .1 );
 
-    &.has-no-sub-navs {
+                    animation-duration: 600ms;
+                    animation-timing-function: cubic-bezier(0.21, 0.89, 0.58, 1);
+                    animation-fill-mode: alternate;
 
-        ul {
-            li {
-                &.level-0-item {
-                    padding-right: 0;
-                }
-            }
-        }
-    }
+                    li {
+                        margin-bottom: 8px;
 
-
-    // Selected media query where nav menu switches
-    // from mobile/tablet view to desktop view
-
-    // Remember to adjust header and hamburger styling
-    // to match the chosen breakpoint for header type
-    @include x( m ) {
-        width: 50%;
-        margin-left: 50%;
-    }
-
-
-    @include x( $header-breakpoint ) {
-        width: auto;
-        padding: 0;
-        display: block;
-
-        ul {
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            li {
-                margin: 0 2rem 0 0;
-
-                text-align: left;
-
-                &.level-0-item {
-                    padding-right: 0;
-
-                    & > a {
-                        padding: 2.2rem 0;
-
-                        line-height: 1;
-                        white-space: nowrap;
-                    }
-
-                    &.current-page {
-
-                    }
-                }
-
-                &.has-sub-menu {
-                    position: relative;
-
-                    a {
-                        margin-right: 0;
-                    }
-
-                    button {
-                        display: none;
-                    }
-
-                    .sub-menu {
-                        min-width: 16rem;
-                        width: max-content;
-                        margin-top: 0;
-                        padding: 1rem 2rem;
-                        position: absolute;
-                        top: 100%;
-                        left: -2rem;
-                        
-                        background-color: rgba( $white, .90 );
-                        backdrop-filter: blur( 4px ) saturate( 180% );
-                        box-shadow: 0 1rem 1rem rgba( $d-grey, .1 ),
-                                    0 3rem 3rem rgba( $d-grey, .1 );
-
-                        animation-duration: 600ms;
-                        animation-timing-function: cubic-bezier(0.21, 0.89, 0.58, 1);
-                        animation-fill-mode: alternate;
-
-                        @include before() {
-                            width: calc( 100% - 2rem );
-                            height: .1rem;
-                            top: 0;
-                            left: 1rem;
-
-                            background-color: darken( $white, 10% );
-                        }
-
-                        li {
-                            margin: 0 0 .8rem;
-
-                            @include last-child;
-                        }
-
-                        a {
-                            width: 100%;
-                            padding: .4rem 0;
+                        &:last-child {
+                            margin-bottom: 0;
                         }
                     }
                 }
 
                 &.is-visible {
-
                     .sub-menu {
                         display: block;
                         animation-name: dropdown_menu;
                     }
                 }
-
-                @include last-child {
-                    margin-right: 0;
-                }
-
-                a {
-                    font-size: 1.6rem;
-                    text-align: left;
-                }
             }
 
-            &#menu-primary {
-
-               @include before( false ) {
-                    display: none;
-                }
+            a {
+                display: inline-block;
             }
         }
     }

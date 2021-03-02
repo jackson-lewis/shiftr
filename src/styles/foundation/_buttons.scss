@@ -6,17 +6,17 @@
 
 
 .content-button-wrapper {
-    margin: 0 -.5rem calc( #{get_baseline()} - 1rem );
+    margin: 0 -5px calc( #{get_baseline()} - 10px );
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 
     &:last-child {
-        margin-bottom: -1rem;
+        margin-bottom: -10px;
     }
 
     a[class^="button-"] {
-        margin: 0 .5rem 1rem;
+        margin: 0 5px 10px;
     }
 
     &[data-style*="center"] {
@@ -26,79 +26,96 @@
 
 
 %button {
-    margin: 0;
-    padding: 1rem 2rem;
+    --padding: 10px;
+
+    --focus-inner: #{$white};
+    --focus-outer: #{$black};
+
+    padding: var( --padding ) calc( var( --padding ) * 2 );
     display: inline-block;
     cursor: pointer;
 
     border: none;
-    border-radius: 0.4rem;
-    font-size: 1.4rem;
-    line-height: $base-line-height;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    appearance: none;
-    outline: 0;
+    border-radius: var( --border-radius );
+    outline: none;
 
-    transition: 300ms;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: $base-line-height;
+
+    transition: background-color 150ms ease;
+
+    &:focus-visible {
+        outline: none;
+        transition: box-shadow 100ms ease-out;
+        box-shadow: 0 0 0 2px var( --focus-inner ), 0 0 0 4px var( --focus-outer );
+    }
 }
 
+.button,
 .button-fill {
     @extend %button;
 
-    color: $white;
     background-color: $primary;
+    color: $white;
 
     &:hover {
-        color: $white;
         background-color: rgba( $primary, .8 );
     }
 
-    &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+    &:active {
+        transition: transform 150ms;
+        transform: scale( 0.94 ) !important;            
+        background-color: rgba( $primary, .8 );
     }
 }
 
 .button-outline {
     @extend %button;
 
-    padding: .9rem 1.9rem;
+    padding: calc( var( --padding ) - 1px ) calc( ( var( --padding ) * 2 ) - 1px );
 
-    color: $primary;
+    border: 1px solid $primary;
     background-color: transparent;
-    border: .1rem solid $primary;
+    color: $primary;
 
     &:hover {
-        color: $primary;
         background-color: rgba( $primary, .1 );
     }
 
-    &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+    &:active {
+        transition: transform 150ms;
+        transform: scale( 0.94 ) !important;
+        background-color: rgba( $primary, .1 );
     }
 }
 
 .button-text {
     @extend %button;
 
-    color: $primary;
     background-color: transparent;
+    color: $primary;
 
     &:hover {
-        color: $primary;
         background-color: rgba( $primary, .1 );
     }
 
-    &:focus {
-        box-shadow: 0 0 .5rem rgba( $d-grey, .2 ),
-                    0 .2rem 1rem rgba( $d-grey, .2 );
+    &:active {
+        transition: transform 150ms;
+        transform: scale( 0.94 ) !important;            
+        background-color: rgba( $primary, .1 );
     }
 }
 
-button {
-    @extend .button-fill;
+// Use this when the background of the parent element is the opposite of
+// the site body background color.
+%inverted-button-base {
+    .button-fill,
+    .button-outline,
+    .button-text {
+        &:focus-visible {
+            --focus-inner: #{$black};
+            --focus-outer: #{$white};
+        }
+    }
 }
-
