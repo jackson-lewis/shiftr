@@ -12,9 +12,6 @@ class Shiftr_Form_Handler {
     /* int The form ID */
     var $form_ID = 0;
 
-    /* array SMTP contants */
-    var $SMTP_constants = array( 'HOST', 'AUTH', 'PORT', 'USERNAME', 'PASSWORD', 'SECURE' );
-
     /* null Store the phpmailerException if there is one */
     var $error = null;
 
@@ -281,9 +278,6 @@ class Shiftr_Form_Handler {
         $subject = apply_filters( 'shiftr_form_handler_subject', $subject, $this->form );
         $recepients = apply_filters( 'shiftr_form_handler_recepients', $recepients, $this->form );
         $headers = apply_filters( 'shiftr_form_handler_headers', $headers, $this->form );
-
-        // Configure $phpmailer to use SMTP if credentials available
-        $this->trySMTP();
 
         // Try and sent the form
         if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
@@ -573,52 +567,6 @@ class Shiftr_Form_Handler {
         }
 
         return $formatted;
-    }
-
-
-    /**  
-     *  trySMTP
-     *
-     *  Attempt to use SMTP if credentials can be found
-     *
-     *  @since 1.0
-     */
-
-    function trySMTP() {
-
-        if ( ! defined( 'SHIFTR_FORM_USE_SMTP' ) ) return;
-
-        if ( SHIFTR_FORM_USE_SMTP ) {
-            add_action( 'phpmailer_init', array( $this, 'SMTP' ) );
-        }
-    }
-
-
-    /**  
-     *  SMTP
-     *
-     *  Use SMTP
-     *
-     *  @since 1.0
-     */
-
-    function SMTP( $phpmailer ) {
-
-        // Check all the SMTP contants are defined before proceeding
-        foreach ( $this->SMTP_constants as $constant ) {
-
-            if ( ! defined( "SHIFTR_FORM_SMTP_{$constant}" ) ) return false;
-        }
-
-        $phpmailer->isSMTP();
-        $phpmailer->isHTML( true );
-        
-        $phpmailer->SMTPAuth    = SHIFTR_FORM_SMTP_AUTH;
-        $phpmailer->SMTPSecure  = SHIFTR_FORM_SMTP_SECURE;
-        $phpmailer->Host        = SHIFTR_FORM_SMTP_HOST;
-        $phpmailer->Port        = SHIFTR_FORM_SMTP_PORT;
-        $phpmailer->Username    = SHIFTR_FORM_SMTP_USERNAME;
-        $phpmailer->Password    = SHIFTR_FORM_SMTP_PASSWORD;
     }
 
 
