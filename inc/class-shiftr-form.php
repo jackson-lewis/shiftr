@@ -76,23 +76,32 @@ class Shiftr_Form {
      */
 
     function get_form_ID() {
+        $form_post_id = 0;
 
-        $form_post = get_page_by_title( $this->form, OBJECT, 'shiftr_form' );
+        $form_post = get_posts( array(
+            'post_type' => 'shiftr_form',
+            'name' => $this->form,
+            'numberposts' => 1,
+            'fields' => 'ids'
+        ));
+
+        if ( ! empty( $form_post ) ) {
+            $form_post_id = array_shift( $form_post );
+        }
 
         // Create post if one does not exist
-        if ( ! $form_post instanceof WP_Post ) {
+        if ( $form_post_id <= 0 ) {
 
             $form_post_id = wp_insert_post( array(
                 'post_author' => 1,
                 'post_title' => $this->nicename,
+                'post_name' => $this->form,
                 'post_status' => 'publish',
                 'post_type' => 'shiftr_form'
             ));
-
-            $form_post = get_post( $form_post_id );
         }
 
-        return $form_post->ID;
+        return $form_post_id;
     }
 
 
