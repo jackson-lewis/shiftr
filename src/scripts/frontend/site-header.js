@@ -3,7 +3,7 @@
  * the hamburger menu and dropdown menus. It would also be where 
  * to handle a search bar should one exist.
  */
-import { Layout, x, vh } from '../inc/global'
+import { Layout, vh } from '../inc/global'
 
 
 const { header, body } = Layout; // Semi-colon here forces Layout to not be a function...
@@ -12,7 +12,7 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
 ( () => {
     const mobileMenuTrigger  = document.querySelector( '#mobile-menu-trigger' ),
           mobileMenuClose    = document.querySelector( '#mobile-menu-close' ),
-          mobileMenu         = document.querySelector( 'nav.nav-primary-mobile' ),
+          mobileMenu         = document.querySelector( '.mobile-menu' ),
           mobileMenuSubMenus = mobileMenu?.querySelectorAll( 'li.has-sub-menu' ) || [],
           menu               = document.querySelector( 'header.site-header nav.nav-primary' ),
           menuSubMenus       = menu?.querySelectorAll( 'li.has-sub-menu' ) || [],
@@ -94,7 +94,7 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
      * Sub menu event handling
      */
     menu?.classList.add( menuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
-    mobileMenu?.classList.add( mobileMenuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
+    mobileMenu.querySelector( 'nav' )?.classList.add( mobileMenuSubMenus.length <= 0 ? 'has-no-sub-menus' : 'has-sub-menus' )
     const displayClass = 'is-visible'
 
     // Primary sub-menus
