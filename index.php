@@ -41,7 +41,7 @@ global $wp_query;
 
                     <div class="details">
                         <h3 id="card--post-<?php echo get_the_ID(); ?>"><?php the_title(); ?></h3>
-                        <span class="date"><?php the_time( 'd F Y' ); ?></span>
+                        <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
                         <p><?php the_excerpt(); ?></p>
                         <a href="<?php the_permalink(); ?>" class="button-fill">Read <span class="screen-reader-text" aria-labelledby="card--post-<?php echo get_the_ID(); ?>"></span></a>
                     </div>

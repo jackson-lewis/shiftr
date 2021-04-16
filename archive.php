@@ -33,7 +33,7 @@
                         </div>
 
                         <h3><?php the_title(); ?></h3>
-                        <span class="date"><?php the_time( 'd/m/y' ); ?></span>
+                        <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
                         <p><?php the_excerpt(); ?></p>
                         <a href="<?php the_permalink(); ?>" class="button">read more</a>
                     </div>
