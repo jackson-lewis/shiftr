@@ -15,7 +15,7 @@ get_header();
             <header class="post-header">
                 <div class="container">
                     <?php the_title( '<h1>', '</h1>' ); ?>
-                    <span class="post-date"><?php the_time( 'd F Y' ); ?></span>
+                    <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
                 </div>
             </header>
         </div>

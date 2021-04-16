@@ -111,9 +111,10 @@ class Shiftr_Form {
      *  ...
      *
      *  @since 1.0
+     * @param bool $is_shortcode Used if form is being built from a shortcode.
      */
 
-    function build() {
+    function build( $is_shortcode ) {
 
         $form_base_atts = array();
 
@@ -130,6 +131,9 @@ class Shiftr_Form {
             }
         }
 
+        if ( $is_shortcode ) {
+            $form_base_atts['class'] .= ' from-shortcode';
+        }
 
         $form_base_atts = apply_filters( 'shiftr_form_build_form_atts', $form_base_atts, $this->form );
 

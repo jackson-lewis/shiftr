@@ -20,7 +20,7 @@ img, video {
 
 *::selection {
     color: $white;
-    background-color: $secondary;
+    background-color: $primary;
     text-shadow: none;
 }
 
@@ -29,8 +29,19 @@ img, video {
 :root {
     --border-radius: 4px;
 
+    --c-primary: #{$primary};
+    --c-secondary: #{$secondary};
+    --c-white: #{$white};
+    --c-l-grey: #{$l-grey};
+    --c-black: #{$black};
+    --c-d-grey: #{$d-grey};
+
     --link-blue: #{$link-blue};
     --link-blue-hover: #{$link-blue-hover};
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {

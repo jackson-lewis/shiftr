@@ -48,19 +48,36 @@ function shiftr_register_form( $form = '', $args = [] ) {
  *  @param $form str The name of the form
  */
 
-function shiftr_build_form( $form = '' ) {
+function shiftr_build_form( $form = '', $is_shortcode = false ) {
 
     global $shiftr_forms;
 
     if ( isset( $shiftr_forms[ $form ] ) ) {
 
-        $shiftr_forms[ $form ]->build();
+        $shiftr_forms[ $form ]->build( $is_shortcode );
 
     } else {
         return false;
     }
     
 }
+
+
+/**
+ * Shiftr Form shortcode used to display a given form.
+ */
+function shiftr_form_shortcode( $atts = array() ) {
+    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+
+    if ( ! isset( $atts['form'] ) ) {
+        return false;
+    }
+
+    ob_start();
+    shiftr_build_form( $atts['form'], true );
+    return ob_get_clean();
+}
+add_shortcode( 'shiftr_form', 'shiftr_form_shortcode' );
 
 
 global $shiftr_form_core;
@@ -497,9 +514,20 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
         $type = trim( $type, ' ,|' );
 
         if ( $format === 'attr' ) {
-            $output .= sprintf( '.%s,', $type );
+            if ( preg_match( '/^application/', $type ) ) {
+                $output .= sprintf( '%s,', $type );
+            } else {
+                $output .= sprintf( '.%s,', $type );
+            }
         } else {
-            $output .= $type;
+            $output .= preg_replace( array(
+                '/',
+                '.'
+            ), array(
+                '\/',
+                '\.'
+            ), $type );
+            
             $output .= '|';
         }
     }

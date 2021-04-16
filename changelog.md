@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.4.1
+*16/04/21*
+
+Nothing too fancy in this one. Most exciting part is probably introduction of preload for featured post image!
+
+* Added `scroll-behavior: smooth` to `html`
+* Added Form shortcodes. It's now easy to display a form from within content.
+* Updated post date stamps to use `<time>`.
+* Added preload capability to featured post images. Must be manually set on either a post type or per page template basis.
+* Revised `<table>` default styling.
+
+
+
 ## v1.4
 *02/03/21*
 
