@@ -1,62 +1,11 @@
 {
     "key": "group_5e18fd60c81ca",
-    "title": "Template - Builder",
+    "title": "Flexi Blocks Builder: Main",
     "fields": [
         {
-            "key": "field_5e2ec67d53726",
-            "label": "Hero Feature Image",
-            "name": "hero_feature_image",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5e84c15f94e5d",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "id",
-            "preview_size": "medium_large",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": ""
-        },
-        {
-            "key": "field_5e2ec69c53727",
-            "label": "Hero Content",
-            "name": "hero_content",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "shiftr_full",
-            "media_upload": 0,
-            "delay": 0
-        },
-        {
             "key": "field_5e18fd6912c2d",
-            "label": "Blocks",
-            "name": "flexi_blocks",
+            "label": "Builder",
+            "name": "flexi-blocks-builder",
             "type": "flexible_content",
             "instructions": "",
             "required": 0,
@@ -772,19 +721,17 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "templates\/flexi-builder.php"
+                "value": "templates\/flexi-blocks-builder.php"
             }
         ]
     ],
     "menu_order": 0,
-    "position": "acf_after_title",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [
-        "the_content"
-    ],
-    "active": 1,
+    "hide_on_screen": "",
+    "active": true,
     "description": "",
-    "modified": 1592472768
+    "modified": 1622121991
 }
