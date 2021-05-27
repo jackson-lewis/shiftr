@@ -27,7 +27,7 @@ class Shiftr_Bg_Lazy_Loading {
      * Hook the print_script method to wp_footer
      */
     function init() {
-        add_action( 'wp_footer', array( $this, 'print_script' ) );
+        add_action( 'wp_footer', array( $this, 'print_script' ), 11 );
     }
 
 
@@ -41,7 +41,7 @@ class Shiftr_Bg_Lazy_Loading {
         ?>
 <script id="shiftr-lazy-loading-bg">
 ( function() {
-    var initLazyLoader = function() {
+    function initLazyLoader() {
         var lazyBgs = [].slice.call( document.querySelectorAll( '.lazy-bg' ) );
         function loadBg( el ) {
             el.classList.add( 'visible-bg' );
@@ -63,7 +63,7 @@ class Shiftr_Bg_Lazy_Loading {
             lazyBgs.forEach( loadBg );
         }
     }
-    if ( document.readyState == 'complete' || document.readyState == 'interactive' ) {
+    if ( document.readyState === 'complete' || document.readyState === 'interactive' ) {
         initLazyLoader();
     } else {
         document.addEventListener( 'DOMContentLoaded', initLazyLoader );
