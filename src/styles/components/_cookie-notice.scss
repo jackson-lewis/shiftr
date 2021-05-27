@@ -3,16 +3,6 @@
     //  //// --|    Cookie Notice Styles
 
 */
-
-
-//  Initiation
-@import '../_init/settings';
-@import '../_init/placeholders';
-@import '../_init/functions';
-@import '../_init/mixins';
-@import '../_init/grid';
-
-
 .shiftr-cookie-notice {
     width: calc( 100vw - 8px );
     max-width: 500px;
