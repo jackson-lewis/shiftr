@@ -6,26 +6,17 @@
 
 
 //  MEDIA QUERIES
-@mixin x( $size ) {
-
+@mixin min-width( $size ) {
     $value: '';
 
     @if ( type-of( $size ) == 'number' ) {
-        $value: #{$size}px;
+        $value: $size;
 
     } @else {
         $value: map-get( $breakpoints, $size );
     }
 
-    @media screen and ( min-width: #{$value} ) {
-        @content;
-    }
-}
-
-
-@mixin y(  ) {
-
-    @media screen and ( orientation: landscape ) {
+    @media screen and (min-width: #{$value / 16}em) {
         @content;
     }
 }
@@ -77,7 +68,6 @@
 
 
 @mixin object-fit( $x: 50%, $y: 50% ) {
-
     width: 100%;
     height: 100%;
     position: absolute;
@@ -88,21 +78,3 @@
     object-position: $x $y;
     font-family: 'object-fit';
 }
-
-
-// Last Child bottom styling removal
-@mixin last-child( $padding: false ) {
-    &:last-child {
-        
-        @if $padding == false {
-            margin-bottom: 0;
-
-        } @else {
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        @content;
-    }
-}
-
