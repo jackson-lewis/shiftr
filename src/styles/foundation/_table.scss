@@ -9,17 +9,17 @@ table {
     width: 100%;
     border-collapse: collapse;
 
-    line-height: $base-line-height;
+    line-height: var(--t-base-line-height);
 
     thead,
     tfoot {
-        background-color: var( --c-l-grey );
+        background-color: var(--c-l-grey);
     }
 
     th, td {
         padding: 4px 8px 2px;
 
-        border: 1px solid black;
+        border: 1px solid var(--c-black);
     }
 }
 

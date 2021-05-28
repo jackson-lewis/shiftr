@@ -3,16 +3,6 @@
     //  //// --|    Cookie Notice Styles
 
 */
-
-
-//  Initiation
-@import '../_init/settings';
-@import '../_init/placeholders';
-@import '../_init/functions';
-@import '../_init/mixins';
-@import '../_init/grid';
-
-
 .shiftr-cookie-notice {
     width: calc( 100vw - 8px );
     max-width: 500px;
@@ -24,8 +14,8 @@
     z-index: 9999;
     
     opacity: 0;
-    background-color: $l-grey;
-    border-radius: var( --border-radius );
+    background-color: var(--c-l-grey);
+    border-radius: var(--border-radius);
     box-shadow: 0 0 10px rgba( $d-grey, .2 ),
                 0 0 30px rgba( $d-grey, .15 ),
                 0 0 60px rgba( $d-grey, .1 );
@@ -54,7 +44,7 @@
         margin-right: 10px;
     }
 
-    @include x( m ) {
+    @include min-width( m ) {
         max-width: 300px;
         padding: 20px;
         left: 10px;

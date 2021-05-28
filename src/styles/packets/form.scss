@@ -6,11 +6,11 @@
 
 
 //  Initiation
-@import '../_init/settings';
-@import '../_init/placeholders';
-@import '../_init/functions';
-@import '../_init/mixins';
-@import '../_init/grid';
+@import '../base/variables';
+@import '../base/placeholders';
+@import '../base/functions';
+@import '../base/mixins';
+@import '../base/grid';
 
 
 .shiftr-form {
@@ -26,9 +26,9 @@
             transform-origin: 100% 50%;
             opacity: 0;
 
-            color: $black;
-            background-color: $white;
-            border-radius: var( --border-radius );
+            color: var(--c-black);
+            background-color: var(--c-white);
+            border-radius: var(--border-radius);
             box-shadow: 0 10px 10px rgba( $d-grey, .1 ),
                         0 20px 20px rgba( $d-grey, .1 );
             font-size: .875rem;
@@ -42,7 +42,7 @@
                 right: -4px;
                 transform: translateY( -50% );
 
-                background-color: $red;
+                background-color: var(--c-red);
                 border-radius: 5px;
             }
 
@@ -91,9 +91,9 @@
         bottom: 10px;
         z-index: 9999;
 
-        background-color: $white;
-        color: $black;
-        border-radius: var( --border-radius );
+        background-color: var(--c-white);
+        color: var(--c-black);
+        border-radius: var(--border-radius);
         box-shadow: 0 0 10px rgba( $d-grey, .1 ),
                     0 10px 20px rgba( $d-grey, .1 ),
                     0 20px 40px rgba( $d-grey, .1 );
@@ -128,7 +128,7 @@
             align-self: flex-end;
         }
 
-        @include x( m ) {
+        @include min-width( m ) {
             left: 50%;
             bottom: 50%;
 
@@ -139,7 +139,7 @@
             }
         }
 
-        @include x( l ) {
+        @include min-width( l ) {
             position: absolute;
             left: 50%;
             bottom: 50%;

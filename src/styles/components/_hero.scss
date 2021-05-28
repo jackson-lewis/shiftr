@@ -11,14 +11,13 @@
     position: relative;
     display: flex;
 
-    color: $white;
+    color: var(--c-white);
 
     h1, h2, h3, h4, h5, h6 {
         color: inherit;
     }
 
-    .hero-feature-image,
-    .hero-gallery {
+    .hero-feature-image {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -46,14 +45,14 @@
         @extend %inverted-button-base;
         
         width: 100%;
-        padding: 60px #{$site-padding / 2};
+        padding: 60px calc( var(--site-padding) / 2 );
         display: flex;
         align-items: flex-end;
         position: relative;
         z-index: 20;
 
         background-color: rgba( #000000, .3 );
-        color: $white;
+        color: var(--c-white);
         text-align: center;
 
         h1 {
@@ -92,18 +91,18 @@
         }
     }
 
-    @include x( 375 ) {
+    @include min-width( 375 ) {
 
         .hero-content {
-            padding-left: $site-padding;
-            padding-right: $site-padding;
+            padding-left: var(--site-padding);
+            padding-right: var(--site-padding);
         }
     }
 
-    @include x( m ) {
+    @include min-width( m ) {
         
         .hero-content {
-            padding: 80px #{$site-padding / 2};
+            padding: 80px calc( var(--site-padding) / 2 );
 
             .content-button-wrapper {
 
@@ -115,7 +114,7 @@
         }
     }
 
-    @include x( l ) {
+    @include min-width( l ) {
         
         .hero-content {
 
@@ -127,10 +126,10 @@
         }
     }
 
-    @include x( xl ) {
+    @include min-width( xl ) {
 
         .hero-content {
-            padding: 120px $site-padding;
+            padding: 120px var(--site-padding);
         }
     }
 }
@@ -139,17 +138,11 @@
 .hero--standard {
     @extend %hero;
 
-    min-height: calc( 100vh - 60px );
+    height: calc( 100vh - 60px );
     max-height: 1200px;
 
-    .hero-gallery {
-        .carousel-stage {
-            height: 100%;
-        }
-    }
-
-    @include x( m ) {
-        min-height: 50vh;
+    @include min-width( m ) {
+        height: 50vh;
     }
 }
 

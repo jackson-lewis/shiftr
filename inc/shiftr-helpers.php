@@ -2,8 +2,6 @@
 
 
 /**  
- *  shiftr_output_attr
- *
  *  Loop through an array of attributes and output string
  *
  *  @since 1.0
@@ -12,7 +10,6 @@
  *  @param $force_empty_values bool Whether an attribute with no value should be included in output
  *  @return str The attributes to be included inside HTML tag
  */
-
 function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
     $the_attributes = array();
@@ -37,19 +34,15 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
 
 /**  
- *  get_shiftr_image
- *
  *  Return the HTML markup of an image from attachment ID or ACF field name
  *
  *  @since 1.0.5
  *
  *  @param $id int|str The attachment ID or ACF field name
  *  @param $size str The size of the image to output
- *  @param $lazy bool Set if the image should be lazy loaded
  *  @param $attr array Attributes that should be added to the img tag
  */
-
-function get_shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
+function get_shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
 
     $html = '';
 
@@ -81,38 +74,30 @@ function get_shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) 
 
 
 /**  
- *  shiftr_image
- *
  *  Output the returned value from get_shiftr_image()
  *
  *  @since 1.0
  *
  *  @param $id int|str The attachment ID or ACF field name
  *  @param $size str The size of the image to output
- *  @param $lazy bool Set if the image should be lazy loaded
  *  @param $attr array Attributes that should be added to the img tag
  */
+function shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
 
-function shiftr_image( $id = 0, $size = 'large', $lazy = true, $attr = [] ) {
-
-    echo get_shiftr_image( $id, $size, $lazy, $attr );
+    echo get_shiftr_image( $id, $size, $attr );
 }
 
 
 /**  
- *  shiftr_featured_image
- *
  *  Output the html of the current post featured image
  *
  *  @since 1.0
  *
  *  @param $id null|int The post ID
  *  @param $size str The size of the image to output
- *  @param $lazy bool Set if the image should be lazy loaded
  *  @param $attr array Attributes that should be added to the img tag
  */
-
-function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr = [] ) {
+function shiftr_featured_image( $id = null, $size = 'large', $attr = [] ) {
     global $post;
 
     if ( $id === null ) {
@@ -122,13 +107,11 @@ function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr
     // Allows ability to set placeholder images based on post type via $post
     $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ) );
 
-    echo get_shiftr_image( $thumbnail_id, $size, $lazy, $attr );
+    echo get_shiftr_image( $thumbnail_id, $size, $attr );
 }
 
 
 /**  
- *  shiftr_inline_svg
- *
  *  Include an SVG file to inline on the page
  *
  *  @since 1.0
@@ -137,7 +120,6 @@ function shiftr_featured_image( $id = null, $size = 'large', $lazy = true, $attr
  *  @param $dir str|bool The directory path relative to the theme root, or false if uploads path
  *  @return mixed Output SVG element or bool (false) if file not found
  */
-
 function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
     // Put together file path
@@ -162,8 +144,6 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
 
 /**  
- *  shiftr_get_template
- *
  *  Include a template part
  *
  *  @since 1.0.5
@@ -173,7 +153,6 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
  *  @param $template_path str The directory to locate the template, relative from the theme root
  *  @return null on failure to find file
  */
-
 function shiftr_get_template( $template_name, $args = array(), $template_path = 'parts/' ) {
 
     /**
@@ -200,8 +179,6 @@ function shiftr_get_template( $template_name, $args = array(), $template_path = 
 
 
 /**  
- *  shiftr_get_block
- *
  *  Include a template part, specific to blocks used in a ACF flexible content template
  *
  *  @since 1.0.5
@@ -210,7 +187,6 @@ function shiftr_get_template( $template_name, $args = array(), $template_path = 
  *  @param $args array Any variables to pass into the template file
  *  @param $template_path str The directory to locate the template, relative from the theme root
  */
-
 function shiftr_get_block( $block_name, $args = array(), $template_path = 'blocks/' ) {
 
     shiftr_get_template( $block_name, $args, $template_path );

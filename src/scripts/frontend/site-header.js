@@ -23,7 +23,7 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
      * Sticky peek-a-boo header
      */
     let previousScroll = 0
-    const displayStickyHeader = () => {
+    function displayStickyHeader() {
         const scrollPos = window.pageYOffset || document.documentElement.scrollTop
         const threshold = vh() / 4
 
@@ -41,16 +41,19 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
                 /** Match scroll up against a threshold that must be reached */
                 if ( previousScroll > scrollPos + 60 ) {
                     header.classList.add( 'is-visible' )
+                    body.classList.add( 'header-state-active' )
                 } else {
                     return
                 }
 
             } else {
                 header.classList.remove( 'is-visible' )
+                body.classList.remove( 'header-state-active' )
             }
 
         } else if ( scrollPos > previousScroll || scrollPos <= 0 ) {
             header.classList.remove( 'pre-set-sticky', 'set-sticky', 'is-visible' )
+            body.classList.remove( 'header-state-active' )
         }
 
         previousScroll = scrollPos
@@ -63,8 +66,8 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
      */
     mobileMenu.addEventListener( 'click', e => e.stopPropagation() )
 
-    const openMobileMenu = e => {
-        e.stopPropagation()
+    function openMobileMenu( event ) {
+        event.stopPropagation()
 
         mobileMenu.setAttribute( 'aria-hidden', false )
         headerWrapper.classList.add( 'mobile-menu-active' )
@@ -76,8 +79,8 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
     }
     mobileMenuTrigger.addEventListener( 'click', openMobileMenu )
 
-    const closeMobileMenu = e => {
-        e.preventDefault()
+    function closeMobileMenu( event ) {
+        event.preventDefault()
 
         mobileMenu.setAttribute( 'aria-hidden', true )
         headerWrapper.classList.remove( 'mobile-menu-active' )
@@ -104,8 +107,8 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
 
         let removeOpen
 
-        link.addEventListener( 'mouseover', e => {
-            e.preventDefault()
+        link.addEventListener( 'mouseover', event => {
+            event.preventDefault()
 
             clearTimeout( removeOpen )
 
@@ -114,7 +117,7 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
             }
         })
 
-        link.addEventListener( 'mouseleave', e => {
+        link.addEventListener( 'mouseleave', () => {
             removeOpen = setTimeout( () => {
                 classList.remove( displayClass )
             }, 200 )
@@ -135,8 +138,8 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
     mobileMenuSubMenus.forEach( subMenu => {
         const toggle = subMenu.children[1]
 
-        toggle.addEventListener( 'click', e => {
-            e.preventDefault()
+        toggle.addEventListener( 'click', event => {
+            event.preventDefault()
             subMenu.classList.toggle( displayClass )
         })
     })
@@ -145,7 +148,9 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
     /**
      * Dynamically size SVG site logo
      */
-    ;( logo => {
+    function resetSvgSiteLogo() {
+        const logo = document.querySelector( '.site-logo' )
+
         if ( ! logo ) return
         let svg = logo.children[0]
 
@@ -154,7 +159,9 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
             width   = logo.offsetHeight * ( values[2] / values[3] )
 
         svg.style.width = `${ width }px`
-
-    })( document.querySelector( '.site-logo' ) )
+    }
+    resetSvgSiteLogo()
+    window.addEventListener( 'resize', resetSvgSiteLogo )
+    window.addEventListener( 'orientationchange', resetSvgSiteLogo )
 
 })();

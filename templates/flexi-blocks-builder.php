@@ -1,6 +1,6 @@
 <?php 
 /**
- * Template name: Flexi
+ * Template name: Flexi Blocks Builder
  * 
  * This is the primary blocks builder template of the theme.
  * It may be appropriate that the majority of pages are built
@@ -11,33 +11,25 @@
 
 get_header();
 
-$hero_type = get_field( 'hero_type' );
 ?>
 
 
 <div class="hero--standard">
-    <?php if ( $hero_type == 'default' || ! $hero_type ) : ?>
     <div class="hero-feature-image">
-        <?php shiftr_image( get_field( 'hero_feature_image' ), 'large', false ); ?>
+        <?php shiftr_featured_image( get_the_ID(), 'full', array( 'loading' => false ) ); ?>
     </div>
-    <?php elseif ( $hero_type == 'gallery' ) : $gallery = get_field( 'hero_gallery' ); ?>
-    <div id="hero-carousel" class="shiftr-carousel hero-gallery" data-shiftr-carousel data-carousel-showArrows="false" data-carousel-speed="6000">
-        <div class="carousel-stage">
-            <?php foreach ( $gallery as $image ) : ?>
-    
-            <div class="carousel-slide">
-                <?php shiftr_image( $image ); ?>
-            </div>
-    
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <?php endif; ?>
-
     <div class="hero-container">
         <div class="hero-content">
             <div class="container">
-                <?php the_field( 'hero_content' ); ?>
+                <?php 
+                    if ( have_posts() ) {
+                        while ( have_posts() ) {
+                            the_post();
+
+                            the_content();
+                        }
+                    }
+                ?>
             </div> 
         </div>
     </div>
@@ -48,9 +40,9 @@ $hero_type = get_field( 'hero_type' );
 
 <?php
 
-if ( have_rows( 'flexi_blocks' ) ) :
+if ( have_rows( 'flexi-blocks-builder' ) ) :
 
-    while ( have_rows( 'flexi_blocks' ) ) : the_row();
+    while ( have_rows( 'flexi-blocks-builder' ) ) : the_row();
 
         $block = get_row_layout();
         $settings = shiftr_get_block_settings();

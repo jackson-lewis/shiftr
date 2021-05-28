@@ -11,17 +11,26 @@ p, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; border: 0 }
 
 //  ////  --|    Core Styling
 body, input, textarea, button, select {
-    font-family: $base-font-family;
     font-weight: 400;
     font-style: normal;
 
     font-size: rem( $base-min-font-size );
     font-size: _clamp( rem( $base-min-font-size ), 3vw, rem( $base-max-font-size ) );
 
-    color: $d-grey; 
+    color: var(--c-text-base);
 
     //  It's typically better for body text to be subtly lighter
     //  than headings, value here is 10% lighter than base colour
+}
+
+.fonts-loaded {
+    body, input, textarea, button, select {
+        font-family: $base-font-family;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $heading-font-family;
+    }
 }
 
 p {
@@ -32,15 +41,15 @@ p {
     text-align: inherit;
     color: inherit;
 
-    @include last-child;
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 
 //  ////  --|    Headings
 
 h1, h2, h3, h4, h5, h6 {
-
-    font-family: $heading-font-family;
     font-weight: 700;
 
     text-align: left;
@@ -64,7 +73,7 @@ $headers:   'h1' 2.375rem calc( 5vw + 10px ) 4rem,
         font-size: _clamp( nth( $heading, 2 ), nth( $heading, 3 ), nth( $heading, 4 ) );
 
         @supports not (font-size: clamp(1px,1vw,2px)) {
-            @include x( l ) {
+            @include min-width( l ) {
                 font-size: nth( $heading, 4 );
             }
         }
@@ -87,12 +96,12 @@ a + p {
 
 p a {
     text-decoration: underline;
-    color: var( --link-blue );
+    color: var(--c-link);
 
     transition: 50ms;
 
     &:hover {
-        color: var( --link-blue-hover );
+        color: var(--c-link-hover);
     }
 }
 

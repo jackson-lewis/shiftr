@@ -80,8 +80,16 @@ function shiftr_get_block_attributes( $block, $settings = array() ) {
             $attributes['class'] .= $value ? " {$setting}" : '';
             
         } else {
+            if ( $setting == 'bg' && $value == 'white' ) {
+                continue;
+            }
+
             $attributes['class'] .= " {$setting}-{$value}";
         }                    
+    }
+
+    if ( preg_match( '/bg\-/', $attributes['class'] ) ) {
+        $attributes['class'] .= ' has-bg';
     }
 
     return apply_filters( 'shiftr_get_block_attributes', $attributes, $block );

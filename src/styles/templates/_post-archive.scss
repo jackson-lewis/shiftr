@@ -24,8 +24,12 @@
         margin-bottom: 20px;
         padding: 20px;
 
-        background-color: $l-grey;
-        border-radius: var( --border-radius );
+        background-color: var(--c-l-grey);
+        border-radius: var(--border-radius);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         .image {
             max-height: 200px;
@@ -33,7 +37,7 @@
             overflow: hidden;
             position: relative;
 
-            border-radius: var( --border-radius );
+            border-radius: var(--border-radius);
 
             img {
                 @include object-fit();
@@ -59,9 +63,7 @@
             } 
         }
 
-        @include last_child();
-
-        @include x( m ) {
+        @include min-width( m ) {
             @include grid( 20px );
 
             grid-template:

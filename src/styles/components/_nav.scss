@@ -20,7 +20,7 @@ nav {
             transition: 300ms;
 
             &:hover {
-                color: $primary;
+                color: var(--c-primary);
             }
         }
 
@@ -66,7 +66,7 @@ nav {
                     display: none;
                     
                     border-radius: var( --border-radius );
-                    background-color: $white;
+                    background-color: var(--c-white);
                     box-shadow: 0 3px 6px rgba( #333333, .2 ),
                                 0 9px 18px rgba( #666666, .1 );
 
