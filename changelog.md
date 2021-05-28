@@ -1,6 +1,36 @@
 # Changelog
 
 
+## v1.4.2
+*28/05/21*
+
+This release is not short on new features, improvements and a good old cleanup!
+
+* Improvements to the Flexi Blocks Builder
+    * Re-enabled the post thumbnail for the hero image
+    * Using post content for hero content
+* Performance audit for Web Vitals
+    * Tweaks to order of resources like main css bundle, fonts, etc...
+    * Cleanup of css to remove unnecessary code and applied DRY
+    * Font loading strategy extended to include support for handling FOUT
+    * `loading="lazy"` removed from hero image on Flexi and post single
+    * All icons in styles converted to uri encoded
+    * Setup filters to the new preload feature
+* Full conversion to css variables instead of sass variables (please note sass variables are still used in rgba functions)
+* Cleanup of sass functions and mixins
+    * Depreciated `last-child()`
+    * `x()` renamed to `min-width()` and now uses `em` unit
+    * Added `max-width()` for use cases of `@media (max-width:1000px)`
+* General changes to sass
+    * Renamed `_init` directory to `base`
+    * Renamed `core` directory to `layout`
+    * Renamed `base/_settings.scss` directory to `base/_variables.scss`
+* Improved accuracy of `scroll-margin-top` with header state, when state is updated in JS, class applied to `<body>` which allows the property to be updated between zero and `--header-height`
+* Binded svg site logo function to `resize` and `orientationchange` events
+* On Flexi Blocks, the `background` settings has been renamed to `bg` in favour of shorter class name. Also adds a new `.has-bg` class which helps reduce duplication of styles.
+
+
+
 ## v1.4.1
 *16/04/21*
 
