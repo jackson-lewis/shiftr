@@ -30,7 +30,7 @@ section.site-section {
             margin-bottom: 50px;
         }
 
-        @include x( l ) {
+        @include min-width( l ) {
 
             div.container {
                 width: auto;
@@ -74,7 +74,7 @@ section.site-section {
             }
         }
 
-        @include x( 1200 ) {
+        @include min-width( 1200 ) {
             
             div.content {
                 padding: 40px 50px;

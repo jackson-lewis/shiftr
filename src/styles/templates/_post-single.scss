@@ -8,7 +8,7 @@ body.single-post {
     main.site-main {
         padding-top: 60px;
 
-        @include x( m ) {
+        @include min-width( m ) {
             padding-top: 80px;
         }
     }
@@ -22,11 +22,11 @@ body.single-post {
         margin-bottom: get_baseline();
         position: relative;
 
-        @include x( m ) {
+        @include min-width( m ) {
             padding-top: 33%;
             overflow: hidden;
 
-            border-radius: var( --border-radius );
+            border-radius: var(--border-radius);
 
             img {
                 @include object-fit;
@@ -35,7 +35,7 @@ body.single-post {
     }
 
     .post-header {
-        @extend .site-padding;
+        padding: 0 var(--site-padding);
 
         & > div.container {
             max-width: line_width();

@@ -16,8 +16,8 @@
     overflow-y: scroll;
     transform: translateX( -100%);
 
-    color: $black;
-    background-color: $white;
+    color: var(--c-black);
+    background-color: var(--c-white);
 
     transition: 400ms cubic-bezier(0.42, 0, 0.37, 0.99);
 
@@ -83,7 +83,7 @@ nav.nav-primary-mobile {
                     display: none;
                     position: relative;
 
-                    border-left: 1px solid $primary;
+                    border-left: 1px solid var(--c-primary);
                 }
 
                 &.is-visible {

@@ -3,8 +3,6 @@
     //  //// --|    Foundation / Buttons
 
 */
-
-
 .content-button-wrapper {
     margin: 0 -5px calc( #{get_baseline()} - 10px );
     display: flex;
@@ -27,28 +25,34 @@
 
 %button {
     --padding: 10px;
+    --padding-ratio: 2;
 
-    --focus-inner: #{$white};
-    --focus-outer: #{$black};
+    --focus-inner: var(--c-white);
+    --focus-outer: var(--c-black);
 
-    padding: var( --padding ) calc( var( --padding ) * 2 );
+    padding: var(--padding) calc( var(--padding) * var(--padding-ratio) );
     display: inline-block;
     cursor: pointer;
 
     border: none;
-    border-radius: var( --border-radius );
+    border-radius: var(--border-radius);
     outline: none;
 
     font-weight: 600;
     font-size: 1rem;
-    line-height: $base-line-height;
+    line-height: var(--t-base-line-height);
 
     transition: background-color 150ms ease;
 
     &:focus-visible {
         outline: none;
         transition: box-shadow 100ms ease-out;
-        box-shadow: 0 0 0 2px var( --focus-inner ), 0 0 0 4px var( --focus-outer );
+        box-shadow: 0 0 0 2px var(--focus-inner), 0 0 0 4px var(--focus-outer);
+    }
+
+    &:active {
+        transition: transform 150ms;
+        transform: scale( 0.94 ) !important;
     }
 }
 
@@ -56,16 +60,11 @@
 .button-fill {
     @extend %button;
 
-    background-color: $primary;
-    color: $white;
+    background-color: var(--c-primary);
+    color: var(--c-white);
 
-    &:hover {
-        background-color: rgba( $primary, .8 );
-    }
-
+    &:hover,
     &:active {
-        transition: transform 150ms;
-        transform: scale( 0.94 ) !important;            
         background-color: rgba( $primary, .8 );
     }
 }
@@ -73,19 +72,14 @@
 .button-outline {
     @extend %button;
 
-    padding: calc( var( --padding ) - 1px ) calc( ( var( --padding ) * 2 ) - 1px );
+    padding: calc( var(--padding) - 1px ) calc( ( var(--padding) * var(--padding-ratio) ) - 1px );
 
-    border: 1px solid $primary;
+    border: 1px solid var(--c-primary);
     background-color: transparent;
-    color: $primary;
+    color: var(--c-primary);
 
-    &:hover {
-        background-color: rgba( $primary, .1 );
-    }
-
+    &:hover,
     &:active {
-        transition: transform 150ms;
-        transform: scale( 0.94 ) !important;
         background-color: rgba( $primary, .1 );
     }
 }
@@ -94,15 +88,10 @@
     @extend %button;
 
     background-color: transparent;
-    color: $primary;
+    color: var(--c-primary);
 
-    &:hover {
-        background-color: rgba( $primary, .1 );
-    }
-
+    &:hover,
     &:active {
-        transition: transform 150ms;
-        transform: scale( 0.94 ) !important;            
         background-color: rgba( $primary, .1 );
     }
 }
@@ -114,8 +103,8 @@
     .button-outline,
     .button-text {
         &:focus-visible {
-            --focus-inner: #{$black};
-            --focus-outer: #{$white};
+            --focus-inner: var(--c-black);
+            --focus-outer: var(--c-white);
         }
     }
 }

@@ -6,15 +6,15 @@
 
 
 //  Normalize
-@import '_init/normalize/normalize';
+@import 'base/normalize/normalize';
 
 
 //  Initiation
-@import '_init/settings';
-@import '_init/placeholders';
-@import '_init/functions';
-@import '_init/mixins';
-@import '_init/grid';
+@import 'base/variables';
+@import 'base/placeholders';
+@import 'base/functions';
+@import 'base/mixins';
+@import 'base/grid';
 
 
 //  Foundation
