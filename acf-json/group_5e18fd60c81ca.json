@@ -59,7 +59,7 @@
                                 {
                                     "key": "field_5e18fe0580c1f",
                                     "label": "Background",
-                                    "name": "background",
+                                    "name": "bg",
                                     "type": "select",
                                     "instructions": "",
                                     "required": 0,
@@ -150,7 +150,7 @@
                                 {
                                     "key": "field_5e18fe4e80c22",
                                     "label": "Background",
-                                    "name": "background",
+                                    "name": "bg",
                                     "type": "select",
                                     "instructions": "",
                                     "required": 0,
@@ -165,9 +165,7 @@
                                         "grey": "Grey",
                                         "black": "Black"
                                     },
-                                    "default_value": [
-                                        "white"
-                                    ],
+                                    "default_value": "white",
                                     "allow_null": 0,
                                     "multiple": 0,
                                     "ui": 1,
@@ -294,7 +292,7 @@
                                 {
                                     "key": "field_5e2ecae17eed1",
                                     "label": "Background",
-                                    "name": "background",
+                                    "name": "bg",
                                     "type": "select",
                                     "instructions": "",
                                     "required": 0,
@@ -309,9 +307,7 @@
                                         "grey": "Grey",
                                         "black": "Black"
                                     },
-                                    "default_value": [
-                                        "black"
-                                    ],
+                                    "default_value": "black",
                                     "allow_null": 0,
                                     "multiple": 0,
                                     "ui": 1,
@@ -433,7 +429,7 @@
                                 {
                                     "key": "field_5e317d84c58eb",
                                     "label": "Background",
-                                    "name": "background",
+                                    "name": "bg",
                                     "type": "select",
                                     "instructions": "",
                                     "required": 0,
@@ -448,9 +444,7 @@
                                         "grey": "Grey",
                                         "black": "Black"
                                     },
-                                    "default_value": [
-                                        "black"
-                                    ],
+                                    "default_value": "black",
                                     "allow_null": 0,
                                     "multiple": 0,
                                     "ui": 1,
@@ -733,5 +727,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1622121991
+    "modified": 1622137359
 }
