@@ -40,9 +40,9 @@ get_header();
 
 <?php
 
-if ( have_rows( 'flexi_blocks' ) ) :
+if ( have_rows( 'flexi-blocks-builder' ) ) :
 
-    while ( have_rows( 'flexi_blocks' ) ) : the_row();
+    while ( have_rows( 'flexi-blocks-builder' ) ) : the_row();
 
         $block = get_row_layout();
         $settings = shiftr_get_block_settings();
