@@ -145,7 +145,9 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
     /**
      * Dynamically size SVG site logo
      */
-    ;( logo => {
+    function resetSvgSiteLogo() {
+        const logo = document.querySelector( '.site-logo' )
+
         if ( ! logo ) return
         let svg = logo.children[0]
 
@@ -154,7 +156,9 @@ const { header, body } = Layout; // Semi-colon here forces Layout to not be a fu
             width   = logo.offsetHeight * ( values[2] / values[3] )
 
         svg.style.width = `${ width }px`
-
-    })( document.querySelector( '.site-logo' ) )
+    }
+    resetSvgSiteLogo()
+    window.addEventListener( 'resize', resetSvgSiteLogo )
+    window.addEventListener( 'orientationchange', resetSvgSiteLogo )
 
 })();
