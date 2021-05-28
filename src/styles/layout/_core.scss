@@ -64,6 +64,7 @@ html {
 
 body {
     --header-height: #{$default-header-height};
+    --section-scroll-margin-top: 0;
 
     width: 100%;
     max-width: 100%;
@@ -77,6 +78,10 @@ body {
     // Prevent scroll when header is open
     &.no-scroll {
         overflow-y: hidden;
+    }
+
+    &.header-state-active {
+        --section-scroll-margin-top: var(--header-height);
     }
 
     @include min-width( $header-breakpoint ) {
@@ -183,7 +188,7 @@ section {
         padding-left: var(--site-padding);
         padding-right: var(--site-padding);
         
-        scroll-margin-top: var( --header-height );
+        scroll-margin-top: var( --section-scroll-margin-top );
         margin-bottom: var(--s-vertical-padding);
 
         &:first-of-type {
