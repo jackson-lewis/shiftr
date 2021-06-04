@@ -31,9 +31,6 @@ $shiftr->admin_show_comments = false;
 /** Toggle display of the Editor by post type */
 $shiftr->remove_editor_by_post_type = array();
 
-/** Must explicitly define a custom post type as publicly visible */
-$shiftr->public_post_types = array();
-
 /** Shiftr Form global settings */
 $shiftr->forms = (object) array(
     'capture' => true,
