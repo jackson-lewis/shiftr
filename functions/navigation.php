@@ -18,7 +18,8 @@ function shiftr_register_navigation_locations() {
     register_nav_menus(
         array(
         'header-primary'    => 'Header',
-        'footer-primary'    => 'Footer'
+        'footer-1'          => 'Footer 1',
+        'footer-2'          => 'Footer 2'
         )
     );
 }
@@ -61,9 +62,10 @@ function shiftr_nav_primary_mobile() {
 }
 
 
-// Footer Navigation
-
-function shiftr_nav_footer() {
+/**
+ * Footer menu 1
+ */
+function shiftr_nav_footer_1() {
 
     wp_nav_menu( 
         array(
@@ -71,7 +73,7 @@ function shiftr_nav_footer() {
             'container_class'   => 'nav-footer',
             'menu_class'        => '',
             'menu_id'           => '',
-            'theme_location'    => 'footer-primary',
+            'theme_location'    => 'footer-1',
             'depth'             => 2,
             'fallback_cb'       => false,
             'walker'            => new Shiftr_Nav_Footer_Walker()
@@ -79,3 +81,21 @@ function shiftr_nav_footer() {
     );
 }
 
+/**
+ * Footer menu 2
+ */
+function shiftr_nav_footer_2() {
+
+    wp_nav_menu( 
+        array(
+            'container'         => 'nav',
+            'container_class'   => 'nav-footer',
+            'menu_class'        => '',
+            'menu_id'           => '',
+            'theme_location'    => 'footer-2',
+            'depth'             => 2,
+            'fallback_cb'       => false,
+            'walker'            => new Shiftr_Nav_Footer_Walker()
+        )
+    );
+}
