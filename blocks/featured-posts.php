@@ -51,9 +51,10 @@ $args = array(
 
 if ( $data['by-post'] ) {
     $args['post__in'] = $data['by-post'];
+    $args['orderby'] = 'post__in';
 
 } elseif ( $data['by-category'] ) {
-    $args['tax_query'] = array();
+    $args['cat'] = $data['by-category'];
 }
 
 $posts = new WP_Query( $args );

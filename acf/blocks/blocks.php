@@ -115,8 +115,8 @@ new Flexi_Block(
             'Category',
             array(
                 'name' => 'by-category',
-                'taxonomy' => 'category',
                 'instructions' => 'Optional. Display posts from a category.',
+                'return_format' => 'id',
                 'wrapper' => array (
                     'width' => 50
                 )
