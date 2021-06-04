@@ -1,0 +1,73 @@
+/*
+
+    //  //// --|    Blocks / CTA banner (small)
+
+*/
+section.flexi-block.block--cta-banner-small {
+    --vertical-padding: 50px;
+
+    padding-top: var( --vertical-padding );
+    padding-bottom: var( --vertical-padding );
+
+    text-align: center;
+
+    &.bg-black,
+    &.bg-primary {
+        .button {
+            --focus-outer: var(--c-white);
+
+            color: var(--c-white);
+        }
+    }
+
+    &.bg-black {
+        .button {
+            --focus-inner: var(--c-black);
+        }
+    }
+
+    &.bg-primary {
+        color: var(--c-white);
+        
+        .button {
+            --focus-inner: var(--c-primary);
+
+            background-color: var(--c-white);
+            color: var(--c-primary);
+        }
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    .button {
+        --padding-ratio: 4;
+    }
+
+    @include min-width( m ) {
+        --vertical-padding: 25px;
+        
+        div.container {
+            display: grid;
+            grid-gap: var(--site-gutter);
+            grid-template-columns: 1fr 1fr;
+
+            & > * {
+                align-self: center;
+            }
+        }
+
+        p {
+            margin-bottom: 0;
+
+            text-align: right;
+        }
+
+        a.button {
+            --padding-ratio: 8;
+
+            margin-right: auto;
+        }
+    }
+}

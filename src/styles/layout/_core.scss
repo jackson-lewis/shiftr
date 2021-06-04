@@ -21,6 +21,7 @@ img, video {
     // Layout
     --container-width: #{$container-width};
     --site-padding: #{$site-padding};
+    --site-gutter: 15px;
 
     // Aesthetics
     --border-radius: 4px;
@@ -49,6 +50,10 @@ img, video {
     --t-max-font-size: #{$base-max-font-size};
     --t-baseline: #{$baseline};
     --t-base-line-height: #{$base-line-height};
+
+    @include min-width( m ) {
+        --site-gutter: 30px;
+    }
 }
 
 //  --|    Selection
@@ -103,11 +108,6 @@ main.site-main {
 .site-padding {
     padding-left: var(--site-padding);
     padding-right: var(--site-padding);
-
-    @include min-width( s ) {
-        padding-left: calc( var(--site-padding) * 2 );
-        padding-right: calc( var(--site-padding) * 2 );
-    }
 }
 
 .container {
@@ -189,11 +189,32 @@ section {
         padding-right: var(--site-padding);
         
         scroll-margin-top: var( --section-scroll-margin-top );
+    }
+
+    &.flexi-block {
+        padding-left: var(--site-padding);
+        padding-right: var(--site-padding);
+        
+        scroll-margin-top: var( --section-scroll-margin-top );
         margin-bottom: var(--s-vertical-padding);
 
         &:first-of-type {
             &.has-bg {
                 margin-top: var(--s-vertical-padding-negative);
+            }
+        }
+
+        &:last-of-type {
+
+            &.bg-black,
+            &.bg-grey {
+                margin-bottom: 0;
+            }
+        }
+    
+        &.bg-black {
+            .content {
+                @extend %inverted-button-base;
             }
         }
     }
@@ -221,6 +242,22 @@ section {
         background-color: var(--c-l-grey);
 
         & + .bg-grey {
+            padding-top: 0;
+        }
+    }
+
+    &.bg-primary {
+        background-color: var(--c-primary);
+
+        & + .bg-primary {
+            padding-top: 0;
+        }
+    }
+
+    &.bg-secondary {
+        background-color: var(--c-secondary);
+
+        & + .bg-secondary {
             padding-top: 0;
         }
     }

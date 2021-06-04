@@ -10,6 +10,7 @@ define( 'SHIFTR_ASSETS', get_template_directory() . '/assets' );
 define( 'SHIFTR_FUNC', get_template_directory() . '/functions' );
 define( 'SHIFTR_INC', get_template_directory() . '/inc' );
 define( 'SHIFTR_PARTS', get_template_directory() . '/parts' );
+define( 'SHIFTR_ACF', get_template_directory() . '/acf' );
 
 
 require_once( SHIFTR_INC . '/shiftr-util.php' );
@@ -17,13 +18,18 @@ require_once( SHIFTR_INC . '/admin/shiftr-install.php' );
 
 
 if ( $shiftr_has_acf ) {
+    /**
+     * Get theme ACF files
+     * 
+     * @since 1.5
+     */
+    require_once( SHIFTR_ACF . '/shiftr-acf.php' );
 
     /**
      *  Get theme inc files
      *
      *  @since 1.0
      */
-
     require_once( SHIFTR_INC . '/class-shiftr-settings.php' );
     require_once( SHIFTR_INC . '/class-shiftr-custom-post-type.php' );
     require_once( SHIFTR_INC . '/class-shiftr-form.php' );
@@ -35,17 +41,14 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_INC . '/shiftr-form.php' );
     require_once( SHIFTR_INC . '/shiftr-contact-link.php' );
     require_once( SHIFTR_INC . '/shiftr-components.php' );
-    require_once( SHIFTR_INC . '/flexi-builder-helpers.php' );
-
+    //require_once( SHIFTR_INC . '/flexi-helper-functions.php' );
 
     /** 
      *  Get all theme function files
      *
      *  @since 1.0
      */
-
     require_once( SHIFTR_FUNC . '/shiftr-builtin-filters.php' );
-
     require_once( SHIFTR_FUNC . '/_shiftr-settings.php' );
     require_once( SHIFTR_FUNC . '/_shiftr-filters.php' );
     require_once( SHIFTR_FUNC . '/theme-support.php' );
@@ -66,12 +69,9 @@ if ( $shiftr_has_acf ) {
     }
     
     require_once( SHIFTR_FUNC . '/_shiftr-custom.php' );
-
-
     /** 
      *  Go to /functions/_shiftr.php if you wish to add any custom code
      *
      *  Thank you!
      */
 }
-

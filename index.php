@@ -9,7 +9,7 @@ global $wp_query;
 
 <main class="site-main">
 
-    <div class="hero--post_archive">
+    <div class="hero--archive-post">
         <div class="container">
             <header class="hero-archive-content">
                 <h1><?php echo get_search_query() != '' ? 'Searched: ' . get_search_query() : 'Posts'; ?></h1>
@@ -23,41 +23,32 @@ global $wp_query;
     <section class="site-section blog-layout">
         <div class="container">
             
-            <div class="loop--posts">
+            <?php if ( have_posts() ) : ?>
+            <ul class="posts loop">
+            <?php
+                while( have_posts() ) :
+                    the_post();
 
-                <?php
-
-                if ( have_posts() ) :
-                    while( have_posts() ) :
-                        the_post();
-
-                ?>
-
-                <div class="card--post">
-
-                    <div class="image">
-                        <?php shiftr_featured_image(); ?>
-                    </div>
-
-                    <div class="details">
-                        <h3 id="card--post-<?php echo get_the_ID(); ?>"><?php the_title(); ?></h3>
-                        <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
-                        <p><?php the_excerpt(); ?></p>
-                        <a href="<?php the_permalink(); ?>" class="button-fill">Read <span class="screen-reader-text" aria-labelledby="card--post-<?php echo get_the_ID(); ?>"></span></a>
-                    </div>
-
+                    ?>
+                    <li class="post">
+                        <a href="<?php the_permalink(); ?>">
+                            <div class="post-thumbnail">
+                                <?php shiftr_featured_image( get_the_ID(), 'medium' ); ?>
+                            </div>
+                            <div class="post-summary">
+                                <h3 id="post-<?php echo get_the_ID(); ?>"><?php the_title(); ?></h3>
+                                <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
+                            </div>
+                        </a>
+                    </li>
+                    <?php
                     
-                </div>
+                endwhile;
 
-                <?php endwhile; ?>
-
-                <?php else : ?>
-
-                <p>Oops! It looks like nothing could be found...</p>
-
-                <?php endif; ?>
-                
-            </div>
+                wp_reset_postdata();
+            ?>
+            </ul>
+            <?php endif; ?>
 
         </div>
     </section>
