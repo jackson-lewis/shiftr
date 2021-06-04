@@ -95,15 +95,6 @@ body {
     }
 }
 
-
-//  --|    Main core styling
-
-main.site-main {
-    padding-top: var(--header-height);
-    position: relative;
-}
-
-
 //  --|    Main layout container
 
 .site-padding {
@@ -200,8 +191,8 @@ section {
         margin-bottom: var(--s-vertical-padding);
 
         &:first-of-type {
-            &.has-bg {
-                margin-top: var(--s-vertical-padding-negative);
+            &:not(.has-bg) {
+                margin-top: var(--s-vertical-padding);
             }
         }
 
