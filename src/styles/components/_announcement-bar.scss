@@ -1,0 +1,16 @@
+/*
+
+    //  //// --|    Annoucement Bar
+
+*/
+div.announcement-bar {
+    padding: 10px var(--site-margin);
+    
+    background-color: var(--c-l-grey);
+    text-align: center;
+
+    p {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+}

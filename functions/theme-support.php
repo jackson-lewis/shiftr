@@ -134,3 +134,26 @@ function shiftr_load_fonts() {
     <?php
 }
 add_action( 'wp_footer', 'shiftr_load_fonts', 5 );
+
+
+/**
+ * Displays the built-in Announcement Bar component.
+ */
+function shiftr_announcement_bar() {
+    $announcement_bar = get_field( 'announcement-bar', 'options' );
+
+    if ( is_front_page() && $announcement_bar && $announcement_bar['message'] ) :
+    ?>
+<div class="announcement-bar">
+    <p>
+        <?php
+        if ( $announcement_bar['link'] ) {
+            printf( '<a href="%s">%s</a>', $announcement_bar['link'], $announcement_bar['message'] );
+        } else {
+            echo $announcement_bar['message'];
+        }
+        ?>
+    </p>
+</div>
+    <?php endif;
+}
