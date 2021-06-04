@@ -1,14 +1,7 @@
-<?php
-
-    global $shiftr;
-
-?>
-
-
+<?php global $shiftr; ?>
 <!DOCTYPE html>
 
 <html <?php language_attributes(); ?>>
-    
     <head>
         <?php shiftr_head_open(); ?>
         

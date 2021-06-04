@@ -1,13 +1,9 @@
 <?php
-
-    /*  ////  --|    Enqueue Scripts & Styles
-
-    */
-
+/**
+ * Enqueue scripts & styles
+ */
 
 /**  
- *  shiftr_scripts
- *
  *  Add Shiftr styles and scripts for frontend usage
  *  Remove core WP styles and scripts that aren't needed
  *  Statements monitor usage of jQuery for Woocommerce as standard
@@ -16,9 +12,7 @@
  *
  *  @global $shiftr To access the theme version
  */
-
 function shiftr_scripts() {
-
     global $shiftr;
 
     if ( ! is_user_logged_in() && ! $shiftr->use_jquery ) {
@@ -41,5 +35,4 @@ function shiftr_scripts() {
     // Remove WP Glutenburg styling as not supported by the theme yet
     wp_dequeue_style( 'wp-block-library' );
 }
-
 add_action( 'wp_enqueue_scripts', 'shiftr_scripts', 999 );

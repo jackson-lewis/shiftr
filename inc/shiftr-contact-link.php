@@ -1,9 +1,5 @@
 <?php
-
-
 /**  
- *  shiftr_contact_type
- *
  *  Take the contact type and assign the corresponding value
  *
  *  @since 1.0
@@ -12,9 +8,8 @@
  *  @param $email_value str The email value
  *  @param $phone_value str The phone value
  *  @param $address_value str The address value
- *  @return str
+ *  @return string
  */
-
 function shiftr_contact_type( $target, $email_value, $phone_value, $address_value ) {
 
     if ( $target == 'email' ) {
@@ -32,17 +27,14 @@ function shiftr_contact_type( $target, $email_value, $phone_value, $address_valu
 
 
 /**  
- *  shiftr_contact_link
- *
  *  Build the anchor element
  *
  *  @since 1.0
  *
  *  @param $args array Assign contact details and type to use
  *  @param $direct bool Has function been called directly or not
- *  @return str|bool
+ *  @return string|bool
  */
-
 function shiftr_contact_link( $args = array(), $direct = true ) {
 
     // Do not allow this function to be called directly
@@ -144,49 +136,39 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
 
 
 /**  
- *  shiftr_add_contact_link
- *
  *  Output the contact link within PHP
  *
  *  @since 1.0
  *
  *  @param $args array Assign contact details and type to use
  */
-
 function shiftr_add_contact_link( $args = [] ) {
     echo shiftr_contact_link( $args, false );
 }
 
 
 /**  
- *  shiftr_add_inline_email
- *
  *  Function to run on call to shortcode [email_link] - output email link
  *
  *  @since 1.0
  *
  *  @param $atts array Arguments supported by shiftr_contact_link()
  */
-
 function shiftr_add_inline_email( $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
     return shiftr_contact_link( $atts, false );
 }
-
 add_shortcode( 'email_link', 'shiftr_add_inline_email' );
 
 
 /**  
- *  shiftr_add_inline_phone
- *
  *  Function to run on call to shortcode [phone_link] - output phone link
  *
  *  @since 1.0
  *
  *  @param $atts array Arguments supported by shiftr_contact_link()
  */
-
 function shiftr_add_inline_phone( $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
@@ -194,6 +176,4 @@ function shiftr_add_inline_phone( $atts = [] ) {
 
     return shiftr_contact_link( array_merge( $as_phone, $atts ), false );
 }
-
 add_shortcode( 'phone_link', 'shiftr_add_inline_phone' );
-

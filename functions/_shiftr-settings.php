@@ -28,13 +28,6 @@ $shiftr->admin_show_posts = true;
 /** Toggle display of the `Comments` admin menu link */
 $shiftr->admin_show_comments = false;
 
-/**
- * Assign users by ID that can access ACF
- * 
- * If empty, all admins have access
- * */
-$shiftr->access_to_acf = array( 1 );
-
 /** Toggle display of the Editor by post type */
 $shiftr->remove_editor_by_post_type = array();
 

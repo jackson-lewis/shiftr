@@ -1,18 +1,13 @@
 <?php
-
-    /*  ////  --|    Navigate
-
-    */
-
+/**
+ * Nagigation menus
+ */
 
 /**  
- *  shiftr_register_navigation_locations
- *
  *  Register all navigation locations
  *
  *  @since 1.0
  */
-
 function shiftr_register_navigation_locations() {
 
     register_nav_menus(
@@ -23,12 +18,12 @@ function shiftr_register_navigation_locations() {
         )
     );
 }
-
 add_action( 'init', 'shiftr_register_navigation_locations' );
 
 
-// Primary Navigation
-
+/**
+ * Main site menu
+ */
 function shiftr_nav_primary() {
 
     wp_nav_menu( 
@@ -45,6 +40,10 @@ function shiftr_nav_primary() {
     );
 }
 
+
+/**
+ * Main site menu, mobile version
+ */
 function shiftr_nav_primary_mobile() {
 
     wp_nav_menu( 

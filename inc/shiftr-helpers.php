@@ -1,6 +1,4 @@
 <?php
-
-
 /**  
  *  Loop through an array of attributes and output string
  *

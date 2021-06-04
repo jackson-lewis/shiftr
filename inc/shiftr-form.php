@@ -1,11 +1,7 @@
 <?php
-
-/**  
- *  All things related to the Shiftr Form
- *
- *  @since 1.0
+/**
+ * Shiftr Forms
  */
-
 
 // The global
 global $shiftr_forms;
@@ -15,8 +11,6 @@ $shiftr_forms = array();
 
 
 /**  
- *  shiftr_register_form
- *
  *  Register a Shiftr form
  *
  *  @since 1.0
@@ -24,9 +18,7 @@ $shiftr_forms = array();
  *  @param $form str The name of the form
  *  @param $args array The form settings and list of fields
  */
-
 function shiftr_register_form( $form = '', $args = [] ) {
-
     global $shiftr_forms;
 
     if ( ! isset( $shiftr_forms[ $form ] ) ) {
@@ -39,17 +31,13 @@ function shiftr_register_form( $form = '', $args = [] ) {
 
 
 /**  
- *  shiftr_build_form
- *
  *  Output the HTML of the whole form
  *
  *  @since 1.0
  *
- *  @param $form str The name of the form
+ *  @param string $form The name of the form
  */
-
 function shiftr_build_form( $form = '', $is_shortcode = false ) {
-
     global $shiftr_forms;
 
     if ( isset( $shiftr_forms[ $form ] ) ) {
@@ -258,13 +246,10 @@ add_filter( 'bulk_actions-edit-shiftr_form', function( $actions ) {
 // Admin Stuff
 
 /**  
- *  shiftr_contact_form_submenu
- *
  *  Create the admin page for general form settings
  *
  *  @since 1.0
  */
-
 function shiftr_contact_form_submenu() {
 
     add_submenu_page(
@@ -276,18 +261,14 @@ function shiftr_contact_form_submenu() {
         'shiftr_contact_form_settings'
     );
 }
-
 add_action( 'admin_menu', 'shiftr_contact_form_submenu' );
 
 
 /**  
- *  shiftr_contact_form_settings
- *
  *  The called function for content to the settings page
  *
  *  @since 1.0
  */
-
 function shiftr_contact_form_settings() {
 
     settings_fields( 'shiftr_form' );
@@ -308,15 +289,12 @@ function shiftr_contact_form_settings() {
 
 
 /**  
- *  shiftr_update_form_setting
- *
  *  Update a Shiftr setting via a form
  *
  *  @since 1.0
  *
  *  @param $option_name string The name of the setting to update
  */
-
 function shiftr_update_form_setting( $option_name ) {
 
     // Update option if changed
@@ -350,7 +328,6 @@ function shiftr_register_form_settings() {
 
     register_setting( 'shiftr_form', 'form_default_recepients' );
 }
-
 add_action( 'admin_init', 'shiftr_register_form_settings' );
 
 
@@ -379,7 +356,6 @@ function shiftr_form_data_meta_boxes() {
         'normal'
     );
 }
-
 add_action( 'add_meta_boxes', 'shiftr_form_data_meta_boxes' );
 
 
@@ -447,7 +423,6 @@ function shiftr_form_data_get_content() {
 
 
 function shiftr_form_get_error() {
-
     global $post;
 
     $error = get_post_meta( $post->ID, 'shiftr_form_mail_error', true );

@@ -1,16 +1,15 @@
 <?php
-
-
 /**  
- *  shiftr_body_class
- *
  *  Shiftr's own body_class function, more lightweight than core WP
  *
  *  @since 1.0
  */
-
 function shiftr_body_class( $use_shiftr = true ) {
 
+    /**
+     * To prevent conflict issues, it's mcuh safer to use the default
+     * body_class() function when using WooCommerce.
+     */
     if ( ! $use_shiftr || function_exists( 'is_woocommerce' ) ) {
         body_class();
 
@@ -70,15 +69,12 @@ function shiftr_body_class( $use_shiftr = true ) {
 
 
 /**  
- *  shiftr_head_open
- *
  *  Keeping the header.php file cleaner
  *
  *  @since 1.0
  *
  *  @return mixed|bool
  */
-
 function shiftr_head_open() {
 
     if ( get_field( 'head_open', 'option' ) ) {
@@ -90,8 +86,6 @@ function shiftr_head_open() {
 
 
 /**  
- *  shiftr_body_open
- *
  *  Keeping the header.php file cleaner
  *  Update from WP 5.2 - now hooked on wp_body_open()
  *
@@ -99,7 +93,6 @@ function shiftr_head_open() {
  *
  *  @return mixed|bool
  */
-
 function shiftr_body_open() {
 
     if ( get_field( 'body_open', 'option' ) ) {
@@ -108,20 +101,16 @@ function shiftr_body_open() {
         return false;
     }
 }
-
 add_action( 'wp_body_open', 'shiftr_body_open' );
 
 
 /**  
- *  shiftr_body_close
- *
  *  Keeping the footer.php file clean.
  *
  *  @since 1.0
  *
  *  @return mixed|bool
  */
-
 function shiftr_body_close() {
 
     if ( get_field( 'body_close', 'option' ) ) {
@@ -130,6 +119,4 @@ function shiftr_body_close() {
         return false;
     }
 }
-
 add_action( 'wp_footer', 'shiftr_body_close', 1 );
-

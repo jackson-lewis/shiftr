@@ -1,9 +1,9 @@
 <?php
-
+/**
+ * WordPress login screen
+ */
 
 /**  
- *  shiftr_login_styles
- *
  *  Add Shiftr login styles to the login page
  *
  *  @since 1.0
@@ -15,5 +15,4 @@ function shiftr_login_styles() {
 
     wp_enqueue_style( 'shiftr-login', get_template_directory_uri() . '/assets/styles/login.css', false, $shiftr->get( 'version' ) );
 }
-
 add_action( 'login_enqueue_scripts', 'shiftr_login_styles', 10 );
