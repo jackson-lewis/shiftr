@@ -1,28 +1,15 @@
-# Shiftr
+# Shape Shiftr
 
-This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.
+A WordPress starter theme built for superior performance and experience.
 
+This theme has evolved inline with my own personal progression as a WordPress developer, with significant improvements such as introducing ACF via PHP in the form of Shiftr ACF, which is the backbone behind the current 3rd-generation Flexi Blocks Builder.
 
-## Effortless Development
+## Performance
+Superior performance has always been at the heart of Shiftr, baking performance-led decisions into the very core of the theme is what allows some of the very best possible performance milestones to be achieved for a WordPress site.
 
-With less than 1 year in industry at the time, I had enough exposure to see what the most common tasks were. Functions and classes have been designed to tackle these common tasks. Setting up custom post types, adding a post featured image, adding an inline SVG or adding an image via an Advanced Custom Field Image field... Just a selection of the tasks where Shiftr does the heavy lifting.
+With the likes of preload support for featured images of posts builtin, and careful handling of image sizes and lazy load options, the only remaining step for optimising images is use of a Image Optimsation Service.
 
+## Experience
+It is easy with WordPress development to put 100% focus in the frontend, that the experience of the backend can become very poor for content editors and administrators. With the likes of the Flexi Blocks Builder, Shiftr cares deeply about the experience for content entry, making for a fully _flexible_ solution to tailor pages based on the editors needs.
 
-## SEO ready
-
-After 1 year in a Developer role within an SEO team at a digital marketing agency, an exposure to the SEO world has inspired a majority of the decisions that have gone into this project. The theme is designed to provide the best possible performance and accessibility is being improved around the clock.
-
-
-## Contact Form Ready
-
-Almost a project in itself, Shiftr has full build-in support for forms. This includes styling, validation, submission and data storage. 
-
-
-## Trivial
-
-The theme started life in early 2018 named "Project Dawn". A CSS and JavaScript toolkit that was intended to be used in place of any frameworks. The idea was simple, do away with overriding large CSS frameworks and instead write directly into the SCSS files. Making the code lighter and easier to work with. I also wanted to extend this to ditching jQuery, although Dawn was never made it to be jQuery free. The theme was created a final year project whilst studying Digital Media at the University of Portmouth.
-
-It was over a year later that I wanted to push this project further, alot further. This meant completely recreating the structure and adopting a new identity. So born was Shape Shiftr. The idea of the name is that the theme is designed to be shaped around the requirements of a project, rather that leaving redundant code sitting in the corner or dumping plugins that are overkill onto a site.
-
-
-Thanks
+During development, the theme is powered by Gulp for hot reloading and compiling of styles. Webpack then handles transpiling all JavaScript. The build has been carefully created, making sure the hot reloads are ultra fast. It was also crutial that styles where injected rather than reloads, adding to the experience further. Development mode does not mess around trying to minify code when it's not needed, boosting reload times further.

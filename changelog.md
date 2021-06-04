@@ -1,6 +1,43 @@
 # Changelog
 
 
+## v1.5
+*04/06/21*
+
+Arguably one of the biggest releases to Shiftr in terms of impact to developer experience! Introducing Shiftr ACF which also brings the 3rd-generation Flexi Blocks Builder (Flexi Template), a big cleanup of php and scss files, removal of some unused code as well as various new additions.
+
+### Shiftr ACF
+This is a custom made framework/library which is tailored around Flexi, allowing superior experience for adding new Blocks, Builders and Groups. Plus changes to the GUI of a Block within a Flexible Content field make for a more seamless experience on the backend. All ACF is now controlled [via PHP](https://www.advancedcustomfields.com/resources/register-fields-via-php/), so we've tried to make the whole experience of working with ACF via PHP as effortless as possible.
+
+The default Blocks available has also been revised, with a new starting point for the 3rd-generation Flexi.
+* Content
+* Content & Image
+* CTA Banner (small)
+* Featured Posts
+
+### Default footer
+There is a new default footer in town! Complete with contact details, TWO menu locations with menus already defined as well as a seperate row for legal info. This new default should really help kickstart every footer.
+
+### Hello Announcement Bar
+A new component built-in straight into the core is the Announcement Bar, a super lightweight component great for displaying a short notice with optionally linked text. `shiftr_announcement_bar()` can be called anywhere you like, whether it's just on one template or every page in the header.
+
+### New and improved archive pages
+There is a new look to the default posts loop, with better markup and simpler default styles. A new standard has been put in place for working with post loops. `ul.loop.posts` with `li.post`.
+
+New files have been added, `home.php` and `search.php`, for a much better focus on the [WordPress template hierarchy ](https://developer.wordpress.org/themes/basics/template-hierarchy/). There is also a new basic hero applied to all archive templates for consistency and reduced markup and styles.
+
+### Code cleanup
+All the php files for `/functions` and `/inc` have undergone a cleanup of the comments standards. Also, where appropriate, certain code has been removed due to lack of use.
+Similar goes for the styles, where certain files have been removed due to lack of use.
+
+### Misc
+* Added `p:empty { display: none }`
+* Removed the public sanity check from registering custom post types, as the process is cumbersome and can easily become fustrating for new developers to the theme.
+* Improved body class names, primarily for archives, taxonomies and search.
+* Some styles on `section.site-section` have now been moved to a new dedicated class `section.flexi-block`, this makes much sense as some of the styles where only really appropriate in the context of a Flexi Builder. This also reduces conflicts and unnecessary overrides when using `section.site-section` outside of the Flexi Builder context.
+
+
+
 ## v1.4.2
 *28/05/21*
 
