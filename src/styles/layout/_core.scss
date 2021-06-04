@@ -21,6 +21,7 @@ img, video {
     // Layout
     --container-width: #{$container-width};
     --site-padding: #{$site-padding};
+    --site-margin: var(--site-padding);
     --site-gutter: 15px;
 
     // Aesthetics
@@ -98,7 +99,7 @@ body {
 //  --|    Main core styling
 
 main.site-main {
-    padding-top: 100px;
+    padding-top: var(--header-height);
     position: relative;
 }
 
