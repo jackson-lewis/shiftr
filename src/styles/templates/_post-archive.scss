@@ -3,16 +3,24 @@
     //  //// --|    Templates / Post Archive
 
 */
-.hero--archive-post {
-    margin-bottom: get_baseline( 2 );
+.hero--basic {
+    margin-bottom: 80px;
+    padding-top: 40px;
 
-    .hero-archive-content {
+    header {
+        max-width: 900px;
+
         text-align: center;
 
         h1 {
             text-align: inherit;
         }
     }
+}
+
+.search-result-count {
+    margin-top: 20px;
+    display: inline-block;
 }
 
 ul.loop {

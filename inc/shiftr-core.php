@@ -27,7 +27,8 @@ function shiftr_body_class( $use_shiftr = true ) {
     }
 
     if ( is_home() ) {
-        $classes[] = 'posts-archive';
+        $classes[] = 'home';
+        $classes[] = 'archive-post';
     }
 
     if ( is_archive() ) {
@@ -40,6 +41,10 @@ function shiftr_body_class( $use_shiftr = true ) {
 
     if ( is_404() ) {
         $classes[] = 'error404';
+    }
+
+    if ( is_search() ) {
+        $classes[] = 'search';
     }
 
     if ( is_singular() ) {

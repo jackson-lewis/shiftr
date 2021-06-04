@@ -1,6 +1,6 @@
 <?php 
 /**
- * Archive
+ * Home - posts page
  */
 get_header();
 
@@ -9,7 +9,7 @@ get_header();
 <main class="site-main">
     <div class="hero--basic">
         <header class="container hero-content">
-            <h1><?php the_archive_title(); ?></h1>
+            <h1><?php single_post_title(); ?></h1>
         </header>
     </div>
 
