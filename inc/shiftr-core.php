@@ -22,7 +22,7 @@ function shiftr_body_class( $use_shiftr = true ) {
     $classes = array();
 
     if ( is_front_page() ) {
-        $classes[] = 'site-home';
+        $classes[] = 'front-page';
     }
 
     if ( is_home() ) {
@@ -32,6 +32,21 @@ function shiftr_body_class( $use_shiftr = true ) {
 
     if ( is_archive() ) {
         $classes[] = 'archive';
+    }
+
+    if ( is_category() ) {
+        $queried_object = get_queried_object();
+        $classes[] = 'category';
+        $classes[] = 'cat-' . $queried_object->slug;
+        $classes[] = 'catid-' . $queried_object->term_id;
+    }
+
+    if ( is_tax()  ) {
+        $queried_object = get_queried_object();
+
+        $classes[] = 'taxonomy';
+        $classes[] = 'tax-' . $queried_object->slug;
+        $classes[] = 'taxid-' . $queried_object->term_id;
     }
 
     if ( is_date() ) {
