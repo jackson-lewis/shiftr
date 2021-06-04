@@ -1,6 +1,4 @@
 <?php
-
-
 /**  
  *  Loop through an array of attributes and output string
  *
@@ -105,7 +103,7 @@ function shiftr_featured_image( $id = null, $size = 'large', $attr = [] ) {
     }
 
     // Allows ability to set placeholder images based on post type via $post
-    $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ) );
+    $thumbnail_id = apply_filters( 'shiftr_featured_image_thumbnail_id', get_post_thumbnail_id( $id ), $post );
 
     echo get_shiftr_image( $thumbnail_id, $size, $attr );
 }

@@ -1,18 +1,14 @@
 <?php
-
-    /*  ////  --|    Theme Support
-
-    */
+/**
+ * Theme support
+ */
 
 
 /**  
- *  shiftr_theme_support
- *
  *  The fundamental theme support 
  *
  *  @since 1.0
  */
-
 function shiftr_theme_support() {
 
     add_theme_support( 'title-tag' );
@@ -22,18 +18,14 @@ function shiftr_theme_support() {
         add_theme_support( 'woocommerce' );
     }
 }
-
 add_action( 'after_setup_theme', 'shiftr_theme_support' );
 
 
 /**  
- *  shiftr_filter_the_content
- *
  *  Filter and remove <p> tags surrounding images in content
  *
  *  @since 1.0
  */
-
 function shiftr_filter_the_content( $content ) {
 
     // Remove <p> tags wrapped around <img>
@@ -44,7 +36,6 @@ function shiftr_filter_the_content( $content ) {
 
     return $content;
 }
-
 add_filter( 'the_content', 'shiftr_filter_the_content' );
 add_filter( 'acf_the_content', 'shiftr_filter_the_content' );
 
@@ -54,8 +45,6 @@ add_filter( 'excerpt_more', '__return_empty_string' );
 
 
 /**  
- *  shiftr_fonts
- *
  *  Output the font associated link tags
  *
  *  @since 1.0
@@ -145,3 +134,26 @@ function shiftr_load_fonts() {
     <?php
 }
 add_action( 'wp_footer', 'shiftr_load_fonts', 5 );
+
+
+/**
+ * Displays the built-in Announcement Bar component.
+ */
+function shiftr_announcement_bar() {
+    $announcement_bar = get_field( 'announcement-bar', 'options' );
+
+    if ( is_front_page() && $announcement_bar && $announcement_bar['message'] ) :
+    ?>
+<div class="announcement-bar">
+    <p>
+        <?php
+        if ( $announcement_bar['link'] ) {
+            printf( '<a href="%s">%s</a>', $announcement_bar['link'], $announcement_bar['message'] );
+        } else {
+            echo $announcement_bar['message'];
+        }
+        ?>
+    </p>
+</div>
+    <?php endif;
+}

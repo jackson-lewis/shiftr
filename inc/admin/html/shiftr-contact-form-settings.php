@@ -1,12 +1,8 @@
 <?php
-
-    /*  ////  --|    The HTML for Shiftr Contact Forms Settings
-
-    */
-
+/**
+ * Shiftr Forms - settings page
+ */
 ?>
-
-
 <div class="wrap">
     
     <h1>Contact Form Settings</h1>

@@ -1,6 +1,6 @@
 <?php 
 /**
- * Default post template
+ * 404 page
  */
 get_header();
 ?>

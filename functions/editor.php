@@ -1,13 +1,10 @@
 <?php
-
-    /*  ////  --|    Editor
-
-    */
+/**
+ * WYSIWYG editor
+ */
 
 
 /**  
- *  shiftr_editor
- *
  *  Filter the plugins in the WYSIWYG editor
  *
  *  @since 1.0
@@ -15,7 +12,6 @@
  *  @param $plugin_array array The plugins used in the editor
  *  @return array The plugins used in the editor
  */
-
 function shiftr_editor( $plugin_array ) {
 
     // Add Email plugin
@@ -29,8 +25,6 @@ function shiftr_editor( $plugin_array ) {
 
 
 /**  
- *  shiftr_editor_register_buttons
- *
  *  Add Shiftr custom buttons to the WYSIWYG editor
  *
  *  @since 1.0
@@ -38,9 +32,7 @@ function shiftr_editor( $plugin_array ) {
  *  @param $buttons array The buttons used in the editor
  *  @return array The buttons used in the editor
  */
-
 function shiftr_editor_register_buttons( $buttons ) {
-    
     // Shortcodes to add to editor
     array_push( $buttons, '|', 'email', 'phone' );
 
@@ -49,25 +41,18 @@ function shiftr_editor_register_buttons( $buttons ) {
 
 
 /**  
- *  shiftr_mce
- *
  *  Add the Shiftr WYSIWYG editor customizations 
  *
  *  @since 1.0
  */
-
 function shiftr_mce() {
-
     add_filter( 'mce_external_plugins', 'shiftr_editor' );
     add_filter( 'mce_buttons', 'shiftr_editor_register_buttons' );
 }
-
 add_action( 'admin_init', 'shiftr_mce' );
 
 
 /**  
- *  shiftr_acf_editor_toolbar
- *
  *  Filter the ACF editor to include Shiftr buttons
  *
  *  @since 1.0
@@ -75,7 +60,6 @@ add_action( 'admin_init', 'shiftr_mce' );
  *  @param $toolbars array The toolbars used in ACF editor
  *  @return array The toolbars used in ACF editor
  */
-
 function shiftr_acf_editor_toolbar( $toolbars ) {
 
     $toolbars['Shiftr Full'] = array();
@@ -129,22 +113,17 @@ function shiftr_acf_editor_toolbar( $toolbars ) {
 
     return $toolbars;
 }
-
 add_filter( 'acf/fields/wysiwyg/toolbars', 'shiftr_acf_editor_toolbar' );
 
 
 /**  
- *  shiftr_remove_editor
- *
  *  Filter the ACF editor to include Shiftr buttons
  *
  *  @since 1.0
  *
  *  @global $shiftr Access the class setting remove_editor_by_post_type
  */
-
 function shiftr_remove_editor() {
-
     global $shiftr;
 
     if ( ! is_array( $shiftr->remove_editor_by_post_type ) ) return;
@@ -153,6 +132,4 @@ function shiftr_remove_editor() {
         remove_post_type_support( $post_type, 'editor' );
     }
 }
-
 add_action( 'init', 'shiftr_remove_editor', 99 );
-

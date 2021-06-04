@@ -3,10 +3,13 @@
     //  //// --|    Templates / Post Archive
 
 */
-.hero--post_archive {
-    margin-bottom: get_baseline( 2 );
+.hero--basic {
+    margin-bottom: 80px;
+    padding-top: 40px;
 
-    .hero-archive-content {
+    header {
+        max-width: 900px;
+
         text-align: center;
 
         h1 {
@@ -15,69 +18,75 @@
     }
 }
 
+.search-result-count {
+    margin-top: 20px;
+    display: inline-block;
+}
 
-.loop--posts {
-    max-width: 900px;
-    margin: auto;
+ul.loop {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-    .card--post {
-        margin-bottom: 20px;
-        padding: 20px;
+ul.loop.posts {
 
-        background-color: var(--c-l-grey);
-        border-radius: var(--border-radius);
-
-        &:last-child {
-            margin-bottom: 0;
+    li.post {
+        &:not(:last-child) {
+            margin-bottom: 20px;
         }
 
-        .image {
-            max-height: 200px;
+        a {
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+
+            &:hover {
+                h3 {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .post-thumbnail {
+            width: 100%;
             margin-bottom: 10px;
-            overflow: hidden;
+            @include ratio( 5, 3 );
             position: relative;
+            overflow: hidden;
 
             border-radius: var(--border-radius);
 
             img {
-                @include object-fit();
+                @include object-fit;
             }
         }
 
         h3 {
-            width: 100%;
-            margin-bottom: 10px;
-
-            object-fit: cover;
-        }
-        
-
-        .details {
-            display: flex;
-
-            flex-wrap: wrap;
-            justify-content: space-between;
-
-            span.date {
-                display: inline-block;
-            } 
+            font-size: _clamp( 1.25rem, calc( 2vw + 5px ), 1.5rem );
         }
 
-        @include min-width( m ) {
-            @include grid( 20px );
+        time {
+            color: var(--c-d-grey);
+            font-size: .875rem;
+        }
+    }
 
-            grid-template:
-                "image details details" auto / 1fr 1fr 1fr;
+    @include min-width( 650 ) {
+        --grid-columns: 2;
 
-            .image {
-                grid-area: image;
+        display: grid;
+        grid-gap: var(--site-gutter);
+        grid-template-columns: repeat( var(--grid-columns), minmax( 10px, 1fr ) );
+
+        li.post {
+            &:not(:last-child) {
                 margin-bottom: 0;
             }
-
-            .details {
-                grid-area: details;
-                display: block;
-            }
         }
+    }
+
+    @include min-width( l ) {
+        --grid-columns: 3;
     }
 }

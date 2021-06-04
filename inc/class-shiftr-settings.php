@@ -7,8 +7,8 @@ class Shiftr_Settings {
     protected $shiftr_name = 'Shape Shiftr';
     protected $shiftr_url = 'https://shapeshiftr.co.uk';
 
-    private $version = '1.4.2';
-    private $version_date = '28/05/21'; 
+    private $version = '1.5';
+    private $version_date = '04/06/21'; 
 
 
     // Contact Details
@@ -59,14 +59,8 @@ class Shiftr_Settings {
     // Show Comments in Admin menu, default false
     public $admin_show_comments = false;
 
-    // Group of users by ID that can access ACF
-    public $access_to_acf = array();
-
     // Remove editor for specified post types
     public $remove_editor_by_post_type = array();
-
-    // Define public post types, safety net for incorrectly set post types
-    public $public_post_types = array();
 
     // Define public post types, safety net for incorrectly set post types
     public $forms = array();

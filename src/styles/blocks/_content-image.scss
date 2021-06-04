@@ -1,0 +1,57 @@
+/*
+
+    //  //// --|    Blocks / Content & Image
+
+*/
+section.flexi-block.block--content-image {
+
+    div.content {
+        margin-bottom: 40px;
+    }
+
+    @include min-width( l ) {
+
+        div.container {
+            width: auto;
+            display: grid;
+            grid-gap: 30px;
+            grid-template: 'b__ci_content b__ci_image' auto / 1fr 1fr;
+        }
+        
+        div.content {
+            margin: 0;
+            padding: 40px 0;
+            grid-area: b__ci_content;
+            align-self: center;
+        }
+
+        div.image {
+            min-height: 400px;
+            margin: 0;
+            position: relative;
+            grid-area: b__ci_image;
+
+            img {
+                @include object-fit;
+            }
+        }
+
+        &.layout-image_content {
+            
+            /*
+            Autoprefixer wants the area names to be unique so added the __l_ prefix
+            */
+            div.container {
+                grid-template: '__l_b__ci_image __l_b__ci_content' auto / 1fr 1fr;
+            }
+
+            div.content {
+                grid-area: __l_b__ci_content;
+            }
+
+            div.image {
+                grid-area: __l_b__ci_image;
+            }
+        }
+    }
+}

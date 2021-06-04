@@ -11,10 +11,8 @@
 
 //  Base
 @import 'base/variables';
-@import 'base/placeholders';
 @import 'base/functions';
 @import 'base/mixins';
-@import 'base/grid';
 
 
 //  Foundation
@@ -33,18 +31,20 @@
 
 
 //  Components
-@import 'components/cookie-notice';
 @import 'components/nav';
 @import 'components/mobile-menu';
 @import 'components/hero';
 @import 'components/form';
 @import 'components/accordion';
 @import 'components/carousel';
+@import 'components/cookie-notice';
+@import 'components/announcement-bar';
 
 
 //  Blocks
-@import 'blocks/basic';
-@import 'blocks/accordion';
+@import 'blocks/content-image';
+@import 'blocks/cta-banner-small';
+@import 'blocks/featured-posts';
 
 
 //  Templates

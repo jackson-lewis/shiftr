@@ -1,20 +1,13 @@
 <?php
-
-    /*  ////  --|    Pagination
-
-        With thanks to JointsWP for the pagination in this version of Shiftr
-
-    */
-
+/**
+ * Pagination
+ */
 
 /**  
- *  shiftr_pagination
- *
  *  Pagination wherever it is needed
  *
  *  @since 1.0
  */
-
 function shiftr_pagination() {
     global $wp_query;
 
@@ -49,4 +42,3 @@ function shiftr_pagination() {
         echo '</div>';
     }
 }
-

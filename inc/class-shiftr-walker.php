@@ -1,8 +1,5 @@
 <?php
-
 /**  
- *  Shiftr_Nav_Walker
- *
  *  The Shiftr walker for the primary navigation
  *
  *  @since 1.0
@@ -21,8 +18,6 @@ class Shiftr_Nav_Walker extends Walker_Nav_menu {
 
 
 /**  
- *  Shiftr_Nav_Primary_Walker
- *
  *  The Shiftr walker for the primary navigation
  *
  *  @since 1.0
@@ -81,8 +76,6 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
 
 
 /**  
- *  Shiftr_Nav_Primary_Mobile_Walker
- *
  *  The Shiftr walker for the main menu - mobile version
  *
  *  @since 1.4
@@ -142,8 +135,6 @@ class Shiftr_Nav_Primary_Mobile_Walker extends Shiftr_Nav_Walker {
 
 
 /**  
- *  Shiftr_Nav_Footer_Walker
- *
  *  The Shiftr walker for the footer navigation
  *
  *  @since 1.0
