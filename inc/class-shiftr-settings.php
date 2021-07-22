@@ -24,10 +24,11 @@ class Shiftr_Settings {
      *  @since 1.0
      */
     function __construct() {
-        $this->email        = $this->get_acf_value( 'the_email' );
-        $this->phone        = $this->get_acf_value( 'the_phone' );
-        $this->address      = $this->get_acf_value( 'the_address' );
-        $this->address_link = $this->get_acf_value( 'the_address_link' );
+        $contact_details = $this->get_acf_value( 'contact-details' );
+
+        $this->email        = $contact_details['email-address'];
+        $this->phone        = $contact_details['phone-number'];
+        $this->address      = $contact_details['address'];
     }
 
 
