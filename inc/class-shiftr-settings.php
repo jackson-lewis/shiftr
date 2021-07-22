@@ -19,15 +19,11 @@ class Shiftr_Settings {
 
 
     /**  
-     *  __construct
-     *
      *  Assign values to the properties
      *
      *  @since 1.0
      */
-
     function __construct() {
-
         $this->email        = $this->get_acf_value( 'the_email' );
         $this->phone        = $this->get_acf_value( 'the_phone' );
         $this->address      = $this->get_acf_value( 'the_address' );
@@ -45,7 +41,7 @@ class Shiftr_Settings {
     public $cookie_notice = true;
 
     // Set the project primary colour
-    public $primary_color = '#F73771';
+    public $theme_color = '';
 
     // Should lazy loading of background-images be enabled
     public $bg_lazy_loading = true;
@@ -69,16 +65,12 @@ class Shiftr_Settings {
     public $js_object = array();
 
     /**  
-     *  get_acf_value
-     *
      *  Get the value from an ACF option field
      *
      *  @since 1.0
-     *
      *  @param $value str The name of the ACF option field
      *  @return mixed|bool The value of the field if found, or false
      */
-
     public function get_acf_value( $value ) {
 
         if ( function_exists( 'get_field' ) ) {
@@ -96,16 +88,12 @@ class Shiftr_Settings {
 
 
     /**  
-     *  acf_value
-     *
      *  Echo the value from an ACF option field
      *
      *  @since 1.0
-     *
      *  @param $value str The name of the ACF option field
      *  @return mixed|bool The value of the field if found, or false
      */
-
     public function acf_value( $value ) {
 
         if ( function_exists( 'get_field' ) ) {
@@ -122,23 +110,17 @@ class Shiftr_Settings {
     }
 
     /**  
-     *  the
-     *
      *  Echo a property value
      *
      *  @since 1.0
-     *
      *  @param $value str The name of the property
      */
-
     public function the( $value ) {
         echo $this->$value;
     }
 
 
     /**  
-     *  get
-     *
      *  Return a property value
      *
      *  @since 1.0
@@ -146,35 +128,30 @@ class Shiftr_Settings {
      *  @param $value str The name of the property
      *  @return mixed The property value
      */
-
     public function get( $value ) {
         return $this->$value;
     }
 
 }
 
+
 $shiftr = new Shiftr_Settings();
 
+$_GLOBALS['shiftr'] = $shiftr;
 
 /**  
- *  shiftr
- *
  *  Return the $shiftr instance
  *
  *  @since 1.0
- *
  *  @return object The $shiftr instance
  */
 
 function shiftr() {
-
     global $shiftr;
 
     if ( ! isset( $shiftr ) ) {
-
         $shiftr = new Shiftr_Settings();
     }
 
     return $shiftr;
 }
-
