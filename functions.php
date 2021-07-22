@@ -8,7 +8,7 @@
 // Shiftr directory constants
 define( 'SHIFTR_ASSETS', get_template_directory() . '/assets' );
 define( 'SHIFTR_FUNC', get_template_directory() . '/functions' );
-define( 'SHIFTR_INC', get_template_directory() . '/inc' );
+define( 'SHIFTR_INC', get_template_directory() . '/includes' );
 define( 'SHIFTR_PARTS', get_template_directory() . '/parts' );
 define( 'SHIFTR_ACF', get_template_directory() . '/acf' );
 
