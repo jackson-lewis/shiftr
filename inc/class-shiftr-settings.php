@@ -138,7 +138,10 @@ class Shiftr_Settings {
 
 $shiftr = new Shiftr_Settings();
 
-$_GLOBALS['shiftr'] = $shiftr;
+/**
+ * For backwards compatability where global is called.
+ */
+$GLOBALS['shiftr'] = $shiftr;
 
 /**  
  *  Return the $shiftr instance
