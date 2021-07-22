@@ -35,8 +35,7 @@ class Shiftr_Settings {
     // --|  Dev Settings
 
     // Fonts
-    public $font_host = 'https://fonts.gstatic.com/';
-    public $font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
+    public $fonts = array();
 
     // Is a cookie notice required
     public $cookie_notice = true;

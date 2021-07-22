@@ -1,10 +1,5 @@
 <?php
 
-/*  ////  --|    Functions ~ The Dark Horse
-
-*/
-
-
 // Shiftr directory constants
 define( 'SHIFTR_ASSETS', get_template_directory() . '/assets' );
 define( 'SHIFTR_FUNC', get_template_directory() . '/functions' );
@@ -59,6 +54,7 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_FUNC . '/navigation.php' );
     require_once( SHIFTR_FUNC . '/forms.php' );
     require_once( SHIFTR_FUNC . '/preload.php' );
+    require_once( SHIFTR_FUNC . '/fonts.php' );
     require_once( SHIFTR_FUNC . '/security.php' );
     // require_once( SHIFTR_FUNC . '/sidebar.php' );
 
