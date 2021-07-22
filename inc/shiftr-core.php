@@ -98,6 +98,7 @@ function shiftr_head_open() {
         return false;
     }
 }
+add_action( 'wp_head', 'shiftr_head_open', 20 );
 
 
 /**  
