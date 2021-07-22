@@ -84,11 +84,14 @@ if ( function_exists( 'acf_add_options_page' ) ) {
         'capability'    => 'edit_posts',
         'redirect'      => false
     ));
-    
-    acf_add_options_sub_page( array(
-        'page_title'    => 'Flexi Global Blocks',
+
+    acf_add_options_page( array(
+        'page_title'    => 'Flexi Blocks Builder: Global Blocks',
         'menu_title'    => 'Global Blocks',
-        'parent_slug'   => 'site-options',
+        'menu_slug'     => 'global-blocks',
+        'capability'    => 'edit_posts',
+        'redirect'      => false,
+        'icon_url'      => 'dashicons-block-default'
     ));
 }
 
