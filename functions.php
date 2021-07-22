@@ -32,14 +32,15 @@ if ( $shiftr_has_acf ) {
      */
     require_once( SHIFTR_INC . '/class-shiftr-settings.php' );
     require_once( SHIFTR_INC . '/class-shiftr-custom-post-type.php' );
-    require_once( SHIFTR_INC . '/class-shiftr-form.php' );
-    require_once( SHIFTR_INC . '/class-shiftr-form-handler.php' );
     require_once( SHIFTR_INC . '/class-shiftr-walker.php' );
     require_once( SHIFTR_INC . '/class-shiftr-bg-lazy-loading.php' );
     require_once( SHIFTR_INC . '/shiftr-helpers.php' );
     require_once( SHIFTR_INC . '/shiftr-core.php' );
-    require_once( SHIFTR_INC . '/shiftr-form.php' );
     require_once( SHIFTR_INC . '/shiftr-contact-link.php' );
+
+    require_once( SHIFTR_INC . '/forms/class-shiftr-form.php' );
+    require_once( SHIFTR_INC . '/forms/class-shiftr-form-handler.php' );
+    require_once( SHIFTR_INC . '/forms/shiftr-form.php' );
 
     /** 
      *  Get all theme function files
@@ -58,6 +59,7 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_FUNC . '/navigation.php' );
     require_once( SHIFTR_FUNC . '/forms.php' );
     require_once( SHIFTR_FUNC . '/preload.php' );
+    require_once( SHIFTR_FUNC . '/security.php' );
     // require_once( SHIFTR_FUNC . '/sidebar.php' );
 
     if ( function_exists( 'is_woocommerce' ) ) {
