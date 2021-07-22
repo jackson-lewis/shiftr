@@ -389,7 +389,7 @@ class Shiftr_Form {
 
             if ( isset( $args->options ) ) {
 
-                if ( ! $args->use_labels ) {
+                if ( ! $this->use_labels ) {
                     echo '<option disabled selected>' . esc_html( $args->label . ( $args->required ? '*' : '' ) ) .'</option>';
                 }
 
