@@ -7,10 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <?php wp_head(); ?>
-
-        <meta name="theme-color" content="<?php $shiftr->the( 'primary_color' ); ?>"> 
-        <link rel="icon" type="image/png" href="<?php shiftr_get_asset_url( 'sr@32.png', '_shiftr' ); ?>" sizes="32x32">
-        <link rel="apple-touch-icon" href="<?php shiftr_get_asset_url( 'sr@128.png', '_shiftr' ); ?>" />
+ 
         <script>document.documentElement.classList.add('js');</script>
     </head>
     
