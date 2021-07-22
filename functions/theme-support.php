@@ -157,3 +157,15 @@ function shiftr_announcement_bar() {
 </div>
     <?php endif;
 }
+
+
+function shiftr_theme_color() {
+    global $shiftr;
+
+    $theme_color = $shiftr->get( 'theme_color' );
+
+    if ( $theme_color ) {
+        printf( '<meta name="theme-color" content="%s">', $theme_color );
+    }
+}
+add_action( 'wp_head', 'shiftr_theme_color', 50 );
