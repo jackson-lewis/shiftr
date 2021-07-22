@@ -13,6 +13,9 @@ $shiftr->font_host = 'https://fonts.gstatic.com/';
  */
 $shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
 
+/** Set the value of the theme-color meta tag */
+$shiftr->theme_color = '';
+
 /** Toggle the use of lazy loading on background-images */
 $shiftr->bg_lazy_loading = true;
 
