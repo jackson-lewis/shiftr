@@ -25,11 +25,15 @@ function shiftr_preload_post_thumbnail() {
      */
     $image = wp_get_attachment_image_src( $thumbnail_id, $image_size );
     $src = '';
-    $additional_attr_array = array();
-    $additional_attr = '';
+    $attr = array();
+    $attr_string = '';
+
+    $attachment = get_post( $thumbnail_id );
 
     if ( $image ) {
         list( $src, $width, $height ) = $image;
+
+        $attr['src'] = $src;
 
         /**
          * The following code which generates the srcset is plucked straight
@@ -44,16 +48,30 @@ function shiftr_preload_post_thumbnail() {
             $sizes      = wp_calculate_image_sizes( $size_array, $src, $image_meta, $thumbnail_id );
 
             if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
-                $additional_attr_array['imagesrcset'] = $srcset;
+                $attr['srcset'] = $srcset;
 
                 if ( empty( $attr['sizes'] ) ) {
-                    $additional_attr_array['imagesizes'] = $sizes;
+                    $attr['sizes'] = $sizes;
                 }
             }
         }
+        /**
+         * Same filter applied in wp_get_attachment_image().
+         * 
+         * This should allow plugins that manipulate an images attributes to also take affect here.
+         */
+        $attr = apply_filters( 'wp_get_attachment_image_attributes', $attr, $attachment, $image_size );
+        /**
+         * Process all the necessary formatting to prepare for generating attributes string
+         */
+        $attr = array_intersect_key( $attr, array( 'src', 'srcset', 'sizes' ) );
+		$attr = array_map( 'esc_attr', $attr );
 
-        foreach ( $additional_attr_array as $name => $value ) {
-            $additional_attr .= "$name=" . '"' . $value . '" ';
+        $src = $attr['src'];
+        unset( $attr['src'] );
+
+        foreach ( $attr as $name => $value ) {
+            $attr_string .= "image{$name}=" . '"' . $value . '" ';
         }
 
     } else {
@@ -66,7 +84,7 @@ function shiftr_preload_post_thumbnail() {
     /**
      * Output the link HTML tag
      */
-    printf( '<link rel="preload" as="image" href="%s" %s/>', esc_url( $src ), $additional_attr );
+    printf( '<link rel="preload" as="image" href="%s" %s/>', $src, $attr_string );
 }
 add_action( 'wp_head', 'shiftr_preload_post_thumbnail', 1 );
 
