@@ -241,7 +241,7 @@ class Flexi_Block {
      * Returns the layout setting field
      */
     public function setting_layout() {
-        return apply_filters( 'shiftr_acf_flexi_block_setting_layout', Field_Types\radio_field( 'Layout', array(
+        return apply_filters( 'shiftr_acf_flexi_block_setting_layout', Field_Types\button_group_field( 'Layout', array(
             'key' => $this->name . '_settings_layout',
             'name' => 'layout',
             'choices' => $this->args['settings']['layout']['choices'],
