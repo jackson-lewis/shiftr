@@ -67,9 +67,14 @@ add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );
  * @since 1.0
  */
 function shiftr_editor_styles() {
-    global $shiftr;
+    $fonts = shiftr()->fonts;
 
-    add_editor_style( $shiftr->font_url );
+    if ( is_array( $fonts ) ) {
+        foreach ( $fonts as $font ) {
+            add_editor_style( $font['url'] );
+        }
+    }
+
     add_editor_style( 'assets/styles/admin.css' );
 }
 add_action( 'admin_init', 'shiftr_editor_styles' );
