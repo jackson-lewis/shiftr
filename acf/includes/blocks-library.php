@@ -15,6 +15,19 @@ function blocks_library() {
 
 
 /**
+ * Register a new Flexi Block
+ * 
+ * @param string $name The Block name, sanitized
+ * @param string $display_name The display name of the Block
+ * @param array $fields The fields of the Block
+ * @param array $args The args of the Block 
+ */
+function register_flexi_block( $name = '', $display_name = '', $fields = array(), $args = array() ) {
+    return new Flexi_Block( $name, $display_name, $fields, $args );
+}
+
+
+/**
  * Checks whether a block is in the Blocks Library
  * 
  * @param string $block_name The block to check my name
