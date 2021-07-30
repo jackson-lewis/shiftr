@@ -8,7 +8,7 @@ use Shiftr_ACF\Field_Types as Field_Types;
 /**
  * Content
  */
-new Flexi_Block(
+Utils\register_flexi_block(
     'content',
     'Content',
     array(
@@ -20,7 +20,7 @@ new Flexi_Block(
 /**
  * Content & Image
  */
-new Flexi_Block(
+Utils\register_flexi_block(
     'content-image',
     'Content & Image',
     array(
@@ -54,7 +54,7 @@ new Flexi_Block(
 /**
  * CTA Banner (small)
  */
-new Flexi_Block(
+Utils\register_flexi_block(
     'cta-banner-small',
     'CTA Banner (small)',
     array(
@@ -76,7 +76,8 @@ new Flexi_Block(
                 'width' => '30'
             )
         ))
-    ), array(
+    ),
+    array(
         'settings' => array(
             'id' => false,
             'background' => array(
@@ -96,7 +97,7 @@ new Flexi_Block(
 /**
  * Featured Posts
  */
-new Flexi_Block(
+Utils\register_flexi_block(
     'featured-posts',
     'Featured Posts',
     array(
