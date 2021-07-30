@@ -4,57 +4,16 @@
  * 
  * Display a selection of posts.
  */
-$settings = shiftr_get_block_settings();
-
-$block_before = '';
-$block_after = '';
-$shortcode = '';
-/**
- * Define the data array structure
- */
-$data = array(
-    'by-post' => array(),
-    'by-category' => (object) array()
-);
-
-if ( $settings['use_global'] ) {
-    /**
-     * Get global data
-     */
-    $global_field_data = shiftr_get_global_block_data( 'featured-posts' );
-
-    if ( $global_field_data ) {
-        $block_before = $global_field_data['block-before'];
-        $block_after = $global_field_data['block-after'];
-    
-        $data = array(
-            'by-post' => $global_field_data['by-post'],
-            'by-category' => $global_field_data['by-category']
-        );
-    }
-
-} else {
-    /**
-     * Get instance data
-     */
-    $data = array(
-        'by-post' => get_sub_field( 'by-post' ),
-        'by-category' => get_sub_field( 'by-category' )
-    );
-}
-/**
- * Setup WP_Query args.
- */
 $args = array(
     'posts_per_page' => 3
 );
 
-if ( $data['by-post'] ) {
-    $args['post__in'] = $data['by-post'];
+if ( get_flexi_field( 'by-post' ) ) {
+    $args['post__in'] = get_flexi_field( 'by-post' );
     $args['orderby'] = 'post__in';
 
-} elseif ( $data['by-category'] ) {
-    $args['cat'] = $data['by-category'];
+} elseif ( get_flexi_field( 'by-post' ) ) {
+    $args['cat'] = get_flexi_field( 'by-post' );
 }
 
 $posts = new WP_Query( $args );
