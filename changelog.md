@@ -2,9 +2,24 @@
 
 
 ## v1.5.1
-*26/07/21*
+*03/08/21*
 
-Tbc.
+Plenty of much wanted improvements found here...
+
+### Misc
+* `inc` directory renamed to `includes`
+* General cleanup throughout the codebase
+* `theme-color` meta tag hooked onto `wp_head`, default color also removed
+* Further fixes for global setup of `$shiftr`
+* Working with the fonts has been improved, now defined in an associative array for supporting multiple font sources
+* `functions/_shiftr-custom.php` has been removed in favour of using the `functions.php` as it is more commonly used
+* Re-enabled the tracking fields, updated to work with Shiftr_ACF
+
+### Shiftr ACF
+* All field types added!
+* Global Blocks now has its own top level Options page
+* Introducing `get_flexi_field()` a brand new function making it easier than ever to work with Blocks. The ultimate goal here was to bring the Developer Experience back inline with how you would typically expect to handle ACF flexible content field. So there no longer any need to manually construct the data arrays of each Block.
+* New function `register_flexi_block()` can now be used instead of directly referencing the `Flexi_Block` class
 
 
 
