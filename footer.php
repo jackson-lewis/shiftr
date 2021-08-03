@@ -7,6 +7,7 @@
                             <?php
 
                             echo do_shortcode( '[phone_link]' );
+                            echo '<br />';
                             echo do_shortcode( '[email_link]' );
                             printf( '<p>%s</p>', shiftr()->address );
 

@@ -85,9 +85,9 @@ function shiftr_flexi_blocks_builder( $builder_name ) {
  * @param string $content Use html string instead of active field
  * @param string The name of the ACF field
  */
-function shiftr_block_heading( $content = '', $field = 'block-before' ) {
+function shiftr_block_heading( $field = 'block-before' ) {
 
-    $content = $content ?: get_sub_field( $field );
+    $content = get_flexi_field( $field );
 
     if ( $content ) {
         ?>
@@ -109,7 +109,7 @@ function shiftr_block_heading( $content = '', $field = 'block-before' ) {
  */
 function shiftr_block_after( $content = '', $field = 'block-after' ) {
 
-    $content = $content ?: get_sub_field( $field );
+    $content = get_flexi_field( $field );
 
     if ( $content ) {
         ?>
@@ -208,4 +208,55 @@ function shiftr_get_global_block_data( $block = '' ) {
     }
 
     return $block_found;
+}
+
+//$GLOBALS['shiftr_flexi_blocks_global_store'] = get_field( 'flexi_blocks_builder-global', 'options' );
+
+function shiftr_flexi_blocks_global_store() {
+    return get_field( 'flexi_blocks_builder-global', 'options' );
+}
+
+
+/**
+ * Get a field value within the context of a Flexi Block, where Global Blocks are supported.
+ * 
+ * @param string $selector The field selector
+ * @param bool $format_value Should format the field value
+ */
+function get_flexi_field( $selector = '', $format_value = true ) {
+    $settings = shiftr_get_block_settings();
+
+    if ( $settings['use_global'] ) {
+        $global_blocks_store = shiftr_flexi_blocks_global_store();
+
+        $sub_field = get_row_sub_field( $selector );
+        $row = acf_get_loop('active');
+        $block = $sub_field['parent_layout'];
+        $block_found = false;
+
+        if ( ! empty( $global_blocks_store ) ) {
+            foreach ( $global_blocks_store as $layout ) {
+
+                if ( 'layout_block__' . $layout['acf_fc_layout'] == $block ) {
+                    $block_found = $layout;
+                    unset( $layout['acf_fc_layout'] );
+                }
+            }
+        }
+
+        return acf_format_value( $block_found[ $selector ], $row['post_id'], $sub_field );
+    }
+
+    return get_sub_field( $selector, $format_value );
+}
+
+
+function the_flexi_field( $selector = '', $format_value = true ) {
+    $value = get_flexi_field( $selector, $format_value );
+
+    if ( !$value ) {
+        return null;
+    }
+
+    echo $value;
 }

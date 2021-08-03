@@ -16,7 +16,7 @@ new Group( 'options_global_blocks', array(
             array (
                 'param' => 'options_page',
                 'operator' => '==',
-                'value' => 'acf-options-global-blocks',
+                'value' => 'global-blocks',
             )
         )
     )

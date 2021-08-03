@@ -105,14 +105,12 @@ function shiftr_to_nicename( $str = '' ) {
  *  @return array The re-formatted array
  */
 function shiftr_js_object() {
-    global $shiftr;
-
     // For admin
     if ( is_admin() ) {
-        unset( $shiftr->js_object['form'] );
+        unset( shiftr()->js_object['form'] );
     }
 
-    return $shiftr->js_object;
+    return shiftr()->js_object;
 }
 
 
@@ -137,7 +135,5 @@ function shiftr_is_sending_form() {
  * @return bool True is enabled, false if disabled
  */
 function shiftr_lazy_loading_enabled() {
-    global $shiftr;
-
-    return apply_filters( 'shiftr_lazy_loading_enabled', $shiftr->bg_lazy_loading );
+    return apply_filters( 'shiftr_lazy_loading_enabled', shiftr()->bg_lazy_loading );
 }

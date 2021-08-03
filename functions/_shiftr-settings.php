@@ -1,17 +1,15 @@
 <?php
-/**
- * Used to preconnect to the hosted font files
- * 
- * Example: <link rel="preconnect" href="https://fonts.gstatic.com/">
- */
-$shiftr->font_host = 'https://fonts.gstatic.com/';
 
-/**
- * The url path to the hosted fonts
- * 
- * Example: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap">
- */
-$shiftr->font_url = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap';
+/** Define font urls that should be included. */
+$shiftr->fonts = array(
+    array(
+        'host' => 'https://fonts.gstatic.com',
+        'url' => 'https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap'
+    )
+);
+
+/** Set the value of the theme-color meta tag */
+$shiftr->theme_color = '';
 
 /** Toggle the use of lazy loading on background-images */
 $shiftr->bg_lazy_loading = true;

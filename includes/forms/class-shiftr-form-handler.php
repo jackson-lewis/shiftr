@@ -26,13 +26,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  __construct
-     *
      *  Set-up the class ready for handling the request
      *
      *  @since 1.0
      */
-
     function __construct() {
 
         if ( shiftr_is_sending_form() ) {
@@ -51,13 +48,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  set_hooks
-     *
      *  Add all the Shiftr Form Handler hooks
      *
      *  @since 1.0
      */
-
     function set_hooks() {
 
         if ( shiftr_is_sending_form() ) {
@@ -81,15 +75,12 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  init
-     *
      *  Hook onto WP AJAX
      *
      *  It's important that we handle the data capture and email sending seperately
      *
      *  @since 1.0
      */
-
     function init() {
 
         global $shiftr;
@@ -109,13 +100,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  verification
-     *
      *  Verify the submission before going anywhere
      *
      *  @since 1.0
      */
-
     function verification() {
 
         // Validate email address
@@ -167,13 +155,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  capture
-     *
      *  Save the form data to the database
      *
      *  @since 1.0
      */
-
     function capture() {
 
         do_action( 'shiftr_form_handler_capture_before', $this->form_instance );
@@ -234,15 +219,11 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  handle
-     *
      *  Do the handling...
      *
      *  @since 1.0
      */
-
     function handle() {
-
         global $shiftr;
 
         // Get Form type
@@ -300,20 +281,18 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  html
-     *
      *  Create the HTML structure and populate data from the contact form
      *
      *  @since 1.0
      *
      *  @return str The HTML of the email
      */
-
     function html() {
 
         // Body open
         $html_open = '<html><body>';
         $body_open = '<h1>New Message</h1>';
+        $body_open .= '<p>Submitted via the <strong>' . $this->form_instance->nicename . '</strong> form.</p>';
 
         $body_open = apply_filters( 'shiftr_form_handler_html_body_open', $body_open, $this->form );
 
@@ -381,7 +360,6 @@ class Shiftr_Form_Handler {
      *
      *  @since 1.0
      */
-
     function maybe_upload_attachments() {
 
         $files = array();
@@ -417,13 +395,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  upload_attachment
-     *
      *  Find all files and attach to email
      *
      *  @since 1.0
      */
-
     function upload_attachment( $field_name = '', $field = null ) {
         $file = $_FILES[ '_' . $this->form_ID . '_' . $field_name ];
 
@@ -529,8 +504,6 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  format_multiple_emails
-     *
      *  Used in the Form Handler to format multiple email addresses
      *
      *  @since 1.0
@@ -538,7 +511,6 @@ class Shiftr_Form_Handler {
      *  @param $emails str The email addresses as a single string
      *  @return $emails str The email addresses formatted with seperating commas
      */
-
     function format_multiple_emails( $emails ) {
 
         // Remove lines and any spaces
@@ -549,8 +521,6 @@ class Shiftr_Form_Handler {
     
 
     /**  
-     *  format_phone_number
-     *
      *  Used to chnage the phone number into a more readable format
      *
      *  @since 1.0
@@ -558,7 +528,6 @@ class Shiftr_Form_Handler {
      *  @param $number str The raw phone number
      *  @return $formatted str The formatted phone number
      */
-
     function format_phone_number( $number ) {
 
         // Format mobile number
@@ -575,13 +544,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  failed
-     *
      *  Handle a phpmailerException 
      *
      *  @since 1.0
      */
-
     function failed( $wp_error ) {
 
         $this->error = $wp_error;
@@ -592,15 +558,11 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  delete_expired_data
-     *
      *  Delete data posts that exceed a defined expiration time period
      *
      *  @since 1.0
      */
-
     function delete_expired_data() {
-
         global $shiftr;
 
         // Update the $shiftr global with custom settings
@@ -634,13 +596,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  get_value
-     *
      *  Return a $_POST value
      *
      *  @since 1.0
      */
-
     function get_value( $field = '' ) {
 
         if ( $this->value_exists( $field ) ) {
@@ -653,13 +612,10 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  has_value
-     *
      *  Check a $_POST property has a value
      *
      *  @since 1.0
      */
-
     function has_value( $field = '' ) {
 
         if ( isset( $_POST[$this->POST_field( $field )] ) ) {
@@ -679,48 +635,31 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  value_exists
-     *
      *  Check a $_POST property has a value
      *
      *  @since 1.0
      */
-
     function value_exists( $field = '' ) {
-
-        if ( isset( $_POST[$this->POST_field( $field )] ) ) {
-            return true;
-
-        } else {
-            return false;
-        }
+        return isset( $_POST[$this->POST_field( $field )] );
     }
 
 
     /**  
-     *  get_file
-     *
      *  Return a $_FILES array
      *
      *  @since 1.0
      */
-
     function get_file( $field = '' ) {
-
         return $_FILES[ '_' . $this->form_ID . '_' . $field ];
     }
 
 
     /**
-     *  POST_field
-     *
      *  Return a $_POST field name
      *
      *  @since 1.0
      */
-
     function POST_field( $field = '' ) {
-
         return '_' . $this->form_ID . '_' . $field;
     }
 }
@@ -730,4 +669,3 @@ $shiftr_form_handler = new Shiftr_Form_Handler;
 
 // Add the Shiftr_Form_Handler methods to WP AJAX and cron
 $shiftr_form_handler->set_hooks();  
-

@@ -15,6 +15,19 @@ function blocks_library() {
 
 
 /**
+ * Register a new Flexi Block
+ * 
+ * @param string $name The Block name, sanitized
+ * @param string $display_name The display name of the Block
+ * @param array $fields The fields of the Block
+ * @param array $args The args of the Block 
+ */
+function register_flexi_block( $name = '', $display_name = '', $fields = array(), $args = array() ) {
+    return new Flexi_Block( $name, $display_name, $fields, $args );
+}
+
+
+/**
  * Checks whether a block is in the Blocks Library
  * 
  * @param string $block_name The block to check my name
@@ -33,7 +46,9 @@ function get_global_blocks() {
         $global_blocks[] = $block->name;
     }
 
-    $builder = new Flexi_Builder( 'global', $global_blocks, array(), true );
+    $builder = new Flexi_Builder( 'global', $global_blocks, array(
+        'instructions' => 'The Global Blocks Builder allows you to define one instance of each Block globally, that can be reused where a Builder supports the Block. To use a global Block, first create the Block here then add the Block on any given page, and in the settings, set `Use Global` to true.'
+    ), true );
 
     return $builder->get_acf_data();
 }
