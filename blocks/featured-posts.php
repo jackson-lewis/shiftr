@@ -12,8 +12,8 @@ if ( get_flexi_field( 'by-post' ) ) {
     $args['post__in'] = get_flexi_field( 'by-post' );
     $args['orderby'] = 'post__in';
 
-} elseif ( get_flexi_field( 'by-post' ) ) {
-    $args['cat'] = get_flexi_field( 'by-post' );
+} elseif ( get_flexi_field( 'by-category' ) ) {
+    $args['cat'] = get_flexi_field( 'by-category' );
 }
 
 $posts = new WP_Query( $args );
@@ -26,24 +26,11 @@ $posts = new WP_Query( $args );
     <?php if ( $posts->have_posts() ) : ?>
     <ul class="posts loop">
     <?php
-        while( $posts->have_posts() ) :
+        while( $posts->have_posts() ) {
             $posts->the_post();
 
-            ?>
-            <li class="post">
-                <a href="<?php the_permalink(); ?>">
-                    <div class="post-thumbnail">
-                        <?php shiftr_featured_image( get_the_ID(), 'medium' ); ?>
-                    </div>
-                    <div class="post-summary">
-                        <h3 id="post-<?php echo get_the_ID(); ?>"><?php the_title(); ?></h3>
-                        <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
-                    </div>
-                </a>
-            </li>
-            <?php
-            
-        endwhile;
+            shiftr_get_template( 'single-post.php' );
+        }
 
         wp_reset_postdata();
     ?>
