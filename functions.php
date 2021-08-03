@@ -61,11 +61,4 @@ if ( $shiftr_has_acf ) {
     if ( function_exists( 'is_woocommerce' ) ) {
         require_once( SHIFTR_FUNC . '/woocommerce.php' );
     }
-    
-    require_once( SHIFTR_FUNC . '/_shiftr-custom.php' );
-    /** 
-     *  Go to /functions/_shiftr.php if you wish to add any custom code
-     *
-     *  Thank you!
-     */
 }
