@@ -59,6 +59,8 @@ new Group( 'site_options', array(
                     Field_Types\wysiwyg_field(
                         'Tracking head',
                         array(
+                            'key' => 'head',
+                            'name' => 'head',
                             'label' => 'Place in &lt;head&gt;',
                             'tabs' => 'text',
                             'toolbar' => 'basic',
@@ -66,8 +68,10 @@ new Group( 'site_options', array(
                         )
                     ),
                     Field_Types\wysiwyg_field(
-                        'Tracking body (start)',
+                        'Tracking body (open)',
                         array(
+                            'key' => 'body_open',
+                            'name' => 'body_open',
                             'label' => 'Place at the start of &lt;body&gt;',
                             'tabs' => 'text',
                             'toolbar' => 'basic',
@@ -75,8 +79,10 @@ new Group( 'site_options', array(
                         )
                     ),
                     Field_Types\wysiwyg_field(
-                        'Tracking body (end)',
+                        'Tracking body (close)',
                         array(
+                            'key' => 'body_close',
+                            'name' => 'body_close',
                             'label' => 'Place at the end of &lt;body&gt;',
                             'tabs' => 'text',
                             'toolbar' => 'basic',

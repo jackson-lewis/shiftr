@@ -45,8 +45,8 @@ function shiftr_body_class( $use_shiftr = true ) {
         $queried_object = get_queried_object();
 
         $classes[] = 'taxonomy';
-        $classes[] = 'tax-' . $queried_object->slug;
-        $classes[] = 'taxid-' . $queried_object->term_id;
+        $classes[] = 'term-' . $queried_object->slug;
+        $classes[] = 'termid-' . $queried_object->term_id;
     }
 
     if ( is_date() ) {
@@ -92,10 +92,8 @@ function shiftr_body_class( $use_shiftr = true ) {
  */
 function shiftr_head_open() {
 
-    if ( get_field( 'head_open', 'option' ) ) {
-        the_field( 'head_open', 'option', false );
-    } else {
-        return false;
+    if ( ! empty( shiftr()->tracking->head ) ) {
+        echo shiftr()->tracking->head;
     }
 }
 add_action( 'wp_head', 'shiftr_head_open', 20 );
@@ -111,10 +109,8 @@ add_action( 'wp_head', 'shiftr_head_open', 20 );
  */
 function shiftr_body_open() {
 
-    if ( get_field( 'body_open', 'option' ) ) {
-        the_field( 'body_open', 'option', false );
-    } else {
-        return false;
+    if ( ! empty( shiftr()->tracking->body_open ) ) {
+        echo shiftr()->tracking->body_open;
     }
 }
 add_action( 'wp_body_open', 'shiftr_body_open' );
@@ -129,10 +125,8 @@ add_action( 'wp_body_open', 'shiftr_body_open' );
  */
 function shiftr_body_close() {
 
-    if ( get_field( 'body_close', 'option' ) ) {
-        the_field( 'body_close', 'option', false );
-    } else {
-        return false;
+    if ( ! empty( shiftr()->tracking->body_close ) ) {
+        echo shiftr()->tracking->body_close;
     }
 }
-add_action( 'wp_footer', 'shiftr_body_close', 1 );
+add_action( 'wp_footer', 'shiftr_body_close', 100 );

@@ -29,6 +29,15 @@ class Shiftr_Settings {
         $this->email        = $contact_details['email-address'];
         $this->phone        = $contact_details['phone-number'];
         $this->address      = $contact_details['address'];
+
+        /**
+         * Tracking.
+         * 
+         * @since v1.6
+         */
+        $tracking = $this->get_acf_value( 'tracking', false );
+
+        $this->tracking = (object) $tracking;
     }
 
 
@@ -71,19 +80,15 @@ class Shiftr_Settings {
      *  @param $value str The name of the ACF option field
      *  @return mixed|bool The value of the field if found, or false
      */
-    public function get_acf_value( $value ) {
+    public function get_acf_value( $value, $format = true ) {
 
         if ( function_exists( 'get_field' ) ) {
-
-            if ( get_field( $value, 'option' ) ) {
-                return get_field( $value, 'option' );
-            } else {
-                return false;
+            if ( get_field( $value, 'option', $format ) ) {
+                return get_field( $value, 'option', $format );
             }
-        } else {
-
-            return false;
         }
+
+        return false;
     }
 
 
@@ -96,17 +101,13 @@ class Shiftr_Settings {
      */
     public function acf_value( $value ) {
 
-        if ( function_exists( 'get_field' ) ) {
-
+        if ( function_exists( 'the_field' ) ) {
             if ( get_field( $value, 'option' ) ) {
-                echo get_field( $value, 'option' );
-            } else {
-                return false;
+                the_field( $value, 'option' );
             }
-        } else {
-            
-            return false;
         }
+
+        return false;
     }
 
     /**  
