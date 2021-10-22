@@ -1,7 +1,7 @@
         <footer class="site-footer">
             <div class="footer-row--main">
                 <div class="container">
-                    <div class="footer-col">
+                    <div class="footer-col" rianimate="fade-right">
                         <?php shiftr_inline_svg( 'shiftr-full', '/assets/_shiftr/' ); ?>
                         <address class="contact-details">
                             <?php
