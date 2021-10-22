@@ -78,3 +78,13 @@
     object-position: $x $y;
     font-family: 'object-fit';
 }
+
+//implicit grid
+@mixin grid( $columns: 3, $gap: 10px, $tolernace: 5 ) {
+    --grid-column-gap: #{$gap};
+    --grid-columns: calc(#{$columns} + 0.#{$tolernace / 2});
+
+    display: grid;
+    grid-gap: var(--grid-column-gap);
+    grid-template-columns: repeat(auto-fit, minmax( calc( calc( var(--container-width) / var(--grid-columns) ) - calc( calc( var(--grid-columns) - 1) * var(--grid-column-gap) ) ), 1fr ));
+}

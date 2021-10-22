@@ -33,7 +33,7 @@
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "webpack-stream": "^5.2.1"
-  },
-  "dependencies": {}
+    "webpack-stream": "^5.2.1",
+    "rianimate": "^1.0.10"
+  }
 }

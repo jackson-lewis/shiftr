@@ -6,7 +6,7 @@
  */
 ?>
 <div class="container">
-    <div class="content">
+    <div class="content" rianimate="fade-in">
         <?php the_flexi_field( 'content' ); ?>
     </div>
 </div>
