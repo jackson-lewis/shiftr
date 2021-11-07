@@ -26,9 +26,11 @@ class Shiftr_Settings {
     function __construct() {
         $contact_details = $this->get_acf_value( 'contact-details' );
 
-        $this->email        = $contact_details['email-address'];
-        $this->phone        = $contact_details['phone-number'];
-        $this->address      = $contact_details['address'];
+        if ( $contact_details ) {
+            $this->email        = $contact_details['email-address'];
+            $this->phone        = $contact_details['phone-number'];
+            $this->address      = $contact_details['address'];
+        }
 
         /**
          * Tracking.
@@ -37,7 +39,9 @@ class Shiftr_Settings {
          */
         $tracking = $this->get_acf_value( 'tracking', false );
 
-        $this->tracking = (object) $tracking;
+        if ( $tracking ) {
+            $this->tracking = (object) $tracking;
+        }
     }
 
 
