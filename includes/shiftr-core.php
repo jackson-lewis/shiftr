@@ -32,6 +32,7 @@ function shiftr_body_class( $use_shiftr = true ) {
 
     if ( is_archive() ) {
         $classes[] = 'archive';
+        $classes[] = 'archive-' . get_post_type( $post->ID );
     }
 
     if ( is_category() ) {

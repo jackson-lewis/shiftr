@@ -12,15 +12,16 @@ use Shiftr_ACF\Utils as Utils;
  * 
  * @param string $builder_name The suffix to the full name
  */
-function shiftr_flexi_blocks_builder( $builder_name ) {
-    $flexible_content_object = false;
+function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object=false ) {
 
-    if ( is_singular( 'page' ) ) {
-        global $post;
-        $flexible_content_object = $post;
-
-    } else if ( is_archive() || is_tax() ) {
-        $flexible_content_object = get_queried_object();
+    if($flexible_content_object == False){
+        if ( is_singular( 'page' ) ) {
+            global $post;
+            $flexible_content_object = $post;
+    
+        } else if ( is_archive() || is_tax() ) {
+            $flexible_content_object = get_queried_object();
+        }
     }
 
     
