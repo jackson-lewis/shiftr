@@ -17,17 +17,17 @@ get_header();
         <div class="container">
             
             <?php if ( have_posts() ) : ?>
-            <ul class="posts loop">
-            <?php
-                while( have_posts() ) {
-                    the_post();
+                <ul class="posts loop">
+                    <?php
+                        while( have_posts() ) {
+                            the_post();
 
-                    shiftr_get_template( 'single-post.php' );
-                }
+                            shiftr_get_template( 'content-post.php' );
+                        }
 
-                wp_reset_postdata();
-            ?>
-            </ul>
+                        wp_reset_postdata();
+                    ?>
+                </ul>
             <?php endif; ?>
 
         </div>
