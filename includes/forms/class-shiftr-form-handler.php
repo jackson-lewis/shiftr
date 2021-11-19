@@ -37,7 +37,7 @@ class Shiftr_Form_Handler {
             global $shiftr_forms;
 
             // We need a few files early to find all registered Shiftr Forms
-            include( SHIFTR_INC . '/shiftr-form.php' );
+            include( SHIFTR_INC . '/forms/shiftr-form.php' );
             include( SHIFTR_FUNC . '/forms.php' );
 
             $this->form_ID = $_POST['shiftr_form_id'];
