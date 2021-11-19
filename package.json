@@ -4,6 +4,7 @@
   "description": "This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.",
   "main": "gulpfile.babel.js",
   "scripts": {
+    "postinstall": "gulp build",
     "watch": "gulp watch",
     "build-dev": "gulp build",
     "build": "NODE_ENV='production' gulp build"
