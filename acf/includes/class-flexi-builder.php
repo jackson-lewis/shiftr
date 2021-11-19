@@ -23,7 +23,7 @@ class Flexi_Builder {
      * @param array $blocks Blocks to assign to the builder
      * @param array $args Additional field args to parse
      */
-    function __construct( $id = '', $blocks, $args, $for_global = false ) {
+    function __construct( $id = '', $blocks = array(), $args = array(), $for_global = false ) {
         $defaults = array(
             'key' => 'flexi_blocks_builder-' . $id,
             'label' => 'Flexi Blocks Builder',
