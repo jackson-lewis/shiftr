@@ -261,3 +261,65 @@ function the_flexi_field( $selector = '', $format_value = true ) {
 
     echo $value;
 }
+
+
+/**
+ * Google Maps Block - Automatic lazy loading.
+ */
+$GLOBALS['shiftr_has_google_maps_block'] = false;
+
+add_action( 'shiftr_flexi_open_block', function( $block ) {
+    if ( $block == 'google-maps' ) {
+        $GLOBALS['shiftr_has_google_maps_block'] = true;
+    }
+});
+
+
+/**
+ * Handles the lazy loading capability of the Google Maps API from maps
+ * served via the Google Maps Flexi Block.
+ */
+function shiftr_flexi_block_google_maps_lazy_load() {
+
+    if ( ! defined( 'GOOGLE_API_KEY' ) ) {
+        return;
+    }
+    /**
+     * Ensures this script will only output if the block is present.
+     */
+    if ( isset( $GLOBALS['shiftr_has_google_maps_block'] ) && ! $GLOBALS['shiftr_has_google_maps_block'] ) {
+        return;
+    }
+
+    ?>
+<script async id="shiftr-google-maps-lazy-load">
+    ( () => {
+        if ( typeof initMap !== 'function' ) {
+            console.warn( 'Attempted to lazy load Google Maps API, however the callback function `initMap` does not exist.' );
+            return;
+        }
+
+        const googleMapsFlexiBlock = document.querySelector( '.flexi-block.block--google-maps' );
+
+        const observer = new IntersectionObserver(
+            function ( entries, observer ) {
+                entries.forEach( entry => {
+                    if ( entry.isIntersecting ) {
+                        const script = document.createElement( 'script' );
+                        script.src = 'https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY; ?>&callback=initMap';
+                        document.body.appendChild( script );
+                        observer.unobserve( entry.target )
+                    }
+                })
+            }, {
+                rootMargin: window.innerHeight + 'px',
+                threshold: 0.1
+            }
+        );
+
+        observer.observe( googleMapsFlexiBlock )
+    })();
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'shiftr_flexi_block_google_maps_lazy_load' );

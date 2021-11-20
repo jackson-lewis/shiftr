@@ -137,3 +137,26 @@ Utils\register_flexi_block(
         )
     )
 );
+
+
+/**
+ * Google Maps
+ */
+Utils\register_flexi_block(
+    'google-maps',
+    'Google Maps',
+    array(
+        Field_Types\google_map_field(
+            'Map',
+            array(
+                'required' => 1
+            )
+        )
+    ),
+    array(
+        'settings' => array(
+            'background' => false
+        ),
+        'max' => '1' // Strictly only 1 instance of this block is allowed!!!
+    )
+);

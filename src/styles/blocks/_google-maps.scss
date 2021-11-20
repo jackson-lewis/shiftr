@@ -1,0 +1,21 @@
+section.flexi-block.block--google-maps {
+    padding: 0;
+
+    #map {
+        width: 100%;
+        padding-top: 100%;
+        position: relative;
+    }
+
+    @include min-width( 640 ) {
+        #map {
+            padding-top: 50%;
+        }
+    }
+
+    @include min-width( m ) {
+        #map {
+            padding-top: 33%;
+        }
+    }
+}
