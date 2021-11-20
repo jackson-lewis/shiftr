@@ -42,6 +42,10 @@ ul.loop.posts {
             display: inline-block;
 
             &:hover {
+                img {
+                    transform: scale(1.05);
+                }
+
                 h3 {
                     text-decoration: underline;
                 }
@@ -56,9 +60,12 @@ ul.loop.posts {
             overflow: hidden;
 
             border-radius: var(--border-radius);
+            background-color: var(--c-l-grey);
 
             img {
                 @include object-fit;
+
+                transition: 300ms;
             }
         }
 

@@ -183,34 +183,6 @@ section {
         scroll-margin-top: var( --section-scroll-margin-top );
     }
 
-    &.flexi-block {
-        padding-left: var(--site-padding);
-        padding-right: var(--site-padding);
-        
-        scroll-margin-top: var( --section-scroll-margin-top );
-        margin-bottom: var(--s-vertical-padding);
-
-        &:first-of-type {
-            &:not(.has-bg) {
-                margin-top: var(--s-vertical-padding);
-            }
-        }
-
-        &:last-of-type {
-
-            &.bg-black,
-            &.bg-grey {
-                margin-bottom: 0;
-            }
-        }
-    
-        &.bg-black {
-            .content {
-                @extend %inverted-button-base;
-            }
-        }
-    }
-
     &.has-bg {
         padding-top: var(--s-vertical-padding);
         padding-bottom: var(--s-vertical-padding);
@@ -253,7 +225,54 @@ section {
             padding-top: 0;
         }
     }
-}   
+
+    &.bg-black {
+        .content {
+            @extend %inverted-button-base;
+        }
+    }
+}
+
+.flexi-blocks-builder {
+
+    .flexi-block.has-bg,
+    .flexi-block.block--google-maps {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .flexi-block.has-bg,
+    .flexi-block.block--google-maps {
+
+        & + .has-bg,
+        & + .block--google-maps {
+            margin-top: var(--s-vertical-padding-negative);
+        }
+    }
+
+    .flexi-block {
+        padding-left: var(--site-padding);
+        padding-right: var(--site-padding);
+        
+        scroll-margin-top: var( --section-scroll-margin-top );
+        margin-bottom: var(--s-vertical-padding);
+
+        &:first-of-type {
+            &:not(.has-bg):not(.block--google-maps) {
+                margin-top: var(--s-vertical-padding);
+            }
+        }
+
+        &:last-of-type {
+
+            &.bg-black,
+            &.bg-grey {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
 
 
 div#overlay {
