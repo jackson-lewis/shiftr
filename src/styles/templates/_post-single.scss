@@ -4,17 +4,13 @@
 
 */
 body.single-post {
-
-    main.site-main {
-        padding-top: 60px;
-
-        @include min-width( m ) {
-            padding-top: 80px;
-        }
+    footer.site-footer {
+        margin-top: 60px;
     }
 }
 
 .hero--post_single {
+    margin-top: 40px;
     margin-bottom: get_baseline( 2 );
 
     .post-featured-image {

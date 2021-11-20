@@ -13,7 +13,7 @@ get_header();
         </header>
     </div>
 
-    <section class="site-section">
+    <section class="site-section posts-loop">
         <div class="container">
             
             <?php if ( have_posts() ) : ?>
@@ -28,6 +28,8 @@ get_header();
                         wp_reset_postdata();
                     ?>
                 </ul>
+
+                <?php shiftr_pagination(); ?>
             <?php endif; ?>
 
         </div>

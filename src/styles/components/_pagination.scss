@@ -1,0 +1,70 @@
+/*
+
+    //  //// --|    Components / Pagination
+
+*/
+.pagination {
+    margin-top: 40px;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        text-align: center;
+        line-height: 1.25;
+
+        li {
+            margin: 0 4px;
+            display: inline-block;
+        }
+    }
+
+    .page-numbers {
+        min-width: 1rem;
+        display: inline-block;
+        
+        text-align: center;
+    }
+
+    [aria-current="page"] {
+        font-weight: 700;
+    }
+
+    a {
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &.prev,
+        &.next {
+            vertical-align: middle;
+
+            svg {
+                width: 1rem;
+                height: 1rem;
+                top: -2px;
+                position: relative;
+                display: block;
+
+                transition: 300ms;
+            }
+        }
+
+        &.prev {
+            &:hover {
+                svg {
+                    transform: translateX(-4px);
+                }
+            }
+        }
+
+        &.next {
+            &:hover {
+                svg {
+                    transform: translateX(4px);
+                }
+            }
+        }
+    }
+}
