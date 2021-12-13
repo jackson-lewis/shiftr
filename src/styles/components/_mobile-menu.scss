@@ -88,11 +88,11 @@ nav.nav-primary-mobile {
 
                 &.is-visible {
 
-                    button {
+                    & > button {
                         transform: rotate( 180deg );
                     }
 
-                    .sub-menu {
+                    & > .sub-menu {
                         display: block;
                     }
                 }

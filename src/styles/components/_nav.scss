@@ -64,6 +64,7 @@ nav {
                     top: 100%;
                     left: -20px;
                     display: none;
+                    z-index: 10;
                     
                     border-radius: var( --border-radius );
                     background-color: var(--c-white);
@@ -77,14 +78,24 @@ nav {
                     li {
                         margin-bottom: 8px;
 
+                        a {
+                            width: 100%;
+                        }
+
                         &:last-child {
                             margin-bottom: 0;
                         }
                     }
+
+                    .sub-menu {
+                        top: -20px;
+                        left: calc( 100% + 10px );
+                        z-index: 20;
+                    }
                 }
 
                 &.is-visible {
-                    .sub-menu {
+                    & > .sub-menu {
                         display: block;
                         animation-name: dropdown_menu;
                     }
