@@ -298,7 +298,7 @@ class Shiftr_Form {
                 echo $args->label;
 
                 if ( $args->required ) {
-                    echo '*';
+                    echo '<span class="required">*</span>';
                 }
 
                 echo '</label>';
