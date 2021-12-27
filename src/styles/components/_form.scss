@@ -6,7 +6,6 @@
 
 
 .shiftr-form {
-    margin: 0 auto;
     position: relative;
 
     .field {
@@ -16,6 +15,10 @@
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    [type="submit"] {
+        --padding-ratio: 4;
     }
 }
 

@@ -160,3 +160,16 @@ Utils\register_flexi_block(
         'max' => '1' // Strictly only 1 instance of this block is allowed!!!
     )
 );
+
+
+/**
+ * Contact
+ */
+Utils\register_flexi_block(
+    'contact',
+    'Contact',
+    array(),
+    array(
+        'block_before' => true
+    )
+);
