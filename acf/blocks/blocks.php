@@ -173,3 +173,28 @@ Utils\register_flexi_block(
         'block_before' => true
     )
 );
+
+
+/**
+ * Columns
+ */
+Utils\register_flexi_block(
+    'columns',
+    'Columns',
+    array(
+        Field_Types\repeater_field(
+            'Columns',
+            array(
+                'sub_fields' => array(
+                    Field_Types\image_field( 'Image' ),
+                    Field_Types\wysiwyg_field( 'Content' )
+                ),
+                'button_label' => 'Add Column'
+            )
+        )
+    ),
+    array(
+        'block_before' => true,
+        'block_after' => true
+    )
+);

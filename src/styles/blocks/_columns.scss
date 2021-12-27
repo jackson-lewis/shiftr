@@ -1,0 +1,39 @@
+/*
+
+    //  //// --|    Blocks / Columns
+
+*/
+section.flexi-block.block--columns {
+
+    div.columns {
+        div.column {
+            margin-bottom: 50px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        @include min-width( 640 ) {
+            display: grid;
+            grid-gap: var(--site-gutter) 50px;
+            grid-template-columns: 1fr 1fr;
+
+            div.column {
+                margin-bottom: 0;
+            }
+        }
+
+        @include min-width( m ) {
+            &.columns-3 {
+                grid-template-columns: repeat( 3, 1fr );
+            }
+        }
+
+        @include min-width( l ) {
+            &.columns-4 {
+                grid-template-columns: repeat( 4, 1fr );
+            }
+        }
+    }
+}
