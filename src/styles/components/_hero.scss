@@ -11,10 +11,9 @@
     position: relative;
     display: flex;
 
-    color: var(--c-white);
-
     h1, h2, h3, h4, h5, h6 {
         color: inherit;
+        text-align: inherit;
     }
 
     .hero-feature-image {
@@ -31,14 +30,11 @@
         }
     }
 
-    .hero-container {
-        width: 100%;
-        position: relative;
-        display: flex;
-        align-items: stretch;
-        z-index: 20;
-        
-        background-color: rgba( #000000, .4 );
+    &.with-post-thumbnail {
+        .hero-content {
+            background-color: rgba( #000000, .3 );
+            color: var(--c-white);
+        }
     }
 
     .hero-content {
@@ -47,20 +43,15 @@
         width: 100%;
         padding: 60px calc( var(--site-padding) / 2 );
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         position: relative;
         z-index: 20;
 
-        background-color: rgba( #000000, .3 );
-        color: var(--c-white);
         text-align: center;
 
         h1 {
             max-width: none;
             margin-bottom: 20px;
-
-            font-weight: 400;
-            color: inherit;
         }
 
         p {
@@ -138,11 +129,16 @@
 .hero--standard {
     @extend %hero;
 
-    height: calc( 100vh - 60px );
-    max-height: 1200px;
+    &.with-post-thumbnail {
+        height: calc( 100vh - 60px );
+        max-height: 1200px;
+    }
 
     @include min-width( m ) {
-        height: 50vh;
+        
+        &.with-post-thumbnail {
+            height: 50vh;
+        }
     }
 }
 
