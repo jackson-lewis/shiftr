@@ -4,16 +4,7 @@
  * 
  * It's unlikely you would need to alter this file
  */
-import { polyfill__ObjectAssign, polyfill__forEach, polyfill__objectFit } from '../inc/polyfill'
 import CookieNotice from '../inc/cookie'
-
-
-/**
- * Load polyfills
- */
-polyfill__ObjectAssign()
-polyfill__forEach()
-polyfill__objectFit()
 
 
 /**
