@@ -2,15 +2,18 @@
             <div class="footer-row--main">
                 <div class="container">
                     <div class="footer-col">
-                        <?php shiftr_inline_svg( 'shiftr-full', '/assets/_shiftr/' ); ?>
                         <address class="contact-details">
                             <?php
 
                             echo do_shortcode( '[phone_link]' );
                             echo '<br />';
                             echo do_shortcode( '[email_link]' );
-                            printf( '<p>%s</p>', shiftr()->address );
+                            
+                            if ( shiftr()->address ) {
+                                printf( '<p>%s</p>', shiftr()->address );
+                            }
 
+                            shiftr_yoast_socials();
                             ?>
                         </address>
                     </div>
