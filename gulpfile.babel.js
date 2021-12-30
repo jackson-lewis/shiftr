@@ -69,9 +69,7 @@ const styles = () =>
     src( [ SRC.styles, SRC.stylesPackets ] )
     .pipe( gulpif( isDev(), sourcemaps.init() ) )
     .pipe( sass().on( 'error', sass.logError ) )
-    .pipe( postcss([ autoprefixer({
-        grid: true
-    }) ]) )
+    .pipe( postcss([ autoprefixer() ]) )
     .pipe( gulpif( isProduction(), cleanCSS() ) )
     .pipe( gulpif( isDev(), sourcemaps.write( '.maps' ) ) )
     .pipe( dest( DEST.styles ) )
