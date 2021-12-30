@@ -485,7 +485,7 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
 
     $output = '';
 
-    foreach ( $file_types as $type ) {
+    foreach ( $formatted_file_types as $type ) {
         $type = trim( $type, ' ,|' );
 
         if ( $format === 'attr' ) {
@@ -496,8 +496,8 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
             }
         } else {
             $output .= preg_replace( array(
-                '/',
-                '.'
+                '/\//',
+                '/\./'
             ), array(
                 '\/',
                 '\.'

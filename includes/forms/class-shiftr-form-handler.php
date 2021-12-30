@@ -1,6 +1,14 @@
 <?php
 
-
+/**
+ * Error response codes:
+ * 
+ * 2: Invalid email address.
+ * 3: Required fields were missing.
+ * 4: wp_mail returned false.
+ * 5: File upload failed validation checks.
+ * 9: Forced error for testing via error@example.com
+ */
 class Shiftr_Form_Handler {
 
     /* str The form name */
@@ -82,8 +90,12 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function init() {
-
         global $shiftr;
+
+        $this->response = array(
+            'success' => false,
+            'message' => ''
+        );
 
         $this->verification();
 
@@ -99,6 +111,11 @@ class Shiftr_Form_Handler {
     }
 
 
+    function send_response( $res = array() ) {
+        wp_die( wp_json_encode( wp_parse_args( $res, $this->response ) ) );
+    }
+
+
     /**  
      *  Verify the submission before going anywhere
      *
@@ -111,7 +128,9 @@ class Shiftr_Form_Handler {
 
         if ( ! is_email( $email ) ) {
 
-            wp_die( 'invalid_email_address' );
+            $this->send_response([
+                'message' => 'Err 2: Invalid email address.'
+            ]);
         }
 
         // Check all required fields have a value
@@ -147,9 +166,22 @@ class Shiftr_Form_Handler {
         }
 
         if ( ! empty( $empty_required_fields ) ) {
-
             $plural = ( count( $empty_required_fields ) == 1 ) ? '' : 's';
-            wp_die( strval( count( $empty_required_fields ) ) . "_field{$plural}_missing" );
+
+            $this->send_response([
+                'message' => 'Err 3: ' . strval( count( $empty_required_fields ) ) . " field{$plural} " . ( $plural ? 'are' : 'is' ) . ' missing.'
+            ]);
+        }
+
+        /**
+         * Enable testing.
+         */
+        $value = $this->get_value( 'email' );
+
+        if ( $value == 'error@example.com' ) {
+            $this->send_response([
+                'message' => 'Err 9: Forced error.'
+            ]);
         }
     }
 
@@ -266,17 +298,20 @@ class Shiftr_Form_Handler {
 
         // Try and sent the form
         if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
-
-            $output = true;
+            $response = array(
+                'success' => true,
+                'message' => 'Message successfully sent!'
+            );
 
         } else {
-            $output = 'mail_not_sent';
+            $response = array(
+                'message' => 'Err 4: There was an error while trying to send your message.'
+            );
         }
 
         do_action( 'shiftr_form_handle_after', $this );
 
-        // Return string to JS function
-        wp_die( $output );
+        $this->send_response( $response );
     }
 
 
@@ -379,13 +414,15 @@ class Shiftr_Form_Handler {
 
             if ( $field['type'] == 'file' ) {
 
-                if ( $this->validate_attachment( $field ) || true ) {
+                if ( $this->validate_attachment( $field ) ) {
                     $file = $this->upload_attachment( $field['name'] );
 
                     $files[] = $file['path'];
 
-                } else {
-                    wp_die( 'file_upload_failed' );
+                } else if ( $field['required'] ) {
+                    $this->send_response([
+                        'message' => 'Err 5: File validation failed.'
+                    ]);
                 }
             }
         }
@@ -529,6 +566,7 @@ class Shiftr_Form_Handler {
      *  @return $formatted str The formatted phone number
      */
     function format_phone_number( $number ) {
+        $formatted = $number;
 
         // Format mobile number
         if ( preg_match( '/^07/', $number ) ) {
