@@ -78,7 +78,7 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
     $attr = array();
 
 
-    $attr['href'] = shiftr_contact_type( $args->type, 'mailto:' . $args->email, 'tel:' . $args->phone, $args->address_link );
+    $attr['href'] = shiftr_contact_type( $args->type, 'mailto:' . $args->email, 'tel:' . str_replace( ' ', '', $args->phone ), $args->address_link );
 
     // Accessibility feature for users who's default mail client is in-browser
     $attr['target'] = shiftr_contact_type( $args->type, '_blank', '', '_blank' );

@@ -18,33 +18,6 @@ class Shiftr_Settings {
     public $address_link;
 
 
-    /**  
-     *  Assign values to the properties
-     *
-     *  @since 1.0
-     */
-    function __construct() {
-        $contact_details = $this->get_acf_value( 'contact-details' );
-
-        if ( $contact_details ) {
-            $this->email        = $contact_details['email-address'];
-            $this->phone        = $contact_details['phone-number'];
-            $this->address      = $contact_details['address'];
-        }
-
-        /**
-         * Tracking.
-         * 
-         * @since v1.6
-         */
-        $tracking = $this->get_acf_value( 'tracking', false );
-
-        if ( $tracking ) {
-            $this->tracking = (object) $tracking;
-        }
-    }
-
-
     // --|  Dev Settings
 
     // Fonts
