@@ -140,7 +140,7 @@ export default class Form extends ShiftrComponent {
         fieldWrapper.appendChild( notice )
 
         setTimeout( () => {
-            notice.classList.add( 'pop' )
+            notice.classList.add( 'is-visible' )
         }, 200 )
 
         setTimeout( () => {
@@ -159,7 +159,7 @@ export default class Form extends ShiftrComponent {
         const notice = fieldWrapper.querySelector( 'span.validation' )
         
         if ( notice ) {
-            notice.classList.remove( 'pop' )
+            notice.classList.remove( 'is-visible' )
 
             setTimeout( () => {
                 fieldWrapper.removeChild( notice )
@@ -181,102 +181,36 @@ export default class Form extends ShiftrComponent {
         this.submitButton.disabled = true
         this.submitButton.innerHTML = 'Sending...'
 
-        let data = new FormData( this.target ),
-            xhr = new XMLHttpRequest()
-    
-        xhr.onload = () => {
-
-            if ( xhr.status >= 200 && xhr.status < 400 ) {
+        fetch( shiftr.ajaxUrl, {
+            method: 'post',
+            body: new FormData( this.target )
+        })
+            .then( res => res.json() )
+            .then( data => {
                 this.target.classList.remove( 'send-in-progress' )
-                this.response = xhr.responseText
-                this.displaySubmitMessage( xhr.responseText )
-
-            } else {
-                this.displaySubmitMessage( `xhr_error_${xhr.status}` )
-            }
-        };
-
-        xhr.onerror = () => {
-            this.displaySubmitMessage( 'xhr_error' )
-        };
-
-        xhr.open( 'POST', shiftr.ajaxUrl )
-        xhr.send( data )
+                this.response = data
+                this.displaySubmitMessage( data )
+            })
+            .catch( error => {
+                console.log( error )
+            })
     }
 
 
     /**
-     * @param {string} response The responseText from the XMLHttpRequest
+     * @param {string} data The body of the response
      */
-    displaySubmitMessage( response = '' ) {
+    displaySubmitMessage( data = '' ) {
+        const formSubmitOutput = this.target.querySelector( '.form-submit-output' )
 
-        const message = {
-            wrapper: createEl( 'div' ),
-            container: createEl( 'div' ),
-            heading: createEl( 'span' ),
-            content: createEl( 'p' ),
-            errorRef: createEl( 'span' ),
-            close: createEl( 'button' ),
-            copy: {
-                heading: '',
-                content: ''
-            }
-        }
-
-        message.wrapper.classList.add( 'form-submission' )
-
-        const { submitMessageCopy } = this.settings
-
-        // Select corresponding confirmation content
-        switch ( response ) {
-
-            // '1' equals true. 
-            case '1':
-                message.copy.heading = submitMessageCopy.successHeading
-                message.copy.content = submitMessageCopy.successBody
-                break
-
-            case 'invalid_email_address':
-                message.copy.heading = 'Security Issue!'
-                message.copy.content = 'The request was blocked because of an invalid email address.'
-                break
-
-            default:
-                message.copy.heading = submitMessageCopy.errorHeading
-                message.copy.content = submitMessageCopy.errorBody
-        }
-
-
-        if ( response.match( /[1-9]{1}_field[s]?_missing/g ) ) {
-            message.copy.heading = 'Security Issue!'
-            message.copy.content = 'The request was blocked because some fields were missing.'
-        }
-
-
-        message.heading.innerHTML = message.copy.heading
-        message.content.innerHTML = message.copy.content
-
-        message.close.innerHTML = 'Close'
-        message.close.setAttribute( 'id', 'close-submission' )
-        message.close.classList.add( 'button' )
-
-        message.container.appendChild( message.heading )
-        message.container.appendChild( message.content )
-
-        if ( response != '1' ) {
-            message.errorRef.innerHTML = `ERROR REF: ${response}`
-            message.container.appendChild( message.errorRef )
-        }
-        
-        message.wrapper.appendChild( message.container )
-        message.wrapper.appendChild( message.close )
-
-        this.target.appendChild( message.wrapper )
+        formSubmitOutput.innerHTML = `
+            <p class="${ data.success ? 'success' : 'error' }">${ data.message }</p>
+        `
 
         /**
          * Support for Google Tag Manager tracking
          */
-        if ( response == 1 ) {
+        if ( data.success ) {
             window.dataLayer = window.dataLayer || []
             window.dataLayer.push({
                 'event': 'formSubmission',
@@ -285,31 +219,31 @@ export default class Form extends ShiftrComponent {
         }
 
         setTimeout( () => {
-            message.wrapper.classList.add( 'show' )
-            this.submitButton.innerHTML = 'Sent!'
+            formSubmitOutput.classList.add( 'is-visible' )
+
+            if ( data.success ) {
+                this.submitButton.innerHTML = 'Sent!'
+            } else {
+                this.submitButton.disabled = false
+                this.submitButton.innerHTML = this.submitButtonOrgLabel
+            }
         }, 100 )
 
-        message.close.addEventListener( 'click', e => {
-            e.preventDefault()
-            clearTimeout( autoClear )
-            this.clearSubmitMessage( message.wrapper, response )
-        })
-
-        const autoClearDelay = response == '1' ? 8100 : 30000
+        const autoClearDelay = data.success ? 8100 : 30000
 
         var autoClear = setTimeout( () => {
-            this.clearSubmitMessage( message.wrapper, response )
+            this.clearSubmitMessage( data )
         }, autoClearDelay )
     }
 
 
     /**
      * @param {object} message The message wrapper element
-     * @param {string} response The server response
+     * @param {string} data The server response
      */
-    clearSubmitMessage( message, response ) {
+    clearSubmitMessage( data ) {
 
-        if ( response == '1' ) {
+        if ( data.success ) {
             const { success, error } = this.actionClass
 
             this.target.reset()
@@ -325,7 +259,7 @@ export default class Form extends ShiftrComponent {
         }
 
         setTimeout( () => {
-            message.classList.remove( 'show' )
+            this.target.querySelector( '.form-submit-output' ).classList.remove( 'is-visible' )
         }, 100 )
         
         /**
