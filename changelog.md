@@ -1,6 +1,64 @@
 # Changelog
 
 
+## v1.6
+*30/12/21*
+
+Many long awaited improvements and fixes, with several new features. It offers a more stable foundation as we enter a new year.
+
+### New Flexi Blocks
+Shiftr now comes with 7 Flexi Blocks by default.
+
+#### Columns
+Columns allows up to 12 columns to be displayed with either 2, 3 or 4 columns per row. Columns are automatically disrupted across rows based on how many columns are present. A column can contain either an image, content, or both together! All standard block settings are available, including a block heading and additional content.
+
+#### Contact
+A generic contact block provides a starting point for a commonly required block. By default, the block ships with standard contact details (phone, email and address), social links and a general contact form. Because of this block, a contact form is now enabled out-the-box. The block heading is also available.
+
+#### Google Maps
+With a valid Google Maps API key provided, a simple map can be added using ACF Google Map field. This also accepts the zoom, so the zoom level set will be reflected on the frontend also. This is a full width block, and background is not available. Please note that the Google Map API will be automatically lazy loaded, and because of this, only one block is permitted per page.
+
+### Goodbye Internet Explorer
+Support for IE has been 100% dropped in this version, with legacy methods such as XHR requests being dropped.
+
+* autoprefixer `grid` support for IE removed
+* `XHR` swapped in favour of `fetch()` for contact form submissions.
+* JavaScript polyfills removed.
+
+### Gulp
+* The default proxy renamed from `shiftr.source`  to `shiftr-dev.test`
+* Backticks swapped for single quotes.
+* `watch` task renamed to `dev`, however `watch` still available via gulp CLI
+* Added `gulp build` to npm `postinstall`
+
+### Templates
+* New naming convention on template part files. `/parts/single-post.php` renamed to `/parts/content-post.php` as this is more inline with WordPress naming conventions.
+    * The format should be `single-{post_type_name}.php`
+* A slightly revised standard hero banner, which supports either a featured image or just the page title.
+
+### Forms
+* Some default styling such as `max-width` on the form and inputs have been removed.
+* Styling has been simplified to reduce amount of css.
+* Fix for file path in Shiftr form handler referencing incorrect file path after directory move.
+* Revised styling of validation notices.
+* Revised submit message element.
+* New error codes for dealing with any server-side errors encountered.
+* A JSON response is now sent back instead of a string.
+* A fix for file validation which was not correctly set.
+
+### Pagination, Breadcrumbs & Social Links
+* The pagination is now correctly included in the archive template, and has default styling. Call the pagination after a loop using `shiftr_pagination()`
+* Breadcrumbs, initially set via Yoast SEO, is available using a wrapper function. The wrapper function allows for simple changes like wrapper elements to be set. Call the breadcrumbs using `shiftr_breadcrumb()`
+* Social Links, set via Yoast SEO, provides a simple way to include social links in areas of the website like the footer and contact page. Call the social links using the new function `shiftr_social_links()`
+
+### Trial of new grid system
+A handful of css grid utility classes have been included, `.grid-small`, `.grid-medium` and `.grid-large`. Each respectively enables a 12-column grid layout at the specified breakpoint. This will just be tested out to see if it works and it even the slighest bit useful during development, and if it is, the system can be expanded upon.
+
+### Other
+* caniuse browserlist updated to `1.0.30001292`
+* Support for PHP 8
+* Support for ACF 5.11.1
+
 ## v1.5.1
 *03/08/21*
 
