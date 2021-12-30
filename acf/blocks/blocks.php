@@ -189,7 +189,9 @@ Utils\register_flexi_block(
                     Field_Types\image_field( 'Image' ),
                     Field_Types\wysiwyg_field( 'Content' )
                 ),
-                'button_label' => 'Add Column'
+                'button_label' => 'Add Column',
+                'min' => 2,
+                'max' => 12
             )
         )
     ),

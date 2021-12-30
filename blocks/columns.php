@@ -15,7 +15,7 @@ $columns = get_flexi_field( 'columns' );
                 <div class="column">
                     <?php
                     if ( $column['image'] ) {
-                        shiftr_image( $column['image'], 'medium' );
+                        printf( '<div class="image">%s</div>', get_shiftr_image( $column['image'], 'medium' ) );
                     }
 
                     echo $column['content'];
