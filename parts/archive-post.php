@@ -10,7 +10,15 @@ get_header();
     <div class="hero--basic">
         <header class="container hero-content">
             <h1>
-                <?php the_archive_title(); ?>
+                <?php
+
+                if ( is_home() ) {
+                    single_post_title();
+                } else {
+                    the_archive_title();
+                }
+
+                ?>
             </h1>
         </header>
     </div>
