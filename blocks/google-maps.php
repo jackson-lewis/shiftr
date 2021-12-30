@@ -25,7 +25,7 @@ $map_data = get_flexi_field( 'map' );
         var map = new google.maps.Map(
             document.getElementById( 'map' ),
             {
-                zoom: 12,
+                zoom: <?php echo $map_data['zoom']; ?>,
                 center: coords
             }
         );
