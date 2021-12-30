@@ -23,8 +23,6 @@ class Shiftr_Form {
 
 
     /**  
-     *  __contruct
-     *
      *  Set-up the class ready for handling the request
      *
      *  @since 1.0
@@ -32,7 +30,6 @@ class Shiftr_Form {
      *  @param $form str The name of the form
      *  @param $args array The form settings and defined fields
      */
-
     function __construct( $form = '', $args = [] ) {
 
         $this->defaults = array(
@@ -55,26 +52,18 @@ class Shiftr_Form {
 
 
     /**  
-     *  init
-     *
      *  This does nothing
      *
      *  @since 1.0
      */
-
-    function init() {
-
-    }
+    function init() {}
 
 
     /**  
-     *  get_form_ID
-     *
      *  ...
      *
      *  @since 1.0
      */
-
     function get_form_ID() {
         $form_post_id = 0;
 
@@ -106,21 +95,18 @@ class Shiftr_Form {
 
 
     /**  
-     *  create_form
-     *
      *  ...
      *
      *  @since 1.0
      * @param bool $is_shortcode Used if form is being built from a shortcode.
      */
-
     function build( $is_shortcode ) {
 
         $form_base_atts = array();
 
         $form_base_atts['method']           = 'post';
         $form_base_atts['id']               = 'shiftr_form_' . $this->form_ID;
-        $form_base_atts['class']            = 'shiftr-form shiftr-form--' . $this->form;
+        $form_base_atts['class']            = 'shiftr-form shiftr-form--' . $this->form . ( $this->use_labels ? ' with-labels' : '' );
         $form_base_atts['data-shiftr-form'] = $this->form;
 
         foreach( $this->fields as $field ) {
@@ -196,15 +182,12 @@ class Shiftr_Form {
 
 
     /**  
-     *  create_field
-     *
      *  Create an input element to include within the shiftr_register_form call
      *
      *  @since 1.0
      *
      *  @param $field array The settings of the field
      */
-
     function create_field( $settings = [] ) {
 
         $defaults = array(
@@ -298,7 +281,7 @@ class Shiftr_Form {
                 echo $args->label;
 
                 if ( $args->required ) {
-                    echo '*';
+                    echo '<span class="required">*</span>';
                 }
 
                 echo '</label>';
@@ -327,6 +310,10 @@ class Shiftr_Form {
         if ( $args->type == 'textarea' ) {
             $field_atts['rows'] = $args->rows;
             $field_atts['class'] = 'form-textarea';
+        }
+
+        if ( $args->type == 'select' ) {
+            $field_atts['class'] = 'form-select';
         }
 
         if ( $args->type == 'file' ) {
@@ -378,6 +365,8 @@ class Shiftr_Form {
 
             echo '<button ' . shiftr_output_attr( $field_atts, true ) . '>' . $args->label . '</button>';
 
+            echo '<div class="form-submit-output"></div>';
+
         } else {
 
             echo '<' . $field_tag . ' ' . shiftr_output_attr( $field_atts, true ) . '>';
@@ -425,4 +414,3 @@ class Shiftr_Form {
         do_action( "shiftr_form_{$this->form}_field_{$args->name}_after" );
     }
 }
-

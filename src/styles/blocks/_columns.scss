@@ -1,0 +1,65 @@
+/*
+
+    //  //// --|    Blocks / Columns
+
+*/
+section.flexi-block.block--columns {
+
+    div.columns {
+        div.column {
+            margin-bottom: 50px;
+
+            div.image {
+                width: 100%;
+                margin-bottom: 16px;
+                padding-top: 75%;
+                position: relative;
+
+                border-radius: var(--border-radius);
+                overflow: auto;
+
+                img {
+                    @include object-fit;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        @include min-width( 640 ) {
+            display: grid;
+            grid-gap: calc( var(--site-gutter) * 2 ) var(--site-gutter);
+            grid-template-columns: 1fr 1fr;
+
+            div.column {
+                margin-bottom: 0;
+            }
+        }
+
+        @include min-width( m ) {
+            &.columns-3,
+            &.columns-5,
+            &.columns-6,
+            &.columns-9 {
+                grid-template-columns: repeat( 3, 1fr );
+            }
+        }
+
+        @include min-width( l ) {
+            &.columns-4,
+            &.columns-7,
+            &.columns-8,
+            &.columns-10,
+            &.columns-11,
+            &.columns-12 {
+                grid-template-columns: repeat( 4, 1fr );
+            }
+        }
+    }
+}

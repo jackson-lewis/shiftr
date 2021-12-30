@@ -37,14 +37,19 @@
 @import 'components/form';
 @import 'components/accordion';
 @import 'components/carousel';
+@import 'components/pagination';
 @import 'components/cookie-notice';
 @import 'components/announcement-bar';
+@import 'components/social-links';
 
 
 //  Blocks
 @import 'blocks/content-image';
 @import 'blocks/cta-banner-small';
 @import 'blocks/featured-posts';
+@import 'blocks/google-maps';
+@import 'blocks/contact';
+@import 'blocks/columns';
 
 
 //  Templates

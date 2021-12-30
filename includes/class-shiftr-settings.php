@@ -7,8 +7,8 @@ class Shiftr_Settings {
     protected $shiftr_name = 'Shape Shiftr';
     protected $shiftr_url = 'https://shapeshiftr.co.uk';
 
-    private $version = '1.5.1';
-    private $version_date = '03/08/21'; 
+    private $version = '1.6';
+    private $version_date = '30/12/21'; 
 
 
     // Contact Details
@@ -16,29 +16,6 @@ class Shiftr_Settings {
     public $phone;
     public $address;
     public $address_link;
-
-
-    /**  
-     *  Assign values to the properties
-     *
-     *  @since 1.0
-     */
-    function __construct() {
-        $contact_details = $this->get_acf_value( 'contact-details' );
-
-        $this->email        = $contact_details['email-address'];
-        $this->phone        = $contact_details['phone-number'];
-        $this->address      = $contact_details['address'];
-
-        /**
-         * Tracking.
-         * 
-         * @since v1.6
-         */
-        $tracking = $this->get_acf_value( 'tracking', false );
-
-        $this->tracking = (object) $tracking;
-    }
 
 
     // --|  Dev Settings
@@ -74,6 +51,41 @@ class Shiftr_Settings {
     public $js_object = array();
 
     /**  
+     *  Assign values to the properties
+     *
+     *  @since 1.0
+     */
+    function __construct() {
+        add_action( 'acf/init', array( $this, 'init' ) );
+    }
+
+
+    /**
+     * Init. This ensures ACF has initiated first.
+     */
+    function init() {
+        $contact_details = $this->get_acf_value( 'contact-details' );
+
+        if ( $contact_details ) {
+            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : null;
+            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : null;
+            $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : null;
+        }
+
+        /**
+         * Tracking.
+         * 
+         * @since v1.6
+         */
+        $tracking = $this->get_acf_value( 'tracking', false );
+
+        if ( $tracking ) {
+            $this->tracking = (object) $tracking;
+        }
+    }
+
+
+    /**  
      *  Get the value from an ACF option field
      *
      *  @since 1.0
@@ -83,9 +95,7 @@ class Shiftr_Settings {
     public function get_acf_value( $value, $format = true ) {
 
         if ( function_exists( 'get_field' ) ) {
-            if ( get_field( $value, 'option', $format ) ) {
-                return get_field( $value, 'option', $format );
-            }
+            return get_field( $value, 'option', $format );
         }
 
         return false;

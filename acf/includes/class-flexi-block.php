@@ -41,6 +41,17 @@ class Flexi_Block {
             'block_before' => false,
             'block_after' => false,
             'allow_global' => true,
+            /**
+             * Control the minimum number of instances a block can be used.
+             */
+            'min' => '',
+            /**
+             * Control the maximum number of instances a block can be used.
+             */
+            'max' => '',
+            /**
+             * Full access to override the layout array
+             */
             'overrides' => array()
         );
         $this->args = wp_parse_args( $args, $default_args );
@@ -94,6 +105,9 @@ class Flexi_Block {
         );
 
         $acf_field_data = wp_parse_args( $this->args['overrides'], $default_acf_field_data );
+
+        $acf_field_data['min'] = $this->args['min'];
+        $acf_field_data['max'] = $this->args['max'];
 
         // Add tab for main block fields
         array_unshift( $this->fields, $this->block_tab( 'Fields' ) );

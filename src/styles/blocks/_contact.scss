@@ -1,0 +1,54 @@
+/*
+
+    //  //// --|    Blocks / Contact
+
+*/
+section.flexi-block.block--contact {
+    .contact-details {
+        margin-bottom: 50px;
+
+        address {
+            font-style: normal;
+    
+            & > a {
+                margin-bottom: 16px;
+                padding: 4px 0;
+    
+                display: inline-block;
+    
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+    
+            a + p {
+                margin-top: 0;
+            }
+
+            & > *:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @include min-width( m ) {
+        .contact-details {
+            grid-column: 1 / 7;
+            margin-bottom: 0;
+        }
+
+        form.shiftr-form {
+            grid-column: 7 / 13;
+        }
+    }
+
+    @include min-width( l ) {
+        .contact-details {
+            grid-column: 2 / 7;
+        }
+
+        form.shiftr-form {
+            grid-column: 8 / 12;
+        }
+    }
+}

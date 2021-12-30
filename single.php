@@ -33,6 +33,38 @@ get_header();
     </section>
     <?php endwhile; endif; ?>
 
+    <?php
+    /**
+     * Display related posts after the main post content.
+     */
+    $related_posts = new WP_Query([
+        'posts_per_page' => 3,
+        'post__not_in' => [ get_the_ID() ]
+    ]);
+
+    if ( $related_posts->have_posts() ) :
+    
+    ?>
+        <section class="site-section related-posts">
+            <div class="container">
+                <h2>Related posts</h2>
+
+                <ul class="posts loop">
+                    <?php
+                        while( $related_posts->have_posts() ) {
+                            $related_posts->the_post();
+
+                            shiftr_get_template( 'content-post.php' );
+                        }
+
+                        wp_reset_postdata();
+                    ?>
+                </ul>
+
+            </div>
+        </section>
+    <?php endif; ?>
+
 </main>
     
 

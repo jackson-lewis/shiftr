@@ -6,14 +6,12 @@
 
 
 .site-footer {
-    margin-top: 80px;
-
     border-top: 1px solid var(--c-primary);
 
     address {
         font-style: normal;
 
-        a {
+        & > a {
             margin-bottom: 16px;
             padding: 4px 0;
 
@@ -55,11 +53,6 @@
                 text-decoration: underline;
             }
         }
-    }
-
-    svg {
-        max-width: 180px;
-        margin-bottom: 30px;
     }
 }
 

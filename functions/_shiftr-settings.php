@@ -52,7 +52,7 @@ $shiftr->js_object = array(
         'errorBody'         => get_option( 'shiftr_form_message_error_body' )
     ),
     'cookie' => array(
-        'message'       => get_field( 'cookie_notice_message', 'option' ),
+        'message'       => '',
         'policyLink'    => get_permalink( 3 )
     )
 );

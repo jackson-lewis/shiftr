@@ -64,8 +64,8 @@ function shiftr_preload_post_thumbnail() {
         /**
          * Process all the necessary formatting to prepare for generating attributes string
          */
-        $attr = array_intersect_key( $attr, array( 'src', 'srcset', 'sizes' ) );
-		$attr = array_map( 'esc_attr', $attr );
+        $attr = array_intersect_key( $attr, array_flip( array( 'src', 'srcset', 'sizes' ) ) );
+	    $attr = array_map( 'esc_attr', $attr );
 
         $src = $attr['src'];
         unset( $attr['src'] );

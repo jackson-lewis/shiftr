@@ -69,6 +69,13 @@ add_action( 'acf/init', function() {
     foreach ( $shiftr_groups_library as $key => $group ) {
         $group->acf_add_local_field_group();
     }
+
+    /**
+     * Set Google Maps API key
+     */
+    if ( defined( 'GOOGLE_API_KEY' ) ) {
+        acf_update_setting( 'google_api_key', GOOGLE_API_KEY );
+    }
 });
 
 

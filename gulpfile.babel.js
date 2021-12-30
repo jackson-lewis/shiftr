@@ -4,7 +4,7 @@
  * The Gulp build process used in Shiftr is designed to optimise the
  * developer experience as well optimise code for production.
  * 
- * `gulp-environments' is used to control how the code is handled and compiled
+ * 'gulp-environments' is used to control how the code is handled and compiled
  * based on what you need. For instance you don't need minified code for development
  * and it'll slow down the compilation process, likewise you do want minified code
  * for production for speed optimisation.
@@ -32,29 +32,29 @@ import webpack from 'webpack-stream'
 /**
  * Settings
  */
-const proxy = `shiftr.source`
+const proxy = 'shiftr-dev.test'
 
 const SRC = {
-    styles: `src/styles/*.scss`,
-    stylesPackets: `src/styles/packets/*.scss`,
-    incScripts: `src/scripts/inc/*.js`,
-    frontendScripts: `src/scripts/frontend/*.js`,
-    backendScripts: `src/scripts/backend/*.js`
+    styles: 'src/styles/*.scss',
+    stylesPackets: 'src/styles/packets/*.scss',
+    incScripts: 'src/scripts/inc/*.js',
+    frontendScripts: 'src/scripts/frontend/*.js',
+    backendScripts: 'src/scripts/backend/*.js'
 }
 
 const DEST = {
-    styles: `assets/styles/`,
-    scripts: `assets/scripts/`
+    styles: 'assets/styles/',
+    scripts: 'assets/scripts/'
 }
 
 
 /**
  * This sets the environment to dev by default
  */
-const ENV = process.env.NODE_ENV || `development`
+const ENV = process.env.NODE_ENV || 'development'
 
-const isDev = () => ENV === `development`
-const isProduction = () => ENV === `production`
+const isDev = () => ENV === 'development'
+const isProduction = () => ENV === 'production'
 
 
 /**
@@ -68,12 +68,10 @@ const isProduction = () => ENV === `production`
 const styles = () =>
     src( [ SRC.styles, SRC.stylesPackets ] )
     .pipe( gulpif( isDev(), sourcemaps.init() ) )
-    .pipe( sass().on( `error`, sass.logError ) )
-    .pipe( postcss([ autoprefixer({
-        grid: true
-    }) ]) )
+    .pipe( sass().on( 'error', sass.logError ) )
+    .pipe( postcss([ autoprefixer() ]) )
     .pipe( gulpif( isProduction(), cleanCSS() ) )
-    .pipe( gulpif( isDev(), sourcemaps.write( `.maps` ) ) )
+    .pipe( gulpif( isDev(), sourcemaps.write( '.maps' ) ) )
     .pipe( dest( DEST.styles ) )
     .pipe( browserSync.stream() )
     
@@ -87,7 +85,7 @@ const styles = () =>
  */
 const scripts = () =>
     src( [ SRC.incScripts, SRC.frontendScripts, SRC.backendScripts ] )
-    .pipe( webpack( require( `./webpack.${ENV}.config.js` ) ) )
+    .pipe( webpack( require( `./webpack.${ ENV }.config.js` ) ) )
     .pipe( dest( DEST.scripts ) )
 
 
@@ -104,17 +102,20 @@ const reload = done => {
 /**
  * Build code and watch for changes via Browser Sync
  */
-exports.watch = () => {
+function dev() {
     browserSync.init({
         proxy: proxy,
         open: false,
         notify: false
     })
 
-    watch( `src/styles/**/*.scss`, styles )
-    watch( `src/scripts/**/*.js`, series( scripts, reload ) )
-    watch( `**/**/*.php` ).on( `change`, series( reload ) )
+    watch( 'src/styles/**/*.scss', styles )
+    watch( 'src/scripts/**/*.js', series( scripts, reload ) )
+    watch( '**/**/*.php' ).on( 'change', series( reload ) )
 }
+
+exports.watch = dev
+exports.dev = dev
     
 
 
@@ -122,6 +123,6 @@ exports.watch = () => {
  * Build the code, either as development or production
  * 
  * Development code with be built by default, so for production code
- * run `gulp build --env production`
+ * run 'gulp build --env production'
  */
 exports.build = parallel( styles, scripts )

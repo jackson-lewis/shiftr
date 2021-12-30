@@ -24,17 +24,17 @@ $posts = new WP_Query( $args );
     <?php shiftr_block_heading(); ?>
 
     <?php if ( $posts->have_posts() ) : ?>
-    <ul class="posts loop">
-    <?php
-        while( $posts->have_posts() ) {
-            $posts->the_post();
+        <ul class="posts loop">
+            <?php
+                while( $posts->have_posts() ) {
+                    $posts->the_post();
 
-            shiftr_get_template( 'single-post.php' );
-        }
+                    shiftr_get_template( 'content-post.php' );
+                }
 
-        wp_reset_postdata();
-    ?>
-    </ul>
+                wp_reset_postdata();
+            ?>
+        </ul>
     <?php endif; ?>
 
     <?php shiftr_block_after(); ?>

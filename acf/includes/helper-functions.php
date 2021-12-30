@@ -12,15 +12,16 @@ use Shiftr_ACF\Utils as Utils;
  * 
  * @param string $builder_name The suffix to the full name
  */
-function shiftr_flexi_blocks_builder( $builder_name ) {
-    $flexible_content_object = false;
+function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object=false ) {
 
-    if ( is_singular( 'page' ) ) {
-        global $post;
-        $flexible_content_object = $post;
-
-    } else if ( is_archive() || is_tax() ) {
-        $flexible_content_object = get_queried_object();
+    if($flexible_content_object == False){
+        if ( is_singular( 'page' ) ) {
+            global $post;
+            $flexible_content_object = $post;
+    
+        } else if ( is_archive() || is_tax() ) {
+            $flexible_content_object = get_queried_object();
+        }
     }
 
     
@@ -260,3 +261,65 @@ function the_flexi_field( $selector = '', $format_value = true ) {
 
     echo $value;
 }
+
+
+/**
+ * Google Maps Block - Automatic lazy loading.
+ */
+$GLOBALS['shiftr_has_google_maps_block'] = false;
+
+add_action( 'shiftr_flexi_open_block', function( $block ) {
+    if ( $block == 'google-maps' ) {
+        $GLOBALS['shiftr_has_google_maps_block'] = true;
+    }
+});
+
+
+/**
+ * Handles the lazy loading capability of the Google Maps API from maps
+ * served via the Google Maps Flexi Block.
+ */
+function shiftr_flexi_block_google_maps_lazy_load() {
+
+    if ( ! defined( 'GOOGLE_API_KEY' ) ) {
+        return;
+    }
+    /**
+     * Ensures this script will only output if the block is present.
+     */
+    if ( isset( $GLOBALS['shiftr_has_google_maps_block'] ) && ! $GLOBALS['shiftr_has_google_maps_block'] ) {
+        return;
+    }
+
+    ?>
+<script async id="shiftr-google-maps-lazy-load">
+    ( () => {
+        if ( typeof initMap !== 'function' ) {
+            console.warn( 'Attempted to lazy load Google Maps API, however the callback function `initMap` does not exist.' );
+            return;
+        }
+
+        const googleMapsFlexiBlock = document.querySelector( '.flexi-block.block--google-maps' );
+
+        const observer = new IntersectionObserver(
+            function ( entries, observer ) {
+                entries.forEach( entry => {
+                    if ( entry.isIntersecting ) {
+                        const script = document.createElement( 'script' );
+                        script.src = 'https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY; ?>&callback=initMap';
+                        document.body.appendChild( script );
+                        observer.unobserve( entry.target )
+                    }
+                })
+            }, {
+                rootMargin: window.innerHeight + 'px',
+                threshold: 0.1
+            }
+        );
+
+        observer.observe( googleMapsFlexiBlock )
+    })();
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'shiftr_flexi_block_google_maps_lazy_load' );
