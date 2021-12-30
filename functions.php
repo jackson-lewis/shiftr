@@ -52,6 +52,8 @@ if ( $shiftr_has_acf ) {
     require_once( SHIFTR_FUNC . '/enqueue-scripts.php' );
     require_once( SHIFTR_FUNC . '/custom-post-types.php' );
     require_once( SHIFTR_FUNC . '/pagination.php' );
+    require_once( SHIFTR_FUNC . '/breadcrumb.php' );
+    require_once( SHIFTR_FUNC . '/yoast.php' );
     require_once( SHIFTR_FUNC . '/navigation.php' );
     require_once( SHIFTR_FUNC . '/forms.php' );
     require_once( SHIFTR_FUNC . '/preload.php' );

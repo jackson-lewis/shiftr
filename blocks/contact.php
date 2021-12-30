@@ -19,6 +19,8 @@
                 printf( '<p>%s</p>', shiftr()->address );
             }
 
+            shiftr_yoast_socials();
+
             ?>
         </address>
     </div>

@@ -1,0 +1,20 @@
+/*
+
+    //  //// --|    Components / Social Links
+
+*/
+.social-links {
+    a {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        margin-right: 8px;
+        padding: 6px;
+        display: inline-block;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
