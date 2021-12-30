@@ -35,6 +35,7 @@ Support for IE has been 100% dropped in this version, with legacy methods such a
 * New naming convention on template part files. `/parts/single-post.php` renamed to `/parts/content-post.php` as this is more inline with WordPress naming conventions.
     * The format should be `single-{post_type_name}.php`
 * A slightly revised standard hero banner, which supports either a featured image or just the page title.
+* `single.php` - A new related posts section has been introduced.
 
 ### Forms
 * Some default styling such as `max-width` on the form and inputs have been removed.
