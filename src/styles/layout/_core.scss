@@ -113,6 +113,30 @@ main.site-main {
     position: relative;
 }
 
+.grid-small {
+    @include min-width( s ) {
+        display: grid;
+        grid-gap: var(--site-gutter);
+        grid-template-columns: repeat( 12, 1fr );
+    }
+}
+
+.grid-medium {
+    @include min-width( m ) {
+        display: grid;
+        grid-gap: var(--site-gutter);
+        grid-template-columns: repeat( 12, 1fr );
+    }
+}
+
+.grid-large {
+    @include min-width( l ) {
+        display: grid;
+        grid-gap: var(--site-gutter);
+        grid-template-columns: repeat( 12, 1fr );
+    }
+}
+
 .contain-line-width {
     max-width: line_width();
 }

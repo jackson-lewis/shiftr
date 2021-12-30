@@ -10,7 +10,7 @@ section.flexi-block.block--contact {
         address {
             font-style: normal;
     
-            a {
+            & > a {
                 margin-bottom: 16px;
                 padding: 4px 0;
     
@@ -32,6 +32,17 @@ section.flexi-block.block--contact {
     }
 
     @include min-width( m ) {
+        .contact-details {
+            grid-column: 1 / 7;
+            margin-bottom: 0;
+        }
+
+        form.shiftr-form {
+            grid-column: 7 / 13;
+        }
+    }
+
+    @include min-width( l ) {
         .contact-details {
             grid-column: 2 / 7;
         }
