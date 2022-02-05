@@ -33,7 +33,7 @@ function shiftr_pagination() {
         echo '<ul>';
 
         foreach ( $links as $link ) {
-            printf( '<li>%s</li>', str_replace( '/page/1', '', $link ) );
+            printf( '<li>%s</li>', preg_replace( '/\/page\/1\//', '/', $link ) );
         }
 
         echo '</ul>';
