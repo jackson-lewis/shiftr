@@ -93,6 +93,25 @@ new Group( 'site_options', array(
                 'wrapper' => array( 'class' => 'hide-label' )
             )
         ),
+        Field_Types\tab_field( 'Cookies' ),
+        Field_Types\group_field(
+            'Cookies',
+            array(
+                'sub_fields' => array(
+                    Field_Types\wysiwyg_field(
+                        'Message',
+                        array(
+                            'toolbar' => 'basic',
+                            'media_upload' => 0,
+                            'wrapper' => array(
+                                'class' => 'mini-editor'
+                            )
+                        )
+                    )
+                ),
+                'wrapper' => array( 'class' => 'hide-label' )
+            )
+        ),
         Field_Types\tab_field( 'Announcement Bar' ),
         Field_Types\group_field(
             'Announcement bar',
