@@ -10,31 +10,14 @@ export default function CookieNotice() {
     const cookieName = 'shiftr_accept_cookie'
 
     if ( document.cookie.indexOf( cookieName ) == -1 ) {
-
-        // Create notice
-        let el = createEl( 'div' ),
-            inner = createEl( 'div' ),
-            message = createEl( 'p' ),
-            dismiss = createEl( 'button' ),
-            learnMore = createEl( 'a' )
-
+        const el = createEl( 'div' )
         el.classList.add( 'shiftr-cookie-notice' )
 
-        message.innerHTML = shiftr.cookie.message
-
-        dismiss.classList.add( 'button-fill' )
-        dismiss.setAttribute( 'id', 'shiftr-cookie-accept' )
-        dismiss.innerHTML = 'Accept<span class="screen-reader-text"> cookies on this site.</span>'
-
-        learnMore.classList.add( 'button-text' )
-        learnMore.setAttribute( 'href', shiftr.cookie.policyLink )
-        learnMore.innerHTML = 'Learn More<span class="screen-reader-text"> about cookies on this site.</span>'
-
-        inner.appendChild( message )
-        inner.appendChild( dismiss )
-        inner.appendChild( learnMore )
-
-        el.appendChild( inner )
+        el.innerHTML = `
+            <div>${ shiftr.cookie.message }</div>
+            <button id="shiftr-cookie-accept" class="button">Accept<span class="screen-reader-text"> cookies on this site.</span></button>
+            <a href="${ shiftr.cookie.policyLink }" class="button-text">Learn More<span class="screen-reader-text"> about cookies on this site.</span></a>
+        `
 
         document.body.appendChild( el )
 
@@ -43,9 +26,7 @@ export default function CookieNotice() {
         }, 1000 )
 
         // Listen for notice acceptance
-        const cookieAccepter = document.getElementById( 'shiftr-cookie-accept' )
-
-        cookieAccepter.addEventListener( 'click', e => {
+        document.getElementById( 'shiftr-cookie-accept' ).addEventListener( 'click', e => {
             e.preventDefault()
 
             var expiry = new Date()

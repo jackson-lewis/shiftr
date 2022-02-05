@@ -462,11 +462,11 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
         'keynote'
     );
 
-    if ( empty( $field['file_types'] ) ) {
+    if ( empty( $field['accept'] ) ) {
         $file_types = $default_file_types;
 
     } else {
-        $file_types = explode( ',', $field['file_types'] );
+        $file_types = explode( ',', $field['accept'] );
     }
 
     if ( is_array( $file_types ) ) {

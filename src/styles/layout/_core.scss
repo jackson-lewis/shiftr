@@ -303,6 +303,12 @@ section {
 }
 
 
+hr {
+    margin: get_baseline( 2 ) 0;
+    border-color: var(--c-primary);
+}
+
+
 div#overlay {
     width: 100vw;
     height: 100vh;

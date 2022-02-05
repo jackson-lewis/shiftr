@@ -123,7 +123,7 @@ class Shiftr_Form {
 
         $form_base_atts = apply_filters( 'shiftr_form_build_form_atts', $form_base_atts, $this->form );
 
-        echo '<form ' . shiftr_output_attr( $form_base_atts ) . '>';
+        echo '<form ' . shiftr_output_attr( $form_base_atts ) . '><div class="form-fields">';
 
         // Required form fields        
         $hidden_fields = apply_filters( 'shiftr_form_build_hidden_fields', array(), $this->form );
@@ -159,25 +159,39 @@ class Shiftr_Form {
 
         } else {
 
-            $submit = array(
+            $submit = apply_filters(
+                'shiftr_form_submit_field',
                 array(
-                    'type'      => 'submit',
-                    'name'      => 'send',
-                    'value'     => 'send'
-                )
+                    array(
+                        'type'      => 'submit',
+                        'name'      => 'send',
+                        'value'     => 'send'
+                    )
+                ) 
             );
 
-            $fields = array_merge( (array) $this->fields, $submit );
+            $fields = apply_filters( 'shiftr_form_build_fields', array_merge( (array) $this->fields, $submit ), $this->form );
 
-            $fields = apply_filters( 'shiftr_form_build_fields', $fields, $this->form );
+            /**
+             * Fires before the form fields are output.
+             * 
+             * @param Shiftr_Form
+             */
+            do_action( 'shiftr_form_before', $this );
 
             foreach( $fields as $field ) {
-
                 $this->create_field( $field );
             }
+
+            /**
+             * Fires after the form fields are output.
+             * 
+             * @param Shiftr_Form
+             */
+            do_action( 'shiftr_form_after', $this );
         }
 
-        echo '</form>';
+        echo '</div><div class="form-submit-notice" aria-hidden="true"></div></form>';
     }
 
 
@@ -318,7 +332,7 @@ class Shiftr_Form {
 
         if ( $args->type == 'file' ) {
             
-            if ( isset( $args->file_types ) ) {
+            if ( isset( $args->accept ) ) {
                 $field_atts['accept'] = shiftr_form_get_file_types( (array) $args, 'attr' );
             }
 
@@ -331,7 +345,7 @@ class Shiftr_Form {
         if ( $args->type == 'submit' ) {
             $field_atts['type'] = 'submit';
             $field_atts['value'] = $args->value;
-            $field_atts['class'] = 'button-fill';
+            $field_atts['class'] = 'button';
         }
 
         if ( $args->type == 'radio' ) {

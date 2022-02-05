@@ -11,8 +11,8 @@ class Shiftr_Custom_Post_Type {
     protected $menu_icon;
 
     // This will be used for singular of the post name
-    protected $singular;
-    protected $plural;
+    public $singular;
+    public $plural;
 
     protected $allow_plural = true;
 
@@ -129,6 +129,14 @@ class Shiftr_Custom_Post_Type {
         // Combine arrays to form the main $args array for WP register_post_type()
         $args = array_merge( $labels, $defaults );
 
+        /**
+         * Dynamically configure the archive slug.
+         */
+        $post_type_page_id = shiftr_get_page_id( $this->name );
+
+        if( $post_type_page_id ) {
+            $args['has_archive'] = $post_type_page_id && get_post( $post_type_page_id ) ? urldecode( get_page_uri( $post_type_page_id ) ) : $this->name;
+        }
 
         // Apply filters
         $args = apply_filters( 'shiftr_custom_post_type_register_args', $args, $this->name );

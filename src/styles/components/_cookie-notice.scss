@@ -25,9 +25,16 @@
     animation-fill-mode: forwards;
 
     &.is-visible {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
 
         animation-name: cookie_is_visible;
+    }
+
+    & > div {
+        width: 100%;
+        margin-bottom: 20px;
     }
 
     &:hover {
@@ -38,9 +45,13 @@
         margin-bottom: get_baseline( .5 );
         
         font-size: .875rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
-    button.button-fill {
+    button.button {
         margin-right: 10px;
     }
 

@@ -69,7 +69,8 @@
     }
 }
 
-.button-outline {
+.button-outline,
+.button-secondary {
     @extend %button;
 
     padding: calc( var(--padding) - 1px ) calc( ( var(--padding) * var(--padding-ratio) ) - 1px );

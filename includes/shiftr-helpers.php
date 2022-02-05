@@ -141,6 +141,87 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 }
 
 
+/**
+ * Display the archive title, supports Shiftr archive pages.
+ * 
+ * @since 1.6.1
+ * 
+ * @param bool $display Echo or return title
+ */
+function shiftr_archive_title( $display = true ) {
+    $title = '';
+
+    if ( is_home() ) {
+        $title = single_post_title( '', false );
+    } else if ( is_post_type_archive() ) {
+        $post_type = get_query_var( 'post_type' );
+
+        $archive_page_id = shiftr_get_page_id( $post_type );
+
+        if ( $archive_page_id ) {
+            $archive_page = get_post( $archive_page_id );
+    
+            if ( $archive_page ) {
+                $title = $archive_page->post_title;
+            }
+        } else {
+            $title = get_the_archive_title();
+        }
+
+    } else {
+        $title = get_the_archive_title();
+    }
+
+    if ( $display ) {
+        echo $title;
+
+    } else {
+        return $title;
+    }
+}
+
+
+/**
+ * Displays the description for an archive page or taxonomy.
+ * 
+ * @since 1.6.1
+ */
+function shiftr_archive_description() {
+    $description = '';
+
+    if ( is_home() ) {
+        $posts_page_id = get_option( 'page_for_posts' );
+        $posts_page = get_post( $posts_page_id );
+
+        if ( $posts_page ) {
+            $description = $posts_page->post_content;
+        }
+
+    } else if ( is_post_type_archive() ) {
+        $post_type = get_query_var( 'post_type' );
+
+        $archive_page_id = shiftr_get_page_id( $post_type );
+
+        if ( $archive_page_id ) {
+            $archive_page = get_post( $archive_page_id );
+    
+            if ( $archive_page ) {
+                $description = $archive_page->post_content;
+            }
+        }
+
+    } else if ( ( is_category() || is_tax() ) && 0 === absint( get_query_var( 'paged' ) ) ) {
+        $term = get_queried_object();
+
+        if ( $term && ! empty( $term->description ) ) {
+            $description = $term->description;
+        }
+    }
+
+    printf( '<div class="description">%s</div>', $description );
+}
+
+
 /**  
  *  Include a template part
  *
@@ -190,3 +271,42 @@ function shiftr_get_block( $block_name, $args = array(), $template_path = 'block
     shiftr_get_template( $block_name, $args, $template_path );
 }
 
+
+/**
+ * Get the page id for a custom post type archive.
+ * 
+ * Supported:
+ * - Custom post types registered via Shiftr.
+ * 
+ * @since 1.6.1
+ * 
+ * @param string $page The page slug.
+ * @return int
+ */
+function shiftr_get_page_id( $page ) {
+    $page_setup = get_field( 'page-setup', 'option' );
+
+    if ( is_array( $page_setup ) && isset( $page_setup['shiftr_' . $page . '_page_id'] ) ) {
+        $page = $page_setup['shiftr_' . $page . '_page_id'];
+    }
+
+    return $page ? absint( $page ) : -1;
+}
+
+
+/**
+ * Dynamically get the page id for a custom post type archive.
+ * 
+ * @since 1.6.1
+ * 
+ * @param string $post_type Defaults to current post type.
+ * @return int
+ */
+function shiftr_get_page_id_for_archive( $post_type = '' ) {
+    
+    if ( empty( $post_type ) ) {
+        $post_type = get_query_var( 'post_type' );
+    }
+
+    return shiftr_get_page_id( $post_type );
+}

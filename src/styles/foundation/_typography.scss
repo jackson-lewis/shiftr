@@ -14,13 +14,15 @@ body, input, textarea, button, select {
     font-weight: 400;
     font-style: normal;
 
-    font-size: rem( $base-min-font-size );
-    font-size: _clamp( rem( $base-min-font-size ), 3vw, rem( $base-max-font-size ) );
-
     color: var(--c-text-base);
 
     //  It's typically better for body text to be subtly lighter
     //  than headings, value here is 10% lighter than base colour
+}
+
+p, li {
+    font-size: rem( $base-min-font-size );
+    font-size: _clamp( rem( $base-min-font-size ), 3vw, rem( $base-max-font-size ) );
 }
 
 .fonts-loaded {
@@ -34,7 +36,6 @@ body, input, textarea, button, select {
 }
 
 p {
-    max-width: line_width();
     margin-bottom: get_baseline();
 
     line-height: $base-line-height;

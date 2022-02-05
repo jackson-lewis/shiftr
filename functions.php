@@ -14,13 +14,6 @@ require_once( SHIFTR_INC . '/admin/shiftr-install.php' );
 
 if ( $shiftr_has_acf ) {
     /**
-     * Get theme ACF files
-     * 
-     * @since 1.5
-     */
-    require_once( SHIFTR_ACF . '/shiftr-acf.php' );
-
-    /**
      *  Get theme inc files
      *
      *  @since 1.0
@@ -64,4 +57,11 @@ if ( $shiftr_has_acf ) {
     if ( function_exists( 'is_woocommerce' ) ) {
         require_once( SHIFTR_FUNC . '/woocommerce.php' );
     }
+
+    /**
+     * Get theme ACF files
+     * 
+     * @since 1.5
+     */
+    require_once( SHIFTR_ACF . '/shiftr-acf.php' );
 }

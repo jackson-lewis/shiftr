@@ -57,6 +57,7 @@ require( SHIFTR_ACF . '/builders/builders.php' );
  */
 require( SHIFTR_ACF . '/groups/site-options.php' );
 require( SHIFTR_ACF . '/groups/global-blocks.php' );
+require( SHIFTR_ACF . '/groups/single-shiftr_form.php' );
 require( SHIFTR_ACF . '/groups/flexi.php' );
 
 

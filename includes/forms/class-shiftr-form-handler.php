@@ -7,6 +7,7 @@
  * 3: Required fields were missing.
  * 4: wp_mail returned false.
  * 5: File upload failed validation checks.
+ * 6: File size too large.
  * 9: Forced error for testing via error@example.com
  */
 class Shiftr_Form_Handler {
@@ -111,8 +112,13 @@ class Shiftr_Form_Handler {
     }
 
 
-    function send_response( $res = array() ) {
-        wp_die( wp_json_encode( wp_parse_args( $res, $this->response ) ) );
+    /**
+     * Send the response back.
+     * 
+     * @param array $response
+     */
+    function send_response( $response = array() ) {
+        wp_send_json( wp_parse_args( $response, $this->response ) );
     }
 
 
@@ -267,25 +273,21 @@ class Shiftr_Form_Handler {
         $recepients = $this->format_multiple_emails( $recepients );
 
         // Prep for headers
-        $headers = array();
-
-        // Set content type as HTML
-        $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'Reply-To: ' . $_POST['_' . $this->form_ID . '_email'];
+        $headers = [
+            'Content-type: text/html; charset=UTF-8',
+            'Reply-To: ' . $_POST['_' . $this->form_ID . '_email']
+        ];
 
         // Use form specific settings
         if ( get_field( 'subject', $this->form_ID ) ) {
-
             $subject = get_field( 'subject', $this->form_ID );
         }
 
         if ( get_field( 'recepients', $this->form_ID ) ) {
-
             $recepients = get_field( 'recepients', $this->form_ID );
         }
 
         if ( preg_match( '/\%field_[a-zA-Z0-9_\-]*\%/', $subject ) ) {
-
             preg_match( '/\%field_([a-zA-Z0-9_\-]*)\%/', $subject, $match );
 
             $subject = preg_replace( '/\%field_[a-zA-Z0-9_\-]*\%/', $this->get_value( $match[1] ), $subject );
@@ -300,7 +302,7 @@ class Shiftr_Form_Handler {
         if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
             $response = array(
                 'success' => true,
-                'message' => 'Message successfully sent!'
+                'message' => 'Thank you for your submission'
             );
 
         } else {
@@ -407,7 +409,8 @@ class Shiftr_Form_Handler {
                 'required'          => true,
                 'label'             => '',
                 'include_in_send'   => true,
-                'rows'              => 4
+                'rows'              => 4,
+                'max_file_size'     => 20000000
             );
 
             $field = wp_parse_args( $field, $defaults );
@@ -469,6 +472,17 @@ class Shiftr_Form_Handler {
      */
     function validate_attachment( $field ) {
         $file = $_FILES[ '_' . $this->form_ID . '_' . $field['name'] ];
+
+        /**
+         * Validate file size.
+         */
+        if ( $file['size'] > $field['max_file_size'] ) {
+            $this->send_response([
+                'message' => 'Err 6: File size too large.'
+            ]);
+
+            return false;
+        }
 
         if ( ! empty( $file['error'] ) && $file['error'] !== UPLOAD_ERR_NO_FILE ) {
             return false;
