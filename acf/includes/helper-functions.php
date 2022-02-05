@@ -5,6 +5,7 @@
  * reduce noise so you, the developer, can focus on what matters.
  */
 use Shiftr_ACF\Utils as Utils;
+use Shiftr_ACF\Field_Types;
 
 
 /**
@@ -12,17 +13,47 @@ use Shiftr_ACF\Utils as Utils;
  * 
  * @param string $builder_name The suffix to the full name
  */
-function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object=false ) {
+function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object = false ) {
 
-    if($flexible_content_object == False){
+    if( ! $flexible_content_object ) {
         if ( is_singular( 'page' ) ) {
             global $post;
             $flexible_content_object = $post;
     
-        } else if ( is_archive() || is_tax() ) {
+        } else if ( is_tax() ) {
             $flexible_content_object = get_queried_object();
+
+        } else if ( is_post_type_archive() ) {
+            global $shiftr_post_types;
+
+            $current_post_type = get_query_var( 'post_type' );
+
+            if ( isset( $shiftr_post_types[ $current_post_type ] ) ) {
+                $post_type_page_id = shiftr_get_page_id( $current_post_type );
+                $post_type_page = get_post( $post_type_page_id );
+
+                if ( $post_type_page ) {
+                    $flexible_content_object = $post_type_page;
+                }
+            }
+            
+        } else if ( is_home() ) {
+            $posts_page_id = get_option( 'page_for_posts' );
+            $posts_page = get_post( $posts_page_id );
+
+            if ( $posts_page ) {
+                $flexible_content_object = $posts_page;
+            }
         }
     }
+
+    /**
+     * Filter the object to use for the ACF field data.
+     * 
+     * @param WP_Post|WP_Term $flexible_content_object
+     * @param string $builder_name
+     */
+    $flexible_content_object = apply_filters( 'shiftr_flexible_content_object', $flexible_content_object, $builder_name );
 
     
     if ( have_rows( 'flexi_blocks_builder-' . $builder_name, $flexible_content_object ) ) {
@@ -323,3 +354,25 @@ function shiftr_flexi_block_google_maps_lazy_load() {
     <?php
 }
 add_action( 'wp_footer', 'shiftr_flexi_block_google_maps_lazy_load' );
+
+
+function shiftr_flexi_get_available_post_types() {
+    global $shiftr_post_types;
+
+    $fields = [];
+
+    foreach ( $shiftr_post_types as $post_type => $instance ) {
+
+        $fields[] = Field_Types\post_object_field(
+            $instance->plural,
+            array(
+                'key' => 'shiftr_' . $post_type . '_page_id',
+                'name' => 'shiftr_' . $post_type . '_page_id',
+                'post_type' => [ 'page' ],
+                'multiple' => 0
+            )
+        );
+    }
+
+    return $fields;
+}

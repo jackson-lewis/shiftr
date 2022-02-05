@@ -78,3 +78,23 @@ function shiftr_editor_styles() {
     add_editor_style( 'assets/styles/admin.css' );
 }
 add_action( 'admin_init', 'shiftr_editor_styles' );
+
+
+/**
+ * Set post states for custom post types archive pages.
+ * 
+ * @since 1.6.1
+ */
+function shiftr_set_display_post_states( $post_states, $post ) {
+    global $shiftr_post_types;
+
+    foreach ( $shiftr_post_types as $post_type => $instance ) {
+
+        if ( shiftr_get_page_id( $post_type ) === $post->ID ) {
+            $post_states[ 'shiftr_' . $post_type ] = $instance->plural . ' Page';
+        }
+    }
+
+    return $post_states;
+}
+add_filter( 'display_post_states', 'shiftr_set_display_post_states', 2, 10 );

@@ -117,6 +117,14 @@ new Group( 'site_options', array(
                 ),
                 'wrapper' => array( 'class' => 'hide-label' )
             )
+        ),
+        Field_Types\tab_field( 'Page setup' ),
+        Field_Types\group_field(
+            'Page setup',
+            array(
+                'sub_fields' => shiftr_flexi_get_available_post_types(),
+                'wrapper' => array( 'class' => 'hide-label' )
+            )
         )
     ),
     'location' => array (

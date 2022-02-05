@@ -9,17 +9,8 @@ get_header();
 <main class="site-main">
     <div class="hero--basic">
         <header class="container hero-content">
-            <h1>
-                <?php
-
-                if ( is_home() ) {
-                    single_post_title();
-                } else {
-                    the_archive_title();
-                }
-
-                ?>
-            </h1>
+            <h1><?php shiftr_archive_title(); ?></h1>
+            <?php shiftr_archive_description(); ?>
         </header>
     </div>
 
