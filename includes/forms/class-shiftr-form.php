@@ -318,7 +318,7 @@ class Shiftr_Form {
 
         if ( $args->type == 'file' ) {
             
-            if ( isset( $args->file_types ) ) {
+            if ( isset( $args->accept ) ) {
                 $field_atts['accept'] = shiftr_form_get_file_types( (array) $args, 'attr' );
             }
 
@@ -331,7 +331,7 @@ class Shiftr_Form {
         if ( $args->type == 'submit' ) {
             $field_atts['type'] = 'submit';
             $field_atts['value'] = $args->value;
-            $field_atts['class'] = 'button-fill';
+            $field_atts['class'] = 'button';
         }
 
         if ( $args->type == 'radio' ) {
