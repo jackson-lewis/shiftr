@@ -1,6 +1,35 @@
 # Changelog
 
 
+## v1.6.1
+*05/02/22*
+
+### Development Style Guide
+A new static template is available for development purposes only.
+It provided an overview of all foundation elements like typeography, buttons and inputs. It can be used to set configure all of these elements at once. Making the rest of the projects development smoother.
+
+### Custom Post Type Archive Pages
+A system is in place for handling pages associated to a custom post type archive. When a post type is registered via `shiftr_register_post_type()`, a setting becomes available in Site Options > Page Setup. From here you can assign a page to a post type. This page will act as a place to edit the content for the archive page, such as the title, content/description and featured image.
+
+This feature also has introduced numerous new functions which makes working with archives much much easier!
+
+1. `shiftr_archive_title()` If a page is assigned to the post type, the pages title will be used instead of the WordPress generated archive title.
+2. `shiftr_archive_description()` If a page is assigned to the post type, the pages content will be used instead. Note, there is no functionality for a archive to have any form of content.
+3. `shiftr_get_page_id()` Returns the page ID of a page assigned to a post type.
+4. `shiftr_get_page_id_for_archive()` Returns the page ID of the current post type being displayed.
+
+### Forms
+* Submit notice revised (again), now forms disappears and message fills space where form was visible.
+* Form specific settings such as subject line and recepients is back via ACF.
+* File upload size limit added to form handler. New error code `7` for this.
+* Confirmation that PDF and Word docs are correctly handled and validated.
+
+### Other
+* Bug fix for pagination that incorrectly ran `str_replace()` on teen numbers.
+* Cookie message slightly revised, message via ACF re-instated.
+* A handful of minor CSS tweaks such as `font-size` now set on `p,li` instead of the `body`
+
+
 ## v1.6
 *30/12/21*
 
@@ -59,6 +88,7 @@ A handful of css grid utility classes have been included, `.grid-small`, `.grid-
 * caniuse browserlist updated to `1.0.30001292`
 * Support for PHP 8
 * Support for ACF 5.11.1
+
 
 ## v1.5.1
 *03/08/21*
