@@ -15,7 +15,7 @@ class Group {
     var $acf_group_data = '';
 
 
-    function __construct( $key = '', $args = array() ) {
+    function __construct( string $key, array $args = [] ) {
         
         if ( $this->check_group_key_available( $key ) ) {
             $this->key = $key;
@@ -27,10 +27,13 @@ class Group {
         }
     }
 
+    
     /**
      * Where the bulk of the work happens
+     * 
+     * @param array $args
      */
-    function init( $args ) {
+    function init( array $args ) {
         $args['key'] = $this->key;
 
         $this->acf_group_data = wp_parse_args( $args, $this->default_args() );
@@ -41,28 +44,34 @@ class Group {
 
     /**
      * Returns the default group args
+     * 
+     * @return array
      */
     function default_args() {
-        return array(
-            'key' => '',
-            'title' => '',
-            'fields' => array(),
-            'location' => array(),
-            'menu_order' => 0,
-            'position' => 'normal',
-            'style' => 'default',
-            'label_placement' => 'top',
+        return [
+            'key'                   => '',
+            'title'                 => '',
+            'fields'                => [],
+            'location'              => [],
+            'menu_order'            => 0,
+            'position'              => 'normal',
+            'style'                 => 'default',
+            'label_placement'       => 'top',
             'instruction_placement' => 'label',
-            'hide_on_screen' => ''
-        );
+            'hide_on_screen'        => ''
+        ];
     }
+
 
     /**
      * Returns the acf_add_local_field_group() with $args set.
+     * 
+     * @return array
      */
     function acf_add_local_field_group() {
         return acf_add_local_field_group( $this->acf_group_data );
     }
+
 
     /**
      * Checks the key provided is not already used
@@ -70,7 +79,7 @@ class Group {
      * @param string $key The ACF group key
      * @return bool
      */
-    function check_group_key_available( $key ) {
+    function check_group_key_available( string $key ) {
         global $shiftr_groups_library;
 
         return ! isset( $shiftr_groups_library[ $key ] );

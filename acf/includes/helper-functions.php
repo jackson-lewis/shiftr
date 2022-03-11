@@ -160,7 +160,7 @@ function shiftr_block_after( $content = '', $field = 'block-after' ) {
  * @return array The settings of the block
  */
 function shiftr_get_block_settings() {
-    return get_sub_field( 'settings' ) ?: array();
+    return get_sub_field( 'settings' ) ?: [];
 }
 
 
@@ -175,7 +175,7 @@ function shiftr_get_block_settings() {
  * @param array $settings The block settings
  * @return array The attributes for the block wrapper element
  */
-function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
+function shiftr_get_block_wrapper_attributes( string $block, array $settings = [] ) {
     $is_global_instance = false;
     /**
      * Override to global block instance settings if set
@@ -191,7 +191,7 @@ function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
     }
 
     // Default class name
-    $attributes = array( 'class' => 'flexi-block block--' . $block );
+    $attributes = [ 'class' => 'flexi-block block--' . $block ];
 
     foreach ( $settings as $setting => $value ) {
 
@@ -225,7 +225,7 @@ function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
  * @param string $block The id of the block
  * @return array|bool Array of data, false if global block not set
  */
-function shiftr_get_global_block_data( $block = '' ) {
+function shiftr_get_global_block_data( string $block = '' ) {
     $global_flexi_builder = get_field( 'flexi_blocks_builder-global', 'options' );
     $block_found = false;
 
@@ -244,6 +244,11 @@ function shiftr_get_global_block_data( $block = '' ) {
 
 //$GLOBALS['shiftr_flexi_blocks_global_store'] = get_field( 'flexi_blocks_builder-global', 'options' );
 
+/**
+ * Get the global flexi blocks builder.
+ * 
+ * @return array|bool False if no field data found
+ */
 function shiftr_flexi_blocks_global_store() {
     return get_field( 'flexi_blocks_builder-global', 'options' );
 }
@@ -255,7 +260,7 @@ function shiftr_flexi_blocks_global_store() {
  * @param string $selector The field selector
  * @param bool $format_value Should format the field value
  */
-function get_flexi_field( $selector = '', $format_value = true ) {
+function get_flexi_field( string $selector, bool $format_value = true ) {
     $settings = shiftr_get_block_settings();
 
     if ( $settings['use_global'] ) {
@@ -283,7 +288,11 @@ function get_flexi_field( $selector = '', $format_value = true ) {
 }
 
 
-function the_flexi_field( $selector = '', $format_value = true ) {
+/**
+ * @param string $selector
+ * @param bool $format_value
+ */
+function the_flexi_field( string $selector, bool $format_value = true ) {
     $value = get_flexi_field( $selector, $format_value );
 
     if ( !$value ) {
@@ -356,6 +365,11 @@ function shiftr_flexi_block_google_maps_lazy_load() {
 add_action( 'wp_footer', 'shiftr_flexi_block_google_maps_lazy_load' );
 
 
+/**
+ * Generate ACF fields based on post types registed via Shiftr.
+ * 
+ * @return array
+ */
 function shiftr_flexi_get_available_post_types() {
     global $shiftr_post_types;
 
@@ -365,12 +379,12 @@ function shiftr_flexi_get_available_post_types() {
 
         $fields[] = Field_Types\post_object_field(
             $instance->plural,
-            array(
-                'key' => 'shiftr_' . $post_type . '_page_id',
-                'name' => 'shiftr_' . $post_type . '_page_id',
+            [
+                'key'       => 'shiftr_' . $post_type . '_page_id',
+                'name'      => 'shiftr_' . $post_type . '_page_id',
                 'post_type' => [ 'page' ],
-                'multiple' => 0
-            )
+                'multiple'  => 0
+            ]
         );
     }
 

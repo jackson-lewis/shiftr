@@ -17,13 +17,13 @@ function blocks_library() {
 /**
  * Register a new Flexi Block
  * 
- * @param string $name The Block name, sanitized
- * @param string $display_name The display name of the Block
+ * @param string $slug The Block name, sanitized
+ * @param string $label The display name of the Block
  * @param array $fields The fields of the Block
  * @param array $args The args of the Block 
  */
-function register_flexi_block( $name = '', $display_name = '', $fields = array(), $args = array() ) {
-    return new Flexi_Block( $name, $display_name, $fields, $args );
+function register_flexi_block( string $slug, string $label, array $fields = [], array $args = [] ) {
+    return new Flexi_Block( $slug, $label, $fields, $args );
 }
 
 
@@ -33,28 +33,33 @@ function register_flexi_block( $name = '', $display_name = '', $fields = array()
  * @param string $block_name The block to check my name
  * @return bool True if block exists, false if not
  */
-function block_exists( $block_name = '' ) {
+function block_exists( string $block_name ) {
     return isset( blocks_library()[ $block_name ] );
 }
 
 function get_global_blocks() {
     global $shiftr_blocks_library;
 
-    $global_blocks = array();
+    $global_blocks = [];
 
     foreach ( $shiftr_blocks_library as $block ) {
         $global_blocks[] = $block->name;
     }
 
-    $builder = new Flexi_Builder( 'global', $global_blocks, array(
-        'instructions' => 'The Global Blocks Builder allows you to define one instance of each Block globally, that can be reused where a Builder supports the Block. To use a global Block, first create the Block here then add the Block on any given page, and in the settings, set `Use Global` to true.'
-    ), true );
+    $builder = new Flexi_Builder(
+        'global',
+        $global_blocks,
+        [
+            'instructions' => 'The Global Blocks Builder allows you to define one instance of each Block globally, that can be reused where a Builder supports the Block. To use a global Block, first create the Block here then add the Block on any given page, and in the settings, set `Use Global` to true.'
+        ],
+        true
+    );
 
     return $builder->get_acf_data();
 }
 
 
-function get_global_block_data( $block = '' ) {
+function get_global_block_data( string $block ) {
     $global_flexi_builder = get_field( 'flexi_blocks_builder-global', 'options' );
     $block_found = false;
 
@@ -72,8 +77,8 @@ function get_global_block_data( $block = '' ) {
 }
 
 
-function get_builder( $builder_id = '' ) {
+function get_builder( string $builder_id ) {
     global $shiftr_builder_library;
 
-    return ( isset( $shiftr_builder_library[ $builder_id ] ) ) ? $shiftr_builder_library[ $builder_id ]->get_acf_data() : array();
+    return ( isset( $shiftr_builder_library[ $builder_id ] ) ) ? $shiftr_builder_library[ $builder_id ]->get_acf_data() : [];
 }
