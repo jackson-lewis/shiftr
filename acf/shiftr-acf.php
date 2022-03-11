@@ -53,12 +53,13 @@ require( SHIFTR_ACF . '/blocks/blocks.php' );
 require( SHIFTR_ACF . '/builders/builders.php' );
 
 /**
- * Groups
+ * Groups.
+ * 
+ * Files are autoloaded, so you no longer need to manually include the group file.
  */
-require( SHIFTR_ACF . '/groups/site-options.php' );
-require( SHIFTR_ACF . '/groups/global-blocks.php' );
-require( SHIFTR_ACF . '/groups/single-shiftr_form.php' );
-require( SHIFTR_ACF . '/groups/flexi.php' );
+foreach ( glob( SHIFTR_ACF .'/groups/*.php' ) as $group_file ) {
+    include_once $group_file;
+}
 
 
 /**
