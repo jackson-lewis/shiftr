@@ -7,18 +7,21 @@ use Shiftr_ACF\Flexi_Builder;
 /**
  * Flexi Blocks Builder - main
  */
-new Group( 'flexi_main', array(
-    'title' => 'Flexi Blocks Builder',
-    'fields' => array(
-        Utils\get_builder( 'main' )
-    ),
-    'location' => array (
-        array (
-            array (
-                'param' => 'page_template',
-                'operator' => '==',
-                'value' => 'templates/flexi-blocks-builder.php',
-            )
-        ),
-    )
-));
+new Group(
+    'flexi_main',
+    [
+        'title'     => 'Flexi Blocks Builder',
+        'fields'    => [
+            Utils\get_builder( 'main' )
+        ],
+        'location'  => [
+            [
+                [
+                    'param'     => 'page_template',
+                    'operator'  => '==',
+                    'value'     => 'templates/flexi-blocks-builder.php',
+                ]
+            ]
+        ]
+    ]
+);
