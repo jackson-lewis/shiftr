@@ -1,7 +1,7 @@
         <footer class="site-footer">
-            <div class="footer-row--main">
+            <div class="site-footer__main">
                 <div class="container">
-                    <div class="footer-col">
+                    <div class="site-footer__col">
                         <address class="contact-details">
                             <?php
 
@@ -17,17 +17,17 @@
                             ?>
                         </address>
                     </div>
-                    <div class="footer-col">
-                        <span class="footer-heading"><?php echo wp_get_nav_menu_name( 'footer-1' ); ?></span>
+                    <div class="site-footer__col">
+                        <span class="site-footer__col-heading"><?php echo wp_get_nav_menu_name( 'footer-1' ); ?></span>
                         <?php shiftr_nav_footer_1(); ?>
                     </div>
-                    <div class="footer-col">
-                        <span class="footer-heading"><?php echo wp_get_nav_menu_name( 'footer-2' ); ?></span>
+                    <div class="site-footer__col">
+                        <span class="site-footer__col-heading"><?php echo wp_get_nav_menu_name( 'footer-2' ); ?></span>
                         <?php shiftr_nav_footer_2(); ?>
                     </div>
                 </div>
             </div>
-            <div class="footer-row--legal">
+            <div class="site-footer__legal">
                 <div class="container">
                     <small>&copy; <?php echo date( 'Y' ); ?></small>
                 </div>
