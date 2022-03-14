@@ -11,12 +11,10 @@ use Shiftr_ACF\Utils as Utils;
  * Print the html of a block heading element
  * 
  * @since v1.2
- * 
  * @param string $content Use html string instead of active field
  * @param string The name of the ACF field
  */
-function shiftr_block_heading( $content = '', $field = 'block-before' ) {
-
+function shiftr_block_heading( string $content = '', string $field = 'block-before' ) {
     $content = $content ?: get_sub_field( $field );
 
     if ( $content ) {
@@ -33,12 +31,10 @@ function shiftr_block_heading( $content = '', $field = 'block-before' ) {
  * Print the html of a block after content element
  * 
  * @since v1.2
- * 
  * @param string $content Use html string instead of active field
  * @param string The name of the ACF field
  */
-function shiftr_block_after( $content = '', $field = 'block-after' ) {
-
+function shiftr_block_after( string $content = '', string $field = 'block-after' ) {
     $content = $content ?: get_sub_field( $field );
 
     if ( $content ) {
@@ -54,11 +50,10 @@ function shiftr_block_after( $content = '', $field = 'block-after' ) {
  * Get the current block settings via the ACF group
  * 
  * @since v1.2
- * 
  * @return array The settings of the block
  */
 function shiftr_get_block_settings() {
-    return get_sub_field( 'settings' ) ?: array();
+    return get_sub_field( 'settings' ) ?: [];
 }
 
 
@@ -73,7 +68,7 @@ function shiftr_get_block_settings() {
  * @param array $settings The block settings
  * @return array The attributes for the block wrapper element
  */
-function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
+function shiftr_get_block_wrapper_attributes( string $block, array $settings = [] ) {
     $is_global_instance = false;
     /**
      * Override to global block instance settings if set
@@ -89,7 +84,7 @@ function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
     }
 
     // Default class name
-    $attributes = array( 'class' => 'site-section block--' . $block );
+    $attributes = [ 'class' => 'site-section block--' . $block ];
 
     foreach ( $settings as $setting => $value ) {
 
@@ -123,7 +118,7 @@ function shiftr_get_block_wrapper_attributes( $block, $settings = array() ) {
  * @param string $block The id of the block
  * @return array|bool Array of data, false if global block not set
  */
-function shiftr_get_global_block_data( $block = '' ) {
+function shiftr_get_global_block_data( string $block = '' ) {
     $global_flexi_builder = get_field( 'flexi_blocks_builder-global', 'options' );
     $block_found = false;
 

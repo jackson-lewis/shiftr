@@ -10,7 +10,6 @@
  *  @since 1.0
  */
 function shiftr_theme_support() {
-
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
 
@@ -27,7 +26,6 @@ add_action( 'after_setup_theme', 'shiftr_theme_support' );
  *  @since 1.0
  */
 function shiftr_filter_the_content( $content ) {
-
     // Remove <p> tags wrapped around <img>
     $content = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content );
 

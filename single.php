@@ -10,7 +10,7 @@ get_header();
     <div class="hero--post_single">
         <div class="container">
             <div class="post-featured-image">
-                <?php shiftr_featured_image( get_the_ID(), 'large', array( 'loading' => false ) ); ?>
+                <?php shiftr_featured_image( get_the_ID(), 'large', [ 'loading' => false ] ); ?>
             </div>
             <header class="post-header">
                 <div class="container">

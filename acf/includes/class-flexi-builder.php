@@ -25,7 +25,7 @@ class Flexi_Builder {
      * @param bool $for_global
      */
     function __construct( string $id, array $blocks = [], array $args = [], bool $for_global = false ) {
-        $defaults = array(
+        $defaults = [
             'key'               => 'flexi_blocks_builder-' . $id,
             'label'             => 'Flexi Blocks Builder',
             'name'              => 'flexi_blocks_builder-' . $id,
@@ -38,7 +38,7 @@ class Flexi_Builder {
                 'id'    => '',
             ],
             'button_label'      => 'Add Block'
-        );
+        ];
     
         $args = wp_parse_args( $args, $defaults );
     

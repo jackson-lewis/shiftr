@@ -6,14 +6,9 @@
  */
 class Shiftr_Nav_Walker extends Walker_Nav_menu {
 
-    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+    function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {}
 
-    }
-
-
-    function start_lvl( &$output, $depth = 0, $args = array() ) {
-
-    }
+    function start_lvl( &$output, $depth = 0, $args = [] ) {}
 }
 
 
@@ -24,8 +19,7 @@ class Shiftr_Nav_Walker extends Walker_Nav_menu {
  */
 class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
 
-    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-
+    function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
         global $post;
 
         $name = $item->title;
@@ -44,7 +38,7 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
             $post_slug = get_permalink( $post );
         }
 
-        $item->classes = array();
+        $item->classes = [];
 
         $item->classes[] = 'menu-item-' . $item->ID;
         $item->classes[] = "level-{$depth}-item";
@@ -67,8 +61,7 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
     }
 
 
-    function start_lvl( &$output, $depth = 0, $args = array() ) {
-
+    function start_lvl( &$output, $depth = 0, $args = [] ) {
         $indent = str_repeat( "\t", $depth );
         $output .= "\n$indent<ul class=\"sub-menu\">";
     }
@@ -82,8 +75,7 @@ class Shiftr_Nav_Primary_Walker extends Shiftr_Nav_Walker {
  */
 class Shiftr_Nav_Primary_Mobile_Walker extends Shiftr_Nav_Walker {
 
-    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-
+    function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
         global $post;
 
         $name = $item->title;
@@ -102,7 +94,7 @@ class Shiftr_Nav_Primary_Mobile_Walker extends Shiftr_Nav_Walker {
             $post_slug = get_permalink( $post );
         }
 
-        $item->classes = array();
+        $item->classes = [];
 
         $item->classes[] = 'menu-item-' . $item->ID;
         $item->classes[] = "level-{$depth}-item";
@@ -126,8 +118,7 @@ class Shiftr_Nav_Primary_Mobile_Walker extends Shiftr_Nav_Walker {
     }
 
 
-    function start_lvl( &$output, $depth = 0, $args = array() ) {
-
+    function start_lvl( &$output, $depth = 0, $args = [] ) {
         $indent = str_repeat( "\t", $depth );
         $output .= "\n$indent<ul class=\"sub-menu\">";
     }
@@ -141,14 +132,13 @@ class Shiftr_Nav_Primary_Mobile_Walker extends Shiftr_Nav_Walker {
  */
 class Shiftr_Nav_Footer_Walker extends Shiftr_Nav_Walker {
 
-    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-
+    function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
         global $post;
 
         $name = $item->title;
         $permalink = $item->url;
 
-        $item->classes = array();
+        $item->classes = [];
 
         $item->classes[] = 'menu-item-' . $item->ID;
         $item->classes[] = "level-{$depth}-item";

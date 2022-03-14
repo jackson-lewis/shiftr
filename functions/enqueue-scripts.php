@@ -25,12 +25,12 @@ function shiftr_scripts() {
     wp_deregister_script( 'wp-embed' );
 
     // Scripts
-    wp_register_script( 'shiftr-script-main', get_template_directory_uri() . '/assets/scripts/main.js', array(), $shiftr->get( 'version' ), true );
+    wp_register_script( 'shiftr-script-main', get_template_directory_uri() . '/assets/scripts/main.js', [], $shiftr->get( 'version' ), true );
     wp_enqueue_script( 'shiftr-script-main' );
     wp_localize_script( 'shiftr-script-main', 'shiftr', shiftr_js_object() );
 
     // Styles
-    wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', array(), $shiftr->get( 'version' ) );
+    wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', [], $shiftr->get( 'version' ) );
 
     // Remove WP Glutenburg styling as not supported by the theme yet
     wp_dequeue_style( 'wp-block-library' );

@@ -17,7 +17,7 @@ get_header();
     <div class="hero--standard<?php echo has_post_thumbnail() ? ' with-post-thumbnail' : ''; ?>">
         <?php if ( has_post_thumbnail() ) : ?>
         <div class="hero-feature-image">
-            <?php shiftr_featured_image( get_the_ID(), 'full', array( 'loading' => false ) ); ?>
+            <?php shiftr_featured_image( get_the_ID(), 'full', [ 'loading' => false ] ); ?>
         </div>
         <?php endif; ?>
         <div class="hero-content">

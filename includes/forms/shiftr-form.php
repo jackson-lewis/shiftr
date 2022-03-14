@@ -7,16 +7,15 @@
 global $shiftr_forms;
 
 // Placeholder value
-$shiftr_forms = array();
+$shiftr_forms = [];
 
 
 /**  
- *  Register a Shiftr form
+ * Register a Shiftr form
  *
- *  @since 1.0
- *
- *  @param $form str The name of the form
- *  @param $args array The form settings and list of fields
+ * @since 1.0
+ * @param $form str The name of the form
+ * @param $args array The form settings and list of fields
  */
 function shiftr_register_form( $form = '', $args = [] ) {
     global $shiftr_forms;
@@ -31,13 +30,13 @@ function shiftr_register_form( $form = '', $args = [] ) {
 
 
 /**  
- *  Output the HTML of the whole form
+ * Output the HTML of the whole form
  *
- *  @since 1.0
- *
- *  @param string $form The name of the form
+ * @since 1.0
+ * @param string $form The name of the form
+ * @param bool $is_shortcode
  */
-function shiftr_build_form( $form = '', $is_shortcode = false ) {
+function shiftr_build_form( string $form = '', bool $is_shortcode = false ) {
     global $shiftr_forms;
 
     if ( isset( $shiftr_forms[ $form ] ) ) {
@@ -53,8 +52,11 @@ function shiftr_build_form( $form = '', $is_shortcode = false ) {
 
 /**
  * Shiftr Form shortcode used to display a given form.
+ * 
+ * @param array $atts
+ * @return string
  */
-function shiftr_form_shortcode( $atts = array() ) {
+function shiftr_form_shortcode( array $atts = [] ) {
     $atts = array_change_key_case( (array) $atts, CASE_LOWER );
 
     if ( ! isset( $atts['form'] ) ) {
@@ -70,21 +72,21 @@ add_shortcode( 'shiftr_form', 'shiftr_form_shortcode' );
 
 global $shiftr_form_core;
 
-$shiftr_form_core = array();
+$shiftr_form_core = [];
 
 
 // Register the Shiftr forms post type
 $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
-    array(
+    [
         'label'         => 'Form',
         'name'          => 'shiftr_form',
         'menu_position' => 59,
         'menu_icon'     => 'dashicons-email-alt'
-    ),
-    array(
-        'show_ui' => true,
-        'has_archive' => false,
-        'capabilities' => array(
+    ],
+    [
+        'show_ui'       => true,
+        'has_archive'   => false,
+        'capabilities'  => [
             'create_posts'       => 'do_not_allow',
             'edit_post'          => 'update_core',
             'read_post'          => 'update_core',
@@ -94,25 +96,25 @@ $shiftr_form_core['form'] = new Shiftr_Custom_Post_Type(
             'delete_posts'       => 'update_core',
             'publish_posts'      => 'update_core',
             'read_private_posts' => 'update_core'
-        ),
-        'map_meta_cap' => true,
-        'supports' => array( 'title' )
-    )
+        ],
+        'map_meta_cap'  => true,
+        'supports'      => [ 'title' ]
+    ]
 );
 
 
 // Register the Shiftr forms post type
 $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
-    array(
+    [
         'label'         => 'Form Submissions',
         'name'          => 'shiftr_form_data',
         'plural'        => false
-    ),
-    array(
-        'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=shiftr_form',
-        'has_archive' => false,
-        'capabilities' => array(
+    ],
+    [
+        'show_ui'       => true,
+        'show_in_menu'  => 'edit.php?post_type=shiftr_form',
+        'has_archive'   => false,
+        'capabilities'  => [
             'create_posts'       => 'do_not_allow',
             'edit_post'          => 'update_core',
             'read_post'          => 'update_core',
@@ -122,28 +124,24 @@ $shiftr_form_core['data'] = new Shiftr_Custom_Post_Type(
             'delete_posts'       => 'update_core',
             'publish_posts'      => 'update_core',
             'read_private_posts' => 'update_core'
-        ),
-        'map_meta_cap' => true,
-        'supports' => array( 'title', 'custom-fields' )
-    )
+        ],
+        'map_meta_cap'  => true,
+        'supports'      => [ 'title', 'custom-fields' ]
+    ]
 );
 
 
 add_filter( 'shiftr_custom_post_type_register_args', function( $args, $post_type ) {
-
     if ( $post_type == 'shiftr_form_data' ) {
-
         $args['labels']['all_items'] = 'Submissions';
         $args['labels']['edit_item'] = 'View Submission';
     }
 
     return $args;
-
 }, 10, 2 );
 
 
 add_filter( 'manage_shiftr_form_data_posts_columns', function( $columns ) {
-
     unset( $columns['title'] );
     unset( $columns['date'] );
 
@@ -156,7 +154,6 @@ add_filter( 'manage_shiftr_form_data_posts_columns', function( $columns ) {
 
 
 add_filter( 'manage_edit-shiftr_form_data_sortable_columns', function( $columns ) {
-
     $columns['data_id']     = 'ID';
     $columns['data_date']   = 'date';
 
@@ -165,7 +162,6 @@ add_filter( 'manage_edit-shiftr_form_data_sortable_columns', function( $columns 
 
 
 add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $post_id ) {
-
     if ( $column == 'data_id' ) {
 
         // Construct record title
@@ -201,45 +197,36 @@ add_action( 'manage_shiftr_form_data_posts_custom_column', function( $column, $p
 
 
 add_action( 'pre_get_posts', function( $query ) {
-
     if ( ! is_admin() ) return;
 
     $orderby = $query->get( 'orderby' );
 
     if ( $orderby == 'data_id' ) {
-
         $query->set( 'meta_key', 'post_id' );
         $query->set( 'orderby', 'meta_value_num' );
     }
-
-} );
+});
 
 
 add_filter( 'post_row_actions', function( $actions, $post ) {
-
     if ( $post->post_type == 'shiftr_form' ) {
-
         unset( $actions['trash'] );
     }
 
     if ( $post->post_type == 'shiftr_form_data' ) {
-
         unset( $actions['inline hide-if-no-js'] );
 
         $actions['edit'] = '<a href="' . esc_url( admin_url( 'post.php?post=' . $post->ID . '&action=edit' ) ) . '">Edit</a>';
     }
 
     return $actions;
-
 }, 100, 2 );
 
 
 add_filter( 'bulk_actions-edit-shiftr_form', function( $actions ) {
-
     unset( $actions['trash'] );
 
     return $actions;
-
 }, 100, 1 );
 
 
@@ -251,7 +238,6 @@ add_filter( 'bulk_actions-edit-shiftr_form', function( $actions ) {
  *  @since 1.0
  */
 function shiftr_contact_form_submenu() {
-
     add_submenu_page(
         'edit.php?post_type=shiftr_form',
         'General Settings',
@@ -270,7 +256,6 @@ add_action( 'admin_menu', 'shiftr_contact_form_submenu' );
  *  @since 1.0
  */
 function shiftr_contact_form_settings() {
-
     settings_fields( 'shiftr_form' );
     do_settings_sections( 'shiftr_form' );
 
@@ -282,7 +267,6 @@ function shiftr_contact_form_settings() {
     shiftr_update_form_setting( 'shiftr_form_message_error_heading' );
     shiftr_update_form_setting( 'shiftr_form_message_error_body' );
 
-    
     // Get the HTML for the settings page
     shiftr_get_html( 'shiftr-contact-form-settings' );
 }
@@ -293,9 +277,9 @@ function shiftr_contact_form_settings() {
  *
  *  @since 1.0
  *
- *  @param $option_name string The name of the setting to update
+ *  @param string $option_name The name of the setting to update
  */
-function shiftr_update_form_setting( $option_name ) {
+function shiftr_update_form_setting( string $option_name ) {
 
     // Update option if changed
     if ( isset( $_POST[$option_name] ) ) {
@@ -315,7 +299,6 @@ function shiftr_update_form_setting( $option_name ) {
 
 
 function shiftr_notice_update_form_setting() {
-
     ?>
 <div class="notice notice-success is-dismissible">
     <p>Settings updated successfully</p>
@@ -325,14 +308,12 @@ function shiftr_notice_update_form_setting() {
 
 
 function shiftr_register_form_settings() {
-
     register_setting( 'shiftr_form', 'form_default_recepients' );
 }
 add_action( 'admin_init', 'shiftr_register_form_settings' );
 
 
 function shiftr_form_data_meta_boxes() {
-
     global $post;
 
     remove_meta_box( 'slugdiv', 'shiftr_form_data', 'normal' );
@@ -360,19 +341,15 @@ add_action( 'add_meta_boxes', 'shiftr_form_data_meta_boxes' );
 
 
 add_action( 'edit_form_top', function( $post ) {
-
     if ( $post->post_type == 'shiftr_form_data' ) {
         ?>
-
         <style type="text/css"> #post-body-content { display: none; } </style>
-
         <?php
     }
 } );
 
 
 function shiftr_form_data_get_content() {
-
     global $post, $shiftr_forms;
 
     $content = get_post_meta( $post->ID, 'shiftr_form_data_content', true );
@@ -444,11 +421,10 @@ function shiftr_form_get_error() {
  * @return string The list of file types in the requested format
  */
 function shiftr_form_get_file_types( $field, $format = 'regex' ) {
+    $file_types = [];
+    $formatted_file_types = [];
 
-    $file_types = array();
-    $formatted_file_types = array();
-
-    $default_file_types = array(
+    $default_file_types = [
         'png',
         'jpg',
         'jpeg',
@@ -460,7 +436,7 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
         'pptx',
         'pages',
         'keynote'
-    );
+    ];
 
     if ( empty( $field['accept'] ) ) {
         $file_types = $default_file_types;
@@ -495,13 +471,17 @@ function shiftr_form_get_file_types( $field, $format = 'regex' ) {
                 $output .= sprintf( '.%s,', $type );
             }
         } else {
-            $output .= preg_replace( array(
-                '/\//',
-                '/\./'
-            ), array(
-                '\/',
-                '\.'
-            ), $type );
+            $output .= preg_replace(
+                [
+                    '/\//',
+                    '/\./'
+                ],
+                [
+                    '\/',
+                    '\.'
+                ],
+                $type
+            );
             
             $output .= '|';
         }

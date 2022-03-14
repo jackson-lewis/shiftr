@@ -11,7 +11,7 @@ new Group(
     'site_options',
     [
         'title' => 'Site Options',
-        'fields' => array(
+        'fields' => [
             Field_Types\tab_field( 'Contact Details' ),
             Field_Types\group_field(
                 'Contact Details',
@@ -194,7 +194,7 @@ new Group(
                     ]
                 ]
             )
-        ),
+        ],
         'location' => [
             [
                 [

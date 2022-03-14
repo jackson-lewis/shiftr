@@ -61,12 +61,11 @@ add_action( 'admin_init', 'shiftr_mce' );
  *  @return array The toolbars used in ACF editor
  */
 function shiftr_acf_editor_toolbar( $toolbars ) {
-
-    $toolbars['Shiftr Full'] = array();
-    $toolbars['Shiftr Basic'] = array();
+    $toolbars['Shiftr Full'] = [];
+    $toolbars['Shiftr Basic'] = [];
 
     // Shiftr Full Toolbar
-    $toolbars['Shiftr Full'][1] = array(
+    $toolbars['Shiftr Full'][1] = [
         'formatselect',
         'bold',
         'italic',
@@ -80,8 +79,9 @@ function shiftr_acf_editor_toolbar( $toolbars ) {
         '|',
         'email',
         'phone'
-    );
-    $toolbars['Shiftr Full'][2] = array(
+    ];
+
+    $toolbars['Shiftr Full'][2] = [
         'strikethrough',
         'hr',
         'forecolor',
@@ -93,10 +93,10 @@ function shiftr_acf_editor_toolbar( $toolbars ) {
         'undo',
         'redo',
         'wp_help'
-    );
+    ];
 
     // Shiftr Basic Toolbar
-    $toolbars['Shiftr Basic'][1] = array(
+    $toolbars['Shiftr Basic'][1] = [
         'bold',
         'italic',
         '|',
@@ -109,7 +109,7 @@ function shiftr_acf_editor_toolbar( $toolbars ) {
         '|',
         'email',
         'phone'
-    );
+    ];
 
     return $toolbars;
 }

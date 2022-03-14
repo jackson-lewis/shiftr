@@ -27,7 +27,7 @@ class Shiftr_Bg_Lazy_Loading {
      * Hook the print_script method to wp_footer
      */
     function init() {
-        add_action( 'wp_footer', array( $this, 'print_script' ), 11 );
+        add_action( 'wp_footer', [ $this, 'print_script' ], 11 );
     }
 
 
@@ -79,6 +79,5 @@ class Shiftr_Bg_Lazy_Loading {
  * Initiate the lazy loader
  */
 if ( shiftr_lazy_loading_enabled() ) {
-
     new Shiftr_Bg_Lazy_Loading;
 }
