@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.6.2
+*16/03/22*
+
+Done/On-going:
+* BEM Naming Convention
+* PHP Type Declarations
+* PHP array syntax update from `array()` to `[]`
+* ACF field keys scoped to Flexi blocks
+* ACF group files auto loaded
+
+Coming:
+* Support for RankMath SEO plugin
+* Revert pages back to classic editor
+
+
+
 ## v1.6.1
 *05/02/22*
 
