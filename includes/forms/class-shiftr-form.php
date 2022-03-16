@@ -161,9 +161,10 @@ class Shiftr_Form {
                 'shiftr_form_submit_field',
                 [
                     'type'      => 'submit',
-                    'name'      => 'send',
-                    'value'     => 'send'
-                ]
+                    'name'      => 'submit',
+                    'label'     => apply_filters( 'shiftr_form_submit_field_label', 'Send', $this->form )
+                ],
+                $this->form
             );
 
             $fields = apply_filters( 'shiftr_form_build_fields', array_merge( (array) $this->fields, [ $submit ] ), $this->form );
