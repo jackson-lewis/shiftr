@@ -7,7 +7,6 @@
  * @global $wp_admin_bar
  */
 function shiftr_admin_bar_clean_up() {
-
     global $wp_admin_bar;
 
     $wp_admin_bar->remove_menu( 'customize' );
@@ -55,7 +54,7 @@ function shiftr_admin_styles() {
     wp_enqueue_style( 'shiftr-admin-styles', get_template_directory_uri() . '/assets/styles/admin.css', false, $shiftr->get( 'version' ) );
 
     // Scripts
-    wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin.js', array(), $shiftr->get( 'version' ), true );
+    wp_enqueue_script( 'shiftr-admin-script', get_template_directory_uri() . '/assets/scripts/admin.js', [], $shiftr->get( 'version' ), true );
     wp_localize_script( 'shiftr-admin-script', 'shiftr', shiftr_js_object() );
 }
 add_action( 'admin_enqueue_scripts', 'shiftr_admin_styles', 99 );

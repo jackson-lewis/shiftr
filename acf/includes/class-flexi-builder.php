@@ -15,29 +15,30 @@ class Flexi_Builder {
     var $id = '';
 
     /** @var array Stores the final array used for ACF field data */
-    var $acf_field_data = array();
+    var $acf_field_data = [];
 
 
     /**
      * @param string $id Unique identifier for the builder
      * @param array $blocks Blocks to assign to the builder
      * @param array $args Additional field args to parse
+     * @param bool $for_global
      */
-    function __construct( $id = '', $blocks = array(), $args = array(), $for_global = false ) {
-        $defaults = array(
-            'key' => 'flexi_blocks_builder-' . $id,
-            'label' => 'Flexi Blocks Builder',
-            'name' => 'flexi_blocks_builder-' . $id,
-            'type' => 'flexible_content',
-            'instructions' => '',
+    function __construct( string $id, array $blocks = [], array $args = [], bool $for_global = false ) {
+        $defaults = [
+            'key'               => 'flexi_blocks_builder-' . $id,
+            'label'             => 'Flexi Blocks Builder',
+            'name'              => 'flexi_blocks_builder-' . $id,
+            'type'              => 'flexible_content',
+            'instructions'      => '',
             'conditional_logic' => 0,
-            'wrapper' => array(
+            'wrapper'           => [
                 'width' => '',
                 'class' => '',
-                'id' => '',
-            ),
-            'button_label' => 'Add Block'
-        );
+                'id'    => '',
+            ],
+            'button_label'      => 'Add Block'
+        ];
     
         $args = wp_parse_args( $args, $defaults );
     
@@ -53,11 +54,15 @@ class Flexi_Builder {
 
     /**
      * Assign blocks to the builder
+     * 
+     * @param array $blocks
+     * @param bool $for_global
+     * @return array
      */
-    function get_blocks( $blocks = array(), $for_global = false ) {
+    function get_blocks( array $blocks = [], bool $for_global = false ) {
         global $shiftr_blocks_library;
 
-        $local_field_data = array();
+        $local_field_data = [];
 
         /**
          * If no blocks are passed, assign all blocks to $blocks
@@ -69,7 +74,6 @@ class Flexi_Builder {
         }
 
         foreach ( $blocks as $block ) {
-            
             if ( Utils\block_exists( $block ) ) {
                 $local_field_data[ 'layout_block__' . $block ] = $shiftr_blocks_library[ $block ]->get_acf_field_data( $for_global );
             }
@@ -81,11 +85,17 @@ class Flexi_Builder {
 
     /**
      * Returns the ACF field data
+     * 
+     * @return array
      */
     function get_acf_data() {
         return $this->acf_field_data;
     }
 
+
+    /**
+     * Adds the builder to the library.
+     */
     function add_builder_to_library() {
         global $shiftr_builder_library;
 

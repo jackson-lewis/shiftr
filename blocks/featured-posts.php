@@ -4,9 +4,7 @@
  * 
  * Display a selection of posts.
  */
-$args = array(
-    'posts_per_page' => 3
-);
+$args = [ 'posts_per_page' => 3 ];
 
 if ( get_flexi_field( 'by-post' ) ) {
     $args['post__in'] = get_flexi_field( 'by-post' );

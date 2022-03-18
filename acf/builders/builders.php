@@ -8,12 +8,12 @@ use Shiftr_ACF\Flexi_Builder;
  */
 new Flexi_Builder(
     'main',
-    array(), // Gets all blocks in library
-    array(
-        'wrapper' => array(
+    [], // Gets all blocks in library
+    [
+        'wrapper' => [
             'width' => '',
             'class' => 'hide-label',
-            'id' => ''
-        )
-    )
+            'id'    => ''
+        ]
+    ]
 );

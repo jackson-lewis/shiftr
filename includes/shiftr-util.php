@@ -9,10 +9,9 @@ define( 'SHIFTR_SPACE_ENTITY', '&nbsp;' );
  *  Output a file uri from within the branding directory
  *
  *  @since 1.0
- *
- *  @param $file str The file name of the requested file
+ *  @param string $file The file name of the requested file
  */
-function shiftr_get_branding_url( $file = '' ) {
+function shiftr_get_branding_url( string $file = '' ) {
     echo esc_url( get_template_directory_uri() . '/assets/branding/' . $file );
 }
 
@@ -21,11 +20,10 @@ function shiftr_get_branding_url( $file = '' ) {
  *  Output a file uri from within the media directory
  *
  *  @since 1.0
- *
- *  @param $file str The file name of the requested file
- *  @param $media_dir str The directory name where the file is expected
+ *  @param string $file The file name of the requested file
+ *  @param string $media_dir The directory name where the file is expected
  */
-function shiftr_get_asset_url( $file = '', $asset_dir = 'images' ) {
+function shiftr_get_asset_url( string $file = '', string $asset_dir = 'images' ) {
     echo esc_url( get_template_directory_uri() . '/assets/' . $asset_dir . '/' . $file );
 }
 
@@ -34,20 +32,11 @@ function shiftr_get_asset_url( $file = '', $asset_dir = 'images' ) {
  *  Return a Shiftr setting
  *
  *  @since 1.0
- *
- *  @param $key str The suffix of the setting name
- *  @return str|null The value on success, null if setting does not exist
+ *  @param string $key The suffix of the setting name
+ *  @return mixed
  */
-function shiftr_get_setting( $key = '' ) {
-    $value = get_option( 'shiftr_' . $key );
-
-    if ( ! $value ) {
-        return $value;
-
-    } else {
-
-        return null;
-    }
+function shiftr_get_setting( string $key = '' ) {
+    return get_option( 'shiftr_' . $key );
 }
 
 
@@ -55,11 +44,10 @@ function shiftr_get_setting( $key = '' ) {
  *  Convert spaces in a string to underscores
  *
  *  @since 1.0
- *
- *  @param $str str The string to convert
- *  @return str The re-formatted string
+ *  @param string $str The string to convert
+ *  @return string The re-formatted string
  */
-function space_to_( $str = '' ) {
+function space_to_( string $str = '' ) {
     return str_replace( ' ', '_', $str );
 }
 
@@ -68,12 +56,10 @@ function space_to_( $str = '' ) {
  *  Convert spaces in a string to HTML space entity &nbsp;
  *
  *  @since 1.0
- *
- *  @param $str str The string to convert
- *  @return str The re-formatted string
+ *  @param string $str The string to convert
+ *  @return string
  */
-
-function space_to_nbsp( $str = '' ) {
+function space_to_nbsp( string $str = '' ) {
     return str_replace( ' ', SHIFTR_SPACE_ENTITY, $str );
 }
 
@@ -82,12 +68,10 @@ function space_to_nbsp( $str = '' ) {
  *  Convert a string with hyphans to spaces and capitalize
  *
  *  @since 1.0
- *
- *  @param $str str The string to convert
- *  @return str The re-formatted string
+ *  @param string $str The string to convert
+ *  @return string
  */
-function shiftr_to_nicename( $str = '' ) {
-
+function shiftr_to_nicename( string $str = '' ) {
     $nicename = str_replace( '-', ' ', $str );
     $nicename = str_replace( '_', ' ', $str );
     $nicename = ucwords( $nicename );
@@ -100,9 +84,7 @@ function shiftr_to_nicename( $str = '' ) {
  *  Prep the JS object for wp_localize_script
  *
  *  @since 1.0
- *
- *  @param $str str The string to convert
- *  @return array The re-formatted array
+ *  @return array
  */
 function shiftr_js_object() {
     // For admin
@@ -118,8 +100,7 @@ function shiftr_js_object() {
  *  Check if AJAX call is doing form submission
  *
  *  @since 1.0
- *
- *  @return bool If a Shiftr Form is being submitted
+ *  @return bool
  */
 function shiftr_is_sending_form() {
     return defined( 'DOING_AJAX' ) && isset( $_REQUEST['action'] ) && $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['shiftr_form_id'] );
@@ -130,9 +111,7 @@ function shiftr_is_sending_form() {
  * Return the state of the lazy loading ability.
  * 
  * @since 1.1.x
- * @global $shiftr
- * 
- * @return bool True is enabled, false if disabled
+ * @return bool
  */
 function shiftr_lazy_loading_enabled() {
     return apply_filters( 'shiftr_lazy_loading_enabled', shiftr()->bg_lazy_loading );

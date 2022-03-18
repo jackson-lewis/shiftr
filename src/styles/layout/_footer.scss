@@ -27,7 +27,7 @@
         }
     }
 
-    .footer-heading {
+    .site-footer__col-heading {
         margin-bottom: 15px;
         display: inline-block;
 
@@ -56,7 +56,7 @@
     }
 }
 
-.footer-row--main {
+.site-footer__main {
     padding: 40px var(--site-margin);
 
     @include min-width( 650 ) {
@@ -68,7 +68,7 @@
             grid-template-columns: repeat( var(--grid-column-count), minmax( 10px, 1fr ) );
         }
 
-        .footer-col {
+        .site-footer__col {
             &:first-child {
                 grid-column: span 2;
             }
@@ -80,13 +80,13 @@
     }
 }
 
-.footer-row--legal {
+.site-footer__legal {
     padding: 20px var(--site-margin);
 
     background-color: var(--c-l-grey);
 }
 
-.footer-col {
+.site-footer__col {
     margin-bottom: 30px;
 
     &:last-child {

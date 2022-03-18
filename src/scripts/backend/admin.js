@@ -40,9 +40,9 @@
 
             const options = [
                 '<option value="">None</option>',
-                '<option value="button-fill">Button Fill</option>',
-                '<option value="button-outline">Button Outline</option>',
-                '<option value="button-text">Button Text</option>'
+                '<option value="button">Button</option>',
+                '<option value="button button--outline">Button Outline</option>',
+                '<option value="button button--text">Button Text</option>'
             ]
 
             $('#link-options').append( `<div class="link-display-style"> <label><span>Link Style</span> <select id="wp-link-display-style">${ options.join( '' ) }</select></label></div>` );

@@ -16,29 +16,27 @@ class Shiftr_Form {
     var $use_labels = true;
 
     /* obj The fields of the form */
-    var $fields = array();
+    var $fields = [];
 
     /* array The default form set-up */
     var $defaults;
 
 
     /**  
-     *  Set-up the class ready for handling the request
+     * Set-up the class ready for handling the request
      *
-     *  @since 1.0
-     *
-     *  @param $form str The name of the form
-     *  @param $args array The form settings and defined fields
+     * @since 1.0
+     * @param string $form The name of the form
+     * @param array
      */
-    function __construct( $form = '', $args = [] ) {
-
-        $this->defaults = array(
-            'settings' => array(
-                'nicename' => shiftr_to_nicename( $form ),
-                'labels' => true
-            ),
-            'fields' => array()
-        );
+    function __construct( string $form = '', array $args = [] ) {
+        $this->defaults = [
+            'settings'  => [
+                'nicename'  => shiftr_to_nicename( $form ),
+                'labels'    => true
+            ],
+            'fields'    => []
+        ];
 
         $args = (object) wp_parse_args( $args, $this->defaults );
 
@@ -52,27 +50,28 @@ class Shiftr_Form {
 
 
     /**  
-     *  This does nothing
+     * This does nothing
      *
-     *  @since 1.0
+     * @since 1.0
      */
     function init() {}
 
 
     /**  
-     *  ...
+     * Get the form ID.
      *
-     *  @since 1.0
+     * @since 1.0
+     * @return integer
      */
     function get_form_ID() {
         $form_post_id = 0;
 
-        $form_post = get_posts( array(
-            'post_type' => 'shiftr_form',
-            'name' => $this->form,
-            'numberposts' => 1,
-            'fields' => 'ids'
-        ));
+        $form_post = get_posts([
+            'post_type'     => 'shiftr_form',
+            'name'          => $this->form,
+            'numberposts'   => 1,
+            'fields'        => 'ids'
+        ]);
 
         if ( ! empty( $form_post ) ) {
             $form_post_id = array_shift( $form_post );
@@ -81,13 +80,13 @@ class Shiftr_Form {
         // Create post if one does not exist
         if ( $form_post_id <= 0 ) {
 
-            $form_post_id = wp_insert_post( array(
-                'post_author' => 1,
-                'post_title' => $this->nicename,
-                'post_name' => $this->form,
-                'post_status' => 'publish',
-                'post_type' => 'shiftr_form'
-            ));
+            $form_post_id = wp_insert_post([
+                'post_author'   => 1,
+                'post_title'    => $this->nicename,
+                'post_name'     => $this->form,
+                'post_status'   => 'publish',
+                'post_type'     => 'shiftr_form'
+            ]);
         }
 
         return $form_post_id;
@@ -95,14 +94,13 @@ class Shiftr_Form {
 
 
     /**  
-     *  ...
+     * Output the form HTML
      *
-     *  @since 1.0
+     * @since 1.0
      * @param bool $is_shortcode Used if form is being built from a shortcode.
      */
-    function build( $is_shortcode ) {
-
-        $form_base_atts = array();
+    function build( bool $is_shortcode ) {
+        $form_base_atts = [];
 
         $form_base_atts['method']           = 'post';
         $form_base_atts['id']               = 'shiftr_form_' . $this->form_ID;
@@ -126,7 +124,7 @@ class Shiftr_Form {
         echo '<form ' . shiftr_output_attr( $form_base_atts ) . '><div class="form-fields">';
 
         // Required form fields        
-        $hidden_fields = apply_filters( 'shiftr_form_build_hidden_fields', array(), $this->form );
+        $hidden_fields = apply_filters( 'shiftr_form_build_hidden_fields', [], $this->form );
 
         // Verify hidden fields var is array before continuing
         $hidden_fields = ( ! is_array( $hidden_fields ) ) ? [] : $hidden_fields;
@@ -161,16 +159,15 @@ class Shiftr_Form {
 
             $submit = apply_filters(
                 'shiftr_form_submit_field',
-                array(
-                    array(
-                        'type'      => 'submit',
-                        'name'      => 'send',
-                        'value'     => 'send'
-                    )
-                ) 
+                [
+                    'type'      => 'submit',
+                    'name'      => 'submit',
+                    'label'     => apply_filters( 'shiftr_form_submit_field_label', 'Send', $this->form )
+                ],
+                $this->form
             );
 
-            $fields = apply_filters( 'shiftr_form_build_fields', array_merge( (array) $this->fields, $submit ), $this->form );
+            $fields = apply_filters( 'shiftr_form_build_fields', array_merge( (array) $this->fields, [ $submit ] ), $this->form );
 
             /**
              * Fires before the form fields are output.
@@ -202,29 +199,30 @@ class Shiftr_Form {
      *
      *  @param $field array The settings of the field
      */
-    function create_field( $settings = [] ) {
+    function create_field( array $settings = [] ) {
 
-        $defaults = array(
+        $defaults = [
             'type'              => '',
             'name'              => '',
             'required'          => true,
             'label'             => '',
             'include_in_send'   => true,
-            'rows'              => 4
-        );
+            'rows'              => 4,
+            'value'             => ''
+        ];
 
         $args = (object) wp_parse_args( $settings, $defaults );
 
 
         // Hold the attributes
-        $wrap_atts = array();
-        $field_atts = array();
-        $label_atts = array();
+        $wrap_atts = [];
+        $field_atts = [];
+        $label_atts = [];
 
         $field_tag = 'input';
 
-        $input_tag_types = array( 'text', 'name', 'email', 'date', 'password', 'search', 'checkbox', 'radio' );
-        $input_grouped_types = array( 'text', 'name', 'email', 'tel', 'date', 'password', 'search' );
+        $input_tag_types = [ 'text', 'name', 'email', 'date', 'password', 'search', 'checkbox', 'radio' ];
+        $input_grouped_types = [ 'text', 'name', 'email', 'tel', 'date', 'password', 'search' ];
 
         // Wrap attributes
         $wrap_atts['class'] = 'field';
@@ -357,11 +355,11 @@ class Shiftr_Form {
                 }
                 echo '<div class="' . esc_attr( 'sub-field--radio radio-' . $args->name . '-' . $subfield['name'] ) . '">';
 
-                $subfield_atts = array(
-                    'type' => 'radio',
-                    'name' => $field_atts['name'],
-                    'id' => $field_atts['id'] . '_' . $subfield['name']
-                );
+                $subfield_atts = [
+                    'type'  => 'radio',
+                    'name'  => $field_atts['name'],
+                    'id'    => $field_atts['id'] . '_' . $subfield['name']
+                ];
 
                 echo '<input ' . shiftr_output_attr( $subfield_atts, true ) . '>';
 

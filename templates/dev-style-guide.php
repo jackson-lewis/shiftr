@@ -129,10 +129,10 @@ get_header();
                     <a href="/" class="button">Button standard</a>
                 </div>
                 <div>
-                    <a href="/" class="button-secondary">Button secondary</a>
+                    <a href="/" class="button--secondary">Button secondary</a>
                 </div>
                 <div>
-                    <a href="/" class="button-text">Button text</a>
+                    <a href="/" class="button--text">Button text</a>
                 </div>
             </div>
             <hr>

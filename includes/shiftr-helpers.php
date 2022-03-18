@@ -3,14 +3,12 @@
  *  Loop through an array of attributes and output string
  *
  *  @since 1.0
- *
- *  @param $raw array The array of attributes
- *  @param $force_empty_values bool Whether an attribute with no value should be included in output
- *  @return str The attributes to be included inside HTML tag
+ *  @param array $raw The array of attributes
+ *  @param bool $force_empty_values Whether an attribute with no value should be included in output
+ *  @return string The attributes to be included inside HTML tag
  */
-function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
-
-    $the_attributes = array();
+function shiftr_output_attr( array $raw = [], bool $force_empty_values = false ) {
+    $the_attributes = [];
 
     foreach ( $raw as $_key => $_value ) {
 
@@ -20,7 +18,7 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
 
         $key = strtolower( $_key );
 
-        $attr_url = array( 'href', 'src', 'srcset' );
+        $attr_url = [ 'href', 'src', 'srcset' ];
 
         $value = in_array( $key, $attr_url ) ? esc_url( $_value ) : esc_attr( $_value );
 
@@ -35,13 +33,12 @@ function shiftr_output_attr( $raw = [], $force_empty_values = false ) {
  *  Return the HTML markup of an image from attachment ID or ACF field name
  *
  *  @since 1.0.5
- *
- *  @param $id int|str The attachment ID or ACF field name
- *  @param $size str The size of the image to output
- *  @param $attr array Attributes that should be added to the img tag
+ *  @param string|integer $id The attachment ID or ACF field name
+ *  @param string $size The size of the image to output
+ *  @param array $attr Attributes that should be added to the img tag
+ * @return string
  */
-function get_shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
-
+function get_shiftr_image( int|string $id = 0, string $size = 'large', array $attr = [] ) {
     $html = '';
 
     // Check if string value may acutally be a integar before proceeding
@@ -75,13 +72,11 @@ function get_shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
  *  Output the returned value from get_shiftr_image()
  *
  *  @since 1.0
- *
- *  @param $id int|str The attachment ID or ACF field name
- *  @param $size str The size of the image to output
- *  @param $attr array Attributes that should be added to the img tag
+ *  @param int|string $id The attachment ID or ACF field name
+ *  @param string $size The size of the image to output
+ *  @param array $attr Attributes that should be added to the img tag
  */
-function shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
-
+function shiftr_image( int|string $id = 0, string $size = 'large', array $attr = [] ) {
     echo get_shiftr_image( $id, $size, $attr );
 }
 
@@ -90,15 +85,14 @@ function shiftr_image( $id = 0, $size = 'large', $attr = [] ) {
  *  Output the html of the current post featured image
  *
  *  @since 1.0
- *
- *  @param $id null|int The post ID
- *  @param $size str The size of the image to output
- *  @param $attr array Attributes that should be added to the img tag
+ *  @param int $id The post ID
+ *  @param string $size The size of the image to output
+ *  @param array $attr Attributes that should be added to the img tag
  */
-function shiftr_featured_image( $id = null, $size = 'large', $attr = [] ) {
+function shiftr_featured_image( int $id = 0, string $size = 'large', array $attr = [] ) {
     global $post;
 
-    if ( $id === null ) {
+    if ( $id === 0 ) {
         $id = $post->ID;
     }
 
@@ -113,12 +107,11 @@ function shiftr_featured_image( $id = null, $size = 'large', $attr = [] ) {
  *  Include an SVG file to inline on the page
  *
  *  @since 1.0
- *
- *  @param $file str The name of the file, excluding .svg extension, or full path to uploads
- *  @param $dir str|bool The directory path relative to the theme root, or false if uploads path
+ *  @param string $file The name of the file, excluding .svg extension, or full path to uploads
+ *  @param string|bool $dir The directory path relative to the theme root, or false if uploads path
  *  @return mixed Output SVG element or bool (false) if file not found
  */
-function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
+function shiftr_inline_svg( string $file = '', string|bool $dir = '/assets/icons/' ) {
 
     // Put together file path
     $relative_path = get_template_directory() . $dir . $file . '.svg';
@@ -132,10 +125,9 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
 
     // Check if file exists
     if ( file_exists( $relative_path ) ) {
-
         include $relative_path;
-    } else {
 
+    } else {
         return false;
     } 
 }
@@ -145,10 +137,9 @@ function shiftr_inline_svg( $file = '', $dir = '/assets/icons/' ) {
  * Display the archive title, supports Shiftr archive pages.
  * 
  * @since 1.6.1
- * 
  * @param bool $display Echo or return title
  */
-function shiftr_archive_title( $display = true ) {
+function shiftr_archive_title( bool $display = true ) {
     $title = '';
 
     if ( is_home() ) {
@@ -226,13 +217,12 @@ function shiftr_archive_description() {
  *  Include a template part
  *
  *  @since 1.0.5
- *
- *  @param $template_name str The template file name and path relative from theme_root/parts/
- *  @param $args array Any variables to pass into the template file
- *  @param $template_path str The directory to locate the template, relative from the theme root
+ *  @param string $template_name The template file name and path relative from theme_root/parts/
+ *  @param array $args Any variables to pass into the template file
+ *  @param string $template_path The directory to locate the template, relative from the theme root
  *  @return null on failure to find file
  */
-function shiftr_get_template( $template_name, $args = array(), $template_path = 'parts/' ) {
+function shiftr_get_template( string $template_name, array $args = [], string $template_path = 'parts/' ) {
 
     /**
      * This allows flexibility to omit the .php extension when calling a template file
@@ -261,12 +251,11 @@ function shiftr_get_template( $template_name, $args = array(), $template_path = 
  *  Include a template part, specific to blocks used in a ACF flexible content template
  *
  *  @since 1.0.5
- *
- *  @param $template_name str The template file name and path relative from theme_root/blocks/
- *  @param $args array Any variables to pass into the template file
- *  @param $template_path str The directory to locate the template, relative from the theme root
+ *  @param string $template_name The template file name and path relative from theme_root/blocks/
+ *  @param array $args Any variables to pass into the template file
+ *  @param string $template_path The directory to locate the template, relative from the theme root
  */
-function shiftr_get_block( $block_name, $args = array(), $template_path = 'blocks/' ) {
+function shiftr_get_block( string $block_name, array $args = [], string $template_path = 'blocks/' ) {
 
     shiftr_get_template( $block_name, $args, $template_path );
 }
@@ -279,11 +268,10 @@ function shiftr_get_block( $block_name, $args = array(), $template_path = 'block
  * - Custom post types registered via Shiftr.
  * 
  * @since 1.6.1
- * 
  * @param string $page The page slug.
  * @return int
  */
-function shiftr_get_page_id( $page ) {
+function shiftr_get_page_id( string $page ) {
     $page_setup = get_field( 'page-setup', 'option' );
 
     if ( is_array( $page_setup ) && isset( $page_setup['shiftr_' . $page . '_page_id'] ) ) {
@@ -302,7 +290,7 @@ function shiftr_get_page_id( $page ) {
  * @param string $post_type Defaults to current post type.
  * @return int
  */
-function shiftr_get_page_id_for_archive( $post_type = '' ) {
+function shiftr_get_page_id_for_archive( string $post_type = '' ) {
     
     if ( empty( $post_type ) ) {
         $post_type = get_query_var( 'post_type' );

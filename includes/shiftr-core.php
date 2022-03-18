@@ -4,7 +4,8 @@
  *
  *  @since 1.0
  */
-function shiftr_body_class( $use_shiftr = true ) {
+function shiftr_body_class( bool $use_shiftr = true ) {
+    global $wp_query, $post;
 
     /**
      * To prevent conflict issues, it's mcuh safer to use the default
@@ -16,10 +17,7 @@ function shiftr_body_class( $use_shiftr = true ) {
         return true;
     }
 
-    global $wp_query;
-    global $post;
-
-    $classes = array();
+    $classes = [];
 
     if ( is_front_page() ) {
         $classes[] = 'front-page';
@@ -88,11 +86,9 @@ function shiftr_body_class( $use_shiftr = true ) {
  *  Keeping the header.php file cleaner
  *
  *  @since 1.0
- *
  *  @return mixed|bool
  */
 function shiftr_head_open() {
-
     if ( ! empty( shiftr()->tracking->head ) ) {
         echo shiftr()->tracking->head;
     }
@@ -105,11 +101,9 @@ add_action( 'wp_head', 'shiftr_head_open', 20 );
  *  Update from WP 5.2 - now hooked on wp_body_open()
  *
  *  @since 1.0
- *
  *  @return mixed|bool
  */
 function shiftr_body_open() {
-
     if ( ! empty( shiftr()->tracking->body_open ) ) {
         echo shiftr()->tracking->body_open;
     }
@@ -121,11 +115,9 @@ add_action( 'wp_body_open', 'shiftr_body_open' );
  *  Keeping the footer.php file clean.
  *
  *  @since 1.0
- *
  *  @return mixed|bool
  */
 function shiftr_body_close() {
-
     if ( ! empty( shiftr()->tracking->body_close ) ) {
         echo shiftr()->tracking->body_close;
     }

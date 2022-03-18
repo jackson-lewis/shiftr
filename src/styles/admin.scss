@@ -47,7 +47,7 @@ body#tinymce.wp-editor {
         }
     }
 
-    %button {
+    .button {
         margin: 0;
         padding: 10px 20px;
         display: inline-block;
@@ -64,10 +64,6 @@ body#tinymce.wp-editor {
         outline: 0;
 
         transition: 300ms;
-    }
-
-    .button-fill {
-        @extend %button;
 
         color: $white;
         background-color: $primary;
@@ -83,9 +79,7 @@ body#tinymce.wp-editor {
         }
     }
 
-    .button-outline {
-        @extend %button;
-
+    .button--outline {
         padding: 9px 19px;
 
         color: $primary;
@@ -103,9 +97,7 @@ body#tinymce.wp-editor {
         }
     }
 
-    .button-text {
-        @extend %button;
-
+    .button--text {
         color: $primary;
         background-color: transparent;
 

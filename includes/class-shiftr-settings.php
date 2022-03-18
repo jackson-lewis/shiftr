@@ -7,21 +7,21 @@ class Shiftr_Settings {
     protected $shiftr_name = 'Shape Shiftr';
     protected $shiftr_url = 'https://shapeshiftr.co.uk';
 
-    private $version = '1.6';
-    private $version_date = '30/12/21'; 
+    private $version = '1.6.2';
+    private $version_date = '18/03/22'; 
 
 
     // Contact Details
-    public $email;
-    public $phone;
-    public $address;
-    public $address_link;
+    public $email = '';
+    public $phone = '';
+    public $address = '';
+    public $address_link = '';
 
 
     // --|  Dev Settings
 
     // Fonts
-    public $fonts = array();
+    public $fonts = [];
 
     // Is a cookie notice required
     public $cookie_notice = true;
@@ -42,13 +42,13 @@ class Shiftr_Settings {
     public $admin_show_comments = false;
 
     // Remove editor for specified post types
-    public $remove_editor_by_post_type = array();
+    public $remove_editor_by_post_type = [];
 
     // Define public post types, safety net for incorrectly set post types
-    public $forms = array();
+    public $forms = [];
 
     // Set the array for the Shiftr JS Object
-    public $js_object = array();
+    public $js_object = [];
 
     /**  
      *  Assign values to the properties
@@ -56,7 +56,7 @@ class Shiftr_Settings {
      *  @since 1.0
      */
     function __construct() {
-        add_action( 'acf/init', array( $this, 'init' ) );
+        add_action( 'acf/init', [ $this, 'init' ] );
     }
 
 
@@ -67,9 +67,9 @@ class Shiftr_Settings {
         $contact_details = $this->get_acf_value( 'contact-details' );
 
         if ( $contact_details ) {
-            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : null;
-            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : null;
-            $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : null;
+            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : '';
+            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : '';
+            $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : '';
         }
 
         /**
@@ -88,11 +88,12 @@ class Shiftr_Settings {
     /**  
      *  Get the value from an ACF option field
      *
-     *  @since 1.0
-     *  @param $value str The name of the ACF option field
-     *  @return mixed|bool The value of the field if found, or false
+     * @since 1.0
+     * @param string $value The name of the ACF option field
+     * @param bool $format
+     * @return mixed|bool The value of the field if found, or false
      */
-    public function get_acf_value( $value, $format = true ) {
+    public function get_acf_value( string $value, bool $format = true ) {
 
         if ( function_exists( 'get_field' ) ) {
             return get_field( $value, 'option', $format );
@@ -106,10 +107,10 @@ class Shiftr_Settings {
      *  Echo the value from an ACF option field
      *
      *  @since 1.0
-     *  @param $value str The name of the ACF option field
+     *  @param string $value The name of the ACF option field
      *  @return mixed|bool The value of the field if found, or false
      */
-    public function acf_value( $value ) {
+    public function acf_value( string $value ) {
 
         if ( function_exists( 'the_field' ) ) {
             if ( get_field( $value, 'option' ) ) {
@@ -124,7 +125,7 @@ class Shiftr_Settings {
      *  Echo a property value
      *
      *  @since 1.0
-     *  @param $value str The name of the property
+     *  @param string $value The name of the property
      */
     public function the( $value ) {
         echo $this->$value;
@@ -135,8 +136,7 @@ class Shiftr_Settings {
      *  Return a property value
      *
      *  @since 1.0
-     *
-     *  @param $value str The name of the property
+     *  @param string $value The name of the property
      *  @return mixed The property value
      */
     public function get( $value ) {

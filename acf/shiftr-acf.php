@@ -34,9 +34,9 @@ namespace Shiftr_ACF;
  * simple to add blocks to multiple ACf field groups without redeclaring 
  * any block or its settings.
  */
-$GLOBALS['shiftr_blocks_library'] = array();
-$GLOBALS['shiftr_builder_library'] = array();
-$GLOBALS['shiftr_groups_library'] = array();
+$GLOBALS['shiftr_blocks_library'] = [];
+$GLOBALS['shiftr_builder_library'] = [];
+$GLOBALS['shiftr_groups_library'] = [];
 
 
 require( SHIFTR_ACF . '/includes/blocks-library.php' );
@@ -53,12 +53,13 @@ require( SHIFTR_ACF . '/blocks/blocks.php' );
 require( SHIFTR_ACF . '/builders/builders.php' );
 
 /**
- * Groups
+ * Groups.
+ * 
+ * Files are autoloaded, so you no longer need to manually include the group file.
  */
-require( SHIFTR_ACF . '/groups/site-options.php' );
-require( SHIFTR_ACF . '/groups/global-blocks.php' );
-require( SHIFTR_ACF . '/groups/single-shiftr_form.php' );
-require( SHIFTR_ACF . '/groups/flexi.php' );
+foreach ( glob( SHIFTR_ACF .'/groups/*.php' ) as $group_file ) {
+    include_once $group_file;
+}
 
 
 /**
@@ -85,22 +86,22 @@ add_action( 'acf/init', function() {
  */
 if ( function_exists( 'acf_add_options_page' ) ) {
     
-    acf_add_options_page( array(
+    acf_add_options_page([
         'page_title'    => 'Site Options',
         'menu_title'    => 'Site Options',
         'menu_slug'     => 'site-options',
         'capability'    => 'edit_posts',
         'redirect'      => false
-    ));
+    ]);
 
-    acf_add_options_page( array(
+    acf_add_options_page([
         'page_title'    => 'Flexi Blocks Builder: Global Blocks',
         'menu_title'    => 'Global Blocks',
         'menu_slug'     => 'global-blocks',
         'capability'    => 'edit_posts',
         'redirect'      => false,
         'icon_url'      => 'dashicons-block-default'
-    ));
+    ]);
 }
 
 

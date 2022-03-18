@@ -13,7 +13,7 @@
         margin-bottom: -10px;
     }
 
-    a[class^="button-"] {
+    a[class^="button"] {
         margin: 0 5px 10px;
     }
 
@@ -23,7 +23,8 @@
 }
 
 
-%button {
+.button,
+.button-fill {
     --padding: 10px;
     --padding-ratio: 2;
 
@@ -37,6 +38,8 @@
     border: none;
     border-radius: var(--border-radius);
     outline: none;
+    background-color: var(--c-primary);
+    color: var(--c-white);
 
     font-weight: 600;
     font-size: 1rem;
@@ -54,14 +57,6 @@
         transition: transform 150ms;
         transform: scale( 0.94 ) !important;
     }
-}
-
-.button,
-.button-fill {
-    @extend %button;
-
-    background-color: var(--c-primary);
-    color: var(--c-white);
 
     &:hover,
     &:active {
@@ -69,10 +64,8 @@
     }
 }
 
-.button-outline,
-.button-secondary {
-    @extend %button;
-
+.button--outline,
+.button--secondary {
     padding: calc( var(--padding) - 1px ) calc( ( var(--padding) * var(--padding-ratio) ) - 1px );
 
     border: 1px solid var(--c-primary);
@@ -85,9 +78,7 @@
     }
 }
 
-.button-text {
-    @extend %button;
-
+.button--text {
     background-color: transparent;
     color: var(--c-primary);
 
@@ -100,9 +91,7 @@
 // Use this when the background of the parent element is the opposite of
 // the site body background color.
 %inverted-button-base {
-    .button-fill,
-    .button-outline,
-    .button-text {
+    .button {
         &:focus-visible {
             --focus-inner: var(--c-black);
             --focus-outer: var(--c-white);

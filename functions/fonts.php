@@ -5,7 +5,6 @@
  *  @since 1.0
  */
 function shiftr_fonts() {
-
     if ( ! empty( shiftr()->fonts ) ) {
         foreach ( shiftr()->fonts as $font ) {
             shiftr_preload_font( $font );
@@ -20,7 +19,7 @@ add_action( 'wp_head', 'shiftr_fonts', 11 );
  * 
  * @param array $font Associative array, contains url and host
  */
-function shiftr_preload_font( $font = array() ) {
+function shiftr_preload_font( array $font = [] ) {
     $url = $font['url'];
     $host = isset( $font['host'] ) ? $font['host'] : '';
     
@@ -33,33 +32,33 @@ function shiftr_preload_font( $font = array() ) {
         $host = $matches[0];
     }
 
-    $preconnect_attr = array(
-        'rel' => 'preconnect',
-        'href' => $host,
-        'crossorigin' => ''
-    );
+    $preconnect_attr = [
+        'rel'           => 'preconnect',
+        'href'          => $host,
+        'crossorigin'   => ''
+    ];
     echo '<link ' . shiftr_output_attr( $preconnect_attr, true ) . '>';
 
-    $stylesheet_attr = array(
-        'rel' => 'preload',
-        'href' => $url,
-        'as' => 'style',
-        'onLoad' => "this.onload=null;this.rel='stylesheet'"
-    );
+    $stylesheet_attr = [
+        'rel'       => 'preload',
+        'href'      => $url,
+        'as'        => 'style',
+        'onLoad'    => "this.onload=null;this.rel='stylesheet'"
+    ];
     echo '<link ' . shiftr_output_attr( $stylesheet_attr ) . '>';
 
-    $print_stylesheet_attr = array(
-        'rel' => 'stylesheet',
-        'href' => $url,
-        'media' => 'print',
-        'onLoad' => "this.media='all'"
-    );
+    $print_stylesheet_attr = [
+        'rel'       => 'stylesheet',
+        'href'      => $url,
+        'media'     => 'print',
+        'onLoad'    => "this.media='all'"
+    ];
     echo '<link ' . shiftr_output_attr( $print_stylesheet_attr ) . '>';
 
-    $noscript_attr = array(
-        'rel' => 'stylesheet',
-        'href' => $url
-    );
+    $noscript_attr = [
+        'rel'   => 'stylesheet',
+        'href'  => $url
+    ];
     echo '<noscript><link ' . shiftr_output_attr( $noscript_attr ) . '></noscript>';
 }
 

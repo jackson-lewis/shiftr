@@ -25,7 +25,7 @@ class Shiftr_Form_Handler {
     var $error = null;
 
     /* array Store filepaths to be included in send */
-    var $files = array();
+    var $files = [];
 
     /* int The assigned ID of the data post */
     var $data_ID = 0;
@@ -65,15 +65,15 @@ class Shiftr_Form_Handler {
 
         if ( shiftr_is_sending_form() ) {
 
-            add_action( 'wp_ajax_shiftr_form_handler', array( $this, 'init' ) );
-            add_action( 'wp_ajax_nopriv_shiftr_form_handler', array( $this, 'init' ) );
+            add_action( 'wp_ajax_shiftr_form_handler', [ $this, 'init' ] );
+            add_action( 'wp_ajax_nopriv_shiftr_form_handler', [ $this, 'init' ] );
 
             // For if our send attempt fails
-            add_action( 'wp_mail_failed', array( $this, 'failed' ) );
+            add_action( 'wp_mail_failed', [ $this, 'failed' ] );
 
         } else {
 
-            add_action( 'shiftr_delete_expired_form_data', array( $this, 'delete_expired_data' ) );
+            add_action( 'shiftr_delete_expired_form_data', [ $this, 'delete_expired_data' ] );
 
             if ( ! wp_next_scheduled( 'shiftr_delete_expired_form_data' ) ) {
 
@@ -93,10 +93,10 @@ class Shiftr_Form_Handler {
     function init() {
         global $shiftr;
 
-        $this->response = array(
+        $this->response = [
             'success' => false,
             'message' => ''
-        );
+        ];
 
         $this->verification();
 
@@ -117,7 +117,7 @@ class Shiftr_Form_Handler {
      * 
      * @param array $response
      */
-    function send_response( $response = array() ) {
+    function send_response( array $response = [] ) {
         wp_send_json( wp_parse_args( $response, $this->response ) );
     }
 
@@ -128,7 +128,6 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function verification() {
-
         // Validate email address
         $email = $this->get_value( 'email' );
 
@@ -140,32 +139,19 @@ class Shiftr_Form_Handler {
         }
 
         // Check all required fields have a value
-        $empty_required_fields = array();
+        $empty_required_fields = [];
 
         foreach ( $this->form_instance->fields as $field ) {
-
-            $defaults = array(
-                'type'              => '',
-                'name'              => '',
-                'required'          => true,
-                'label'             => '',
-                'include_in_send'   => true,
-                'rows'              => 4
-            );
-
-            $field = wp_parse_args( $field, $defaults );
+            $field = wp_parse_args( $field, $this->get_default_field_args() );
 
             if ( $field['required'] ) {
-
                 if ( $field['type'] == 'file' ) {
-
                     if ( empty( $this->get_file( $field['name'] ) ) ) {
 
                         $empty_required_fields[] = $field['name'];
                     }
 
                 } else if ( ! $this->has_value( $field['name'] ) ) {
-
                     $empty_required_fields[] = $field['name'];
                 }
             }
@@ -198,13 +184,12 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function capture() {
+        global $shiftr;
 
         do_action( 'shiftr_form_handler_capture_before', $this->form_instance );
 
-        global $shiftr;
-
         $title = date( 'd-m-y-H:i:s' );
-        $data = array();
+        $data = [];
 
         // Ignores the 'include_in_send' field setting
         foreach ( $this->form_instance->fields as $field ) {
@@ -238,11 +223,11 @@ class Shiftr_Form_Handler {
         }
 
         // List of args for the post
-        $args = array(
+        $args = [
             'post_author' => 1,
             'post_title' => $title,
             'post_type' => 'shiftr_form_data'
-        );
+        ];
 
         $args = apply_filters( 'shiftr_form_handler_capture_post_args', $args, $this->form );
 
@@ -300,15 +285,15 @@ class Shiftr_Form_Handler {
 
         // Try and sent the form
         if ( wp_mail( $recepients, $subject, $this->html(), $headers, $this->files ) ) {
-            $response = array(
+            $response = [
                 'success' => true,
                 'message' => 'Thank you for your submission'
-            );
+            ];
 
         } else {
-            $response = array(
+            $response = [
                 'message' => 'Err 4: There was an error while trying to send your message.'
-            );
+            ];
         }
 
         do_action( 'shiftr_form_handle_after', $this );
@@ -322,10 +307,9 @@ class Shiftr_Form_Handler {
      *
      *  @since 1.0
      *
-     *  @return str The HTML of the email
+     *  @return string The HTML of the email
      */
     function html() {
-
         // Body open
         $html_open = '<html><body>';
         $body_open = '<h1>New Message</h1>';
@@ -343,17 +327,7 @@ class Shiftr_Form_Handler {
 
         $i = 1;
         foreach ( $fields as $field ) {
-
-            $defaults = array(
-                'type'              => '',
-                'name'              => '',
-                'required'          => true,
-                'label'             => '',
-                'include_in_send'   => true,
-                'rows'              => 4
-            );
-
-            $field = wp_parse_args( $field, $defaults );
+            $field = wp_parse_args( $field, $this->get_default_field_args() );
 
             // Check field value exists in $_POST
             if ( ! $this->has_value( $field['name'] ) ) continue;
@@ -398,22 +372,10 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function maybe_upload_attachments() {
-
-        $files = array();
+        $files = [];
 
         foreach ( $this->form_instance->fields as $field ) {
-
-            $defaults = array(
-                'type'              => '',
-                'name'              => '',
-                'required'          => true,
-                'label'             => '',
-                'include_in_send'   => true,
-                'rows'              => 4,
-                'max_file_size'     => 20000000
-            );
-
-            $field = wp_parse_args( $field, $defaults );
+            $field = wp_parse_args( $field, $this->get_default_field_args() );
 
             if ( $field['type'] == 'file' ) {
 
@@ -435,33 +397,33 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  Find all files and attach to email
+     * Find all files and attach to email
      *
-     *  @since 1.0
+     * @since 1.0
+     * @param string $field_name
+     * @return array
      */
-    function upload_attachment( $field_name = '', $field = null ) {
+    function upload_attachment( string $field_name = '', $field = null ) {
         $file = $_FILES[ '_' . $this->form_ID . '_' . $field_name ];
 
         $secret_dir = $this->generate_secret_dir( $field_name );
         $this->secret_uploads_dir = $secret_dir;
 
-        add_filter( 'upload_dir', array( $this, 'uploads_filter' ) );
+        add_filter( 'upload_dir', [ $this, 'uploads_filter' ] );
         
-        $upload = wp_handle_upload( $file, array(
-            'test_form' => false
-        ));
+        $upload = wp_handle_upload( $file, [ 'test_form' => false ] );
 
-        remove_filter( 'upload_dir', array( $this, 'uploads_filter' ) );
+        remove_filter( 'upload_dir', [ $this, 'uploads_filter' ] );
 
         if ( $upload && ! isset( $upload['error'] ) ) {
-            add_action( 'shiftr_form_handle_after', array( $this, 'delete_uploaded_files' ) );
+            add_action( 'shiftr_form_handle_after', [ $this, 'delete_uploaded_files' ] );
 
-            return array(
+            return [
                 'path' => $upload['file']
-            );
+            ];
         }
 
-        return array();
+        return [];
     }
 
 
@@ -469,8 +431,10 @@ class Shiftr_Form_Handler {
      * Validate the file
      * 
      * @since 1.3.5
+     * @param array $field
+     * @return bool
      */
-    function validate_attachment( $field ) {
+    function validate_attachment( array $field ) {
         $file = $_FILES[ '_' . $this->form_ID . '_' . $field['name'] ];
 
         /**
@@ -503,7 +467,11 @@ class Shiftr_Form_Handler {
         return true;
     }
 
-    function uploads_filter( $args ) {
+
+    /**
+     * @param array $args
+     */
+    function uploads_filter( array $args ) {
         $secret_dir = '/' . $this->secret_uploads_dir;
 
         if ( $secret_dir ) {
@@ -521,26 +489,23 @@ class Shiftr_Form_Handler {
         return $args;
     }
 
-    function generate_secret_dir( $field_name ) {
+
+    /**
+     * @param string $field_name
+     */
+    function generate_secret_dir( string $field_name ) {
         return md5( $this->form_ID . $field_name );
     }
 
 
-    function delete_uploaded_files( $handler ) {
+    /**
+     * Delete posts.
+     */
+    function delete_uploaded_files() {
         $uploads = wp_get_upload_dir();
 
         foreach ( $this->form_instance->fields as $field ) {
-
-            $defaults = array(
-                'type'              => '',
-                'name'              => '',
-                'required'          => true,
-                'label'             => '',
-                'include_in_send'   => true,
-                'rows'              => 4
-            );
-
-            $field = wp_parse_args( $field, $defaults );
+            $field = wp_parse_args( $field, $this->get_default_field_args() );
 
             if ( $field['type'] == 'file' ) {
                 $dir = $uploads['basedir'] . '/' . $this->generate_secret_dir( $field['name'] );
@@ -559,11 +524,10 @@ class Shiftr_Form_Handler {
      *
      *  @since 1.0
      *
-     *  @param $emails str The email addresses as a single string
-     *  @return $emails str The email addresses formatted with seperating commas
+     *  @param string $emails The email addresses as a single string
+     *  @return string The email addresses formatted with seperating commas
      */
-    function format_multiple_emails( $emails ) {
-
+    function format_multiple_emails( string $emails ) {
         // Remove lines and any spaces
         $emails = trim( preg_replace( '/\s\s+/', ',', $emails ) );
 
@@ -576,10 +540,10 @@ class Shiftr_Form_Handler {
      *
      *  @since 1.0
      *
-     *  @param $number str The raw phone number
-     *  @return $formatted str The formatted phone number
+     *  @param string $number The raw phone number
+     *  @return string
      */
-    function format_phone_number( $number ) {
+    function format_phone_number( string $number ) {
         $formatted = $number;
 
         // Format mobile number
@@ -596,12 +560,12 @@ class Shiftr_Form_Handler {
 
 
     /**  
-     *  Handle a phpmailerException 
+     * Handle a phpmailerException 
      *
-     *  @since 1.0
+     * @since 1.0
+     * @param WP_Error $wp_error
      */
-    function failed( $wp_error ) {
-
+    function failed( WP_Error $wp_error ) {
         $this->error = $wp_error;
 
         // Add error object to db
@@ -626,14 +590,13 @@ class Shiftr_Form_Handler {
 
         $expiration_date = date( 'Y-m-d H:i:s', strtotime( "-$days days", strtotime( date( 'Y-m-d H:i:s' ) ) ) );
 
-        $posts = get_posts( array(
+        $posts = get_posts([
             'post_type'     => 'shiftr_form_data',
             'post_status'   => 'draft',
             'numberposts'   => -1
-        ));
+        ]);
 
         foreach ( $posts as $post ) {
-
             setup_postdata( $post );
 
             // Delete post if post date is after expiration date
@@ -653,7 +616,6 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function get_value( $field = '' ) {
-
         if ( $this->value_exists( $field ) ) {
             return $_POST[$this->POST_field( $field )];
 
@@ -669,11 +631,8 @@ class Shiftr_Form_Handler {
      *  @since 1.0
      */
     function has_value( $field = '' ) {
-
         if ( isset( $_POST[$this->POST_field( $field )] ) ) {
-            
             if ( $this->get_value( $field ) != '' ) {
-
                 return true;
 
             } else {
@@ -713,6 +672,24 @@ class Shiftr_Form_Handler {
      */
     function POST_field( $field = '' ) {
         return '_' . $this->form_ID . '_' . $field;
+    }
+
+
+    /**
+     * Get the default field args
+     * 
+     * @return array
+     */
+    function get_default_field_args() {
+        return [
+            'type'              => '',
+            'name'              => '',
+            'required'          => true,
+            'label'             => '',
+            'include_in_send'   => true,
+            'rows'              => 4,
+            'max_file_size'     => 20000000
+        ];
     }
 }
 

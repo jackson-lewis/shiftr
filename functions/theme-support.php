@@ -10,7 +10,6 @@
  *  @since 1.0
  */
 function shiftr_theme_support() {
-
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
 
@@ -21,18 +20,36 @@ function shiftr_theme_support() {
 add_action( 'after_setup_theme', 'shiftr_theme_support' );
 
 
+/**
+ * Disable Gutenberg for pages.
+ * 
+ * @since 1.6.2
+ * @param bool $use_block_editor
+ * @param string $post_type
+ * @return bool
+ */
+function shiftr_block_editor_for_post_type( $use_block_editor, $post_type ) {
+
+    if ( $post_type == 'page' ) {
+        return false;
+    }
+
+    return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'shiftr_block_editor_for_post_type', 10, 2 );
+
+
 /**  
  *  Filter and remove <p> tags surrounding images in content
  *
  *  @since 1.0
  */
 function shiftr_filter_the_content( $content ) {
-
     // Remove <p> tags wrapped around <img>
     $content = preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $content );
 
     // Remove p tag surrounding anchor buttons
-    $content = preg_replace( '/<p\s?(?:style)?[=]?[\"]?([^\">]*)[\"]?>\s*(<a\sclass="[^"]*(?:button\-)[^"]*".*>[a-zA-z0-9\-_&!\?£%\(\)>\s]*<\/a>)\s*<\/p>/', '<div class="content-button-wrapper" data-style="\1">\2</div>', $content );
+    $content = preg_replace( '/<p\s?(?:style)?[=]?[\"]?([^\">]*)[\"]?>\s*(<a\sclass="[^"]*(?:button)[^"]*".*>[a-zA-z0-9\-_&!\?£%\(\)>\s]*<\/a>)\s*<\/p>/', '<div class="content-button-wrapper" data-style="\1">\2</div>', $content );
 
     return $content;
 }

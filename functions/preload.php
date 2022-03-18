@@ -25,7 +25,7 @@ function shiftr_preload_post_thumbnail() {
      */
     $image = wp_get_attachment_image_src( $thumbnail_id, $image_size );
     $src = '';
-    $attr = array();
+    $attr = [];
     $attr_string = '';
 
     $attachment = get_post( $thumbnail_id );
@@ -43,7 +43,7 @@ function shiftr_preload_post_thumbnail() {
         $image_meta = wp_get_attachment_metadata( $thumbnail_id );
  
         if ( is_array( $image_meta ) ) {
-            $size_array = array( absint( $width ), absint( $height ) );
+            $size_array = [ absint( $width ), absint( $height ) ];
             $srcset     = wp_calculate_image_srcset( $size_array, $src, $image_meta, $thumbnail_id );
             $sizes      = wp_calculate_image_sizes( $size_array, $src, $image_meta, $thumbnail_id );
 
@@ -64,7 +64,7 @@ function shiftr_preload_post_thumbnail() {
         /**
          * Process all the necessary formatting to prepare for generating attributes string
          */
-        $attr = array_intersect_key( $attr, array_flip( array( 'src', 'srcset', 'sizes' ) ) );
+        $attr = array_intersect_key( $attr, array_flip( [ 'src', 'srcset', 'sizes' ] ) );
 	    $attr = array_map( 'esc_attr', $attr );
 
         $src = $attr['src'];
@@ -96,11 +96,11 @@ add_action( 'wp_head', 'shiftr_preload_post_thumbnail', 1 );
  */
 add_filter( 'shiftr_preload_post_thumbnail_early_exit', function( $exit ) {
 
-    if ( is_singular( array( 'post' ) ) ) {
+    if ( is_singular( [ 'post' ] ) ) {
         return false;
     }
 
-    if ( is_singular( array( 'page' ) ) && get_page_template_slug() == 'templates/flexi-blocks-builder.php' ) {
+    if ( is_singular( [ 'page' ] ) && get_page_template_slug() == 'templates/flexi-blocks-builder.php' ) {
         return false;
     }
 
@@ -118,7 +118,7 @@ add_filter( 'shiftr_preload_post_thumbnail_size', function( $size ) {
         $size = 'large';
     }
 
-    if ( is_singular( array( 'page' ) ) && get_page_template_slug() == 'templates/flexi-blocks-builder.php' ) {
+    if ( is_singular( [ 'page' ] ) && get_page_template_slug() == 'templates/flexi-blocks-builder.php' ) {
         $size = 'full';
     }
 

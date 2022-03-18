@@ -3,14 +3,13 @@
  *  Take the contact type and assign the corresponding value
  *
  *  @since 1.0
- *
- *  @param $target str The contact type
- *  @param $email_value str The email value
- *  @param $phone_value str The phone value
- *  @param $address_value str The address value
+ *  @param string $target The contact type
+ *  @param string $email_value The email value
+ *  @param string $phone_value The phone value
+ *  @param string $address_value The address value
  *  @return string
  */
-function shiftr_contact_type( $target, $email_value, $phone_value, $address_value ) {
+function shiftr_contact_type( string $target, string $email_value, string $phone_value, string $address_value ) {
 
     if ( $target == 'email' ) {
         $variable_to_assign = $email_value;
@@ -30,21 +29,18 @@ function shiftr_contact_type( $target, $email_value, $phone_value, $address_valu
  *  Build the anchor element
  *
  *  @since 1.0
- *
  *  @param $args array Assign contact details and type to use
  *  @param $direct bool Has function been called directly or not
  *  @return string|bool
  */
-function shiftr_contact_link( $args = array(), $direct = true ) {
+function shiftr_contact_link( array|string $args = [], bool $direct = true ) {
+    global $shiftr;
 
     // Do not allow this function to be called directly
     if ( $direct ) return false;
 
-    // Get $shiftr
-    global $shiftr;
-
     // The default values for the function to process
-    $defaults = array(
+    $defaults = [
         'type'              => 'email',
         'show_as'           => 'inline',
         'class'             => '',
@@ -55,7 +51,7 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
         'address'           => $shiftr->address,
         'address_link'      => $shiftr->address_link,
         'address_format'    => 'inline'
-    );
+    ];
 
     $args = (object) wp_parse_args( $args, $defaults );
 
@@ -75,7 +71,7 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
     }
 
     // Setup for attributes
-    $attr = array();
+    $attr = [];
 
 
     $attr['href'] = shiftr_contact_type( $args->type, 'mailto:' . $args->email, 'tel:' . str_replace( ' ', '', $args->phone ), $args->address_link );
@@ -84,7 +80,6 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
     $attr['target'] = shiftr_contact_type( $args->type, '_blank', '', '_blank' );
 
     if ( $args->type == 'address' ) {
-
         $attr['rel'] = 'noopener';
     }
 
@@ -93,7 +88,6 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
     $attr['class'] = ( $args->show_as == 'button' ) ? 'button' : '';
 
     if ( $args->class != '' ) {
-
         if ( $attr['class'] != '' ) {
             $attr['class'] .= ' ';
         }
@@ -102,7 +96,6 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
     }
 
     if ( $args->type == 'address' && $args->address == $args->content ) {
-
         if ( $args->address_format == 'inline' ) {
             $formatted = $args->content;
 
@@ -110,7 +103,6 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
             $address_content = explode( ', ', $args->content );
 
             $formatted = '';
-
             $i = 1;
 
             foreach ( $address_content as $line ) {
@@ -127,7 +119,6 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
         $link = '<a ' . shiftr_output_attr( $attr ) . '>' . $formatted . '</a>';
 
     } else {
-
         $link = '<a ' . shiftr_output_attr( $attr ) . '>' . str_replace( ' ', '&nbsp;', $args->content ) . '</a>';
     }
 
@@ -139,10 +130,9 @@ function shiftr_contact_link( $args = array(), $direct = true ) {
  *  Output the contact link within PHP
  *
  *  @since 1.0
- *
- *  @param $args array Assign contact details and type to use
+ *  @param array $args Assign contact details and type to use
  */
-function shiftr_add_contact_link( $args = [] ) {
+function shiftr_add_contact_link( array $args = [] ) {
     echo shiftr_contact_link( $args, false );
 }
 
@@ -151,10 +141,10 @@ function shiftr_add_contact_link( $args = [] ) {
  *  Function to run on call to shortcode [email_link] - output email link
  *
  *  @since 1.0
- *
- *  @param $atts array Arguments supported by shiftr_contact_link()
+ *  @param array $atts Arguments supported by shiftr_contact_link()
+ *  @return string
  */
-function shiftr_add_inline_email( $atts = [] ) {
+function shiftr_add_inline_email( array|string $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
     return shiftr_contact_link( $atts, false );
@@ -167,12 +157,12 @@ add_shortcode( 'email_link', 'shiftr_add_inline_email' );
  *
  *  @since 1.0
  *
- *  @param $atts array Arguments supported by shiftr_contact_link()
+ *  @param array $atts Arguments supported by shiftr_contact_link()
  */
-function shiftr_add_inline_phone( $atts = [] ) {
+function shiftr_add_inline_phone( array|string $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
-    $as_phone = array( 'type' => 'phone' );
+    $as_phone = [ 'type' => 'phone' ];
 
     return shiftr_contact_link( array_merge( $as_phone, $atts ), false );
 }
