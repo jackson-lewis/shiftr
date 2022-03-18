@@ -126,7 +126,7 @@
 }
 
 
-.hero__standard {
+.hero--standard {
     @extend %hero;
 
     &.with-post-thumbnail {

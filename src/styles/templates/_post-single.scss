@@ -13,7 +13,7 @@ body.single-post {
     margin-top: 40px;
     margin-bottom: get_baseline( 2 );
 
-    .post-featured-image {
+    .hero__feature-image {
         width: 100%;
         margin-bottom: get_baseline();
         position: relative;
@@ -30,7 +30,7 @@ body.single-post {
         }
     }
 
-    .post-header {
+    .hero__content {
         padding: 0 var(--site-padding);
 
         & > div.container {
