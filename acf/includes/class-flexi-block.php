@@ -218,7 +218,7 @@ class Flexi_Block {
             Field_Types\true_false_field(
                 'Use global block',
                 [
-                    'key'       => $this->name . '_settings_use_global',
+                    'key'       => $this->name . '_block_setting_use_global',
                     'name'      => 'use_global',
                     'wrapper'   => [
                         'width'     => '20'
@@ -240,7 +240,7 @@ class Flexi_Block {
             Field_Types\text_field(
                 'ID',
                 [
-                    'key'       => $this->name . '_settings_id',
+                    'key'       => $this->name . '_block_setting_id',
                     'name'      => 'id',
                     'wrapper'   => [
                         'width'     => '30'
@@ -262,7 +262,7 @@ class Flexi_Block {
             Field_Types\select_field(
                 'Background',
                 [
-                    'key'           => $this->name . '_settings_background',
+                    'key'           => $this->name . '_block_setting_background',
                     'name'          => 'background',
                     'choices'       => $this->args['settings']['background']['choices'],
                     'default_value' => $this->args['settings']['background']['default_value'],
@@ -286,7 +286,7 @@ class Flexi_Block {
             Field_Types\button_group_field(
                 'Layout',
                 [
-                    'key'           => $this->name . '_settings_layout',
+                    'key'           => $this->name . '_block_setting_layout',
                     'name'          => 'layout',
                     'choices'       => $this->args['settings']['layout']['choices'],
                     'default_value' => $this->args['settings']['layout']['default_value']
@@ -306,7 +306,7 @@ class Flexi_Block {
         return Field_Types\tab_field(
             $name,
             [
-                'key' => "field_tab_{$this->name}_" . sanitize_title( $name )
+                'key' => "{$this->name}_block_tab_" . sanitize_title( $name )
             ]
         );
     }
@@ -321,7 +321,7 @@ class Flexi_Block {
         return Field_Types\wysiwyg_field(
             'Block before',
             [
-                'key'       => "field_tab_{$this->name}_block-before",
+                'key'       => "{$this->name}_block_block-before",
                 'wrapper'   => [
                     'class'     => 'hide-label mini-editor'
                 ]
@@ -339,7 +339,7 @@ class Flexi_Block {
         return Field_Types\wysiwyg_field(
             'Block after',
             [
-                'key'       => "field_tab_{$this->name}_block-after",
+                'key'       => "{$this->name}_block_block-after",
                 'wrapper'   => [
                     'class'     => 'hide-label mini-editor'
                 ]
