@@ -8,5 +8,5 @@
 ?>
 <div class="container">
     <p><?php the_flexi_field( 'label' ); ?></p>
-    <a href="<?php the_flexi_field( 'link' ); ?>" class="button"><?php the_flexi_field( 'link-label' ); ?></a>
+    <a href="<?php the_flexi_field( 'link' ); ?>" class="button"><?php the_flexi_field( 'link_label' ); ?></a>
 </div>
