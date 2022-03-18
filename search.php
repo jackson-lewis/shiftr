@@ -8,8 +8,8 @@ global $wp_query;
 ?>
 
 <main class="site-main">
-    <div class="hero--basic">
-        <header class="container hero-content">
+    <div class="hero hero__basic">
+        <header class="container hero__content">
             <h1><?php echo get_search_query() ?></h1>
             <?php if  ( get_search_query() != '' ) : $count = $wp_query->found_posts; ?>
             <span class="search-result-count"><?php printf( _n( '%s result was', '%s results were', $count ) . ' found', number_format_i18n( $count ) ); ?></span>
