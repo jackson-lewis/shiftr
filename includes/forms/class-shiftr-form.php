@@ -207,7 +207,8 @@ class Shiftr_Form {
             'required'          => true,
             'label'             => '',
             'include_in_send'   => true,
-            'rows'              => 4
+            'rows'              => 4,
+            'value'             => ''
         ];
 
         $args = (object) wp_parse_args( $settings, $defaults );
