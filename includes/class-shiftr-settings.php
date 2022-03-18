@@ -56,7 +56,7 @@ class Shiftr_Settings {
      *  @since 1.0
      */
     function __construct() {
-        add_action( 'acf/init', [ $this, 'init' ] );
+        add_action( 'acf/init', [ $this, 'init' ], 20 );
     }
 
 
@@ -64,11 +64,11 @@ class Shiftr_Settings {
      * Init. This ensures ACF has initiated first.
      */
     function init() {
-        $contact_details = $this->get_acf_value( 'contact-details' );
+        $contact_details = $this->get_acf_value( 'contact_details' );
 
         if ( $contact_details ) {
-            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : '';
-            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : '';
+            $this->email        = isset( $contact_details['email_address'] ) ? $contact_details['email_address'] : '';
+            $this->phone        = isset( $contact_details['phone_number'] ) ? $contact_details['phone_number'] : '';
             $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : '';
         }
 

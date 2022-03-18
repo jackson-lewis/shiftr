@@ -66,7 +66,7 @@ add_filter( 'excerpt_more', '__return_empty_string' );
  * Displays the built-in Announcement Bar component.
  */
 function shiftr_announcement_bar() {
-    $announcement_bar = get_field( 'announcement-bar', 'options' );
+    $announcement_bar = get_field( 'announcement_bar', 'options' );
 
     if ( is_front_page() && $announcement_bar && $announcement_bar['message'] ) :
     ?>

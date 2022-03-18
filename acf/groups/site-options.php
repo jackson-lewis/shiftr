@@ -5,7 +5,7 @@ use Shiftr_ACF\Utils;
 use Shiftr_ACF\Field_Types;
 
 
-$fields =[
+$fields = [
     Field_Types\tab_field( 'Contact Details' ),
     Field_Types\group_field(
         'Contact Details',
