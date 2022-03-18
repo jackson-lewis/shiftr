@@ -10,6 +10,8 @@ define( 'SHIFTR_ACF', get_template_directory() . '/acf' );
 
 require_once( SHIFTR_INC . '/shiftr-util.php' );
 require_once( SHIFTR_INC . '/admin/shiftr-install.php' );
+require_once( SHIFTR_FUNC . '/plugins.php' );
+
 
 
 if ( $shiftr_has_acf ) {
