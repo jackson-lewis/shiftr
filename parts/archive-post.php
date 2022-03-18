@@ -7,8 +7,8 @@ get_header();
 ?>
 
 <main class="site-main">
-    <div class="hero--basic">
-        <header class="container hero-content">
+    <div class="hero hero--basic">
+        <header class="container hero__content">
             <h1><?php shiftr_archive_title(); ?></h1>
             <?php shiftr_archive_description(); ?>
         </header>

@@ -14,13 +14,13 @@ get_header();
 ?>
 
 <main class="site-main">
-    <div class="hero--standard<?php echo has_post_thumbnail() ? ' with-post-thumbnail' : ''; ?>">
+    <div class="hero hero--standard<?php echo has_post_thumbnail() ? ' with-post-thumbnail' : ''; ?>">
         <?php if ( has_post_thumbnail() ) : ?>
-        <div class="hero-feature-image">
+        <div class="hero__feature-image">
             <?php shiftr_featured_image( get_the_ID(), 'full', [ 'loading' => false ] ); ?>
         </div>
         <?php endif; ?>
-        <div class="hero-content">
+        <div class="hero__content">
             <div class="container">
                 <?php 
                     if ( have_posts() ) {
