@@ -12,13 +12,20 @@ namespace Shiftr_ACF\Field_Types;
  * @return array
  */
 function process_field_args( string $type, string $label, array $args = [], array $field_defaults = [] ) {
+    $sanitized_label = sanitize_title( str_replace( ' ', '_', $label ) );
+
+    if ( $type == 'tab' ) {
+        $sanitized_label = 'tab_' . $sanitized_label;
+    }
+
     return wp_parse_args(
         $args,
         array_merge(
             [
-                'key'               => sanitize_title( $label ),
+                'key'               => $sanitized_label,
                 'label'             => $label,
-                'name'              => sanitize_title( $label ),
+                'name'              => $sanitized_label,
+                'type'              => $type,
                 'instructions'      => '',
                 'required'          => 0,
                 'conditional_logic' => 0,
@@ -550,7 +557,8 @@ function tab_field( string $label, array $args = [] ) {
         $label,
         $args,
         [
-            'endpoint' => 0
+            'placement' => 'top',
+            'endpoint'  => 0
         ]
     );
 }
