@@ -33,7 +33,7 @@ function shiftr_contact_type( string $target, string $email_value, string $phone
  *  @param $direct bool Has function been called directly or not
  *  @return string|bool
  */
-function shiftr_contact_link( array $args = [], bool $direct = true ) {
+function shiftr_contact_link( array|string $args = [], bool $direct = true ) {
     global $shiftr;
 
     // Do not allow this function to be called directly
@@ -144,7 +144,7 @@ function shiftr_add_contact_link( array $args = [] ) {
  *  @param array $atts Arguments supported by shiftr_contact_link()
  *  @return string
  */
-function shiftr_add_inline_email( $atts = [] ) {
+function shiftr_add_inline_email( array|string $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
     return shiftr_contact_link( $atts, false );
@@ -159,7 +159,7 @@ add_shortcode( 'email_link', 'shiftr_add_inline_email' );
  *
  *  @param array $atts Arguments supported by shiftr_contact_link()
  */
-function shiftr_add_inline_phone( array $atts = [] ) {
+function shiftr_add_inline_phone( array|string $atts = [] ) {
     $atts = array_change_key_case( (array)$atts, CASE_LOWER );
 
     $as_phone = [ 'type' => 'phone' ];

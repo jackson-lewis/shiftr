@@ -12,10 +12,10 @@ class Shiftr_Settings {
 
 
     // Contact Details
-    public $email;
-    public $phone;
-    public $address;
-    public $address_link;
+    public $email = '';
+    public $phone = '';
+    public $address = '';
+    public $address_link = '';
 
 
     // --|  Dev Settings
@@ -67,9 +67,9 @@ class Shiftr_Settings {
         $contact_details = $this->get_acf_value( 'contact-details' );
 
         if ( $contact_details ) {
-            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : null;
-            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : null;
-            $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : null;
+            $this->email        = isset( $contact_details['email-address'] ) ? $contact_details['email-address'] : '';
+            $this->phone        = isset( $contact_details['phone-number'] ) ? $contact_details['phone-number'] : '';
+            $this->address      = isset( $contact_details['address'] ) ? $contact_details['address'] : '';
         }
 
         /**

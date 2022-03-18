@@ -19,7 +19,7 @@
                 printf( '<p>%s</p>', shiftr()->address );
             }
 
-            shiftr_yoast_socials();
+            shiftr_social_media_links();
 
             ?>
         </address>
