@@ -2,19 +2,24 @@
 
 
 ## v1.6.2
-*16/03/22*
+*18/03/22*
 
-Done/On-going:
-* BEM Naming Convention
-* PHP Type Declarations
-* PHP array syntax update from `array()` to `[]`
-* ACF field keys scoped to Flexi blocks
-* ACF group files auto loaded
-* Improved filtering (again) of form submit button label
+This release focuses on standards, with the soft introduction to BEM naming convention to CSS classes, PHP type declarations and updated PHP array syntax.
 
-Coming:
-* Support for RankMath SEO plugin
-* Revert pages back to classic editor
+### PHP
+* PHP type declarations - All functions have been updated with a set type on parameters.
+* Every array is now defined using `[]` instead of `array()` - modernizing the theme further.
+
+### ACF
+* Fields in a Flexi Block are now scoped to the block by its slug, preventing conflicts between fields of the same name between blocks.
+* Group files are auto-loaded, instead of including them manually.
+* The built-in fields for settings and tabs have better keys.
+* The 'ID' setting label has been updated to 'HTML ID' so it is clearer what it's for.
+
+### Other
+* New filter `apply_filters( 'shiftr_form_submit_field_label', $label, $form_slug )` makes it even easier to change the label of the submit button to a form.
+* Support for Rank Math SEO plugin in `shiftr_breadcrumb()`, which checks if either Yoast or Rank Math is active before outputing any HTML. The function now can also be called to only return the output, instead of always echo'ing it.
+* Reverted back to the classic editor for pages due to issues with Gutenberg and not being able to preview data from meta boxes (ACF).
 
 
 
