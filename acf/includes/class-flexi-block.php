@@ -238,7 +238,7 @@ class Flexi_Block {
         return apply_filters(
             'shiftr_acf_flexi_block_setting_id',
             Field_Types\text_field(
-                'ID',
+                'HTML ID',
                 [
                     'key'       => $this->name . '_block_setting_id',
                     'name'      => 'id',
