@@ -10,6 +10,7 @@ Done/On-going:
 * PHP array syntax update from `array()` to `[]`
 * ACF field keys scoped to Flexi blocks
 * ACF group files auto loaded
+* Improved filtering (again) of form submit button label
 
 Coming:
 * Support for RankMath SEO plugin
