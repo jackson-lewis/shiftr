@@ -7,12 +7,12 @@ get_header();
 
 <main class="site-main">
 
-    <div class="hero--post_single">
+    <div class="hero hero--post_single">
         <div class="container">
-            <div class="post-featured-image">
+            <div class="hero__feature-image">
                 <?php shiftr_featured_image( get_the_ID(), 'large', [ 'loading' => false ] ); ?>
             </div>
-            <header class="post-header">
+            <header class="hero__content">
                 <div class="container">
                     <?php the_title( '<h1>', '</h1>' ); ?>
                     <time datetime="<?php the_time( 'Y-m-d' ); ?>"><?php the_time( 'd F Y' ); ?></time>
