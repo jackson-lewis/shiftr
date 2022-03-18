@@ -20,6 +20,25 @@ function shiftr_theme_support() {
 add_action( 'after_setup_theme', 'shiftr_theme_support' );
 
 
+/**
+ * Disable Gutenberg for pages.
+ * 
+ * @since 1.6.2
+ * @param bool $use_block_editor
+ * @param string $post_type
+ * @return bool
+ */
+function shiftr_block_editor_for_post_type( $use_block_editor, $post_type ) {
+
+    if ( $post_type == 'page' ) {
+        return false;
+    }
+
+    return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'shiftr_block_editor_for_post_type', 10, 2 );
+
+
 /**  
  *  Filter and remove <p> tags surrounding images in content
  *
