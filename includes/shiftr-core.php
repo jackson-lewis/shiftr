@@ -25,27 +25,30 @@ function shiftr_body_class( bool $use_shiftr = true ) {
 
     if ( is_home() ) {
         $classes[] = 'home';
+        $classes[] = 'archive';
         $classes[] = 'archive-post';
     }
 
-    if ( is_archive() ) {
+    if ( is_post_type_archive() ) {
         $classes[] = 'archive';
-        $classes[] = 'archive-' . get_post_type( $post->ID );
+        $classes[] = 'archive-' . get_query_var( 'post_type' );
     }
 
     if ( is_category() ) {
-        $queried_object = get_queried_object();
+        $category = get_queried_object();
+
+        $classes[] = 'archive';
         $classes[] = 'category';
-        $classes[] = 'cat-' . $queried_object->slug;
-        $classes[] = 'catid-' . $queried_object->term_id;
+        $classes[] = 'cat-' . $category->slug;
+        $classes[] = 'catid-' . $category->term_id;
     }
 
     if ( is_tax()  ) {
-        $queried_object = get_queried_object();
+        $term = get_queried_object();
 
         $classes[] = 'taxonomy';
-        $classes[] = 'term-' . $queried_object->slug;
-        $classes[] = 'termid-' . $queried_object->term_id;
+        $classes[] = 'term-' . $term->slug;
+        $classes[] = 'termid-' . $term->term_id;
     }
 
     if ( is_date() ) {
