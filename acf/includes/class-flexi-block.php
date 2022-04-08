@@ -395,6 +395,10 @@ class Flexi_Block {
         return array_map( function( $field ) {
             $field['key'] = $this->name . '-' . sanitize_title( $field['label'] );
 
+            if ( $field['type'] == 'repeater' ) {
+                $field['sub_fields'] = $this->process_fields( $field['sub_fields'] );
+            }
+
             return $field;
         }, $fields );
     }
