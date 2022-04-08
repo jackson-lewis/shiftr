@@ -213,6 +213,24 @@ function shiftr_archive_description() {
 }
 
 
+/**
+ * Displays the featured image of the associated page for the custom post type
+ * 
+ * @since 1.6.3
+ * @param string $size
+ * @param array $attr
+ */
+function shiftr_archive_thumbnail( string $size = 'full', array $attr = [] ) {
+
+    if ( is_home() ) {
+        shiftr_featured_image( get_option( 'page_for_posts' ), $size, $attr );
+
+    } else if ( is_post_type_archive() ) {
+        shiftr_featured_image( shiftr_get_page_id( get_query_var( 'post_type' ) ), $size, $attr );
+    }
+}
+
+
 /**  
  *  Include a template part
  *
@@ -272,7 +290,7 @@ function shiftr_get_block( string $block_name, array $args = [], string $templat
  * @return int
  */
 function shiftr_get_page_id( string $page ) {
-    $page_setup = get_field( 'page-setup', 'option' );
+    $page_setup = get_field( 'page_setup', 'option' );
 
     if ( is_array( $page_setup ) && isset( $page_setup['shiftr_' . $page . '_page_id'] ) ) {
         $page = $page_setup['shiftr_' . $page . '_page_id'];

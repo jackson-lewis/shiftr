@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.6.3
+*08/04/22*
+
+This releases addresses several bugs that cropped up as a result of `v1.6.2`.
+
+* Corrected ACF field names where hyphens changed to underscores. Specifically `block_before`, `block_after` and `page_setup`
+* On the `Flexi_Block`, sub fields on repeater fields are now all scoped to the block
+* The body classes for archives have been improved and fixed error when no posts found
+* Added `shiftr_archive_thumbnail()`, used to display the featured image of the post associated to a custom post type
+
+
+
 ## v1.6.2
 *18/03/22*
 

@@ -117,7 +117,7 @@ function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object = 
  * @param string $content Use html string instead of active field
  * @param string The name of the ACF field
  */
-function shiftr_block_heading( $field = 'block-before' ) {
+function shiftr_block_heading( $field = 'block_before' ) {
 
     $content = get_flexi_field( $field );
 
@@ -139,7 +139,7 @@ function shiftr_block_heading( $field = 'block-before' ) {
  * @param string $content Use html string instead of active field
  * @param string The name of the ACF field
  */
-function shiftr_block_after( $content = '', $field = 'block-after' ) {
+function shiftr_block_after( $content = '', $field = 'block_after' ) {
 
     $content = get_flexi_field( $field );
 
