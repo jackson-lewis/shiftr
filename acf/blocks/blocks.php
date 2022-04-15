@@ -210,3 +210,50 @@ Utils\register_flexi_block(
         'block_after'   => true
     ]
 );
+
+
+/**
+ * Accordion
+ */
+Utils\register_flexi_block(
+    'accordion',
+    'Accordion',
+    [
+        Field_Types\repeater_field(
+            'Items',
+            [
+                'sub_fields'     => [
+                    Field_Types\text_field( 'Title' ),
+                    Field_Types\wysiwyg_field( 'Content' )
+                ],
+                'button_label'  => 'Add Item',
+                'layout' => 'block'
+            ]
+        )
+    ],
+    [
+        'block_before'  => true,
+        'block_after'   => true,
+        'settings' => [
+            'default_open' => Field_Types\true_false_field(
+                'Open by default',
+                [
+                    'name' => 'default_open',
+                    'wrapper' => [
+                        'width' => 30
+                    ],
+                    'default_value' => 1
+                ]
+            ),
+            'allow_multi_open' => Field_Types\true_false_field(
+                'Allow multiple items open at once',
+                [
+                    'name' => 'allow_multi_open',
+                    'wrapper' => [
+                        'width' => 30
+                    ]
+                ]
+            )
+        ]
+    ]
+);
