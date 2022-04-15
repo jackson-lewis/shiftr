@@ -15,7 +15,7 @@ use Shiftr_ACF\Field_Types;
  */
 function shiftr_flexi_blocks_builder( $builder_name, $flexible_content_object = false ) {
 
-    if( ! $flexible_content_object ) {
+    if ( ! $flexible_content_object ) {
         if ( is_singular( 'page' ) ) {
             global $post;
             $flexible_content_object = $post;

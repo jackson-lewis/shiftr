@@ -9,6 +9,10 @@
 @import 'base/normalize/normalize';
 
 
+// Glide.js
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+
+
 //  Base
 @import 'base/variables';
 @import 'base/functions';
@@ -51,6 +55,7 @@
 @import 'blocks/contact';
 @import 'blocks/columns';
 @import 'blocks/accordion';
+@import 'blocks/gallery';
 
 
 //  Templates

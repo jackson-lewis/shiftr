@@ -257,3 +257,40 @@ Utils\register_flexi_block(
         ]
     ]
 );
+
+
+/**
+ * Gallery
+ */
+Utils\register_flexi_block(
+    'gallery',
+    'Image Gallery',
+    [
+        Field_Types\gallery_field( 'Images' )
+    ],
+    [
+        'block_before' => true,
+        'block_after' => true,
+        'settings' => [
+            'infinite_loop' => Field_Types\true_false_field(
+                'Infinite loop',
+                [
+                    'name' => 'infinite_loop',
+                    'wrapper' => [
+                        'width' => 30
+                    ],
+                    'default_value' => 1
+                ]
+            ),
+            'display_bullets' => Field_Types\true_false_field(
+                'Display bullet markers',
+                [
+                    'name' => 'display_bullets',
+                    'wrapper' => [
+                        'width' => 30
+                    ]
+                ]
+            )
+        ]
+    ]
+);

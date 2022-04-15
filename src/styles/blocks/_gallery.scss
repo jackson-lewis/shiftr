@@ -1,0 +1,130 @@
+/*
+
+    //  //// --|    Blocks / Image Gallery
+
+*/
+section.flexi-block.block--gallery {
+
+    .glide {
+        max-width: 736px;
+        margin: 0 auto;
+
+        li {
+            margin-bottom: 0;
+        }
+    }
+
+    .glide__track {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .glide__arrows {
+        width: 100%;
+        position: absolute;
+        top: calc( 50% - 24px );
+        left: 0;
+    }
+
+    &.display_bullets {
+        .glide__arrows {
+            top: calc( 50% - 42px );
+        }
+    }
+
+    .glide__arrow {
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        position: absolute;
+        top: 0;
+        cursor: pointer;
+
+        border-radius: var(--border-radius);
+        background: rgba( 0, 0, 0, .2 );
+        border: none;
+
+        transition: 300ms;
+
+        &:hover {
+            background-color: rgba( 0, 0, 0, .4 );
+        }
+
+        &[disabled] {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        &.glide__arrow--right {
+            right: 0;
+        }
+    }
+
+    .glide__bullets {
+        padding-top: 12px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .glide__bullet {
+        width: 24px;
+        height: 24px;
+        display: block;
+        position: relative;
+        margin: 0 4px;
+        cursor: pointer;
+
+        background: none;
+        border: none;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 16px;
+            height: 16px;
+
+            border: 1px solid var(--c-primary);
+            border-radius: 12px;
+            border-radius: 12px;
+
+            transition: 300ms;
+        }
+
+        &:not(.glide__bullet--active):hover {
+            &::before {
+                background-color: var(--c-primary);
+            }
+        }
+
+        &.glide__bullet--active {
+            &::before {
+                background-color: var(--c-primary);
+            }
+        }
+    }
+
+    div.image {
+        position: relative;
+
+        width: 100%;
+        padding-top: 75%;
+        overflow: hidden;
+
+        img {
+            @include object-fit;
+        }
+    }
+
+    &.bg-black {
+        .glide__arrow {
+            background: rgba( 255, 255, 255, .2 );
+    
+            &:hover {
+                background-color: rgba( 255, 255, 255, .4 );
+            }
+        }
+    }
+}
