@@ -108,4 +108,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 /**  
  * Disable the ACF admin for all users.
  */
-add_filter( 'acf/settings/show_admin', '__return_false' );
+if(!current_user_can('dev')){
+    add_filter( 'acf/settings/show_admin', '__return_false' );
+ }
