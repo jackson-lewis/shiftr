@@ -97,3 +97,8 @@ function shiftr_set_display_post_states( $post_states, $post ) {
     return $post_states;
 }
 add_filter( 'display_post_states', 'shiftr_set_display_post_states', 2, 10 );
+
+/**
+ * Add "Developer" user role
+ */
+add_role( 'dev', 'Developer', get_role( 'administrator' )->capabilities );
