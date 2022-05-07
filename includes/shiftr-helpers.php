@@ -209,7 +209,7 @@ function shiftr_archive_description() {
         }
     }
 
-    printf( '<div class="description">%s</div>', $description );
+    printf( '<div class="description">%s</div>', apply_filters( 'the_content', $description ) );
 }
 
 

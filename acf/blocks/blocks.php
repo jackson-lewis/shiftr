@@ -294,3 +294,29 @@ Utils\register_flexi_block(
         ]
     ]
 );
+
+
+/**
+ * Tabs
+ */
+Utils\register_flexi_block(
+    'tabs',
+    'Tabs',
+    [
+        Field_Types\repeater_field(
+            'Items',
+            [
+                'sub_fields'     => [
+                    Field_Types\text_field( 'Title' ),
+                    Field_Types\wysiwyg_field( 'Content' )
+                ],
+                'button_label'  => 'Add Tab',
+                'layout' => 'block'
+            ]
+        )
+    ],
+    [
+        'block_before'  => true,
+        'block_after'   => true
+    ]
+);
