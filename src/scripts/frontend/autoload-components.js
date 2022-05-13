@@ -6,6 +6,7 @@
 import Form from '../components/form'
 import Carousel from '../components/carousel'
 import Accordion from '../components/accordion'
+import Tabs from '../components/tabs'
 
 
 /**
@@ -43,5 +44,18 @@ if ( document.querySelector( '[data-shiftr-accordion]' ) ) {
     accordions.forEach( el => {
         const a = new Accordion( el )
         a.init()
+    })
+}
+
+
+/**
+ * Auto-load Tabs components
+ */
+ if ( document.querySelector( '[data-shiftr-tabs]' ) ) {
+    const tabs = document.querySelectorAll( '[data-shiftr-tabs]' ) || []
+    
+    tabs.forEach( el => {
+        const t = new Tabs( el )
+        t.init()
     })
 }
