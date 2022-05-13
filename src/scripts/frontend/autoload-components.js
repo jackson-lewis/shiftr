@@ -4,7 +4,6 @@
  * It targets components by "data-shiftr-<COMPONENT>" attribute
  */
 import Form from '../components/form'
-import Carousel from '../components/carousel'
 import Accordion from '../components/accordion'
 import Tabs from '../components/tabs'
 
@@ -18,19 +17,6 @@ if ( document.querySelector( '[data-shiftr-form]' ) ) {
     forms.forEach( el => {
         const f = new Form( el )
         f.init()
-    })
-}
-
-
-/**
- * Auto-load Carousel components
- */
-if ( document.querySelector( '[data-shiftr-carousel]' ) ) {
-    const carousels = document.querySelectorAll( '[data-shiftr-carousel]' ) || []
-    
-    carousels.forEach( el => {
-        const c = new Carousel( el )
-        c.init()
     })
 }
 
