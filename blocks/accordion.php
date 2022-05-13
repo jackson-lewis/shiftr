@@ -4,7 +4,7 @@
  * 
  * Display an accordion component.
  * 
- * @var array $settings The Block settings.
+ * @var array $settings The block settings.
  */
 $items = get_flexi_field( 'items' );
 

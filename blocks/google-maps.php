@@ -3,6 +3,8 @@
  * Block: Google Maps
  * 
  * A Google Maps JavaScript API map.
+ * 
+ * @var array $settings The block settings.
  */
 
 defined( 'GOOGLE_API_KEY' ) || exit;

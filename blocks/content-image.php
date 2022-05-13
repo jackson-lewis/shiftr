@@ -3,6 +3,8 @@
  * Block: Content & Image
  * 
  * A popular block, where an image can be displayed alongside content.
+ * 
+ * @var array $settings The block settings.
  */
 ?>
 <div class="container">

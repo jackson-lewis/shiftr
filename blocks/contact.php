@@ -3,6 +3,8 @@
  * Block: Contact
  * 
  * Display contact details along with a basic contact form.
+ * 
+ * @var array $settings The block settings.
  */
 ?>
 <div class="container grid-medium">
