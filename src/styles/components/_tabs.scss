@@ -1,0 +1,49 @@
+/*
+
+    //  //// --|    Components / Tabs
+
+*/
+.shiftr-tabs {
+    padding: 10px;
+
+    background-color: var(--c-l-grey);
+
+    .shiftr-tabs__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        .shiftr-tabs__tab {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+
+            background-color: var(--c-white);
+            border: none;
+
+            &.is-visible {
+                background-color: var(--c-primary);
+            }
+        }
+    }
+
+    .shiftr-tabs__panels {
+        padding: 10px 0 10px;
+
+        .shiftr-tabs__panel {
+            display: none;
+
+            &.is-visible {
+                display: block;
+            }
+        }
+    }
+
+    @include min-width( m ) {
+        padding: 20px;
+
+        .shiftr-tabs__panels {
+            padding: 10px 0 0;
+        }
+    }
+}
