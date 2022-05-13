@@ -10,7 +10,7 @@
     --sA-box-shadow: 0 0 10px #{rgba( $d-grey, .1 )},
                      0 0 30px #{rgba( $d-grey, .05 )};
 
-    .accordion--item {
+    .shiftr-accordion__item {
         margin-bottom: 20px;
         position: relative;
 
@@ -29,14 +29,14 @@
         &.is-expanded {
             box-shadow: var(--sA-box-shadow);
 
-            .accordion--tab {
+            .shiftr-accordion__tab {
                 &::before {
                     transform: translateY( -50% ) rotateZ( 90deg ) rotateY( 180deg );
                 }
             }
         }
 
-        .accordion--tab {
+        .shiftr-accordion__tab {
             padding: 20px calc( ( var(--vertical-padding) * 2 ) + 30px ) 20px var(--vertical-padding);
             position: relative;
             cursor: pointer;
@@ -56,7 +56,7 @@
             }
         }
 
-        .accordion--panel {
+        .shiftr-accordion__panel {
             padding: 20px var( --vertical-padding );
             position: relative;
             

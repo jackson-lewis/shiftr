@@ -116,3 +116,35 @@ function shiftr_is_sending_form() {
 function shiftr_lazy_loading_enabled() {
     return apply_filters( 'shiftr_lazy_loading_enabled', shiftr()->bg_lazy_loading );
 }
+
+
+/**
+ * Works out if the current page should be using Glide.js
+ * 
+ * @return bool
+ */
+function shiftr_page_uses_glidejs() {
+    $uses = false;
+
+    $page_fields = get_fields();
+
+    if ( !$page_fields ) {
+        return false;
+    }
+
+    $page_fields_keys = array_filter( array_keys( $page_fields ), function( $field_name ) {
+        return stripos( $field_name, 'flexi_blocks_builder-' ) >= 0;
+    });
+
+    $flexi_blocks = $page_fields[ $page_fields_keys[0] ];
+
+    $gallery_blocks = array_filter( $flexi_blocks, function( $block ) {
+        return $block['acf_fc_layout'] == 'gallery';
+    });
+
+    if ( count( $gallery_blocks ) > 0 ) {
+        $uses = true;
+    }
+
+    return apply_filters( 'shiftr_page_uses_glidejs', $uses );
+}

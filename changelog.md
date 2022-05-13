@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.6.4
+*13/05/22*
+
+New Blocks! Accordion, Image Carousel and all-new Tabs 👀
+
+* **Accordion:** Using the existing accordion component, a default block has been setup to compliment it.
+* **Image Carousel:** Powered by [Glide.js](https://glidejs.com/) this provides a starting point for blocks that utilize Glide.
+* **Tabs:** An all-new component has been created in order to bring this block to the theme as standard.
+
+### Flexi
+* If no fields are set on a block, the 'Fields' tab will no longer show in the admin.
+
+### Misc
+* In light of the new blocks, we've now depreciated the carousel component due to lack of usage.
+* The `$settings` is now passed into a block template files as standard.
+
 ## v1.6.3
 *08/04/22*
 

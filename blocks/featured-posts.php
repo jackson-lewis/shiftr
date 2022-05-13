@@ -3,6 +3,8 @@
  * Block: Featured posts
  * 
  * Display a selection of posts.
+ * 
+ * @var array $settings The block settings.
  */
 $args = [ 'posts_per_page' => 3 ];
 

@@ -264,7 +264,7 @@ function gallery_field( string $label, array $args = [] ) {
         $label,
         $args,
         [
-            'return_format' => 'array',
+            'return_format' => 'id',
 			'preview_size'  => 'medium',
 			'insert'        => 'append',
 			'library'       => 'all',

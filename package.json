@@ -1,6 +1,6 @@
 {
   "name": "shiftr",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "This theme has been the work of many years of learning, testing and a hell of alot of passion. Shiftr is a mouldable foundation for any Wordpress project, with performance and accessibility built right into the heart.",
   "main": "gulpfile.babel.js",
   "scripts": {
@@ -36,5 +36,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "webpack-stream": "^5.2.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@glidejs/glide": "^3.5.2"
+  }
 }

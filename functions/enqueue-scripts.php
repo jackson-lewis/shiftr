@@ -29,6 +29,12 @@ function shiftr_scripts() {
     wp_enqueue_script( 'shiftr-script-main' );
     wp_localize_script( 'shiftr-script-main', 'shiftr', shiftr_js_object() );
 
+    wp_register_script( 'shiftr-glide', get_template_directory_uri() . '/assets/scripts/glide.js', [], $shiftr->get( 'version' ), true );
+    
+    if ( shiftr_page_uses_glidejs() ) {
+        wp_enqueue_script( 'shiftr-glide' );
+    }
+
     // Styles
     wp_enqueue_style( 'shiftr-style', get_template_directory_uri() . '/assets/styles/main.css', [], $shiftr->get( 'version' ) );
 

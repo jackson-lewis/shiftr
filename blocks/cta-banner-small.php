@@ -4,6 +4,8 @@
  * 
  * The 'small' variant of the CTA Banner blocks, the only variant of the 
  * CTA Banners to not include an image.
+ * 
+ * @var array $settings The block settings.
  */
 ?>
 <div class="container">

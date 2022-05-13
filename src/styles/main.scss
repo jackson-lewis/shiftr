@@ -9,6 +9,10 @@
 @import 'base/normalize/normalize';
 
 
+// Glide.js
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+
+
 //  Base
 @import 'base/variables';
 @import 'base/functions';
@@ -36,7 +40,7 @@
 @import 'components/hero';
 @import 'components/form';
 @import 'components/accordion';
-@import 'components/carousel';
+@import 'components/tabs';
 @import 'components/pagination';
 @import 'components/cookie-notice';
 @import 'components/announcement-bar';
@@ -50,6 +54,9 @@
 @import 'blocks/google-maps';
 @import 'blocks/contact';
 @import 'blocks/columns';
+@import 'blocks/accordion';
+@import 'blocks/gallery';
+@import 'blocks/tabs';
 
 
 //  Templates

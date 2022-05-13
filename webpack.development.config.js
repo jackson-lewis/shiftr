@@ -22,6 +22,7 @@ module.exports = {
             `./src/scripts/frontend/site-header.js`,
             `./src/scripts/frontend/main.js`
         ],
+        glide: './src/scripts/frontend/glide.js',
         admin: `./src/scripts/backend/admin.js`,
         editor: `./src/scripts/backend/editor.js`
     },

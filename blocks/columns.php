@@ -3,6 +3,8 @@
  * Block: Columns
  * 
  * Display a series of columns along a grid.
+ * 
+ * @var array $settings The block settings.
  */
 $columns = get_flexi_field( 'columns' );
 

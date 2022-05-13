@@ -109,9 +109,10 @@ class Flexi_Block {
         $acf_field_data['min'] = $this->args['min'];
         $acf_field_data['max'] = $this->args['max'];
 
-        // Add tab for main block fields
-        array_unshift( $this->fields, $this->block_tab( 'Fields' ) );
-
+        // Add tab for main block fields, only if fields set.
+        if ( !empty( $this->fields ) ) { 
+            array_unshift( $this->fields, $this->block_tab( 'Fields' ) );
+        }
 
         if ( $this->args['block_before'] ) {
             array_unshift( $this->fields, $this->block_tab( 'Heading' ), $this->block_before() );

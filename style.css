@@ -5,7 +5,9 @@ Theme URI: https://shapeshiftr.co.uk
 Author: Jackson Lewis
 Author URI: https://jacksonlewis.co.uk
 Description: A starter theme built for superior performance and experience.
-Version: 1.6.3
+Version: 1.6.4
+Requires PHP: 8.0
+Tested up to: 5.9.3
 License: GNU General Public License & MIT
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: shapeshiftr

@@ -15,7 +15,7 @@ export default class Accordion extends ShiftrComponent {
 
     defaultSettings() {
         return {
-            itemsTarget: '.accordion--item',
+            itemsTarget: '.shiftr-accordion__item',
             duration: 600,
             defaultOpen: 0,
             allowMultiOpen: false
@@ -71,7 +71,7 @@ export default class Accordion extends ShiftrComponent {
                 e.preventDefault()
     
                 if ( ! this.settings.allowMultiOpen ) {
-                    const current = this.target.querySelector( '.accordion--item.is-expanded' ) || null
+                    const current = this.target.querySelector( '.shiftr-accordion__item.is-expanded' ) || null
     
                     if ( current != item && current !== null ) {
                         this.close( current )
