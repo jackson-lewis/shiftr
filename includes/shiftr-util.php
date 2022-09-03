@@ -138,12 +138,14 @@ function shiftr_page_uses_glidejs() {
 
     $flexi_blocks = $page_fields[ $page_fields_keys[0] ];
 
-    $gallery_blocks = array_filter( $flexi_blocks, function( $block ) {
-        return $block['acf_fc_layout'] == 'gallery';
-    });
-
-    if ( count( $gallery_blocks ) > 0 ) {
-        $uses = true;
+    if ( is_array( $flexi_blocks ) ) {
+        $gallery_blocks = array_filter( $flexi_blocks, function( $block ) {
+            return $block['acf_fc_layout'] == 'gallery';
+        });
+    
+        if ( count( $gallery_blocks ) > 0 ) {
+            $uses = true;
+        }
     }
 
     return apply_filters( 'shiftr_page_uses_glidejs', $uses );

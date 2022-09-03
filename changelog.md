@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v1.6.5
+*03/09/22*
+
+This release looks at updating the build tools and cleaning up code/fixes across the theme.
+
+* Webpack upgraded to `v5.74`
+* The webpack config has been simplified to only one `webpack.config.js` file.
+* Updated autoprefixer and browser-sync to latest minors
+* Browserslist updated
+* Added conditional check for `$flexi_blocks` in `shiftr_page_uses_glidejs()`
+* Dynamic `acf/settings/show_admin` filter based on ACF pro key set
+* Removed old Flexi functions file
+* Removed typography from login screen
+* Increased tested WP version to `6.0.2`
+
+
+
 ## v1.6.4
 *13/05/22*
 
