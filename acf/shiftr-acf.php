@@ -107,5 +107,9 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 /**  
  * Disable the ACF admin for all users.
+ * 
+ * The admin will only be shown if the license is not configured.
  */
-add_filter( 'acf/settings/show_admin', '__return_false' );
+add_filter( 'acf/settings/show_admin', function() {
+    return !acf_pro_get_license();
+});
