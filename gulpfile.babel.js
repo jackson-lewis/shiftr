@@ -28,6 +28,8 @@ import cleanCSS from 'gulp-clean-css'
 // JavaScript
 import webpack from 'webpack-stream'
 
+import path from 'path'
+
 
 /**
  * Settings
@@ -85,7 +87,7 @@ const styles = () =>
  */
 const scripts = () =>
     src( [ SRC.incScripts, SRC.frontendScripts, SRC.backendScripts ] )
-    .pipe( webpack( require( `./webpack.${ ENV }.config.js` ) ) )
+    .pipe( webpack( require( './webpack.config.js' ) ) )
     .pipe( dest( DEST.scripts ) )
 
 
@@ -108,6 +110,9 @@ function dev() {
         open: false,
         notify: false
     })
+
+    styles()
+    scripts()
 
     watch( 'src/styles/**/*.scss', styles )
     watch( 'src/scripts/**/*.js', series( scripts, reload ) )
