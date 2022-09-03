@@ -34,7 +34,8 @@
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^5.74.0",
+    "webpack-stream": "^7.0.0"
   },
   "dependencies": {
     "@glidejs/glide": "^3.5.2"
